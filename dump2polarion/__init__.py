@@ -166,7 +166,7 @@ class XunitExport(object):
 
         with open(filename, 'w') as xml_file:
             xml_file.write(xml)
-        logger.info("Data writen to '{}'".format(filename))
+        logger.info("Data written to '{}'".format(filename))
 
 
 def get_config(config_file=None):
