@@ -9,7 +9,7 @@ export POLARION_USERNAME=kerberos_username
 export POLARION_PASSWORD=kerberos_password
 ```
 Or you can specify credentials on command line with ``--user kerberos_username --password kerberos_password``.
-Or you can specify credentials in ``polarion-xunit.yaml`` file. Lookup path is current directory and ``~/.config``. You can also specify the config file on command line with ``-c config_file.yaml``.
+Or you can specify credentials in ``dump2polarion.yaml`` file. Lookup path is current directory and ``~/.config``. You can also specify the config file on command line with ``-c config_file.yaml``.
 
 By default test results are submitted to Polarion. You can disable this bahavior with ``-n`` option. In this case the XML file used for results submission will be saved to disk. Default file location is current directory, default file name is `testrun_TESTRUN_ID-TIMESTAMP.xml` (can be overriden with ``-o`` option).
 

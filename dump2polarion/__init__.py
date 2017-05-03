@@ -176,7 +176,7 @@ def get_config(config_file=None):
         cflist = (os.path.expanduser(config_file), )
     else:
         # find config file in default locations
-        cflist = (os.path.expanduser('~/.config/polarion_xunit.yaml'), 'polarion_xunit.yaml')
+        cflist = (os.path.expanduser('~/.config/dump2polarion.yaml'), 'dump2polarion.yaml')
 
     conf = None
     for cfile in cflist:
@@ -193,9 +193,8 @@ def get_config(config_file=None):
         else:
             raise EnvironmentError("no config file found")
 
-    config_settings = {}
     with open(conf, 'r') as input_file:
-        config_settings = (yaml.load(input_file))
+        config_settings = yaml.load(input_file)
     logger.info("Config loaded from '{}'".format(conf))
 
     return config_settings

@@ -21,7 +21,7 @@ def get_args():
     parser.add_argument('-t', '--testrun-id', required=True, action='store',
                         help="Polarion test run id")
     parser.add_argument('-c', '--config_file', action='store',
-                        help="Path to config YAML (default: polarion_xunit.yaml")
+                        help="Path to config YAML (default: dump2polarion.yaml")
     parser.add_argument('-n', '--no-submit', action='store_true',
                         help="Don't submit results to Polarion")
     parser.add_argument('--user', action='store',
