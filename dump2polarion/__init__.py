@@ -266,9 +266,14 @@ def import_sqlite(db_file):
         raise Dump2PolarionException('{}'.format(err))
 
     cur = conn.cursor()
-    cur.execute('SELECT * FROM testcases')
+    # get all rows that were not exported yet
+    cur.execute("SELECT * FROM testcases WHERE exported != 'yes'")
     fieldnames = [description[0] for description in cur.description]
     rows = cur.fetchall()
+
+    # mark all rows with verdict as exported
+    cur.execute(
+        "UPDATE testcases SET exported = 'yes' WHERE verdict is not null and verdict != ''")
 
     # map data to fieldnames
     results = []
