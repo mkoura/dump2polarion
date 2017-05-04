@@ -28,6 +28,10 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 logger = logging.getLogger(__name__)
 
 
+class Dump2PolarionException(Exception):
+    """dump2polarion exception."""
+
+
 class XunitExport(object):
     """Exports testcases results into Polarion xunit."""
     def __init__(self, testrun_id, tests_results, config, only_passed=False):
@@ -68,7 +72,7 @@ class XunitExport(object):
     def gen_testcase(self, parent_element, result, records):
         """Creates XML element for given testcase result and update testcases records."""
         verdict = result.get('verdict', '').strip().lower()
-        if not (result.get('test_id') and
+        if not (result.get('id') and
                 verdict in ('passed', 'failed', 'blocked', 'skipped', 'null', 'waiting')):
             return
         if self.only_passed and verdict != 'passed':
@@ -79,7 +83,7 @@ class XunitExport(object):
 
         testcase_data = {
             'classname': 'TestClass',
-            'name': result.get('title') or result.get('test_id'),
+            'name': result.get('title') or result.get('id'),
             'time': str(testcase_time)}
         testcase = SubElement(parent_element, 'testcase', testcase_data)
 
@@ -118,7 +122,7 @@ class XunitExport(object):
 
         properties = SubElement(testcase, 'properties')
         SubElement(properties, 'property',
-                   {'name': 'polarion-testcase-id', 'value': result['test_id']})
+                   {'name': 'polarion-testcase-id', 'value': result['id']})
 
     def fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""
@@ -209,14 +213,21 @@ def import_csv(csv_file):
         fieldnames = []
         for row in reader:
             for index, col in enumerate(row):
-                field = col.strip().replace('"', '').replace(' ', '').lower()
-                if index == 0 and field not in ('id', 'test_id'):
-                    break
+                field = (col.
+                         strip().
+                         replace('"', '').
+                         replace(' ', '').
+                         replace('(', '').
+                         replace(')', '').
+                         lower())
                 fieldnames.append(field)
-            if fieldnames:
+            if 'id' in fieldnames:
                 break
-        # rename first field to 'test_id'
-        fieldnames[0] = 'test_id'
+            else:
+                # this is not a row with fieldnames
+                del fieldnames[:]
+        if not fieldnames:
+            raise Dump2PolarionException("Cannot find field names in CSV file {}".format(csv_file))
         # remove trailing unannotated fields
         while True:
             field = fieldnames.pop()

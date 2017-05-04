@@ -8,7 +8,14 @@ to Polarion® xunit importer.
 
 import argparse
 import logging
+import sys
 import dump2polarion
+
+from dump2polarion import Dump2PolarionException
+
+
+# pylint: disable=invalid-name
+logger = logging.getLogger()
 
 
 def get_args():
@@ -35,7 +42,12 @@ def main():
     """Main function for cli."""
     args = get_args()
     config = dump2polarion.get_config(args.config_file)
-    tests_results = dump2polarion.import_csv(args.input_file)
+
+    try:
+        tests_results = dump2polarion.import_csv(args.input_file)
+    except Dump2PolarionException as err:
+        logger.error(err)
+        sys.exit(1)
 
     exporter = dump2polarion.XunitExport(args.testrun_id, tests_results, config)
     output = exporter.export()
