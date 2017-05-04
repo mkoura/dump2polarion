@@ -22,7 +22,7 @@ When output file is specified with ``-o PATH``, the XML file used for results su
 
 Requirements
 -
-You need ``sqlite3``, it's better to have it installed using the distribution package. The rest is listed in ``requirements.txt``.
+You need ``sqlite3``, all recent python versions include it by default. The rest is listed in ``requirements.txt``.
 
 CSV format
 -
