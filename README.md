@@ -3,9 +3,9 @@ dump2polarion
 
 Usage
 -
-CSV automatic submission:
+Automatic submission out of the CSV or SQLite input file:
 ```
-./csv2polarion.py -i {input.csv} -t {testrun id}
+./polarion_dumper.py -i {input_file} -t {testrun_id}
 ```
 
 You need to set the following environment variables (the same are used for pylarion):
@@ -20,11 +20,22 @@ By default test results are submitted to Polarion. You can disable this bahavior
 
 When output file is specified with ``-o PATH``, the XML file used for results submission will be saved to disk. If `PATH` is a directory, resulting file will be `PATH/testrun_TESTRUN_ID-TIMESTAMP.xml`.
 
+Requirements
+-
+You need ``sqlite3``, it's better to have it installed using the distribution package. The rest is listed in ``requirements.txt``.
+
 CSV format
 -
 ID, Verdict (one of "passed", "failed", "skipped", "waiting" or empty), Title (optional), Comment (optional), Time (optional), stdout (optional), stderr (optional) + any other field you want, order doesn't matter.
 
 You can export the CSV file out of Polarion, just make sure the ID field is there. The "Verdict" field and any optional fields must be added manually.
+
+SQLite format
+-
+You can convert the CSV file exported out of Polarion using the ``csv2sqlite.py`` script:
+```
+./csv2sqlite.py -i {input_file.csv} -o {output_file.sqlite3}
+```
 
 How to submit the XML file manually
 -

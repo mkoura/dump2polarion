@@ -13,6 +13,9 @@ import logging
 
 from collections import OrderedDict
 
+import sqlite3
+from sqlite3 import Error
+
 from xml.dom import minidom
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element, SubElement, Comment
@@ -78,7 +81,7 @@ class XunitExport(object):
         if self.only_passed and verdict != 'passed':
             return
 
-        testcase_time = int(result.get('time') or result.get('duration') or 0)
+        testcase_time = float(result.get('time') or result.get('duration') or 0)
         records['time'] += testcase_time
 
         testcase_data = {
@@ -243,16 +246,40 @@ def import_csv(csv_file):
         fieldnames_len = len(fieldnames)
 
         # map data to fieldnames
-        csv_results = []
+        results = []
         for row in reader:
             record = OrderedDict(zip(fieldnames, row))
             row_len = len(row)
             if fieldnames_len > row_len:
                 for key in fieldnames[row_len:]:
                     record[key] = None
-            csv_results.append(record)
+            results.append(record)
 
-    return csv_results
+    return results
+
+
+def import_sqlite(db_file):
+    """Reads the content of the database file and returns testcases results."""
+    try:
+        conn = sqlite3.connect(os.path.expanduser(db_file))
+    except Error as err:
+        raise Dump2PolarionException('{}'.format(err))
+
+    cur = conn.cursor()
+    cur.execute('SELECT * FROM testcases')
+    fieldnames = [description[0] for description in cur.description]
+    rows = cur.fetchall()
+
+    # map data to fieldnames
+    results = []
+    for row in rows:
+        record = OrderedDict(zip(fieldnames, row))
+        results.append(record)
+
+    conn.commit()
+    conn.close()
+
+    return results
 
 
 def export_csv(csv_file, results):

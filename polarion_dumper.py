@@ -2,13 +2,16 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Dump testcases results from a CSV input file to xunit file and submit it
+Dump testcases results from a CSV or SQLite input file to xunit file and submit it
 to Polarion® xunit importer.
 """
+
+from __future__ import print_function, unicode_literals
 
 import argparse
 import logging
 import sys
+import os
 import dump2polarion
 
 from dump2polarion import Dump2PolarionException
@@ -20,9 +23,9 @@ logger = logging.getLogger()
 
 def get_args():
     """Get command line arguments."""
-    parser = argparse.ArgumentParser(description='CSV Importer')
+    parser = argparse.ArgumentParser(description='dump2polarion')
     parser.add_argument('-i', '--input_file', required=True, action='store',
-                        help="Path to CSV results file")
+                        help="Path to reports CSV or SQLite file")
     parser.add_argument('-o', '--output_file', action='store',
                         help="Path to XML output file (default: none)")
     parser.add_argument('-t', '--testrun-id', required=True, action='store',
@@ -43,13 +46,19 @@ def main():
     args = get_args()
     config = dump2polarion.get_config(args.config_file)
 
+    _, ext = os.path.splitext(args.input_file)
+    if ext.lower() == '.csv':
+        importer = dump2polarion.import_csv
+    else:
+        importer = dump2polarion.import_sqlite
+
     try:
-        tests_results = dump2polarion.import_csv(args.input_file)
+        reports = importer(args.input_file)
     except Dump2PolarionException as err:
         logger.error(err)
         sys.exit(1)
 
-    exporter = dump2polarion.XunitExport(args.testrun_id, tests_results, config)
+    exporter = dump2polarion.XunitExport(args.testrun_id, reports, config)
     output = exporter.export()
 
     if args.output_file or args.no_submit:
