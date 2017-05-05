@@ -44,7 +44,12 @@ def get_args():
 def main():
     """Main function for cli."""
     args = get_args()
-    config = dump2polarion.get_config(args.config_file)
+
+    try:
+        config = dump2polarion.get_config(args.config_file)
+    except EnvironmentError as err:
+        logger.error(err)
+        sys.exit(1)
 
     _, ext = os.path.splitext(args.input_file)
     if ext.lower() == '.csv':
