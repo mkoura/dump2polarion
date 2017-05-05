@@ -39,7 +39,10 @@ def dump2sqlite(data, output_file):
     for key in ['verdict', 'last_status', 'time', 'comment', 'stdout', 'stderr', 'exported']:
         if key not in data_keys:
             data_keys.append(key)
-    columns = ' TEXT, '.join(data_keys) + ' TEXT'
+    columns = ['{} TEXT'.format(key) for key in data_keys]
+    bindings = ','.join(['?' for _ in data_keys])
+
+    # in each row there needs to be data for every column
     pad_data = ['' for _ in range(len(data_keys) - keys_len)]
 
     def _pad_data(row):
@@ -48,7 +51,6 @@ def dump2sqlite(data, output_file):
         return row
 
     to_db = [_pad_data(row.values()) for row in data]
-    bindings = ', '.join(['?' for _ in range(len(data_keys))])
 
     try:
         conn = sqlite3.connect(os.path.expanduser(output_file))
@@ -56,9 +58,9 @@ def dump2sqlite(data, output_file):
         logger.error(err)
         sys.exit(1)
 
-    curs = conn.cursor()
-    curs.execute('CREATE TABLE testcases ({});'.format(columns))
-    curs.executemany("INSERT INTO testcases VALUES ({});".format(bindings), to_db)
+    cur = conn.cursor()
+    cur.execute("CREATE TABLE testcases ({})".format(','.join(columns)))
+    cur.executemany("INSERT INTO testcases VALUES ({})".format(bindings), to_db)
     conn.commit()
     conn.close()
     logger.info("Data written to '{}'".format(output_file))
