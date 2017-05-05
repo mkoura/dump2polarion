@@ -37,6 +37,11 @@ class Dump2PolarionException(Exception):
 
 class XunitExport(object):
     """Exports testcases results into Polarion xunit."""
+    PASS = ('passed', 'pass')
+    FAIL = ('failed', 'fail')
+    SKIP = ('skipped', 'skip', 'blocked')
+    WAIT = ('null', 'wait', 'waiting')
+
     def __init__(self, testrun_id, tests_results, config, only_passed=False):
         self.testrun_id = testrun_id
         self.tests_results = tests_results
@@ -76,9 +81,9 @@ class XunitExport(object):
         """Creates XML element for given testcase result and update testcases records."""
         verdict = result.get('verdict', '').strip().lower()
         if not (result.get('id') and
-                verdict in ('passed', 'failed', 'blocked', 'skipped', 'null', 'waiting')):
+                verdict in self.PASS + self.FAIL + self.SKIP + self.WAIT):
             return
-        if self.only_passed and verdict != 'passed':
+        if self.only_passed and verdict not in self.PASS:
             return
 
         testcase_time = float(result.get('time') or result.get('duration') or 0)
@@ -91,24 +96,24 @@ class XunitExport(object):
         testcase = SubElement(parent_element, 'testcase', testcase_data)
 
         # xunit Pass maps to Passed in Polarion
-        if verdict == 'passed':
+        if verdict in self.PASS:
             records['passed'] += 1
         # xunit Failure maps to Failed in Polarion
-        elif verdict == 'failed':
+        elif verdict in self.FAIL:
             records['failures'] += 1
             verdict_data = {'type': 'failure'}
             if result.get('comment'):
                 verdict_data['message'] = str(result['comment'])
             SubElement(testcase, 'failure', verdict_data)
         # xunit Error maps to Blocked in Polarion
-        elif verdict in ('blocked', 'skipped'):
+        elif verdict in self.SKIP:
             records['skipped'] += 1
             verdict_data = {'type': 'error'}
             if result.get('comment'):
                 verdict_data['message'] = str(result['comment'])
             SubElement(testcase, 'error', verdict_data)
         # xunit Skipped maps to Waiting in Polarion
-        elif verdict in ('null', 'waiting'):
+        elif verdict in self.WAIT:
             records['waiting'] += 1
             verdict_data = {'type': 'skipped'}
             if result.get('comment'):
