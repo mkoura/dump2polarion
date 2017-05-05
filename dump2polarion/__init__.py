@@ -129,7 +129,7 @@ class XunitExport(object):
 
     def fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""
-        records = dict(passed=0, skipped=0, failures=0, waiting=0, time=0)
+        records = dict(passed=0, skipped=0, failures=0, waiting=0, time=0.0)
         for testcase_result in self.tests_results:
             self.gen_testcase(testsuite_element, testcase_result, records)
 
@@ -207,48 +207,59 @@ def get_config(config_file=None):
     return config_settings
 
 
+def get_csv_fieldnames(csv_reader):
+    """Finds fieldnames in Polarion exported csv file."""
+    fieldnames = []
+    for row in csv_reader:
+        for index, col in enumerate(row):
+            field = (col.
+                     strip().
+                     replace('"', '').
+                     replace(' ', '').
+                     replace('(', '').
+                     replace(')', '').
+                     lower())
+            fieldnames.append(field)
+        if 'id' in fieldnames:
+            break
+        else:
+            # this is not a row with fieldnames
+            del fieldnames[:]
+    if not fieldnames:
+        return
+    # remove trailing unannotated fields
+    while True:
+        field = fieldnames.pop()
+        if field:
+            fieldnames.append(field)
+            break
+    # name unannotated fields
+    suffix = 1
+    for index, field in enumerate(fieldnames):
+        if not field:
+            fieldnames[index] = 'field{}'.format(suffix)
+            suffix += 1
+
+    return fieldnames
+
+
 def import_csv(csv_file):
-    """Reads the content of the input csv file and returns testcases results."""
+    """Reads the content of the Polarion exported csv file and returns testcases results."""
     with open(os.path.expanduser(csv_file), 'rb') as input_file:
         reader = csv.reader(input_file, delimiter=str(';'), quotechar=str('|'))
 
-        # find fieldnames
-        fieldnames = []
-        for row in reader:
-            for index, col in enumerate(row):
-                field = (col.
-                         strip().
-                         replace('"', '').
-                         replace(' ', '').
-                         replace('(', '').
-                         replace(')', '').
-                         lower())
-                fieldnames.append(field)
-            if 'id' in fieldnames:
-                break
-            else:
-                # this is not a row with fieldnames
-                del fieldnames[:]
+        fieldnames = get_csv_fieldnames(reader)
         if not fieldnames:
             raise Dump2PolarionException("Cannot find field names in CSV file {}".format(csv_file))
-        # remove trailing unannotated fields
-        while True:
-            field = fieldnames.pop()
-            if field:
-                fieldnames.append(field)
-                break
-        # name unannotated fields
-        suffix = 1
-        for index, field in enumerate(fieldnames):
-            if not field:
-                fieldnames[index] = 'field{}'.format(suffix)
-                suffix += 1
         fieldnames_len = len(fieldnames)
 
         # map data to fieldnames
         results = []
         for row in reader:
             record = OrderedDict(zip(fieldnames, row))
+            # skip rows that were already exported
+            if record.get('exported') == 'yes':
+                continue
             row_len = len(row)
             if fieldnames_len > row_len:
                 for key in fieldnames[row_len:]:
