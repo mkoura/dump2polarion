@@ -88,6 +88,15 @@ def main():
     if not args.no_submit:
         dump2polarion.submit_to_polarion(output, config, user=args.user, password=args.password)
 
+        # mark all rows with verdict as exported
+        if importer is dump2polarion.import_sqlite:
+            conn = dump2polarion.open_sqlite(args.input_file)
+            cur = conn.cursor()
+            cur.execute(
+                "UPDATE testcases SET exported = 'yes' WHERE verdict is not null and verdict != ''")
+            conn.commit()
+            conn.close()
+
 
 if __name__ == '__main__':
     logging.basicConfig(format='%(name)s:%(levelname)s:%(message)s', level=logging.INFO)

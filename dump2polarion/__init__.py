@@ -324,25 +324,25 @@ def get_testrun_from_sqlite(conn):
         return
 
 
-def import_sqlite(db_file):
-    """Reads the content of the database file and returns imported data."""
+def open_sqlite(db_file):
+    """Opens database connection."""
     with open(db_file):
         # test that file can be accessed
         pass
     try:
-        conn = sqlite3.connect(os.path.expanduser(db_file))
+        return sqlite3.connect(os.path.expanduser(db_file))
     except Error as err:
         raise Dump2PolarionException('{}'.format(err))
 
+
+def import_sqlite(db_file):
+    """Reads the content of the database file and returns imported data."""
+    conn = open_sqlite(db_file)
     cur = conn.cursor()
     # get all rows that were not exported yet
     cur.execute("SELECT * FROM testcases WHERE exported != 'yes'")
     fieldnames = [description[0] for description in cur.description]
     rows = cur.fetchall()
-
-    # mark all rows with verdict as exported
-    cur.execute(
-        "UPDATE testcases SET exported = 'yes' WHERE verdict is not null and verdict != ''")
 
     # map data to fieldnames
     results = []
@@ -352,7 +352,6 @@ def import_sqlite(db_file):
 
     testrun = get_testrun_from_sqlite(conn)
 
-    conn.commit()
     conn.close()
 
     return ImportedData(results=results, testrun=testrun)
