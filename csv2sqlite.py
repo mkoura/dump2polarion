@@ -16,6 +16,7 @@ import sqlite3
 from sqlite3 import Error
 
 import dump2polarion
+from dump2polarion import Dump2PolarionException
 
 
 # pylint: disable=invalid-name
@@ -32,25 +33,13 @@ def get_args():
     return parser.parse_args()
 
 
-def dump2sqlite(data, output_file):
-    """Dumps data to database."""
-    data_keys = data[0].keys()
-    keys_len = len(data_keys)
+def dump2sqlite(records, output_file):
+    """Dumps tests results to database."""
+    results_keys = records.results[0].keys()
+    keys_len = len(results_keys)
     for key in ['verdict', 'last_status', 'time', 'comment', 'stdout', 'stderr', 'exported']:
-        if key not in data_keys:
-            data_keys.append(key)
-    columns = ['{} TEXT'.format(key) for key in data_keys]
-    bindings = ','.join(['?' for _ in data_keys])
-
-    # in each row there needs to be data for every column
-    pad_data = ['' for _ in range(len(data_keys) - keys_len)]
-
-    def _pad_data(row):
-        if pad_data:
-            row.extend(pad_data)
-        return row
-
-    to_db = [_pad_data(row.values()) for row in data]
+        if key not in results_keys:
+            results_keys.append(key)
 
     try:
         conn = sqlite3.connect(os.path.expanduser(output_file))
@@ -58,19 +47,41 @@ def dump2sqlite(data, output_file):
         logger.error(err)
         sys.exit(1)
 
+    # in each row there needs to be data for every column
+    pad_data = ['' for _ in range(len(results_keys) - keys_len)]
+
+    def _pad_data(row):
+        if pad_data:
+            row.extend(pad_data)
+        return row
+
+    to_db = [_pad_data(row.values()) for row in records.results]
+
     cur = conn.cursor()
-    cur.execute("CREATE TABLE testcases ({})".format(','.join(columns)))
-    cur.executemany("INSERT INTO testcases VALUES ({})".format(bindings), to_db)
+    cur.execute("CREATE TABLE testcases ({})".format(
+        ','.join(['{} TEXT'.format(key) for key in results_keys])))
+    cur.executemany("INSERT INTO testcases VALUES ({})".format(
+        ','.join(['?' for _ in results_keys])), to_db)
+
+    if records.testrun:
+        cur.execute("CREATE TABLE testrun (testrun TEXT)")
+        cur.execute("INSERT INTO testrun VALUES (?)", (records.testrun, ))
+
     conn.commit()
     conn.close()
+
     logger.info("Data written to '{}'".format(output_file))
 
 
 def main():
     """Main function for cli."""
     args = get_args()
-    tests_results = dump2polarion.import_csv(args.input_file)
-    dump2sqlite(tests_results, args.output_file)
+    try:
+        records = dump2polarion.import_csv(args.input_file)
+    except (EnvironmentError, Dump2PolarionException) as err:
+        logger.error(err)
+        sys.exit(1)
+    dump2sqlite(records, args.output_file)
 
 
 if __name__ == '__main__':

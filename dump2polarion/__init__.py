@@ -10,8 +10,9 @@ import csv
 import os
 import datetime
 import logging
+import re
 
-from collections import OrderedDict
+from collections import OrderedDict, namedtuple
 
 import sqlite3
 from sqlite3 import Error
@@ -31,6 +32,9 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 logger = logging.getLogger(__name__)
 
 
+ImportedData = namedtuple('ImportedData', 'results testrun')
+
+
 class Dump2PolarionException(Exception):
     """dump2polarion exception."""
 
@@ -42,9 +46,9 @@ class XunitExport(object):
     SKIP = ('skipped', 'skip', 'blocked')
     WAIT = ('null', 'wait', 'waiting')
 
-    def __init__(self, testrun_id, tests_results, config, only_passed=False):
+    def __init__(self, testrun_id, tests_records, config, only_passed=False):
         self.testrun_id = testrun_id
-        self.tests_results = tests_results
+        self.tests_records = tests_records
         self.config = config
         self.only_passed = only_passed
 
@@ -135,7 +139,7 @@ class XunitExport(object):
     def fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""
         records = dict(passed=0, skipped=0, failures=0, waiting=0, time=0.0)
-        for testcase_result in self.tests_results:
+        for testcase_result in self.tests_records.results:
             self.gen_testcase(testsuite_element, testcase_result, records)
 
         tests_num = (
@@ -216,7 +220,7 @@ def get_csv_fieldnames(csv_reader):
     """Finds fieldnames in Polarion exported csv file."""
     fieldnames = []
     for row in csv_reader:
-        for index, col in enumerate(row):
+        for col in row:
             field = (col.
                      strip().
                      replace('"', '').
@@ -248,8 +252,42 @@ def get_csv_fieldnames(csv_reader):
     return fieldnames
 
 
+def get_testrun_from_csv(csv_file, csv_reader):
+    """Tries to find the testrun id in  Polarion exported csv file."""
+    csv_file.seek(0)
+    search_str = r'TEST_RECORDS:\("[^/]+/([^"]+)"'
+    testrun_id = None
+    too_far = False
+    for row in csv_reader:
+        for col in row:
+            if not col:
+                continue
+            field = (col.
+                     strip().
+                     replace('"', '').
+                     replace(' ', '').
+                     replace('(', '').
+                     replace(')', '').
+                     lower())
+            # too far
+            if field == 'id':
+                too_far = True
+                break
+            search = re.search(search_str, col)
+            try:
+                testrun_id = search.group(1)
+            except AttributeError:
+                continue
+            else:
+                break
+        if testrun_id or too_far:
+            break
+
+    return testrun_id
+
+
 def import_csv(csv_file):
-    """Reads the content of the Polarion exported csv file and returns testcases results."""
+    """Reads the content of the Polarion exported csv file and returns imported data."""
     with open(os.path.expanduser(csv_file), 'rb') as input_file:
         reader = csv.reader(input_file, delimiter=str(';'), quotechar=str('|'))
 
@@ -271,11 +309,16 @@ def import_csv(csv_file):
                     record[key] = None
             results.append(record)
 
-    return results
+        testrun = get_testrun_from_csv(input_file, reader)
+
+    return ImportedData(results=results, testrun=testrun)
 
 
 def import_sqlite(db_file):
-    """Reads the content of the database file and returns testcases results."""
+    """Reads the content of the database file and returns imported data."""
+    with open(db_file):
+        # test that file can be accessed
+        pass
     try:
         conn = sqlite3.connect(os.path.expanduser(db_file))
     except Error as err:
@@ -297,10 +340,22 @@ def import_sqlite(db_file):
         record = OrderedDict(zip(fieldnames, row))
         results.append(record)
 
+    testrun = get_testrun_from_sqlite(conn)
+
     conn.commit()
     conn.close()
 
-    return results
+    return ImportedData(results=results, testrun=testrun)
+
+
+def get_testrun_from_sqlite(conn):
+    """Returns testrun id saved from original csv file."""
+    cur = conn.cursor()
+    try:
+        cur.execute('SELECT testrun FROM testrun')
+        return cur.fetchone()[0]
+    except (IndexError, Error):
+        return
 
 
 def export_csv(csv_file, results):

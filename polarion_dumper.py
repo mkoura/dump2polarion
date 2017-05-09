@@ -38,6 +38,8 @@ def get_args():
                         help="Username to use to submit results to Polarion")
     parser.add_argument('--password', action='store',
                         help="Password to use to submit results to Polarion")
+    parser.add_argument('-f', '--force', action='store_true',
+                        help="Don't validate test run id")
     return parser.parse_args()
 
 
@@ -58,12 +60,18 @@ def main():
         importer = dump2polarion.import_sqlite
 
     try:
-        reports = importer(args.input_file)
-    except Dump2PolarionException as err:
+        records = importer(args.input_file)
+    except (EnvironmentError, Dump2PolarionException) as err:
         logger.error(err)
         sys.exit(1)
 
-    exporter = dump2polarion.XunitExport(args.testrun_id, reports, config)
+    if not args.force and records.testrun and records.testrun != args.testrun_id:
+        logger.error(
+            "The test run id `{}` found in exported data doesn't match `{}` from command line. "
+            "If you really want to proceed, add '-f'.".format(records.testrun, args.testrun_id))
+        sys.exit(1)
+
+    exporter = dump2polarion.XunitExport(args.testrun_id, records, config)
     output = exporter.export()
 
     if args.output_file or args.no_submit:
