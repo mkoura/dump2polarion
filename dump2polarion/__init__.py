@@ -357,6 +357,16 @@ def import_sqlite(db_file):
     return ImportedData(results=results, testrun=testrun)
 
 
+def mark_exported_sqlite(db_file):
+    """Marks all rows with verdict as exported."""
+    conn = open_sqlite(db_file)
+    cur = conn.cursor()
+    cur.execute(
+        "UPDATE testcases SET exported = 'yes' WHERE verdict is not null and verdict != ''")
+    conn.commit()
+    conn.close()
+
+
 def export_csv(csv_file, results):
     """Writes testcases results into csv file."""
     with open(os.path.expanduser(csv_file), 'wb') as output_file:

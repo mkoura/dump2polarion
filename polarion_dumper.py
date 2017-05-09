@@ -90,12 +90,7 @@ def main():
 
         # mark all rows with verdict as exported
         if importer is dump2polarion.import_sqlite:
-            conn = dump2polarion.open_sqlite(args.input_file)
-            cur = conn.cursor()
-            cur.execute(
-                "UPDATE testcases SET exported = 'yes' WHERE verdict is not null and verdict != ''")
-            conn.commit()
-            conn.close()
+            dump2polarion.mark_exported_sqlite(args.input_file)
 
 
 if __name__ == '__main__':
