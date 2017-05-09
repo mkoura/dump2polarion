@@ -269,8 +269,8 @@ def get_testrun_from_csv(csv_file, csv_reader):
                      replace('(', '').
                      replace(')', '').
                      lower())
-            # too far
             if field == 'id':
+                # we are too far, tests results start here
                 too_far = True
                 break
             search = re.search(search_str, col)
@@ -314,6 +314,16 @@ def import_csv(csv_file):
     return ImportedData(results=results, testrun=testrun)
 
 
+def get_testrun_from_sqlite(conn):
+    """Returns testrun id saved from original csv file."""
+    cur = conn.cursor()
+    try:
+        cur.execute('SELECT testrun FROM testrun')
+        return cur.fetchone()[0]
+    except (IndexError, Error):
+        return
+
+
 def import_sqlite(db_file):
     """Reads the content of the database file and returns imported data."""
     with open(db_file):
@@ -346,16 +356,6 @@ def import_sqlite(db_file):
     conn.close()
 
     return ImportedData(results=results, testrun=testrun)
-
-
-def get_testrun_from_sqlite(conn):
-    """Returns testrun id saved from original csv file."""
-    cur = conn.cursor()
-    try:
-        cur.execute('SELECT testrun FROM testrun')
-        return cur.fetchone()[0]
-    except (IndexError, Error):
-        return
 
 
 def export_csv(csv_file, results):
