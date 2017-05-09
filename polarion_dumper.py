@@ -6,15 +6,15 @@ Dump testcases results from a CSV or SQLite input file to xunit file and submit 
 to Polarion® xunit importer.
 """
 
-from __future__ import print_function, unicode_literals
+from __future__ import unicode_literals
 
 import argparse
 import logging
 import sys
 import os
-import dump2polarion
 
-from dump2polarion import Dump2PolarionException
+import dump2polarion
+from dump2polarion import Dump2PolarionException, csvtools, dbtools
 
 
 # pylint: disable=invalid-name
@@ -61,9 +61,9 @@ def main():
             args.input_file, config, user=args.user, password=args.password)
         return
     elif ext == '.csv':
-        importer = dump2polarion.import_csv
+        importer = csvtools.import_csv
     else:
-        importer = dump2polarion.import_sqlite
+        importer = dbtools.import_sqlite
 
     try:
         records = importer(args.input_file)
@@ -86,11 +86,12 @@ def main():
         exporter.write_xml(output, args.output_file)
 
     if not args.no_submit:
-        dump2polarion.submit_to_polarion(output, config, user=args.user, password=args.password)
+        response = dump2polarion.submit_to_polarion(
+            output, config, user=args.user, password=args.password)
 
-        # mark all rows with verdict as exported
-        if importer is dump2polarion.import_sqlite:
-            dump2polarion.mark_exported_sqlite(args.input_file)
+        # if successfully submitted, mark all rows with verdict as exported
+        if importer is dbtools.import_sqlite and response and response.status_code == 200:
+            dbtools.mark_exported_sqlite(args.input_file)
 
 
 if __name__ == '__main__':

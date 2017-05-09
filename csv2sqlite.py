@@ -5,7 +5,7 @@
 Dump testcases results from a CSV input file to SQLite.
 """
 
-from __future__ import print_function, unicode_literals
+from __future__ import unicode_literals
 
 import argparse
 import logging
@@ -15,8 +15,7 @@ import os
 import sqlite3
 from sqlite3 import Error
 
-import dump2polarion
-from dump2polarion import Dump2PolarionException
+from dump2polarion import Dump2PolarionException, csvtools
 
 
 # pylint: disable=invalid-name
@@ -27,7 +26,7 @@ def get_args():
     """Get command line arguments."""
     parser = argparse.ArgumentParser(description='csv2sqlite')
     parser.add_argument('-i', '--input_file', required=True, action='store',
-                        help="Path to CSV results file")
+                        help="Path to CSV records file")
     parser.add_argument('-o', '--output_file', required=True, action='store',
                         help="Path to sqlite output file")
     return parser.parse_args()
@@ -77,7 +76,7 @@ def main():
     """Main function for cli."""
     args = get_args()
     try:
-        records = dump2polarion.import_csv(args.input_file)
+        records = csvtools.import_csv(args.input_file)
     except (EnvironmentError, Dump2PolarionException) as err:
         logger.error(err)
         sys.exit(1)

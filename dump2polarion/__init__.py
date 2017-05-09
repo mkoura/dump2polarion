@@ -4,18 +4,13 @@
 Dump testcases results to xunit file and submit it to Polarion® xunit importer.
 """
 
-from __future__ import print_function, unicode_literals
+from __future__ import unicode_literals
 
-import csv
 import os
 import datetime
 import logging
-import re
 
-from collections import OrderedDict, namedtuple
-
-import sqlite3
-from sqlite3 import Error
+from collections import namedtuple
 
 from xml.dom import minidom
 from xml.etree import ElementTree
@@ -216,168 +211,6 @@ def get_config(config_file=None):
     return config_settings
 
 
-def get_csv_fieldnames(csv_reader):
-    """Finds fieldnames in Polarion exported csv file."""
-    fieldnames = []
-    for row in csv_reader:
-        for col in row:
-            field = (col.
-                     strip().
-                     replace('"', '').
-                     replace(' ', '').
-                     replace('(', '').
-                     replace(')', '').
-                     lower())
-            fieldnames.append(field)
-        if 'id' in fieldnames:
-            break
-        else:
-            # this is not a row with fieldnames
-            del fieldnames[:]
-    if not fieldnames:
-        return
-    # remove trailing unannotated fields
-    while True:
-        field = fieldnames.pop()
-        if field:
-            fieldnames.append(field)
-            break
-    # name unannotated fields
-    suffix = 1
-    for index, field in enumerate(fieldnames):
-        if not field:
-            fieldnames[index] = 'field{}'.format(suffix)
-            suffix += 1
-
-    return fieldnames
-
-
-def get_testrun_from_csv(csv_file, csv_reader):
-    """Tries to find the testrun id in  Polarion exported csv file."""
-    csv_file.seek(0)
-    search_str = r'TEST_RECORDS:\("[^/]+/([^"]+)"'
-    testrun_id = None
-    too_far = False
-    for row in csv_reader:
-        for col in row:
-            if not col:
-                continue
-            field = (col.
-                     strip().
-                     replace('"', '').
-                     replace(' ', '').
-                     replace('(', '').
-                     replace(')', '').
-                     lower())
-            if field == 'id':
-                # we are too far, tests results start here
-                too_far = True
-                break
-            search = re.search(search_str, col)
-            try:
-                testrun_id = search.group(1)
-            except AttributeError:
-                continue
-            else:
-                break
-        if testrun_id or too_far:
-            break
-
-    return testrun_id
-
-
-def import_csv(csv_file):
-    """Reads the content of the Polarion exported csv file and returns imported data."""
-    with open(os.path.expanduser(csv_file), 'rb') as input_file:
-        reader = csv.reader(input_file, delimiter=str(';'), quotechar=str('"'))
-
-        fieldnames = get_csv_fieldnames(reader)
-        if not fieldnames:
-            raise Dump2PolarionException("Cannot find field names in CSV file {}".format(csv_file))
-        fieldnames_len = len(fieldnames)
-
-        # map data to fieldnames
-        results = []
-        for row in reader:
-            record = OrderedDict(zip(fieldnames, row))
-            # skip rows that were already exported
-            if record.get('exported') == 'yes':
-                continue
-            row_len = len(row)
-            if fieldnames_len > row_len:
-                for key in fieldnames[row_len:]:
-                    record[key] = None
-            results.append(record)
-
-        testrun = get_testrun_from_csv(input_file, reader)
-
-    return ImportedData(results=results, testrun=testrun)
-
-
-def get_testrun_from_sqlite(conn):
-    """Returns testrun id saved from original csv file."""
-    cur = conn.cursor()
-    try:
-        cur.execute('SELECT testrun FROM testrun')
-        return cur.fetchone()[0]
-    except (IndexError, Error):
-        return
-
-
-def open_sqlite(db_file):
-    """Opens database connection."""
-    with open(db_file):
-        # test that file can be accessed
-        pass
-    try:
-        return sqlite3.connect(os.path.expanduser(db_file))
-    except Error as err:
-        raise Dump2PolarionException('{}'.format(err))
-
-
-def import_sqlite(db_file):
-    """Reads the content of the database file and returns imported data."""
-    conn = open_sqlite(db_file)
-    cur = conn.cursor()
-    # get all rows that were not exported yet
-    cur.execute("SELECT * FROM testcases WHERE exported != 'yes'")
-    fieldnames = [description[0] for description in cur.description]
-    rows = cur.fetchall()
-
-    # map data to fieldnames
-    results = []
-    for row in rows:
-        record = OrderedDict(zip(fieldnames, row))
-        results.append(record)
-
-    testrun = get_testrun_from_sqlite(conn)
-
-    conn.close()
-
-    return ImportedData(results=results, testrun=testrun)
-
-
-def mark_exported_sqlite(db_file):
-    """Marks all rows with verdict as exported."""
-    conn = open_sqlite(db_file)
-    cur = conn.cursor()
-    cur.execute(
-        "UPDATE testcases SET exported = 'yes' WHERE verdict is not null and verdict != ''")
-    conn.commit()
-    conn.close()
-
-
-def export_csv(csv_file, results):
-    """Writes testcases results into csv file."""
-    with open(os.path.expanduser(csv_file), 'wb') as output_file:
-        csvwriter = csv.writer(output_file, delimiter=str(';'),
-                               quotechar=str('|'), quoting=csv.QUOTE_MINIMAL)
-
-        csvwriter.writerow(results[0].keys())
-        for result in results:
-            csvwriter.writerow(result.values())
-
-
 def submit_to_polarion(xml, config, **kwargs):
     """Submits results to Polarion."""
     login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
@@ -397,4 +230,8 @@ def submit_to_polarion(xml, config, **kwargs):
         files = {'file': ('results.xml', xml)}
 
     logger.info("Submitting data to {}".format(xunit_target))
-    return requests.post(xunit_target, files=files, auth=(login, pwd), verify=False)
+    try:
+        return requests.post(xunit_target, files=files, auth=(login, pwd), verify=False)
+    # pylint: disable=broad-except
+    except Exception as err:
+        logger.error(err)
