@@ -20,6 +20,8 @@ By default test results are submitted to Polarion. You can disable this bahavior
 
 When output file is specified with ``-o PATH``, the XML file used for results submission will be saved to disk. If `PATH` is a directory, resulting file will be `PATH/testrun_TESTRUN_ID-TIMESTAMP.xml`.
 
+When the input file is XML, it is expected that it's XML file with results (e.g. saved earlier with ``-o FILE -n``) and it is submitted to Polarion.
+
 Requirements
 -
 You need ``sqlite3``, all recent python versions include it by default. The rest is listed in ``requirements.txt``.

@@ -25,7 +25,7 @@ def get_args():
     """Get command line arguments."""
     parser = argparse.ArgumentParser(description='dump2polarion')
     parser.add_argument('-i', '--input_file', required=True, action='store',
-                        help="Path to reports CSV or SQLite file")
+                        help="Path to CSV or SQLite reports file or xunit XML file")
     parser.add_argument('-o', '--output_file', action='store',
                         help="Path to XML output file (default: none)")
     parser.add_argument('-t', '--testrun-id', required=True, action='store',
@@ -54,7 +54,13 @@ def main():
         sys.exit(1)
 
     _, ext = os.path.splitext(args.input_file)
-    if ext.lower() == '.csv':
+    ext = ext.lower()
+    if ext == '.xml':
+        # expect xunit xml and just submit it
+        dump2polarion.submit_to_polarion(
+            args.input_file, config, user=args.user, password=args.password)
+        return
+    elif ext == '.csv':
         importer = dump2polarion.import_csv
     else:
         importer = dump2polarion.import_sqlite

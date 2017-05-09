@@ -382,6 +382,10 @@ def submit_to_polarion(xml, config, **kwargs):
         logger.error("Failed to submit data to Polarion - missing 'xunit_target'")
         return
 
-    files = {'file': ('results.xml', xml)}
+    if os.path.isfile(xml):
+        files = {'file': ('results.xml', open(xml, 'rb'))}
+    else:
+        files = {'file': ('results.xml', xml)}
+
     logger.info("Submitting data to {}".format(xunit_target))
     return requests.post(xunit_target, files=files, auth=(login, pwd), verify=False)
