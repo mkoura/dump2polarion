@@ -42,6 +42,10 @@ You can convert the CSV file exported out of Polarion using the ``csv2sqlite.py`
 How to submit the XML file manually
 -
 ```
+./polarion_dumper.py -i output.xml -t {testrun_id} --user {user} --password {password}
+```
+or
+```
 curl -k -u {user}:{password} -X POST -F file=@./output.xml https://polarion.engineering.redhat.com/polarion/import/xunit
 ```
 
