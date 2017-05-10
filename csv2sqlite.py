@@ -36,7 +36,8 @@ def dump2sqlite(records, output_file):
     """Dumps tests results to database."""
     results_keys = records.results[0].keys()
     keys_len = len(results_keys)
-    for key in ['verdict', 'last_status', 'time', 'comment', 'stdout', 'stderr', 'exported']:
+    for key in [
+            'verdict', 'last_status', 'exported', 'time', 'comment', 'stdout', 'stderr', 'user1']:
         if key not in results_keys:
             results_keys.append(key)
 
