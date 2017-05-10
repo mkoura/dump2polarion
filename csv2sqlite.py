@@ -11,9 +11,7 @@ import argparse
 import logging
 import sys
 import os
-
 import sqlite3
-from sqlite3 import Error
 
 from dump2polarion import Dump2PolarionException, csvtools
 
@@ -36,16 +34,12 @@ def dump2sqlite(records, output_file):
     """Dumps tests results to database."""
     results_keys = records.results[0].keys()
     keys_len = len(results_keys)
-    for key in [
-            'verdict', 'last_status', 'exported', 'time', 'comment', 'stdout', 'stderr', 'user1']:
+    for key in (
+            'verdict', 'last_status', 'exported', 'time', 'comment', 'stdout', 'stderr', 'user1'):
         if key not in results_keys:
             results_keys.append(key)
 
-    try:
-        conn = sqlite3.connect(os.path.expanduser(output_file))
-    except Error as err:
-        logger.error(err)
-        sys.exit(1)
+    conn = sqlite3.connect(os.path.expanduser(output_file))
 
     # in each row there needs to be data for every column
     pad_data = ['' for _ in range(len(results_keys) - keys_len)]
@@ -79,9 +73,25 @@ def main():
     try:
         records = csvtools.import_csv(args.input_file)
     except (EnvironmentError, Dump2PolarionException) as err:
-        logger.error(err)
+        logger.fatal(err)
         sys.exit(1)
-    dump2sqlite(records, args.output_file)
+
+    # check if all columns required by `pytest_polarion_cfme` are there
+    results_keys = records.results[0].keys()
+    required_columns = {'id': 'ID', 'testcaseid': 'Test Case ID'}
+    missing_columns = [required_columns[k] for k in ('id', 'testcaseid') if k not in results_keys]
+    if missing_columns:
+        logger.fatal(
+            "The input file `{}` is missing following columns: {}".format(
+                args.input_file, ', '.join(missing_columns)))
+        sys.exit(1)
+
+    try:
+        dump2sqlite(records, args.output_file)
+    # pylint: disable=broad-except
+    except Exception as err:
+        logger.fatal(err)
+        sys.exit(1)
 
 
 if __name__ == '__main__':

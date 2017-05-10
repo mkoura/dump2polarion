@@ -50,7 +50,7 @@ def main():
     try:
         config = dump2polarion.get_config(args.config_file)
     except EnvironmentError as err:
-        logger.error(err)
+        logger.fatal(err)
         sys.exit(1)
 
     _, ext = os.path.splitext(args.input_file)
@@ -68,12 +68,12 @@ def main():
     try:
         records = importer(args.input_file)
     except (EnvironmentError, Dump2PolarionException) as err:
-        logger.error(err)
+        logger.fatal(err)
         sys.exit(1)
 
     if not args.force and records.testrun and records.testrun != args.testrun_id:
-        logger.error(
-            "The test run id `{}` found in exported data doesn't match `{}` from command line. "
+        logger.fatal(
+            "The test run id `{}` found in exported data doesn't match `{}`. "
             "If you really want to proceed, add '-f'.".format(records.testrun, args.testrun_id))
         sys.exit(1)
 

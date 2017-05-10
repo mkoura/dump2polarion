@@ -27,11 +27,12 @@ def get_testrun_from_sqlite(conn):
 
 def open_sqlite(db_file):
     """Opens database connection."""
+    db_file = os.path.expanduser(db_file)
     with open(db_file):
         # test that file can be accessed
         pass
     try:
-        return sqlite3.connect(os.path.expanduser(db_file))
+        return sqlite3.connect(db_file)
     except Error as err:
         raise Dump2PolarionException('{}'.format(err))
 
@@ -42,13 +43,13 @@ def import_sqlite(db_file):
     cur = conn.cursor()
     # get all rows that were not exported yet
     cur.execute("SELECT * FROM testcases WHERE exported != 'yes'")
-    fieldnames = [description[0] for description in cur.description]
+    columns = [description[0] for description in cur.description]
     rows = cur.fetchall()
 
-    # map data to fieldnames
+    # map data to columns
     results = []
     for row in rows:
-        record = OrderedDict(zip(fieldnames, row))
+        record = OrderedDict(zip(columns, row))
         results.append(record)
 
     testrun = get_testrun_from_sqlite(conn)

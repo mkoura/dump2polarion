@@ -92,7 +92,7 @@ def import_csv(csv_file):
         fieldnames = get_csv_fieldnames(reader)
         if not fieldnames:
             raise Dump2PolarionException("Cannot find field names in CSV file {}".format(csv_file))
-        fieldnames_len = len(fieldnames)
+        fieldnames_count = len(fieldnames)
 
         # map data to fieldnames
         results = []
@@ -102,7 +102,7 @@ def import_csv(csv_file):
             if record.get('exported') == 'yes':
                 continue
             row_len = len(row)
-            if fieldnames_len > row_len:
+            if fieldnames_count > row_len:
                 for key in fieldnames[row_len:]:
                     record[key] = None
             results.append(record)
