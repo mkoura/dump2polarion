@@ -89,8 +89,13 @@ def main():
         response = dump2polarion.submit_to_polarion(
             output, config, user=args.user, password=args.password)
 
-        # if successfully submitted, mark all rows with verdict as exported
-        if importer is dbtools.import_sqlite and response and response.status_code == 200:
+        if response is None:
+            logger.error("Failed to submit results to {}".format(config.get('xunit_target')))
+        elif not response:
+            logger.error("HTTP status {} - failed to submit results to {}".format(
+                response.status_code, config.get('xunit_target')))
+        elif importer is dbtools.import_sqlite:
+            # successfully submitted, mark all rows with verdict as exported
             dbtools.mark_exported_sqlite(args.input_file)
 
 

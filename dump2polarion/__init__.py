@@ -218,10 +218,10 @@ def submit_to_polarion(xml, config, **kwargs):
     xunit_target = config.get('xunit_target')
 
     if not all([login, pwd]):
-        logger.error("Failed to submit data to Polarion - missing credentials")
+        logger.error("Failed to submit results to Polarion - missing credentials")
         return
     if not xunit_target:
-        logger.error("Failed to submit data to Polarion - missing 'xunit_target'")
+        logger.error("Failed to submit results to Polarion - missing 'xunit_target'")
         return
 
     if os.path.isfile(xml):
@@ -229,7 +229,7 @@ def submit_to_polarion(xml, config, **kwargs):
     else:
         files = {'file': ('results.xml', xml)}
 
-    logger.info("Submitting data to {}".format(xunit_target))
+    logger.info("Submitting results to {}".format(xunit_target))
     try:
         return requests.post(xunit_target, files=files, auth=(login, pwd), verify=False)
     # pylint: disable=broad-except
