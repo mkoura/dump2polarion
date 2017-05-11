@@ -40,12 +40,19 @@ def get_args():
                         help="Password to use to submit results to Polarion")
     parser.add_argument('-f', '--force', action='store_true',
                         help="Don't validate test run id")
+    parser.add_argument('--log-level', action='store',
+                        help="Set logging to specified level")
     return parser.parse_args()
 
 
 def main():
     """Main function for cli."""
     args = get_args()
+
+    log_level = args.log_level or 'INFO'
+    logging.basicConfig(
+        format='%(name)s:%(levelname)s:%(message)s',
+        level=getattr(logging, log_level.upper(), logging.INFO))
 
     try:
         config = dump2polarion.get_config(args.config_file)
@@ -100,5 +107,4 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(format='%(name)s:%(levelname)s:%(message)s', level=logging.INFO)
     main()
