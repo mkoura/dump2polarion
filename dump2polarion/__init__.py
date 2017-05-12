@@ -231,7 +231,18 @@ def submit_to_polarion(xml, config, **kwargs):
 
     logger.info("Submitting results to {}".format(xunit_target))
     try:
-        return requests.post(xunit_target, files=files, auth=(login, pwd), verify=False)
+        response = requests.post(xunit_target, files=files, auth=(login, pwd), verify=False)
     # pylint: disable=broad-except
     except Exception as err:
         logger.error(err)
+        response = None
+
+    if response is None:
+        logger.error("Failed to submit results to {}".format(xunit_target))
+    elif response:
+        logger.info("HTTP status {} - results successfully submitted".format(response.status_code))
+    else:
+        logger.error("HTTP status {} - failed to submit results to {}".format(
+            response.status_code, xunit_target))
+
+    return response
