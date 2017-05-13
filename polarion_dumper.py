@@ -12,6 +12,7 @@ import argparse
 import logging
 import sys
 import os
+import datetime
 
 import dump2polarion
 from dump2polarion import Dump2PolarionException, csvtools, dbtools
@@ -21,7 +22,7 @@ from dump2polarion import Dump2PolarionException, csvtools, dbtools
 logger = logging.getLogger()
 
 
-def get_args():
+def get_args(args=None):
     """Get command line arguments."""
     parser = argparse.ArgumentParser(description='dump2polarion')
     parser.add_argument('-i', '--input_file', required=True, action='store',
@@ -42,7 +43,7 @@ def get_args():
                         help="Don't validate test run id")
     parser.add_argument('--log-level', action='store',
                         help="Set logging to specified level")
-    return parser.parse_args()
+    return parser.parse_args(args)
 
 
 def main():
@@ -72,8 +73,9 @@ def main():
     else:
         importer = dbtools.import_sqlite
 
+    import_time = datetime.datetime.utcnow()
     try:
-        records = importer(args.input_file)
+        records = importer(args.input_file, older_than=import_time)
     except (EnvironmentError, Dump2PolarionException) as err:
         logger.fatal(err)
         sys.exit(1)
@@ -98,7 +100,7 @@ def main():
 
         if importer is dbtools.import_sqlite and response:
             logger.debug("Marking rows in database as exported")
-            dbtools.mark_exported_sqlite(args.input_file)
+            dbtools.mark_exported_sqlite(args.input_file, import_time)
 
 
 if __name__ == '__main__':

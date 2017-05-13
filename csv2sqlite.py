@@ -12,6 +12,7 @@ import logging
 import sys
 import os
 import sqlite3
+import datetime
 
 from dump2polarion import Dump2PolarionException, csvtools
 
@@ -20,14 +21,16 @@ from dump2polarion import Dump2PolarionException, csvtools
 logger = logging.getLogger()
 
 
-def get_args():
+def get_args(args=None):
     """Get command line arguments."""
     parser = argparse.ArgumentParser(description='csv2sqlite')
     parser.add_argument('-i', '--input_file', required=True, action='store',
                         help="Path to CSV records file")
     parser.add_argument('-o', '--output_file', required=True, action='store',
                         help="Path to sqlite output file")
-    return parser.parse_args()
+    parser.add_argument('--log-level', action='store',
+                        help="Set logging to specified level")
+    return parser.parse_args(args)
 
 
 def dump2sqlite(records, output_file):
@@ -39,22 +42,26 @@ def dump2sqlite(records, output_file):
         if key not in results_keys:
             results_keys.append(key)
 
-    conn = sqlite3.connect(os.path.expanduser(output_file))
+    conn = sqlite3.connect(os.path.expanduser(output_file), detect_types=sqlite3.PARSE_DECLTYPES)
 
     # in each row there needs to be data for every column
     pad_data = ['' for _ in range(len(results_keys) - keys_len)]
+    # last column is current time
+    now = datetime.datetime.utcnow()
 
-    def _pad_data(row):
+    def _extend_row(row):
         if pad_data:
             row.extend(pad_data)
+        row.append(now)
         return row
 
-    to_db = [_pad_data(row.values()) for row in records.results]
+    to_db = [_extend_row(row.values()) for row in records.results]
 
     cur = conn.cursor()
-    cur.execute("CREATE TABLE testcases ({})".format(
-        ','.join(['{} TEXT'.format(key) for key in results_keys])))
-    cur.executemany("INSERT INTO testcases VALUES ({})".format(
+    cur.execute(
+        "CREATE TABLE testcases ({},sqltime TIMESTAMP)".format(
+            ','.join(['{} TEXT'.format(key) for key in results_keys])))
+    cur.executemany("INSERT INTO testcases VALUES ({},?)".format(
         ','.join(['?' for _ in results_keys])), to_db)
 
     if records.testrun:
@@ -70,6 +77,12 @@ def dump2sqlite(records, output_file):
 def main():
     """Main function for cli."""
     args = get_args()
+
+    log_level = args.log_level or 'INFO'
+    logging.basicConfig(
+        format='%(name)s:%(levelname)s:%(message)s',
+        level=getattr(logging, log_level.upper(), logging.INFO))
+
     try:
         records = csvtools.import_csv(args.input_file)
     except (EnvironmentError, Dump2PolarionException) as err:
@@ -95,5 +108,4 @@ def main():
 
 
 if __name__ == '__main__':
-    logging.basicConfig(format='%(name)s:%(levelname)s:%(message)s', level=logging.INFO)
     main()

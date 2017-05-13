@@ -84,7 +84,8 @@ def get_testrun_from_csv(csv_file, csv_reader):
     return testrun_id
 
 
-def import_csv(csv_file):
+# pylint: disable=unused-argument
+def import_csv(csv_file, **kwargs):
     """Reads the content of the Polarion exported csv file and returns imported data."""
     with open(os.path.expanduser(csv_file), 'rb') as input_file:
         reader = csv.reader(input_file, delimiter=str(';'), quotechar=str('"'))

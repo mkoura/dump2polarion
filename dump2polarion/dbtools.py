@@ -29,20 +29,25 @@ def open_sqlite(db_file):
     """Opens database connection."""
     db_file = os.path.expanduser(db_file)
     with open(db_file):
-        # test that file can be accessed
+        # test that the file can be accessed
         pass
     try:
-        return sqlite3.connect(db_file)
+        return sqlite3.connect(db_file, detect_types=sqlite3.PARSE_DECLTYPES)
     except Error as err:
         raise Dump2PolarionException('{}'.format(err))
 
 
-def import_sqlite(db_file):
+# pylint: disable=unused-argument
+def import_sqlite(db_file, older_than=None, **kwargs):
     """Reads the content of the database file and returns imported data."""
     conn = open_sqlite(db_file)
     cur = conn.cursor()
-    # get all rows that were not exported yet
-    cur.execute("SELECT * FROM testcases WHERE exported != 'yes'")
+    # get rows that were not exported yet
+    if older_than:
+        cur.execute("SELECT * FROM testcases WHERE exported != 'yes' AND sqltime < ?",
+                    (older_than, ))
+    else:
+        cur.execute("SELECT * FROM testcases WHERE exported != 'yes'")
     columns = [description[0] for description in cur.description]
     rows = cur.fetchall()
 
@@ -59,11 +64,12 @@ def import_sqlite(db_file):
     return ImportedData(results=results, testrun=testrun)
 
 
-def mark_exported_sqlite(db_file):
+def mark_exported_sqlite(db_file, time):
     """Marks all rows with verdict as exported."""
     conn = open_sqlite(db_file)
     cur = conn.cursor()
     cur.execute(
-        "UPDATE testcases SET exported = 'yes' WHERE verdict is not null and verdict != ''")
+        "UPDATE testcases SET exported = 'yes' WHERE verdict IS NOT null AND verdict != '' AND "
+        "sqltime < ?", (time, ))
     conn.commit()
     conn.close()
