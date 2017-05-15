@@ -88,7 +88,9 @@ def get_testrun_from_csv(csv_file, csv_reader):
 def import_csv(csv_file, **kwargs):
     """Reads the content of the Polarion exported csv file and returns imported data."""
     with open(os.path.expanduser(csv_file), 'rb') as input_file:
-        reader = csv.reader(input_file, delimiter=str(';'), quotechar=str('"'))
+        dialect = csv.Sniffer().sniff(input_file.read(1024))
+        input_file.seek(0)
+        reader = csv.reader(input_file, dialect)
 
         fieldnames = get_csv_fieldnames(reader)
         if not fieldnames:
