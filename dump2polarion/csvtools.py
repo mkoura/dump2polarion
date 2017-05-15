@@ -50,9 +50,9 @@ def get_csv_fieldnames(csv_reader):
     return fieldnames
 
 
-def get_testrun_from_csv(csv_file, csv_reader):
+def get_testrun_from_csv(file_obj, csv_reader):
     """Tries to find the testrun id in  Polarion exported csv file."""
-    csv_file.seek(0)
+    file_obj.seek(0)
     search_str = r'TEST_RECORDS:\("[^/]+/([^"]+)"'
     testrun_id = None
     too_far = False
@@ -119,7 +119,7 @@ def export_csv(csv_file, records):
     """Writes testcases results into csv file."""
     with open(os.path.expanduser(csv_file), 'wb') as output_file:
         csvwriter = csv.writer(output_file, delimiter=str(';'),
-                               quotechar=str('|'), quoting=csv.QUOTE_MINIMAL)
+                               quotechar=str('"'), quoting=csv.QUOTE_MINIMAL)
 
         csvwriter.writerow(records.results[0].keys())
         for result in records.results:
