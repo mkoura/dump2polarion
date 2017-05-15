@@ -28,8 +28,6 @@ You need ``sqlite3``, all recent python versions include it by default. The rest
 
 CSV format
 -
-Delimiter is a semicolon (;).
-
 There needs to be a row with field names - it is by default when exported from Polarion®.
 
 Fields are ID; Title; Test Case ID (optional but recommended); Verdict; Comment (optional); Time (optional); stdout (optional); stderr (optional) + any other field you want. Order of the fields and case doesn't matter.
