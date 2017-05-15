@@ -16,11 +16,11 @@ export POLARION_PASSWORD=kerberos_password
 Or you can specify credentials on command line with ``--user kerberos_username --password kerberos_password``.  
 Or you can specify credentials in ``dump2polarion.yaml`` file. Lookup path is current directory and ``~/.config``. You can also specify the config file on command line with ``-c config_file.yaml``.
 
-By default test results are submitted to Polarion. You can disable this bahavior with ``-n`` option. In this case the XML file used for results submission will be saved to disk. Default file location is current directory, default file name is `testrun_TESTRUN_ID-TIMESTAMP.xml` (can be overriden with ``-o`` option).
+By default test results are submitted to Polarion®. You can disable this bahavior with ``-n`` option. In this case the XML file used for results submission will be saved to disk. Default file location is current directory, default file name is `testrun_TESTRUN_ID-TIMESTAMP.xml` (can be overriden with ``-o`` option).
 
 When output file is specified with ``-o PATH``, the XML file used for results submission will be saved to disk. If `PATH` is a directory, resulting file will be `PATH/testrun_TESTRUN_ID-TIMESTAMP.xml`.
 
-When the input file is XML, it is expected that it's XML file with results (e.g. saved earlier with ``-o FILE -n``) and it is submitted to Polarion.
+When the input file is XML, it is expected that it's XML file with results (e.g. saved earlier with ``-o FILE -n``) and it is submitted to Polarion®.
 
 Requirements
 -
@@ -40,7 +40,7 @@ There can be any content before the row with field names and the test results.
 
 SQLite format
 -
-You can convert the CSV file exported out of Polarion using the ``csv2sqlite.py`` script:
+You can convert the CSV file exported out of Polarion® using the ``csv2sqlite.py`` script:
 ```
 ./csv2sqlite.py -i {input_file.csv} -o {output_file.sqlite3}
 ```
