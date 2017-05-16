@@ -64,4 +64,6 @@ curl -k -u {user}:{password} -X POST -F file=@./output.xml https://polarion.engi
 
 More info
 -
-<https://mojo.redhat.com/docs/DOC-1073077>
+For CFME QE specific instructions see <https://mojo.redhat.com/docs/DOC-1098563>
+
+For info about xunit importer see <https://mojo.redhat.com/docs/DOC-1073077>
