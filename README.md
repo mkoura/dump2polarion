@@ -22,6 +22,15 @@ When output file is specified with ``-o PATH``, the XML file used for results su
 
 When the input file is XML, it is expected that it's XML file with results (e.g. saved earlier with ``-o FILE -n``) and it is submitted to Polarion®.
 
+Install
+-
+You don't need to install the package, you can use the scripts directly from the cloned repository.
+
+To install the package to your virtualenv, run
+```
+pip install .
+```
+
 Requirements
 -
 You need ``sqlite3``, all recent python versions include it by default. The rest is listed in ``requirements.txt``.

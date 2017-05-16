@@ -187,7 +187,10 @@ def get_config(config_file=None):
         cflist = (os.path.expanduser(config_file), )
     else:
         # find config file in default locations
-        cflist = (os.path.expanduser('~/.config/dump2polarion.yaml'), 'dump2polarion.yaml')
+        cflist = (
+            os.path.expanduser('~/.config/dump2polarion.yaml'),
+            'dump2polarion.yaml',
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dump2polarion.yaml'))
 
     conf = None
     for cfile in cflist:
