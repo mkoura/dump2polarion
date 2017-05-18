@@ -12,7 +12,7 @@ from sqlite3 import Error
 
 from collections import OrderedDict
 
-from . import ImportedData, Dump2PolarionException
+from dump2polarion import ImportedData, Dump2PolarionException
 
 
 def get_testrun_from_sqlite(conn):
