@@ -90,9 +90,8 @@ def main():
         sys.exit(1)
 
     # check if all columns required by `pytest_polarion_cfme` are there
-    results_keys = records.results[0].keys()
     required_columns = {'id': 'ID', 'testcaseid': 'Test Case ID'}
-    missing_columns = [required_columns[k] for k in ('id', 'testcaseid') if k not in results_keys]
+    missing_columns = [required_columns[k] for k in required_columns if k not in records.results[0]]
     if missing_columns:
         logger.fatal(
             "The input file `{}` is missing following columns: {}".format(
