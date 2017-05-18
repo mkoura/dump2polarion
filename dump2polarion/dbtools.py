@@ -8,7 +8,7 @@ from __future__ import unicode_literals
 import os
 
 import sqlite3
-from sqlite3 import Error
+from sqlite3 import Error as SQLiteError
 
 from collections import OrderedDict
 
@@ -21,7 +21,7 @@ def get_testrun_from_sqlite(conn):
     try:
         cur.execute('SELECT testrun FROM testrun')
         return cur.fetchone()[0]
-    except (IndexError, Error):
+    except (IndexError, SQLiteError):
         return
 
 
@@ -33,7 +33,7 @@ def open_sqlite(db_file):
         pass
     try:
         return sqlite3.connect(db_file, detect_types=sqlite3.PARSE_DECLTYPES)
-    except Error as err:
+    except SQLiteError as err:
         raise Dump2PolarionException('{}'.format(err))
 
 
