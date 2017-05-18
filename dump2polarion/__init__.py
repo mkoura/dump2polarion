@@ -243,9 +243,9 @@ def submit_to_polarion(xml, config, **kwargs):
     if response is None:
         logger.error("Failed to submit results to {}".format(xunit_target))
     elif response:
-        logger.info("HTTP status {} - results successfully submitted".format(response.status_code))
+        logger.info("Results successfully submitted (HTTP status {})".format(response.status_code))
     else:
-        logger.error("HTTP status {} - failed to submit results to {}".format(
+        logger.error("HTTP status {}: failed to submit results to {}".format(
             response.status_code, xunit_target))
 
     return response
