@@ -67,7 +67,7 @@ def main():
         # expect xunit xml and just submit it
         response = dump2polarion.submit_to_polarion(
             args.input_file, config, user=args.user, password=args.password)
-        sys.exit(0 if response else 1)
+        sys.exit(0 if response else 2)
     elif ext == '.csv':
         importer = csvtools.import_csv
     else:
@@ -102,7 +102,7 @@ def main():
             logger.debug("Marking rows in database as exported")
             dbtools.mark_exported_sqlite(args.input_file, import_time)
 
-        sys.exit(0 if response else 1)
+        sys.exit(0 if response else 2)
 
 
 if __name__ == '__main__':
