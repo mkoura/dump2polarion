@@ -43,11 +43,11 @@ def import_sqlite(db_file, older_than=None, **kwargs):
     conn = open_sqlite(db_file)
     cur = conn.cursor()
     # get rows that were not exported yet
+    select = "SELECT * FROM testcases WHERE exported != 'yes'"
     if older_than:
-        cur.execute("SELECT * FROM testcases WHERE exported != 'yes' AND sqltime < ?",
-                    (older_than, ))
+        cur.execute(' '.join((select, "AND sqltime < ?")), (older_than, ))
     else:
-        cur.execute("SELECT * FROM testcases WHERE exported != 'yes'")
+        cur.execute(select)
     columns = [description[0] for description in cur.description]
     rows = cur.fetchall()
 
@@ -64,12 +64,14 @@ def import_sqlite(db_file, older_than=None, **kwargs):
     return ImportedData(results=results, testrun=testrun)
 
 
-def mark_exported_sqlite(db_file, time):
-    """Marks all rows with verdict as exported."""
+def mark_exported_sqlite(db_file, older_than=None):
+    """Marks rows with verdict as exported."""
     conn = open_sqlite(db_file)
     cur = conn.cursor()
-    cur.execute(
-        "UPDATE testcases SET exported = 'yes' WHERE verdict IS NOT null AND verdict != '' AND "
-        "sqltime < ?", (time, ))
+    update = "UPDATE testcases SET exported = 'yes' WHERE verdict IS NOT null AND verdict != ''"
+    if older_than:
+        cur.execute(' '.join((update, "AND sqltime < ?")), (older_than, ))
+    else:
+        cur.execute(update)
     conn.commit()
     conn.close()
