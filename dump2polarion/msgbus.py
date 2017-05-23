@@ -79,7 +79,7 @@ def log_received_data(headers, message):
 def check_outcome(message, is_error):
     """Parses returned message and checks submit outcome."""
     if is_error is None:
-        logger.error("Submit verification timed out")
+        logger.error("Submit verification timed out, results probably not updated")
         return False
     elif is_error:
         logger.error("Received an error, results not updated")
