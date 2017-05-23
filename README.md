@@ -3,7 +3,7 @@ dump2polarion
 
 Usage
 -
-Automatic submission out of the CSV or SQLite input file:
+Automatic submission out of the CSV or SQLite input file to Polarion® XUnit Importer:
 ```
 ./polarion_dumper.py -i {input_file} -t {testrun_id}
 ```
@@ -66,4 +66,4 @@ More info
 -
 For CFME QE specific instructions see <https://mojo.redhat.com/docs/DOC-1098563>
 
-For info about xunit importer see <https://mojo.redhat.com/docs/DOC-1073077>
+For info about XUnit Importer see <https://mojo.redhat.com/docs/DOC-1073077>
