@@ -3,7 +3,7 @@
 # pylint: disable=logging-format-interpolation
 """
 Dump testcases results from a CSV or SQLite input file to xunit file and submit it
-to Polarion® xunit importer.
+to the Polarion® XUnit Importer.
 """
 
 from __future__ import unicode_literals
@@ -15,7 +15,7 @@ import os
 import datetime
 
 import dump2polarion
-from dump2polarion import Dump2PolarionException, csvtools, dbtools
+from dump2polarion import Dump2PolarionException, csvtools, dbtools, msgbus
 
 
 # pylint: disable=invalid-name
@@ -41,9 +41,25 @@ def get_args(args=None):
                         help="Password to use to submit results to Polarion")
     parser.add_argument('-f', '--force', action='store_true',
                         help="Don't validate test run id")
+    parser.add_argument('--no-verify', action='store_true',
+                        help="Don't verify results submission")
     parser.add_argument('--log-level', action='store',
                         help="Set logging to specified level")
     return parser.parse_args(args)
+
+
+def submit_and_verify(args, config, xunit):
+    """Submits results to the XUnit Importer and checks that it was imported."""
+    # this also ensures that the xml is parsable
+    response = dump2polarion.submit_to_polarion(
+        xunit, config, user=args.user, password=args.password)
+    if not response:
+        return False
+
+    if not args.no_verify:
+        response = msgbus.verify_submit(config, xunit, user=args.user, password=args.password)
+
+    return bool(response)
 
 
 def main():
@@ -65,8 +81,9 @@ def main():
     ext = ext.lower()
     if ext == '.xml':
         # expect xunit xml and just submit it
-        response = dump2polarion.submit_to_polarion(
-            args.input_file, config, user=args.user, password=args.password)
+        with open(args.input_file) as input_file:
+            xunit = input_file.read()
+        response = submit_and_verify(args, config, xunit)
         sys.exit(0 if response else 2)
     elif ext == '.csv':
         importer = csvtools.import_csv
@@ -95,8 +112,7 @@ def main():
         exporter.write_xml(output, args.output_file)
 
     if not args.no_submit:
-        response = dump2polarion.submit_to_polarion(
-            output, config, user=args.user, password=args.password)
+        response = submit_and_verify(args, config, output)
 
         if importer is dbtools.import_sqlite and response:
             logger.debug("Marking rows in database as exported")

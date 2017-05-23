@@ -11,7 +11,7 @@ setup(
     license='GPL',
     packages=find_packages(exclude=('tests',)),
     scripts=['csv2sqlite.py', 'polarion_dumper.py'],
-    install_requires=['requests', 'pyyaml'],
+    install_requires=['requests', 'pyyaml', 'stomp.py'],
     keywords='polarion',
     classifiers=['Private :: Do Not Upload'],  # hack to avoid uploading to pypi
     include_package_data=True,

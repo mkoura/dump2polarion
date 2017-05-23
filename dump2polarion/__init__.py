@@ -1,13 +1,15 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Dump testcases results to xunit file and submit it to Polarion® xunit importer.
+Dump testcases results to xunit file and submit it to the Polarion® XUnit Importer.
 """
 
 from __future__ import unicode_literals
 
 import os
 import datetime
+import string
+import random
 import logging
 
 from collections import namedtuple
@@ -61,9 +63,17 @@ class XunitExport(object):
         SubElement(testsuites_properties, 'property',
                    {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)})
 
+        response_prop_set = False
         for name, value in self.config['xunit_import_properties'].iteritems():
             SubElement(testsuites_properties, 'property',
                        {'name': name, 'value': str(value)})
+            if 'polarion-response-' in name:
+                response_prop_set = True
+
+        if not response_prop_set:
+            name = 'polarion-response-dump2polarion'
+            value = ''.join(random.sample(string.lowercase, 10))
+            SubElement(testsuites_properties, 'property', {'name': name, 'value': value})
 
         return testsuites_properties
 
@@ -214,7 +224,7 @@ def get_config(config_file=None):
     return config_settings
 
 
-def submit_to_polarion(xml, config, **kwargs):
+def submit_to_polarion(xunit, config, **kwargs):
     """Submits results to Polarion."""
     login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
     pwd = kwargs.get('password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
@@ -227,10 +237,10 @@ def submit_to_polarion(xml, config, **kwargs):
         logger.error("Failed to submit results to Polarion - missing 'xunit_target'")
         return
 
-    if os.path.isfile(xml):
-        files = {'file': ('results.xml', open(xml, 'rb'))}
+    if os.path.isfile(xunit):
+        files = {'file': ('results.xml', open(xunit, 'rb'))}
     else:
-        files = {'file': ('results.xml', xml)}
+        files = {'file': ('results.xml', xunit)}
 
     logger.info("Submitting results to {}".format(xunit_target))
     try:
@@ -243,7 +253,8 @@ def submit_to_polarion(xml, config, **kwargs):
     if response is None:
         logger.error("Failed to submit results to {}".format(xunit_target))
     elif response:
-        logger.info("Results successfully submitted (HTTP status {})".format(response.status_code))
+        logger.info("Results received by XUnit Importer (HTTP status {})".format(
+            response.status_code))
     else:
         logger.error("HTTP status {}: failed to submit results to {}".format(
             response.status_code, xunit_target))
