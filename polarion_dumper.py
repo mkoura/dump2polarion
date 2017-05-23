@@ -50,7 +50,6 @@ def get_args(args=None):
 
 def submit_and_verify(args, config, xunit):
     """Submits results to the XUnit Importer and checks that it was imported."""
-    # this also ensures that the xml is parsable
     response = dump2polarion.submit_to_polarion(
         xunit, config, user=args.user, password=args.password)
     if not response:

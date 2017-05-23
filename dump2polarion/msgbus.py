@@ -115,7 +115,7 @@ def verify_submit(config, xunit, **kwargs):
     selector = get_response_property(xunit)
     if not selector:
         logger.error(
-            "Failed to get the 'polarion-response-*' property out of the generated xunit file")
+            "The 'polarion-response-*' property not set, skipping submit verification")
         return
 
     login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
@@ -127,7 +127,7 @@ def verify_submit(config, xunit, **kwargs):
     host, port = bus_url.split(':')
     conn = stomp.Connection([(host.encode('ascii', 'ignore'), int(port))])
     listener = XunitListener()
-    conn.set_listener('CI Listener', listener)
+    conn.set_listener('XUnit Listener', listener)
     conn.start()
     conn.connect(login=login, passcode=pwd)
 
