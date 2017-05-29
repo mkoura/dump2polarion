@@ -6,7 +6,7 @@ Polarion® dumper CLI
 
 import sys
 
-from dump2polarion.polarion_dumper import main
+from dump2polarion.dumper_cli import main
 
 
 if __name__ == '__main__':

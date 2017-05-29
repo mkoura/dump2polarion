@@ -6,7 +6,7 @@ csv2sqlite CLI
 
 import sys
 
-from dump2polarion.csv2sqlite import main
+from dump2polarion.csv2sqlite_cli import main
 
 
 if __name__ == '__main__':
