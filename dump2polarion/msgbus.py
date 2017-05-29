@@ -43,8 +43,8 @@ class XunitListener(object):
     def wait_for_message(self, timeout=180):
         """Waits for message on xunit importer message bus."""
         with self.message_condition:
-            while not self.message_received:
-                self.message_condition.wait(timeout)
+            if not self.message_received:
+                self.message_condition.wait(timeout=timeout)
         retval = self.message_received
         self.message_received = False
         return retval
