@@ -4,7 +4,7 @@
 Dump testcases results from a CSV input file to SQLite.
 """
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, absolute_import
 
 import argparse
 import logging

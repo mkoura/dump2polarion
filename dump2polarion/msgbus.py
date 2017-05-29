@@ -4,7 +4,7 @@
 Connects to the Polarion® XUnit Importer message bus and verifies that results were submitted.
 """
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, absolute_import
 
 import os
 import logging
@@ -40,7 +40,7 @@ class XunitListener(object):
         """Actions when error is received."""
         return self.on_message(headers, message, True)
 
-    def wait_for_message(self, timeout=180):
+    def wait_for_message(self, timeout=300):
         """Waits for message on xunit importer message bus."""
         with self.message_condition:
             if not self.message_received:

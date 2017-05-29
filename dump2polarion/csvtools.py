@@ -3,7 +3,7 @@
 Helper functions for handling data in CSV format.
 """
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, absolute_import
 
 import os
 import re
@@ -113,6 +113,18 @@ def import_csv(csv_file, **kwargs):
         testrun = get_testrun_from_csv(input_file, reader)
 
     return ImportedData(results=results, testrun=testrun)
+
+
+def import_csv_and_check(csv_file, **kwargs):
+    """Like `import_csv` but check that all columns are there."""
+    records = import_csv(csv_file, **kwargs)
+    required_columns = {'id': 'ID', 'verdict': 'Verdict'}
+    missing_columns = [required_columns[k] for k in required_columns if k not in records.results[0]]
+    if missing_columns:
+        raise Dump2PolarionException(
+            "The input file `{}` is missing following columns: {}".format(
+                csv_file, ', '.join(missing_columns)))
+        return 1
 
 
 def export_csv(csv_file, records):

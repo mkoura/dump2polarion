@@ -4,7 +4,7 @@
 Dump testcases results to xunit file and submit it to the Polarion® XUnit Importer.
 """
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, absolute_import
 
 import os
 import datetime
@@ -19,8 +19,11 @@ from xml.etree import ElementTree
 from xml.etree.ElementTree import Element, SubElement, Comment
 
 import yaml
-import requests
 
+from dump2polarion.verdicts import Verdicts
+from dump2polarion.transform import get_results_transform
+
+import requests
 # pylint: disable=import-error
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
@@ -39,16 +42,12 @@ class Dump2PolarionException(Exception):
 
 class XunitExport(object):
     """Exports testcases results into Polarion xunit."""
-    PASS = ('passed', 'pass')
-    FAIL = ('failed', 'fail')
-    SKIP = ('skipped', 'skip', 'blocked')
-    WAIT = ('null', 'wait', 'waiting')
-
-    def __init__(self, testrun_id, tests_records, config, validate_func=None):
+    def __init__(self, testrun_id, tests_records, config, transform_func=None):
         self.testrun_id = testrun_id
         self.tests_records = tests_records
         self.config = config
-        self.validate_func = validate_func
+        self.transform_func = transform_func or get_results_transform(
+            config['xunit_import_properties']['polarion-project-id'])
 
     def top_element(self):
         """Returns top XML element."""
@@ -64,17 +63,31 @@ class XunitExport(object):
         SubElement(testsuites_properties, 'property',
                    {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)})
 
-        response_prop_set = False
+        response_prop_set = lookup_prop_set = False
         for name, value in self.config['xunit_import_properties'].iteritems():
             SubElement(testsuites_properties, 'property',
                        {'name': name, 'value': str(value)})
             if 'polarion-response-' in name:
                 response_prop_set = True
+            elif name == 'polarion-lookup-method':
+                lookup_prop_set = True
 
         if not response_prop_set:
             name = 'polarion-response-dump2polarion'
             value = ''.join(random.sample(string.lowercase, 10))
             SubElement(testsuites_properties, 'property', {'name': name, 'value': value})
+
+        if not lookup_prop_set:
+            if 'id' in self.tests_records.results[0]:
+                lookup = 'ID'
+            elif 'title' in self.tests_records.results[0]:
+                # let's assume 'Name' is the Polarion custom field
+                lookup = 'Name'
+            else:
+                raise Dump2PolarionException(
+                    "Failed to set the 'polarion-lookup-method' property")
+            SubElement(testsuites_properties, 'property',
+                       {'name': 'polarion-lookup-method', 'value': lookup})
 
         return testsuites_properties
 
@@ -87,49 +100,59 @@ class XunitExport(object):
                 self.config['xunit_import_properties']['polarion-project-id'], self.testrun_id)})
         return testsuite
 
-    def gen_testcase(self, parent_element, result, records):
-        """Creates XML element for given testcase result and update testcases records."""
-        verdict = result.get('verdict', '').strip().lower()
-        if not (result.get('id') and
-                verdict in self.PASS + self.FAIL + self.SKIP + self.WAIT):
-            return
-
-        if self.validate_func and not self.validate_func(result):
-            return
-
-        testcase_time = float(result.get('time') or result.get('duration') or 0)
-        records['time'] += testcase_time
-
-        testcase_data = {
-            'classname': 'TestClass',
-            'name': result.get('title') or result.get('id'),
-            'time': str(testcase_time)}
-        testcase = SubElement(parent_element, 'testcase', testcase_data)
-
+    @staticmethod
+    def _fill_verdict(verdict, result, testcase, records):
         # xunit Pass maps to Passed in Polarion
-        if verdict in self.PASS:
+        if verdict in Verdicts.PASS:
             records['passed'] += 1
         # xunit Failure maps to Failed in Polarion
-        elif verdict in self.FAIL:
+        elif verdict in Verdicts.FAIL:
             records['failures'] += 1
             verdict_data = {'type': 'failure'}
             if result.get('comment'):
                 verdict_data['message'] = str(result['comment'])
             SubElement(testcase, 'failure', verdict_data)
         # xunit Error maps to Blocked in Polarion
-        elif verdict in self.SKIP:
+        elif verdict in Verdicts.SKIP:
             records['skipped'] += 1
             verdict_data = {'type': 'error'}
             if result.get('comment'):
                 verdict_data['message'] = str(result['comment'])
             SubElement(testcase, 'error', verdict_data)
         # xunit Skipped maps to Waiting in Polarion
-        elif verdict in self.WAIT:
+        elif verdict in Verdicts.WAIT:
             records['waiting'] += 1
             verdict_data = {'type': 'skipped'}
             if result.get('comment'):
                 verdict_data['message'] = str(result['comment'])
             SubElement(testcase, 'skipped', verdict_data)
+
+    def gen_testcase(self, parent_element, result, records):
+        """Creates XML element for given testcase result and update testcases records."""
+        if self.transform_func:
+            result = self.transform_func(result)
+            if not result:
+                return
+        verdict = result.get('verdict', '').strip().lower()
+        if verdict not in Verdicts.PASS + Verdicts.FAIL + Verdicts.SKIP + Verdicts.WAIT:
+            return
+        testcase_id = result.get('id')
+        if not (testcase_id or result.get('title')):
+            return
+
+        testcase_time = float(result.get('time') or result.get('duration') or 0)
+        records['time'] += testcase_time
+
+        testcase_data = {
+            'name': result.get('title') or testcase_id,
+            'time': str(testcase_time)}
+        if testcase_id:
+            testcase_data['classname'] = 'TestClass'
+        elif result.get('classname'):
+            testcase_data['classname'] = result['classname']
+        testcase = SubElement(parent_element, 'testcase', testcase_data)
+
+        self._fill_verdict(verdict, result, testcase, records)
 
         if result.get('stdout'):
             system_out = SubElement(testcase, 'system-out')
@@ -139,9 +162,10 @@ class XunitExport(object):
             system_err = SubElement(testcase, 'system-err')
             system_err.text = str(result['stderr'])
 
-        properties = SubElement(testcase, 'properties')
-        SubElement(properties, 'property',
-                   {'name': 'polarion-testcase-id', 'value': result['id']})
+        if testcase_id:
+            properties = SubElement(testcase, 'properties')
+            SubElement(properties, 'property',
+                       {'name': 'polarion-testcase-id', 'value': testcase_id})
 
     def fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""

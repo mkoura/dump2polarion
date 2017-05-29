@@ -1,11 +1,11 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Dump testcases results from a CSV or SQLite input file to xunit file and submit it
+Dump testcases results from a CSV, SQLite or junit input file to xunit file and submit it
 to the Polarion® XUnit Importer.
 """
 
-from __future__ import unicode_literals
+from __future__ import unicode_literals, absolute_import
 
 import argparse
 import logging
@@ -13,7 +13,7 @@ import os
 import datetime
 
 import dump2polarion
-from dump2polarion import Dump2PolarionException, csvtools, dbtools, msgbus
+from dump2polarion import Dump2PolarionException, csvtools, dbtools, junittools, msgbus
 
 
 # pylint: disable=invalid-name
@@ -77,13 +77,19 @@ def main(args=None):
     _, ext = os.path.splitext(args.input_file)
     ext = ext.lower()
     if ext == '.xml':
-        # expect xunit xml and just submit it
         with open(args.input_file) as input_file:
             xunit = input_file.read()
-        response = submit_and_verify(args, config, xunit)
-        return 0 if response else 2
+
+        if 'polarion-testrun-id' in xunit:
+            # expect xunit xml and just submit it
+            response = submit_and_verify(args, config, xunit)
+            return 0 if response else 2
+
+        # expect junit-report from pytest
+        del xunit
+        importer = junittools.import_junit
     elif ext == '.csv':
-        importer = csvtools.import_csv
+        importer = csvtools.import_csv_and_check
     else:
         importer = dbtools.import_sqlite
 
