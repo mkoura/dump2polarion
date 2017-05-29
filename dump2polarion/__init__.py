@@ -44,10 +44,11 @@ class XunitExport(object):
     SKIP = ('skipped', 'skip', 'blocked')
     WAIT = ('null', 'wait', 'waiting')
 
-    def __init__(self, testrun_id, tests_records, config):
+    def __init__(self, testrun_id, tests_records, config, validate_func=None):
         self.testrun_id = testrun_id
         self.tests_records = tests_records
         self.config = config
+        self.validate_func = validate_func
 
     def top_element(self):
         """Returns top XML element."""
@@ -91,6 +92,9 @@ class XunitExport(object):
         verdict = result.get('verdict', '').strip().lower()
         if not (result.get('id') and
                 verdict in self.PASS + self.FAIL + self.SKIP + self.WAIT):
+            return
+
+        if self.validate_func and not self.validate_func(result):
             return
 
         testcase_time = float(result.get('time') or result.get('duration') or 0)
