@@ -11,13 +11,16 @@ import logging
 
 import requests
 
-# backwards compatibility mess
+# requests package backwards compatibility mess
 # pylint: disable=import-error,ungrouped-imports
-import urllib3
 from requests.packages.urllib3.exceptions import InsecureRequestWarning as IRWrequests
-from urllib3.exceptions import InsecureRequestWarning as IRWurllib3
 requests.packages.urllib3.disable_warnings(IRWrequests)
-urllib3.disable_warnings(IRWurllib3)
+try:
+    import urllib3
+    from urllib3.exceptions import InsecureRequestWarning as IRWurllib3
+    urllib3.disable_warnings(IRWurllib3)
+except ImportError:
+    pass
 
 
 # pylint: disable=invalid-name
