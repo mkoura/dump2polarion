@@ -128,6 +128,7 @@ def get_verification_func(config, xunit, **kwargs):
     conn = stomp.Connection([(host.encode('ascii', 'ignore'), int(port))])
     listener = XunitListener()
     conn.set_listener('XUnit Listener', listener)
+    logger.debug('Subscribing to the XUnit Importer message bus')
     conn.start()
     conn.connect(login=login, passcode=pwd)
 
