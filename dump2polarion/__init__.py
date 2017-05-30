@@ -76,7 +76,6 @@ class XunitExport(object):
             if 'id' in self.tests_records.results[0]:
                 lookup = 'ID'
             elif 'title' in self.tests_records.results[0]:
-                # let's assume 'Name' is the Polarion custom field
                 lookup = 'Name'
             else:
                 raise Dump2PolarionException(
