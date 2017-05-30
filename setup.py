@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='dump2polarion',
-    version='0.1',
+    version='0.2',
     url='https://github.com/mkoura/dump2polarion',
     description='Dump testcases results to xunit file and submit it to Polarion xunit importer',
     long_description=open('README.md').read().strip(),
