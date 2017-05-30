@@ -13,7 +13,7 @@ import os
 import datetime
 
 import dump2polarion
-from dump2polarion import Dump2PolarionException, csvtools, dbtools, junittools, msgbus
+from dump2polarion import Dump2PolarionException, csvtools, dbtools, junittools
 from dump2polarion.submit import submit_to_polarion
 
 
@@ -52,6 +52,8 @@ def submit_and_verify(args, config, xunit):
     if args.no_verify:
         verification_func = None
     else:
+        # avoid slow initialization of stomp when it's not needed
+        from dump2polarion import msgbus
         verification_func = msgbus.get_verification_func(
             config, xunit, user=args.user, password=args.password)
 
