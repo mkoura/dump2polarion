@@ -104,8 +104,8 @@ def check_outcome(message, is_error):
     return False
 
 
-def verify_submit(config, xunit, **kwargs):
-    """Verifies that the results were successfully submitted."""
+def get_verification_func(config, xunit, **kwargs):
+    """Subscribes to the message bus and returns verification function."""
     bus_url = config.get('message_bus')
     if not bus_url:
         logger.error(
@@ -131,7 +131,6 @@ def verify_submit(config, xunit, **kwargs):
     conn.start()
     conn.connect(login=login, passcode=pwd)
 
-    headers = message = is_error = None
     try:
         conn.subscribe(
             destination='/topic/CI',
@@ -139,14 +138,31 @@ def verify_submit(config, xunit, **kwargs):
             ack='auto',
             headers={'selector': "{}='{}'".format(selector[0], selector[1])}
         )
-
-        logger.info("Waiting for response on the XUnit Importer message bus...")
-        if listener.wait_for_message():
-            headers, message, is_error = listener.get_latest_message()
-    finally:
+    # pylint: disable=broad-except
+    except Exception as err:
+        logger.error("Skipping submit verification: {}".format(err))
         logger.debug('Terminating subscription')
         conn.disconnect()
 
-    log_received_data(headers, message)
+    def verify_submit(skip=False):
+        """Verifies that the results were successfully submitted."""
+        headers = message = is_error = None
+        try:
+            if skip:
+                # just do cleanup in finally
+                return
+            logger.info("Waiting for response on the XUnit Importer message bus...")
+            if listener.wait_for_message():
+                headers, message, is_error = listener.get_latest_message()
+        # pylint: disable=broad-except
+        except Exception as err:
+            logger.error("Skipping submit verification: {}".format(err))
+        finally:
+            logger.debug('Terminating subscription')
+            conn.disconnect()
 
-    return check_outcome(message, is_error)
+        log_received_data(headers, message)
+
+        return check_outcome(message, is_error)
+
+    return verify_submit

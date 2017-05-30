@@ -14,6 +14,7 @@ import datetime
 
 import dump2polarion
 from dump2polarion import Dump2PolarionException, csvtools, dbtools, junittools, msgbus
+from dump2polarion.submit import submit_to_polarion
 
 
 # pylint: disable=invalid-name
@@ -48,13 +49,16 @@ def get_args(args=None):
 
 def submit_and_verify(args, config, xunit):
     """Submits results to the XUnit Importer and checks that it was imported."""
-    response = dump2polarion.submit_to_polarion(
-        xunit, config, user=args.user, password=args.password)
-    if not response:
-        return False
+    if args.no_verify:
+        verification_func = None
+    else:
+        verification_func = msgbus.get_verification_func(
+            config, xunit, user=args.user, password=args.password)
 
-    if not args.no_verify:
-        response = msgbus.verify_submit(config, xunit, user=args.user, password=args.password)
+    response = submit_to_polarion(xunit, config, user=args.user, password=args.password)
+
+    if verification_func:
+        response = verification_func(skip=not response)
 
     return bool(response)
 
