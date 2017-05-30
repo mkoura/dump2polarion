@@ -10,7 +10,7 @@ setup(
     author_email='mkourim@redhat.com',
     license='GPL',
     packages=find_packages(exclude=('tests',)),
-    scripts=['csv2sqlite.py', 'polarion_dumper.py'],
+    scripts=['csv2sqlite.py', 'polarion_dumper.py', 'cfme_jenkins_dumper.py'],
     install_requires=['requests', 'pyyaml', 'stomp.py'],
     keywords='polarion',
     classifiers=['Private :: Do Not Upload'],  # hack to avoid uploading to pypi
