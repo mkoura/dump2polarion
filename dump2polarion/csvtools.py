@@ -124,7 +124,7 @@ def import_csv_and_check(csv_file, **kwargs):
         raise Dump2PolarionException(
             "The input file `{}` is missing following columns: {}".format(
                 csv_file, ', '.join(missing_columns)))
-        return 1
+    return records
 
 
 def export_csv(csv_file, records):
