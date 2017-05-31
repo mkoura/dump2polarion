@@ -5,7 +5,7 @@ Usage
 -
 Automatic submission out of the CSV or SQLite input file to Polarion® XUnit Importer:
 ```
-./polarion_dumper.py -i {input_file} -t {testrun_id}
+./polarion_dumper.py -i {input_file}
 ```
 
 You need to set the following environment variables (the same are used for pylarion):
@@ -55,7 +55,7 @@ You can convert the CSV file exported out of Polarion® using the ``csv2sqlite.p
 How to submit the XML file manually
 -
 ```
-./polarion_dumper.py -i output.xml -t {testrun_id} --user {user} --password {password}
+./polarion_dumper.py -i output.xml --user {user} --password {password}
 ```
 or
 ```
