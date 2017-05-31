@@ -7,17 +7,12 @@ Helper functions for handling data in pytest junit format.
 from __future__ import unicode_literals, absolute_import
 
 import os
-import logging
 
 from collections import OrderedDict
 
 from xml.etree import ElementTree
 
-from dump2polarion import ImportedData
-
-
-# pylint: disable=invalid-name
-logger = logging.getLogger(__name__)
+from dump2polarion import ImportedData, Dump2PolarionException
 
 
 # pylint: disable=unused-argument
@@ -26,8 +21,7 @@ def import_junit(junit_file, **kwargs):
     try:
         tree = ElementTree.parse(os.path.expanduser(junit_file))
     except ElementTree.ParseError as err:
-        logger.error(err)
-        return
+        raise Dump2PolarionException("Failed to parse XML file {}: {}".format(junit_file, err))
     xml_root = tree.getroot()
 
     results = []
