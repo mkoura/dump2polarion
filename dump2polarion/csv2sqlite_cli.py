@@ -92,7 +92,7 @@ def main(args=None):
     missing_columns = [required_columns[k] for k in required_columns if k not in records.results[0]]
     if missing_columns:
         logger.fatal(
-            "The input file `{}` is missing following columns: {}".format(
+            "The input file '{}' is missing following columns: {}".format(
                 args.input_file, ', '.join(missing_columns)))
         return 1
 

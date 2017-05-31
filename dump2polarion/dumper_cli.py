@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Dump testcases results from a CSV, SQLite or junit input file to xunit file and submit it
+Dump testcases results from a CSV, SQLite, junit or Ostriz input file to xunit file and submit it
 to the Polarion® XUnit Importer.
 """
 
@@ -78,7 +78,7 @@ def get_testrun_id(args, records):
     if (args.testrun_id and records.testrun and not args.force and
             records.testrun != args.testrun_id):
         raise Dump2PolarionException(
-            "The test run id `{}` found in exported data doesn't match `{}`. "
+            "The test run id '{}' found in exported data doesn't match '{}'. "
             "If you really want to proceed, add '-f'.".format(records.testrun, args.testrun_id))
 
     testrun_id = args.testrun_id or records.testrun
@@ -136,7 +136,11 @@ def main(args=None):
         return 1
 
     exporter = dump2polarion.XunitExport(testrun_id, records, config)
-    output = exporter.export()
+    try:
+        output = exporter.export()
+    except (EnvironmentError, Dump2PolarionException) as err:
+        logger.fatal(err)
+        return 1
 
     if args.output_file or args.no_submit:
         # when no output file is specified, the 'testrun_TESTRUN_ID-TIMESTAMP'

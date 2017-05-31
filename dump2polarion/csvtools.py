@@ -94,7 +94,8 @@ def import_csv(csv_file, **kwargs):
 
         fieldnames = get_csv_fieldnames(reader)
         if not fieldnames:
-            raise Dump2PolarionException("Cannot find field names in CSV file {}".format(csv_file))
+            raise Dump2PolarionException(
+                "Cannot find field names in CSV file '{}'".format(csv_file))
         fieldnames_count = len(fieldnames)
 
         # map data to fieldnames
@@ -122,7 +123,7 @@ def import_csv_and_check(csv_file, **kwargs):
     missing_columns = [required_columns[k] for k in required_columns if k not in records.results[0]]
     if missing_columns:
         raise Dump2PolarionException(
-            "The input file `{}` is missing following columns: {}".format(
+            "The input file '{}' is missing following columns: {}".format(
                 csv_file, ', '.join(missing_columns)))
     return records
 

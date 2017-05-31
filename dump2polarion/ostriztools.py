@@ -58,6 +58,8 @@ def calculate_duration(start_time, finish_time):
 
 def parse_ostriz(ostriz_data):
     """Reads the content of the input JSON and returns testcases results."""
+    if not ostriz_data:
+        raise Dump2PolarionException("No data to import")
     test_data = []
     data = found_version = None
     for data in ostriz_data.values():
@@ -82,6 +84,4 @@ def parse_ostriz(ostriz_data):
 def import_ostriz(location, **kwargs):
     """Reads Ostriz's data and returns imported data."""
     ostriz_data = get_json(location)
-    if not ostriz_data:
-        raise Dump2PolarionException("No data to import")
     return parse_ostriz(ostriz_data)

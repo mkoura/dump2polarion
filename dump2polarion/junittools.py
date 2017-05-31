@@ -20,8 +20,8 @@ def import_junit(junit_file, **kwargs):
     """Reads the content of the junit-results file produced by pytest and returns imported data."""
     try:
         tree = ElementTree.parse(os.path.expanduser(junit_file))
-    except ElementTree.ParseError as err:
-        raise Dump2PolarionException("Failed to parse XML file {}: {}".format(junit_file, err))
+    except Exception as err:
+        raise Dump2PolarionException("Failed to parse XML file '{}': {}".format(junit_file, err))
     xml_root = tree.getroot()
 
     results = []

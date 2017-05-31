@@ -163,6 +163,9 @@ class XunitExport(object):
 
     def fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""
+        if not self.tests_records.results:
+            raise Dump2PolarionException("Nothing to export")
+
         records = dict(passed=0, skipped=0, failures=0, waiting=0, time=0.0)
         for testcase_result in self.tests_records.results:
             self.gen_testcase(testsuite_element, testcase_result, records)
@@ -172,6 +175,9 @@ class XunitExport(object):
             records['skipped'] +
             records['failures'] +
             records['waiting'])
+
+        if tests_num == 0:
+            raise Dump2PolarionException("Nothing to export")
 
         testsuite_element.set('errors', str(records['skipped']))
         testsuite_element.set('failures', str(records['failures']))
@@ -196,6 +202,8 @@ class XunitExport(object):
 
     def write_xml(self, xml, output_file=None):
         """Outputs the XML content into a file."""
+        if not xml:
+            raise Dump2PolarionException("No data to write.")
         gen_filename = 'testrun_{}-{:%Y%m%d%H%M%S}.xml'.format(
             self.testrun_id, datetime.datetime.now())
         if output_file:
