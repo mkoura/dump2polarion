@@ -13,7 +13,7 @@ import os
 import datetime
 
 import dump2polarion
-from dump2polarion import Dump2PolarionException, csvtools, dbtools, junittools
+from dump2polarion import Dump2PolarionException, csvtools, dbtools, junittools, ostriztools
 from dump2polarion.submit import submit_to_polarion
 
 
@@ -28,7 +28,7 @@ def get_args(args=None):
                         help="Path to CSV or SQLite reports file or xunit XML file")
     parser.add_argument('-o', '--output_file', action='store',
                         help="Path to XML output file (default: none)")
-    parser.add_argument('-t', '--testrun-id', required=True, action='store',
+    parser.add_argument('-t', '--testrun-id', action='store',
                         help="Polarion test run id")
     parser.add_argument('-c', '--config_file', action='store',
                         help="Path to config YAML (default: dump2polarion.yaml")
@@ -65,14 +65,35 @@ def submit_and_verify(args, config, xunit):
     return bool(response)
 
 
+def init_log(log_level):
+    """Initializes logging."""
+    log_level = log_level or 'INFO'
+    logging.basicConfig(
+        format='%(name)s:%(levelname)s:%(message)s',
+        level=getattr(logging, log_level.upper(), logging.INFO))
+
+
+def get_testrun_id(args, records):
+    """Returns testrun id."""
+    if (args.testrun_id and records.testrun and not args.force and
+            records.testrun != args.testrun_id):
+        raise Dump2PolarionException(
+            "The test run id `{}` found in exported data doesn't match `{}`. "
+            "If you really want to proceed, add '-f'.".format(records.testrun, args.testrun_id))
+
+    testrun_id = args.testrun_id or records.testrun
+    if not testrun_id:
+        raise Dump2PolarionException(
+            "The testrun id was not specified on command line and not found in the input data.")
+
+    return testrun_id
+
+
 def main(args=None):
     """Main function for cli."""
     args = get_args(args)
 
-    log_level = args.log_level or 'INFO'
-    logging.basicConfig(
-        format='%(name)s:%(levelname)s:%(message)s',
-        level=getattr(logging, log_level.upper(), logging.INFO))
+    init_log(args.log_level)
 
     try:
         config = dump2polarion.get_config(args.config_file)
@@ -82,7 +103,9 @@ def main(args=None):
 
     _, ext = os.path.splitext(args.input_file)
     ext = ext.lower()
-    if ext == '.xml':
+    if 'ostriz' in args.input_file:
+        importer = ostriztools.import_ostriz
+    elif ext == '.xml':
         with open(args.input_file) as input_file:
             xunit = input_file.read()
 
@@ -96,23 +119,23 @@ def main(args=None):
         importer = junittools.import_junit
     elif ext == '.csv':
         importer = csvtools.import_csv_and_check
-    else:
+    elif ext in ('.sqlite', '.sqlite3', '.db', '.db3'):
         importer = dbtools.import_sqlite
+    else:
+        logger.fatal(
+            "Cannot recognize type of input data, add file extension.")
+        return 1
 
     import_time = datetime.datetime.utcnow()
+
     try:
         records = importer(args.input_file, older_than=import_time)
+        testrun_id = get_testrun_id(args, records)
     except (EnvironmentError, Dump2PolarionException) as err:
         logger.fatal(err)
         return 1
 
-    if not args.force and records.testrun and records.testrun != args.testrun_id:
-        logger.fatal(
-            "The test run id `{}` found in exported data doesn't match `{}`. "
-            "If you really want to proceed, add '-f'.".format(records.testrun, args.testrun_id))
-        return 1
-
-    exporter = dump2polarion.XunitExport(args.testrun_id, records, config)
+    exporter = dump2polarion.XunitExport(testrun_id, records, config)
     output = exporter.export()
 
     if args.output_file or args.no_submit:
