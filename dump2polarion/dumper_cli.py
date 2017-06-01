@@ -92,6 +92,7 @@ def get_testrun_id(args, records):
     return testrun_id
 
 
+# pylint: disable=too-many-locals
 def main(args=None):
     """Main function for cli."""
     args = get_args(args)
