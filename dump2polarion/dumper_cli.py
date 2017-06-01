@@ -13,7 +13,7 @@ import os
 import datetime
 
 import dump2polarion
-from dump2polarion import Dump2PolarionException
+from dump2polarion import Dump2PolarionException, dbtools
 from dump2polarion.submit import submit_to_polarion
 
 
@@ -128,7 +128,6 @@ def main(args=None):
         from dump2polarion import csvtools
         importer = csvtools.import_csv_and_check
     elif ext in ('.sqlite', '.sqlite3', '.db', '.db3'):
-        from dump2polarion import dbtools
         importer = dbtools.import_sqlite
     else:
         logger.fatal(
@@ -160,7 +159,6 @@ def main(args=None):
         response = submit_and_verify(args, config, output)
 
         if importer is dbtools.import_sqlite and response:
-            logger.debug("Marking rows in database as exported")
             dbtools.mark_exported_sqlite(args.input_file, import_time)
 
         return 0 if response else 2

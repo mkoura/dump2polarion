@@ -7,12 +7,17 @@ from __future__ import unicode_literals, absolute_import
 
 import os
 
+import logging
 import sqlite3
 from sqlite3 import Error as SQLiteError
 
 from collections import OrderedDict
 
 from dump2polarion import ImportedData, Dump2PolarionException
+
+
+# pylint: disable=invalid-name
+logger = logging.getLogger(__name__)
 
 
 def get_testrun_from_sqlite(conn):
@@ -66,6 +71,7 @@ def import_sqlite(db_file, older_than=None, **kwargs):
 
 def mark_exported_sqlite(db_file, older_than=None):
     """Marks rows with verdict as exported."""
+    logger.debug("Marking rows in database as exported")
     conn = open_sqlite(db_file)
     cur = conn.cursor()
     update = "UPDATE testcases SET exported = 'yes' WHERE verdict IS NOT null AND verdict != ''"
