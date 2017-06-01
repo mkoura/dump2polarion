@@ -13,7 +13,7 @@ import os
 import datetime
 
 import dump2polarion
-from dump2polarion import Dump2PolarionException, csvtools, dbtools, junittools, ostriztools
+from dump2polarion import Dump2PolarionException
 from dump2polarion.submit import submit_to_polarion
 
 
@@ -104,9 +104,11 @@ def main(args=None):
         logger.fatal(err)
         return 1
 
+    # select importer based on input file type and load needed tools
     _, ext = os.path.splitext(args.input_file)
     ext = ext.lower()
     if 'ostriz' in args.input_file:
+        from dump2polarion import ostriztools
         importer = ostriztools.import_ostriz
     elif ext == '.xml':
         with open(args.input_file) as input_file:
@@ -118,11 +120,14 @@ def main(args=None):
             return 0 if response else 2
 
         # expect junit-report from pytest
+        from dump2polarion import junittools
         del xunit
         importer = junittools.import_junit
     elif ext == '.csv':
+        from dump2polarion import csvtools
         importer = csvtools.import_csv_and_check
     elif ext in ('.sqlite', '.sqlite3', '.db', '.db3'):
+        from dump2polarion import dbtools
         importer = dbtools.import_sqlite
     else:
         logger.fatal(
