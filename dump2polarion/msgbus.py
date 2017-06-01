@@ -145,7 +145,7 @@ def get_verification_func(config, xunit, **kwargs):
         logger.debug('Terminating subscription')
         conn.disconnect()
 
-    def verify_submit(skip=False):
+    def verify_submit(skip=False, timeout=300):
         """Verifies that the results were successfully submitted."""
         headers = message = is_error = None
         try:
@@ -153,7 +153,7 @@ def get_verification_func(config, xunit, **kwargs):
                 # just do cleanup in finally
                 return
             logger.info("Waiting for response on the XUnit Importer message bus...")
-            if listener.wait_for_message():
+            if listener.wait_for_message(timeout=timeout):
                 headers, message, is_error = listener.get_latest_message()
         # pylint: disable=broad-except
         except Exception as err:

@@ -42,6 +42,9 @@ def get_args(args=None):
                         help="Don't validate test run id")
     parser.add_argument('--no-verify', action='store_true',
                         help="Don't verify results submission")
+    parser.add_argument('--verify-timeout', type=int, default=300, metavar='SEC',
+                        help="How long to wait (in seconds) for verification of results submission"
+                             " (default: %(default)s)")
     parser.add_argument('--log-level', action='store',
                         help="Set logging to specified level")
     return parser.parse_args(args)
@@ -60,7 +63,7 @@ def submit_and_verify(args, config, xunit):
     response = submit_to_polarion(xunit, config, user=args.user, password=args.password)
 
     if verification_func:
-        response = verification_func(skip=not response)
+        response = verification_func(skip=not response, timeout=args.verify_timeout)
 
     return bool(response)
 
