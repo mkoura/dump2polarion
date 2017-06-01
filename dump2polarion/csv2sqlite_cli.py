@@ -22,11 +22,11 @@ logger = logging.getLogger(__name__)
 def get_args(args=None):
     """Get command line arguments."""
     parser = argparse.ArgumentParser(description='csv2sqlite')
-    parser.add_argument('-i', '--input_file', required=True, action='store',
+    parser.add_argument('-i', '--input_file', required=True,
                         help="Path to CSV records file")
-    parser.add_argument('-o', '--output_file', required=True, action='store',
+    parser.add_argument('-o', '--output_file', required=True,
                         help="Path to sqlite output file")
-    parser.add_argument('--log-level', action='store',
+    parser.add_argument('--log-level',
                         help="Set logging to specified level")
     return parser.parse_args(args)
 

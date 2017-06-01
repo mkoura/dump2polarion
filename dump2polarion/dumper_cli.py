@@ -24,19 +24,19 @@ logger = logging.getLogger(__name__)
 def get_args(args=None):
     """Get command line arguments."""
     parser = argparse.ArgumentParser(description='dump2polarion')
-    parser.add_argument('-i', '--input_file', required=True, action='store',
+    parser.add_argument('-i', '--input_file', required=True,
                         help="Path to CSV or SQLite reports file or xunit XML file")
-    parser.add_argument('-o', '--output_file', action='store',
+    parser.add_argument('-o', '--output_file',
                         help="Path to XML output file (default: none)")
-    parser.add_argument('-t', '--testrun-id', action='store',
+    parser.add_argument('-t', '--testrun-id',
                         help="Polarion test run id")
-    parser.add_argument('-c', '--config_file', action='store',
+    parser.add_argument('-c', '--config_file',
                         help="Path to config YAML (default: dump2polarion.yaml")
     parser.add_argument('-n', '--no-submit', action='store_true',
                         help="Don't submit results to Polarion")
-    parser.add_argument('--user', action='store',
+    parser.add_argument('--user',
                         help="Username to use to submit results to Polarion")
-    parser.add_argument('--password', action='store',
+    parser.add_argument('--password',
                         help="Password to use to submit results to Polarion")
     parser.add_argument('-f', '--force', action='store_true',
                         help="Don't validate test run id")
@@ -45,7 +45,7 @@ def get_args(args=None):
     parser.add_argument('--verify-timeout', type=int, default=300, metavar='SEC',
                         help="How long to wait (in seconds) for verification of results submission"
                              " (default: %(default)s)")
-    parser.add_argument('--log-level', action='store',
+    parser.add_argument('--log-level',
                         help="Set logging to specified level")
     return parser.parse_args(args)
 
