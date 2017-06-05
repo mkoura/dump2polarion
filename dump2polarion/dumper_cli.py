@@ -13,7 +13,8 @@ import os
 import datetime
 
 import dump2polarion
-from dump2polarion import Dump2PolarionException, dbtools
+from dump2polarion import dbtools
+from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.configuration import get_config
 from dump2polarion.submit import submit_to_polarion
 

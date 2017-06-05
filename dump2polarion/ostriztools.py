@@ -10,7 +10,8 @@ import json
 import datetime
 import requests
 
-from dump2polarion import ImportedData, Dump2PolarionException
+from dump2polarion import ImportedData
+from dump2polarion.exceptions import Dump2PolarionException
 
 
 def get_json(location):

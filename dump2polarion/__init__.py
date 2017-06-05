@@ -18,6 +18,7 @@ from xml.dom import minidom
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element, SubElement, Comment
 
+from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.verdicts import Verdicts
 from dump2polarion.transform import get_results_transform
 
@@ -27,10 +28,6 @@ logger = logging.getLogger(__name__)
 
 
 ImportedData = namedtuple('ImportedData', 'results testrun')
-
-
-class Dump2PolarionException(Exception):
-    """dump2polarion exception."""
 
 
 class XunitExport(object):

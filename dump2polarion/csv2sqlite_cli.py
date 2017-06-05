@@ -12,7 +12,8 @@ import os
 import sqlite3
 import datetime
 
-from dump2polarion import Dump2PolarionException, csvtools
+from dump2polarion import csvtools
+from dump2polarion.exceptions import Dump2PolarionException
 
 
 # pylint: disable=invalid-name

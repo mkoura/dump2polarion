@@ -12,7 +12,8 @@ from collections import OrderedDict
 
 from xml.etree import ElementTree
 
-from dump2polarion import ImportedData, Dump2PolarionException
+from dump2polarion import ImportedData
+from dump2polarion.exceptions import Dump2PolarionException
 
 
 # pylint: disable=unused-argument

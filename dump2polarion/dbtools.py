@@ -13,7 +13,8 @@ from sqlite3 import Error as SQLiteError
 
 from collections import OrderedDict
 
-from dump2polarion import ImportedData, Dump2PolarionException
+from dump2polarion import ImportedData
+from dump2polarion.exceptions import Dump2PolarionException
 
 
 # pylint: disable=invalid-name
