@@ -14,6 +14,7 @@ import datetime
 
 import dump2polarion
 from dump2polarion import Dump2PolarionException, dbtools
+from dump2polarion.configuration import get_config
 from dump2polarion.submit import submit_to_polarion
 
 
@@ -102,7 +103,7 @@ def main(args=None):
     init_log(args.log_level)
 
     try:
-        config = dump2polarion.get_config(args.config_file)
+        config = get_config(args.config_file)
     except EnvironmentError as err:
         logger.fatal(err)
         return 1
