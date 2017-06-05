@@ -31,35 +31,38 @@ def submit_to_polarion(xunit, config, **kwargs):
     """Submits results to Polarion®."""
     login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
     pwd = kwargs.get('password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
-    xunit_target = config.get('xunit_target')
 
     if not all([login, pwd]):
         logger.error("Failed to submit results to Polarion - missing credentials")
         return
-    if not xunit_target:
-        logger.error("Failed to submit results to Polarion - missing 'xunit_target'")
+
+    if '<testcases' in xunit:
+        submit_target = config.get('testcase_taget')
+    elif '<testsuites' in xunit:
+        submit_target = config.get('xunit_target')
+    else:
+        submit_target = None
+
+    if not submit_target:
+        logger.error("Failed to submit results to Polarion - missing submit target")
         return
 
-    if os.path.isfile(xunit):
-        files = {'file': ('results.xml', open(xunit, 'rb'))}
-    else:
-        files = {'file': ('results.xml', xunit)}
-
-    logger.info("Submitting results to {}".format(xunit_target))
+    logger.info("Submitting results to {}".format(submit_target))
+    files = {'file': ('results.xml', xunit)}
     try:
-        response = requests.post(xunit_target, files=files, auth=(login, pwd), verify=False)
+        response = requests.post(submit_target, files=files, auth=(login, pwd), verify=False)
     # pylint: disable=broad-except
     except Exception as err:
         logger.error(err)
         response = None
 
     if response is None:
-        logger.error("Failed to submit results to {}".format(xunit_target))
+        logger.error("Failed to submit results to {}".format(submit_target))
     elif response:
         logger.info("Results received by XUnit Importer (HTTP status {})".format(
             response.status_code))
     else:
         logger.error("HTTP status {}: failed to submit results to {}".format(
-            response.status_code, xunit_target))
+            response.status_code, submit_target))
 
     return response
