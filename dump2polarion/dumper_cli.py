@@ -27,7 +27,7 @@ def get_args(args=None):
     parser.add_argument('-i', '--input_file', required=True,
                         help="Path to CSV or SQLite reports file or xunit XML file")
     parser.add_argument('-o', '--output_file',
-                        help="Path to XML output file (default: none)")
+                        help="Where to save the XML output file (default: not saved)")
     parser.add_argument('-t', '--testrun-id',
                         help="Polarion test run id")
     parser.add_argument('-c', '--config_file',
@@ -45,6 +45,8 @@ def get_args(args=None):
     parser.add_argument('--verify-timeout', type=int, default=300, metavar='SEC',
                         help="How long to wait (in seconds) for verification of results submission"
                              " (default: %(default)s)")
+    parser.add_argument('--msgbus-log',
+                        help="Where to save the log file returned by msgbus (default: not saved)")
     parser.add_argument('--log-level',
                         help="Set logging to specified level")
     return parser.parse_args(args)
@@ -58,7 +60,7 @@ def submit_and_verify(args, config, xunit):
         # avoid slow initialization of stomp when it's not needed
         from dump2polarion import msgbus
         verification_func = msgbus.get_verification_func(
-            config, xunit, user=args.user, password=args.password)
+            config, xunit, user=args.user, password=args.password, log_file=args.msgbus_log)
 
     response = submit_to_polarion(xunit, config, user=args.user, password=args.password)
 

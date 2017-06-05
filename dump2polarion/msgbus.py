@@ -14,6 +14,7 @@ import pprint
 
 from xml.etree import ElementTree
 
+import requests
 import stomp
 
 
@@ -76,7 +77,15 @@ def log_received_data(headers, message):
     logging.debug("Message body: \n{}".format(message))
 
 
-def check_outcome(message, is_error):
+def download_log(url, output_file):
+    """Saves log returned by the message bus."""
+    logger.info("Saving log {} to {}".format(url, output_file))
+    log_data = requests.get(url)
+    with open(os.path.expanduser(output_file), 'wb') as out:
+        out.write(log_data.content)
+
+
+def check_outcome(message, is_error, log_file=None):
     """Parses returned message and checks submit outcome."""
     if is_error is None:
         logger.error("Submit verification timed out, results probably not updated")
@@ -94,7 +103,10 @@ def check_outcome(message, is_error):
 
     url = data.get('log-url')
     if url:
-        logger.info("Submit log: {}".format(url))
+        if not log_file:
+            logger.info("Submit log: {}".format(url))
+        else:
+            download_log(url, log_file)
 
     if data.get('status') == 'passed':
         logger.info("Results successfully submitted!")
@@ -164,6 +176,6 @@ def get_verification_func(config, xunit, **kwargs):
 
         log_received_data(headers, message)
 
-        return check_outcome(message, is_error)
+        return check_outcome(message, is_error, log_file=kwargs.get('log_file'))
 
     return verify_submit
