@@ -117,16 +117,16 @@ def main(args=None):
         importer = ostriztools.import_ostriz
     elif ext == '.xml':
         with open(args.input_file) as input_file:
-            xunit = input_file.read()
+            xml = input_file.read()
 
-        if 'polarion-testrun-id' in xunit:
-            # expect xunit xml and just submit it
-            response = submit_and_verify(args, config, xunit)
+        if 'polarion-testrun-id' in xml or '<testcases' in xml:
+            # expect importer xml and just submit it
+            response = submit_and_verify(args, config, xml)
             return 0 if response else 2
 
         # expect junit-report from pytest
         from dump2polarion import junittools
-        del xunit
+        del xml
         importer = junittools.import_junit
     elif ext == '.csv':
         from dump2polarion import csvtools
