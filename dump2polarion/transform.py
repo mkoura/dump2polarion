@@ -25,7 +25,7 @@ def get_results_transform(project):
         'GH ?#?[0-9]+',
         'GH#ManageIQ',
     ]
-    cfme_skips = '(' + ')|('.join(cfme_searches) + ')'
+    cfme_skips = re.compile('(' + ')|('.join(cfme_searches) + ')')
 
     def results_transform_cfme(result):
         """Result checks for CFME."""
@@ -39,7 +39,7 @@ def get_results_transform(project):
         # ... and SKIP results where there is a good reason (blocker etc.)
         if verdict in Verdicts.SKIP:
             comment = result.get('comment')
-            if comment and re.search(cfme_skips, comment):
+            if comment and cfme_skips.search(comment):
                 # found reason for skip
                 return result
 
