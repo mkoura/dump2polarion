@@ -59,14 +59,27 @@ class XunitListener(object):
 def get_response_property(xunit):
     """Parse xunit xml and finds the "polarion-response-" name and value."""
     try:
-        root = ElementTree.fromstring(xunit)
+        tree = ElementTree.fromstring(xunit)
+        root = tree.getroot()
     except ElementTree.ParseError as err:
         logger.error(err)
         return
-    properties = root.find('properties')
-    for prop in properties:
-        if prop.attrib.get('name') and 'polarion-response-' in prop.attrib['name']:
-            return (prop.attrib['name'][len('polarion-response-'):], str(prop.attrib['value']))
+
+    if root.tag == 'testsuites':
+        properties = root.find('properties')
+        for prop in properties:
+            prop_name = prop.get('name', '')
+            if 'polarion-response-' in prop_name:
+                return (prop_name[len('polarion-response-'):], str(prop.get('value')))
+    elif root.tag == 'testcases':
+        properties = root.find('response-properties')
+        for prop in properties:
+            if prop.tag != 'response-property':
+                continue
+            prop_name = prop.get('name')
+            prop_value = prop.get('value')
+            if prop_name and prop_value:
+                return (prop_name, str(prop_value))
 
 
 def log_received_data(headers, message):
