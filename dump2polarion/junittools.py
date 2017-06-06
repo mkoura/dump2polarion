@@ -37,7 +37,7 @@ def import_junit(junit_file, **kwargs):
             if element.tag in ('error', 'failure'):
                 break
             elif element.tag == 'skipped':
-                comment = element.attrib.get('message')
+                comment = element.get('message')
                 if comment:
                     verdict = 'skipped'
                 break
@@ -47,9 +47,9 @@ def import_junit(junit_file, **kwargs):
         if verdict == 'failed':
             continue
 
-        title = test_data.attrib.get('name')
-        classname = test_data.attrib.get('classname')
-        time = test_data.attrib.get('time', 0)
+        title = test_data.get('name')
+        classname = test_data.get('classname')
+        time = test_data.get('time', 0)
 
         record = OrderedDict([
             ('title', title),
