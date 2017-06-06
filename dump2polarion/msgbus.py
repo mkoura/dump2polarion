@@ -41,8 +41,9 @@ class XunitListener(object):
         """Actions when error is received."""
         return self.on_message(headers, message, True)
 
-    def wait_for_message(self, timeout=300):
+    def wait_for_message(self, timeout=None):
         """Waits for message on xunit importer message bus."""
+        timeout = timeout or 300
         with self.message_condition:
             if not self.message_received:
                 self.message_condition.wait(timeout=timeout)
@@ -157,7 +158,7 @@ def get_verification_func(config, xunit, **kwargs):
         logger.debug('Terminating subscription')
         conn.disconnect()
 
-    def verify_submit(skip=False, timeout=300):
+    def verify_submit(skip=False, timeout=None):
         """Verifies that the results were successfully submitted."""
         headers = message = is_error = None
         try:

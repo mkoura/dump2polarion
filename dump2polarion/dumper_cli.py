@@ -16,7 +16,7 @@ import dump2polarion
 from dump2polarion import dbtools
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.configuration import get_config
-from dump2polarion.submit import submit_to_polarion
+from dump2polarion.submit import submit_and_verify
 
 
 # pylint: disable=invalid-name
@@ -52,24 +52,6 @@ def get_args(args=None):
     parser.add_argument('--log-level',
                         help="Set logging to specified level")
     return parser.parse_args(args)
-
-
-def submit_and_verify(args, config, xunit):
-    """Submits results to the XUnit Importer and checks that it was imported."""
-    if args.no_verify:
-        verification_func = None
-    else:
-        # avoid slow initialization of stomp when it's not needed
-        from dump2polarion import msgbus
-        verification_func = msgbus.get_verification_func(
-            config, xunit, user=args.user, password=args.password, log_file=args.msgbus_log)
-
-    response = submit_to_polarion(xunit, config, user=args.user, password=args.password)
-
-    if verification_func:
-        response = verification_func(skip=not response, timeout=args.verify_timeout)
-
-    return bool(response)
 
 
 def init_log(log_level):
@@ -121,7 +103,7 @@ def main(args=None):
 
         if 'polarion-testrun-id' in xml or '<testcases' in xml:
             # expect importer xml and just submit it
-            response = submit_and_verify(args, config, xml)
+            response = submit_and_verify(xml, config, **vars(args))
             return 0 if response else 2
 
         # expect junit-report from pytest
@@ -160,7 +142,7 @@ def main(args=None):
         exporter.write_xml(output, args.output_file)
 
     if not args.no_submit:
-        response = submit_and_verify(args, config, output)
+        response = submit_and_verify(output, config, **vars(args))
 
         if importer is dbtools.import_sqlite and response:
             dbtools.mark_exported_sqlite(args.input_file, import_time)

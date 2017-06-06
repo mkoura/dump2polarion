@@ -14,6 +14,7 @@ import requests
 # requests package backwards compatibility mess
 # pylint: disable=import-error,ungrouped-imports
 from requests.packages.urllib3.exceptions import InsecureRequestWarning as IRWrequests
+# pylint: disable=no-member
 requests.packages.urllib3.disable_warnings(IRWrequests)
 try:
     import urllib3
@@ -27,8 +28,8 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
-def submit_to_polarion(xunit, config, **kwargs):
-    """Submits results to Polarion®."""
+def submit(xunit, config, **kwargs):
+    """Submits results to the XUnit Importer."""
     login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
     pwd = kwargs.get('password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
 
@@ -66,3 +67,27 @@ def submit_to_polarion(xunit, config, **kwargs):
             response.status_code, submit_target))
 
     return response
+
+
+def submit_and_verify(xunit, config, **kwargs):
+    """Submits results to the XUnit Importer and checks that it was imported."""
+    login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
+    pwd = kwargs.get('password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
+    no_verify = kwargs.get('no_verify')
+    msgbus_log = kwargs.get('msgbus_log')
+    verify_timeout = kwargs.get('verify_timeout')
+
+    if no_verify:
+        verification_func = None
+    else:
+        # avoid slow initialization of stomp when it's not needed
+        from dump2polarion import msgbus
+        verification_func = msgbus.get_verification_func(
+            config, xunit, user=login, password=pwd, log_file=msgbus_log)
+
+    response = submit(xunit, config, user=login, password=pwd)
+
+    if verification_func:
+        response = verification_func(skip=not response, timeout=verify_timeout)
+
+    return bool(response)
