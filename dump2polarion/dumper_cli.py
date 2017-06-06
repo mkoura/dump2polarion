@@ -87,7 +87,7 @@ def main(args=None):
 
     try:
         config = get_config(args.config_file)
-    except EnvironmentError as err:
+    except Dump2PolarionException as err:
         logger.fatal(err)
         return 1
 

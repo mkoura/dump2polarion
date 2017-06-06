@@ -10,6 +10,7 @@ import os
 import logging
 import yaml
 
+from dump2polarion.exceptions import Dump2PolarionException
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
@@ -26,7 +27,7 @@ def get_config(config_file=None):
     except EnvironmentError:
         user_conf = None
         if config_file:
-            raise EnvironmentError("cannot open config file '{}'".format(config_file))
+            raise Dump2PolarionException("cannot open config file '{}'".format(config_file))
 
     with open(default_conf) as input_file:
         config_settings = yaml.load(input_file)

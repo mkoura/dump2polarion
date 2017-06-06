@@ -11,6 +11,8 @@ import logging
 
 import requests
 
+from dump2polarion.configuration import get_config
+
 # requests package backwards compatibility mess
 # pylint: disable=import-error,ungrouped-imports
 from requests.packages.urllib3.exceptions import InsecureRequestWarning as IRWrequests
@@ -28,8 +30,10 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
-def submit(xunit, config, **kwargs):
+def submit(xunit, config=None, **kwargs):
     """Submits results to the XUnit Importer."""
+    # get default configuration when missing
+    config = config or get_config()
     login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
     pwd = kwargs.get('password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
 
@@ -69,8 +73,10 @@ def submit(xunit, config, **kwargs):
     return response
 
 
-def submit_and_verify(xunit, config, **kwargs):
+def submit_and_verify(xunit, config=None, **kwargs):
     """Submits results to the XUnit Importer and checks that it was imported."""
+    # get default configuration when missing
+    config = config or get_config()
     login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
     pwd = kwargs.get('password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
     no_verify = kwargs.get('no_verify')
