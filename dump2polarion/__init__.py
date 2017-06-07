@@ -6,7 +6,6 @@ Dump testcases results to xunit file and submit it to the Polarion® XUnit Impor
 
 from __future__ import unicode_literals, absolute_import
 
-import os
 import datetime
 import string
 import random
@@ -21,6 +20,7 @@ from xml.etree.ElementTree import Element, SubElement, Comment
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.verdicts import Verdicts
 from dump2polarion.transform import get_results_transform
+from dump2polarion.utils import write_xml
 
 
 # pylint: disable=invalid-name
@@ -197,17 +197,6 @@ class XunitExport(object):
 
     def write_xml(self, xml, output_file=None):
         """Outputs the XML content into a file."""
-        if not xml:
-            raise Dump2PolarionException("No data to write.")
         gen_filename = 'testrun_{}-{:%Y%m%d%H%M%S}.xml'.format(
             self.testrun_id, datetime.datetime.now())
-        if output_file:
-            filename = os.path.expanduser(output_file)
-            if os.path.isdir(filename):
-                filename = os.path.join(filename, gen_filename)
-        else:
-            filename = gen_filename
-
-        with open(filename, 'w') as xml_file:
-            xml_file.write(xml)
-        logger.info("Data written to '{}'".format(filename))
+        write_xml(xml, output_file, gen_filename)
