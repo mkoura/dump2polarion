@@ -39,6 +39,10 @@ def get_config(config_file=None):
         logger.info("Config loaded from '{}'".format(user_conf))
 
         # merge default and user configuration
-        config_settings.update(config_settings_user)
+        try:
+            config_settings.update(config_settings_user)
+        except ValueError as err:
+            raise Dump2PolarionException(
+                "Failed to load the '{}' config file: {}".format(user_conf, err))
 
     return config_settings
