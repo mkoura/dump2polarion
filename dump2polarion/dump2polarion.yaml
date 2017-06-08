@@ -4,4 +4,4 @@ xunit_import_properties:
     polarion-testrun-status-id  : inprogress
 message_bus: ci-bus.lab.eng.rdu2.redhat.com:61613
 xunit_target: https://polarion.engineering.redhat.com/polarion/import/xunit
-testcase_taget: https://polarion-stage.engineering.redhat.com/polarion/import/testcase
+testcase_taget: https://polarion.engineering.redhat.com/polarion/import/testcase
