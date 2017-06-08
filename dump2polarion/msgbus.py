@@ -59,8 +59,7 @@ class XunitListener(object):
 def get_response_property(xunit):
     """Parse xunit xml and finds the "polarion-response-" name and value."""
     try:
-        tree = ElementTree.fromstring(xunit)
-        root = tree.getroot()
+        root = ElementTree.fromstring(xunit)
     except ElementTree.ParseError as err:
         logger.error(err)
         return

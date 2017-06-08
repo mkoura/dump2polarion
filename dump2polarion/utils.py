@@ -12,6 +12,8 @@ import string
 import random
 import logging
 
+from xml.etree import ElementTree
+
 from dump2polarion.exceptions import Dump2PolarionException
 
 
@@ -35,3 +37,25 @@ def write_xml(xml, output_file=None, gen_filename=None):
     with open(filename, 'w') as xml_file:
         xml_file.write(xml)
     logger.info("Data written to '{}'".format(filename))
+
+
+def xunit_fill_testrun_id(xml, testrun_id=None):
+    """Adds the polarion-testrun-id property when it's missing."""
+    try:
+        xml_root = ElementTree.fromstring(xml)
+    # pylint: disable=broad-except
+    except Exception as err:
+        raise Dump2PolarionException("Failed to parse XML file: {}".format(err))
+
+    properties = xml_root.find('properties')
+    for prop in properties:
+        if prop.get('name') == 'polarion-testrun-id':
+            return xml
+
+    if testrun_id:
+        ElementTree.SubElement(properties, 'property',
+                               {'name': 'polarion-testrun-id', 'value': str(testrun_id)})
+        return ElementTree.tostring(xml_root, encoding='utf8')
+    else:
+        raise Dump2PolarionException(
+            "The testrun id was not specified and not found in the input data.")

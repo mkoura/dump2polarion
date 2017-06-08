@@ -17,6 +17,7 @@ from dump2polarion import dbtools
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.configuration import get_config
 from dump2polarion.submit import submit_and_verify
+from dump2polarion.utils import xunit_fill_testrun_id
 
 
 # pylint: disable=invalid-name
@@ -62,23 +63,23 @@ def init_log(log_level):
         level=getattr(logging, log_level.upper(), logging.INFO))
 
 
-def get_testrun_id(args, records):
+def get_testrun_id(args, testrun_id):
     """Returns testrun id."""
-    if (args.testrun_id and records.testrun and not args.force and
-            records.testrun != args.testrun_id):
+    if (args.testrun_id and testrun_id and not args.force and
+            testrun_id != args.testrun_id):
         raise Dump2PolarionException(
             "The test run id '{}' found in exported data doesn't match '{}'. "
-            "If you really want to proceed, add '-f'.".format(records.testrun, args.testrun_id))
+            "If you really want to proceed, add '-f'.".format(testrun_id, args.testrun_id))
 
-    testrun_id = args.testrun_id or records.testrun
-    if not testrun_id:
+    found_testrun_id = args.testrun_id or testrun_id
+    if not found_testrun_id:
         raise Dump2PolarionException(
             "The testrun id was not specified on command line and not found in the input data.")
 
-    return testrun_id
+    return found_testrun_id
 
 
-# pylint: disable=too-many-locals
+# pylint: disable=too-many-locals,too-many-return-statements,too-many-branches,too-many-statements
 def main(args=None):
     """Main function for cli."""
     args = get_args(args)
@@ -101,9 +102,27 @@ def main(args=None):
         with open(args.input_file) as input_file:
             xml = input_file.read()
 
-        if 'polarion-testrun-id' in xml or '<testcases' in xml:
+        to_submit = None
+        if '<testsuites' in xml:
+            if 'polarion-testrun-id' in xml:
+                to_submit = xml
+            else:
+                try:
+                    to_submit = xunit_fill_testrun_id(xml, args.testrun_id)
+                except Dump2PolarionException as err:
+                    logger.fatal(err)
+                    return 1
+            if not to_submit:
+                return 1
+        elif '<testcases' in xml:
+            to_submit = xml
+
+        if to_submit:
+            if args.no_submit:
+                logger.info("Nothing to do")
+                return 0
             # expect importer xml and just submit it
-            response = submit_and_verify(xml, config, **vars(args))
+            response = submit_and_verify(to_submit, config, **vars(args))
             return 0 if response else 2
 
         # expect junit-report from pytest
@@ -124,7 +143,7 @@ def main(args=None):
 
     try:
         records = importer(args.input_file, older_than=import_time)
-        testrun_id = get_testrun_id(args, records)
+        testrun_id = get_testrun_id(args, records.testrun)
     except (EnvironmentError, Dump2PolarionException) as err:
         logger.fatal(err)
         return 1
