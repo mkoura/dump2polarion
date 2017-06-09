@@ -36,8 +36,7 @@ class XunitExport(object):
         self.testrun_id = testrun_id
         self.tests_records = tests_records
         self.config = config
-        self.transform_func = transform_func or get_results_transform(
-            config['xunit_import_properties']['polarion-project-id'])
+        self.transform_func = transform_func or get_results_transform(config)
 
     def top_element(self):
         """Returns top XML element."""
@@ -202,4 +201,4 @@ class XunitExport(object):
         """Outputs the XML content into a file."""
         gen_filename = 'testrun_{}-{:%Y%m%d%H%M%S}.xml'.format(
             self.testrun_id, datetime.datetime.now())
-        write_xml(xml, output_file, gen_filename)
+        write_xml(xml, output_loc=output_file, filename=gen_filename)

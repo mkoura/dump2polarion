@@ -13,15 +13,8 @@ import re
 from dump2polarion.verdicts import Verdicts
 
 
-def get_results_transform(project):
-    """Returns results transformation function.
-
-    This allows customizations of results data according to requirements
-    of the specific project.
-
-    When no results data are returned, this result will be ignored
-    and will not be written to the resulting XML.
-    """
+def get_results_transform_cfme():
+    """Return result transformation function for CFME."""
     cfme_searches = [
         'Skipping due to these blockers',
         'BZ ?[0-9]+',
@@ -31,7 +24,7 @@ def get_results_transform(project):
     cfme_skips = re.compile('(' + ')|('.join(cfme_searches) + ')')
 
     def results_transform_cfme(result):
-        """Result checks for CFME."""
+        """Results transform for CFME."""
         if result.get('classname'):
             # we don't need classnames?
             del result['classname']
@@ -46,5 +39,31 @@ def get_results_transform(project):
                 # found reason for skip
                 return result
 
-    if project == 'RHCF3':
-        return results_transform_cfme
+    return results_transform_cfme
+
+
+PROJECT_MAPPING = {'RHCF3': get_results_transform_cfme}
+
+
+def get_results_transform(config):
+    """Returns results transformation function.
+
+    The transformation function is returned by calling corresponding "getter" function.
+
+    This allows customizations of results data according to requirements
+    of the specific project.
+
+    When no results data are returned, this result will be ignored
+    and will not be written to the resulting XML.
+    """
+
+    # transform function name configured in config file
+    if config.get('results_transform_getter'):
+        transform_func_getter = config['results_transform_getter']
+        if transform_func_getter in globals():
+            return globals()[transform_func_getter]()
+
+    # return transform function based on project name
+    project = config['xunit_import_properties']['polarion-project-id']
+    if project in PROJECT_MAPPING:
+        return PROJECT_MAPPING[project]()

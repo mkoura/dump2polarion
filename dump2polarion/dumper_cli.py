@@ -161,7 +161,7 @@ def main(args=None):
         exporter.write_xml(output, args.output_file)
 
     if not args.no_submit:
-        response = submit_and_verify(output, config, **vars(args))
+        response = submit_and_verify(output, config=config, **vars(args))
 
         if importer is dbtools.import_sqlite and response:
             dbtools.mark_exported_sqlite(args.input_file, import_time)

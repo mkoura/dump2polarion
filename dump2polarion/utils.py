@@ -21,22 +21,29 @@ from dump2polarion.exceptions import Dump2PolarionException
 logger = logging.getLogger(__name__)
 
 
-def write_xml(xml, output_file=None, gen_filename=None):
-    """Outputs the XML content into a file."""
+def write_xml(xml, output_loc=None, filename=None):
+    """Outputs the XML content into a file.
+
+    Args:
+        xml: string with XML document
+        output_loc: file or directory for saving the file
+        filename: file name that will be used if output_loc is directory
+            If it is needed and is not supplied, it will be generated
+    """
     if not xml:
         raise Dump2PolarionException("No data to write.")
-    gen_filename = gen_filename or 'output-{}-{:%Y%m%d%H%M%S}.xml'.format(
+    filename = filename or 'output-{}-{:%Y%m%d%H%M%S}.xml'.format(
         ''.join(random.sample(string.lowercase, 5)), datetime.datetime.now())
-    if output_file:
-        filename = os.path.expanduser(output_file)
-        if os.path.isdir(filename):
-            filename = os.path.join(filename, gen_filename)
+    if output_loc:
+        filename_fin = os.path.expanduser(output_loc)
+        if os.path.isdir(filename_fin):
+            filename_fin = os.path.join(filename_fin, filename)
     else:
-        filename = gen_filename
+        filename_fin = filename
 
-    with open(filename, 'w') as xml_file:
+    with open(filename_fin, 'w') as xml_file:
         xml_file.write(xml)
-    logger.info("Data written to '{}'".format(filename))
+    logger.info("Data written to '{}'".format(filename_fin))
 
 
 def xunit_fill_testrun_id(xml, testrun_id=None):
