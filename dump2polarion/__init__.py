@@ -126,6 +126,7 @@ class XunitExport(object):
         if verdict not in Verdicts.PASS + Verdicts.FAIL + Verdicts.SKIP + Verdicts.WAIT:
             return
         testcase_id = result.get('id')
+        testcase_title = result.get('title')
         if not (testcase_id or result.get('title')):
             return
 
@@ -133,7 +134,7 @@ class XunitExport(object):
         records['time'] += testcase_time
 
         testcase_data = {
-            'name': result.get('title') or testcase_id,
+            'name': testcase_title or testcase_id,
             'time': str(testcase_time)}
         if testcase_id:
             testcase_data['classname'] = 'TestClass'
@@ -151,10 +152,12 @@ class XunitExport(object):
             system_err = SubElement(testcase, 'system-err')
             system_err.text = str(result['stderr'])
 
-        if testcase_id:
-            properties = SubElement(testcase, 'properties')
+        properties = SubElement(testcase, 'properties')
+        SubElement(properties, 'property',
+                   {'name': 'polarion-testcase-id', 'value': testcase_id or testcase_title})
+        if verdict in Verdicts.PASS and result.get('comment'):
             SubElement(properties, 'property',
-                       {'name': 'polarion-testcase-id', 'value': testcase_id})
+                       {'name': 'polarion-testcase-comment', 'value': str(result['comment'])})
 
     def fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""

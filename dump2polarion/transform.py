@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 """
 Functions for validating and transforming results. These are specific for given Polarion® project.
+
+If the 'polarion-lookup-method' is set to 'custom', this is the place where you can
+set the 'id' of the testcase to desired value.
 """
 
 from __future__ import unicode_literals, absolute_import
