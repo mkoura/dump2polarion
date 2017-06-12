@@ -102,27 +102,12 @@ def main(args=None):
         with open(args.input_file) as input_file:
             xml = input_file.read()
 
-        to_submit = None
-        if '<testsuites' in xml:
-            if 'polarion-testrun-id' in xml:
-                to_submit = xml
-            else:
-                try:
-                    to_submit = xunit_fill_testrun_id(xml, args.testrun_id)
-                except Dump2PolarionException as err:
-                    logger.fatal(err)
-                    return 1
-            if not to_submit:
-                return 1
-        elif '<testcases' in xml:
-            to_submit = xml
-
-        if to_submit:
+        if '<testsuites' in xml or '<testcases' in xml:
             if args.no_submit:
                 logger.info("Nothing to do")
                 return 0
             # expect importer xml and just submit it
-            response = submit_and_verify(to_submit, config, **vars(args))
+            response = submit_and_verify(xml, config, **vars(args))
             return 0 if response else 2
 
         # expect junit-report from pytest

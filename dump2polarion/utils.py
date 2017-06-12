@@ -46,7 +46,7 @@ def write_xml(xml, output_loc=None, filename=None):
     logger.info("Data written to '{}'".format(filename_fin))
 
 
-def xunit_fill_testrun_id(xml, testrun_id=None):
+def xunit_fill_testrun_id(xml, testrun_id):
     """Adds the polarion-testrun-id property when it's missing."""
     try:
         xml_root = ElementTree.fromstring(xml)
@@ -59,10 +59,6 @@ def xunit_fill_testrun_id(xml, testrun_id=None):
         if prop.get('name') == 'polarion-testrun-id':
             return xml
 
-    if testrun_id:
-        ElementTree.SubElement(properties, 'property',
-                               {'name': 'polarion-testrun-id', 'value': str(testrun_id)})
-        return ElementTree.tostring(xml_root, encoding='utf8')
-    else:
-        raise Dump2PolarionException(
-            "The testrun id was not specified and not found in the input data.")
+    ElementTree.SubElement(properties, 'property',
+                           {'name': 'polarion-testrun-id', 'value': str(testrun_id)})
+    return ElementTree.tostring(xml_root, encoding='utf8')

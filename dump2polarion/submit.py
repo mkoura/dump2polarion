@@ -11,7 +11,9 @@ import logging
 
 import requests
 
+from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.configuration import get_config
+from dump2polarion.utils import xunit_fill_testrun_id
 
 # requests package backwards compatibility mess
 # pylint: disable=import-error,ungrouped-imports
@@ -30,6 +32,7 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
+# pylint: disable=too-many-branches
 def submit(xml_str=None, xml_file=None, config=None, **kwargs):
     """Submits results to the XUnit Importer."""
     if xml_str:
@@ -54,6 +57,18 @@ def submit(xml_str=None, xml_file=None, config=None, **kwargs):
         submit_target = config.get('testcase_taget')
     elif '<testsuites' in xml_input:
         submit_target = config.get('xunit_target')
+        if 'polarion-testrun-id' not in xml_input:
+            if config.get('args'):
+                testrun_id = config['args'].get('testrun_id')
+            testrun_id = kwargs.get('testrun_id') or testrun_id
+            if not testrun_id:
+                logger.error("Failed to submit results to Polarion - missing testrun id")
+                return
+            try:
+                xml_input = xunit_fill_testrun_id(xml_input, testrun_id)
+            except Dump2PolarionException as err:
+                logger.error(err)
+                return
     else:
         submit_target = None
 
@@ -95,8 +110,10 @@ def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
 
     # get default configuration when missing
     config = config or get_config()
-    login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
-    pwd = kwargs.get('password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
+    login = kwargs.pop('user', None) or config.get('username') or os.environ.get(
+        "POLARION_USERNAME")
+    pwd = kwargs.pop('password', None) or config.get('password') or os.environ.get(
+        "POLARION_PASSWORD")
     no_verify = kwargs.get('no_verify')
     msgbus_log = kwargs.get('msgbus_log')
     verify_timeout = kwargs.get('verify_timeout')
@@ -109,7 +126,7 @@ def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
         verification_func = msgbus.get_verification_func(
             config, xml_input, user=login, password=pwd, log_file=msgbus_log)
 
-    response = submit(xml_input, config=config, user=login, password=pwd)
+    response = submit(xml_input, config=config, user=login, password=pwd, **kwargs)
 
     if verification_func:
         response = verification_func(skip=not response, timeout=verify_timeout)
