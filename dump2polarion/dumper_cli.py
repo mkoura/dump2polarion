@@ -32,8 +32,8 @@ def get_args(args=None):
                         help="Where to save the XML output file (default: not saved)")
     parser.add_argument('-t', '--testrun-id',
                         help="Polarion test run id")
-    parser.add_argument('-c', '--config_file',
-                        help="Path to config YAML (default: dump2polarion.yaml")
+    parser.add_argument('-c', '--config-file',
+                        help="Path to config YAML")
     parser.add_argument('-n', '--no-submit', action='store_true',
                         help="Don't submit results to Polarion")
     parser.add_argument('--user',
