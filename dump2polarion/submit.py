@@ -32,9 +32,8 @@ except ImportError:
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-branches
-def submit(xml_str=None, xml_file=None, config=None, **kwargs):
-    """Submits results to the XUnit Importer."""
+def _get_xml_input(xml_str, xml_file):
+    xml_input = None
     if xml_str:
         xml_input = xml_str
     elif xml_file and os.path.exists(xml_file):
@@ -42,6 +41,14 @@ def submit(xml_str=None, xml_file=None, config=None, **kwargs):
             xml_input = input_file.read()
     else:
         logger.error("Failed to submit results to Polarion - no data supplied")
+    return xml_input
+
+
+# pylint: disable=too-many-branches
+def submit(xml_str=None, xml_file=None, config=None, **kwargs):
+    """Submits results to the XUnit Importer."""
+    xml_input = _get_xml_input(xml_str, xml_file)
+    if not xml_input:
         return
 
     # get default configuration when missing
@@ -99,13 +106,8 @@ def submit(xml_str=None, xml_file=None, config=None, **kwargs):
 
 def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
     """Submits results to the XUnit Importer and checks that it was imported."""
-    if xml_str:
-        xml_input = xml_str
-    elif xml_file and os.path.exists(xml_file):
-        with open(xml_file) as input_file:
-            xml_input = input_file.read()
-    else:
-        logger.error("Failed to submit results to Polarion - no data supplied")
+    xml_input = _get_xml_input(xml_str, xml_file)
+    if not xml_input:
         return
 
     # get default configuration when missing
