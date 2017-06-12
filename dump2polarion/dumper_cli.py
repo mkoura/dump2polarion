@@ -2,7 +2,7 @@
 # pylint: disable=logging-format-interpolation
 """
 Dump testcases results from a CSV, SQLite, junit or Ostriz input file to xunit file and submit it
-to the Polarion® XUnit Importer.
+to the Polarion XUnit Importer.
 """
 
 from __future__ import unicode_literals, absolute_import

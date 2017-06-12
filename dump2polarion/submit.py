@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Submit results to the Polarion® XUnit Importer.
+Submit results to the Polarion XUnit Importer.
 """
 
 from __future__ import unicode_literals, absolute_import

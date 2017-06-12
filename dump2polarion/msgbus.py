@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Connects to the Polarion® XUnit Importer message bus and verifies that results were submitted.
+Connects to the Polarion XUnit Importer message bus and verifies that results were submitted.
 """
 
 from __future__ import unicode_literals, absolute_import
