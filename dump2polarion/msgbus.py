@@ -9,6 +9,7 @@ from __future__ import unicode_literals, absolute_import
 import os
 import logging
 import threading
+import time
 import json
 import pprint
 
@@ -93,7 +94,23 @@ def log_received_data(headers, message):
 def download_log(url, output_file):
     """Saves log returned by the message bus."""
     logger.info("Saving log {} to {}".format(url, output_file))
-    log_data = requests.get(url)
+
+    def _do_log_download():
+        try:
+            return requests.get(url)
+        # pylint: disable=broad-except
+        except Exception as err:
+            logger.error(err)
+
+    # log file may not be ready yet, wait a bit
+    for _ in range(5):
+        log_data = _do_log_download()
+        if log_data or log_data is None:
+            break
+        time.sleep(1)
+
+    if not log_data:
+        logger.error("Failed to download log file '{}'.".format(url))
     with open(os.path.expanduser(output_file), 'wb') as out:
         out.write(log_data.content)
 
