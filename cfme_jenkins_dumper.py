@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Polarion® dumper for CFME Jenkins
+Polarion dumper for CFME Jenkins
 """
 
 from __future__ import unicode_literals, absolute_import, print_function

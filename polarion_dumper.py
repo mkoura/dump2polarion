@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 """
-Polarion® dumper CLI
+Polarion dumper CLI
 """
 
 import sys
