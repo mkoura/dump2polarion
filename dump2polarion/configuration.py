@@ -16,7 +16,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 logger = logging.getLogger(__name__)
 
 
-def get_config(config_file=None):
+def get_config(config_file=None, args=None):
     """Loads config file and returns its content."""
     default_conf = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dump2polarion.yaml')
     user_conf = config_file or '~/.config/dump2polarion.yaml'
@@ -44,5 +44,8 @@ def get_config(config_file=None):
         except ValueError as err:
             raise Dump2PolarionException(
                 "Failed to load the '{}' config file: {}".format(user_conf, err))
+
+    if args:
+        config_settings['args'] = args
 
     return config_settings

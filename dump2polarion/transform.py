@@ -13,7 +13,8 @@ import re
 from dump2polarion.verdicts import Verdicts
 
 
-def get_results_transform_cfme():
+# pylint: disable=unused-argument
+def get_results_transform_cfme(config):
     """Return result transformation function for CFME."""
     cfme_searches = [
         'Skipping due to these blockers',
@@ -42,7 +43,9 @@ def get_results_transform_cfme():
     return results_transform_cfme
 
 
-PROJECT_MAPPING = {'RHCF3': get_results_transform_cfme}
+PROJECT_MAPPING = {
+    'RHCF3': get_results_transform_cfme,
+}
 
 
 def get_results_transform(config):
@@ -57,13 +60,6 @@ def get_results_transform(config):
     and will not be written to the resulting XML.
     """
 
-    # transform function name configured in config file
-    if config.get('results_transform_getter'):
-        transform_func_getter = config['results_transform_getter']
-        if transform_func_getter in globals():
-            return globals()[transform_func_getter]()
-
-    # return transform function based on project name
     project = config['xunit_import_properties']['polarion-project-id']
     if project in PROJECT_MAPPING:
-        return PROJECT_MAPPING[project]()
+        return PROJECT_MAPPING[project](config)

@@ -87,7 +87,7 @@ def main(args=None):
     init_log(args.log_level)
 
     try:
-        config = get_config(args.config_file)
+        config = get_config(args.config_file, args=vars(args))
     except Dump2PolarionException as err:
         logger.fatal(err)
         return 1
