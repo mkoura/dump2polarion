@@ -17,7 +17,6 @@ from dump2polarion import dbtools
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.configuration import get_config
 from dump2polarion.submit import submit_and_verify
-from dump2polarion.utils import xunit_fill_testrun_id
 
 
 # pylint: disable=invalid-name
@@ -107,7 +106,7 @@ def main(args=None):
                 logger.info("Nothing to do")
                 return 0
             # expect importer xml and just submit it
-            response = submit_and_verify(xml, config, **vars(args))
+            response = submit_and_verify(xml, config=config, **vars(args))
             return 0 if response else 2
 
         # expect junit-report from pytest
