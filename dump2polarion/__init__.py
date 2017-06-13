@@ -36,6 +36,7 @@ class XunitExport(object):
         self.testrun_id = testrun_id
         self.tests_records = tests_records
         self.config = config
+        self.lookup_prop = ''
         self.transform_func = transform_func or get_results_transform(config)
 
     def top_element(self):
@@ -52,30 +53,34 @@ class XunitExport(object):
         SubElement(testsuites_properties, 'property',
                    {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)})
 
-        response_prop_set = lookup_prop_set = False
+        response_prop_set = False
         for name, value in self.config['xunit_import_properties'].iteritems():
             SubElement(testsuites_properties, 'property',
                        {'name': name, 'value': str(value)})
             if 'polarion-response-' in name:
                 response_prop_set = True
             elif name == 'polarion-lookup-method':
-                lookup_prop_set = True
+                self.lookup_prop = str(value)
 
         if not response_prop_set:
             name = 'polarion-response-dump2polarion'
             value = ''.join(random.sample(string.lowercase, 10)) + '5'
             SubElement(testsuites_properties, 'property', {'name': name, 'value': value})
 
-        if not lookup_prop_set:
+        if not self.lookup_prop:
             if 'id' in self.tests_records.results[0]:
-                lookup = 'ID'
+                self.lookup_prop = 'ID'
             elif 'title' in self.tests_records.results[0]:
-                lookup = 'Name'
+                self.lookup_prop = 'Name'
             else:
                 raise Dump2PolarionException(
                     "Failed to set the 'polarion-lookup-method' property")
             SubElement(testsuites_properties, 'property',
-                       {'name': 'polarion-lookup-method', 'value': lookup})
+                       {'name': 'polarion-lookup-method', 'value': self.lookup_prop})
+        elif self.lookup_prop.lower() not in ('id', 'name', 'custom'):
+            raise Dump2PolarionException(
+                "Invalid value '{}' for the 'polarion-lookup-method' property".format(
+                    self.lookup_prop))
 
         return testsuites_properties
 
@@ -98,21 +103,21 @@ class XunitExport(object):
             records['failures'] += 1
             verdict_data = {'type': 'failure'}
             if result.get('comment'):
-                verdict_data['message'] = str(result['comment'])
+                verdict_data['message'] = unicode(str(result['comment']), errors='ignore')
             SubElement(testcase, 'failure', verdict_data)
         # xunit Error maps to Blocked in Polarion
         elif verdict in Verdicts.SKIP:
             records['skipped'] += 1
             verdict_data = {'type': 'error'}
             if result.get('comment'):
-                verdict_data['message'] = str(result['comment'])
+                verdict_data['message'] = unicode(str(result['comment']), errors='ignore')
             SubElement(testcase, 'error', verdict_data)
         # xunit Skipped maps to Waiting in Polarion
         elif verdict in Verdicts.WAIT:
             records['waiting'] += 1
             verdict_data = {'type': 'skipped'}
             if result.get('comment'):
-                verdict_data['message'] = str(result['comment'])
+                verdict_data['message'] = unicode(str(result['comment']), errors='ignore')
             SubElement(testcase, 'skipped', verdict_data)
 
     def gen_testcase(self, parent_element, result, records):
@@ -126,7 +131,9 @@ class XunitExport(object):
             return
         testcase_id = result.get('id')
         testcase_title = result.get('title')
-        if not (testcase_id or result.get('title')):
+        if not testcase_id and self.lookup_prop.lower() == 'id':
+            return
+        if not testcase_title and self.lookup_prop.lower() == 'name':
             return
 
         testcase_time = float(result.get('time') or result.get('duration') or 0)
@@ -143,18 +150,19 @@ class XunitExport(object):
 
         if result.get('stdout'):
             system_out = SubElement(testcase, 'system-out')
-            system_out.text = str(result['stdout'])
+            system_out.text = unicode(str(result['stdout']), errors='ignore')
 
         if result.get('stderr'):
             system_err = SubElement(testcase, 'system-err')
-            system_err.text = str(result['stderr'])
+            system_err.text = unicode(str(result['stderr']), errors='ignore')
 
         properties = SubElement(testcase, 'properties')
         SubElement(properties, 'property',
                    {'name': 'polarion-testcase-id', 'value': testcase_id or testcase_title})
         if verdict in Verdicts.PASS and result.get('comment'):
             SubElement(properties, 'property',
-                       {'name': 'polarion-testcase-comment', 'value': str(result['comment'])})
+                       {'name': 'polarion-testcase-comment',
+                        'value': unicode(str(result['comment']), errors='ignore')})
 
     def fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""
