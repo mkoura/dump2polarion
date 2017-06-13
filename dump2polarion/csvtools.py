@@ -20,7 +20,7 @@ def get_csv_fieldnames(csv_reader):
     fieldnames = []
     for row in csv_reader:
         for col in row:
-            field = (col.
+            field = (unicode(str(col), errors='ignore').
                      strip().
                      replace('"', '').
                      replace(' ', '').
@@ -61,7 +61,7 @@ def get_testrun_from_csv(file_obj, csv_reader):
         for col in row:
             if not col:
                 continue
-            field = (col.
+            field = (unicode(str(col), errors='ignore').
                      strip().
                      replace('"', '').
                      replace(' ', '').
