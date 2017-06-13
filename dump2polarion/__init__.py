@@ -135,9 +135,7 @@ class XunitExport(object):
         testcase_data = {
             'name': testcase_title or testcase_id,
             'time': str(testcase_time)}
-        if testcase_id:
-            testcase_data['classname'] = 'TestClass'
-        elif result.get('classname'):
+        if result.get('classname'):
             testcase_data['classname'] = result['classname']
         testcase = SubElement(parent_element, 'testcase', testcase_data)
 
