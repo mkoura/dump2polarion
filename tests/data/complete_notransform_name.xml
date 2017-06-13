@@ -1,0 +1,98 @@
+<?xml version="1.0" ?>
+<testsuites>
+  <!--Generated for testrun 5_8_0_17-->
+  <properties>
+    <property name="polarion-testrun-id" value="5_8_0_17"/>
+    <property name="polarion-dry-run" value="False"/>
+    <property name="polarion-testrun-status-id" value="inprogress"/>
+    <property name="polarion-response-test" value="test"/>
+    <property name="polarion-project-id" value="RHCF3"/>
+    <property name="polarion-lookup-method" value="Name"/>
+  </properties>
+  <testsuite errors="3" failures="2" name="Import for RHCF3 - 5_8_0_17 testrun" skipped="3" tests="12" time="832.272">
+    <testcase name="test_vm_scan[from_collection]" time="1.0">
+      <properties>
+        <property name="polarion-testcase-id" value="test_vm_scan[from_collection]"/>
+        <property name="polarion-testcase-comment" value="YES it passed!"/>
+      </properties>
+    </testcase>
+    <testcase name="test_vm_scan[from_detail]" time="1.0">
+      <system-out>success</system-out>
+      <system-err>no fails</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="test_vm_scan[from_detail]"/>
+      </properties>
+    </testcase>
+    <testcase name="test_user_settings" time="1.0">
+      <properties>
+        <property name="polarion-testcase-id" value="test_user_settings"/>
+      </properties>
+    </testcase>
+    <testcase name="test_server_info" time="12.4">
+      <failure message="it is" type="failure"/>
+      <system-out>wrong</system-out>
+      <properties>
+        <property name="polarion-testcase-id" value="test_server_info"/>
+      </properties>
+    </testcase>
+    <testcase name="test_resources_hiding" time="98.234">
+      <failure type="failure"/>
+      <system-out>epic</system-out>
+      <system-err>fail</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="test_resources_hiding"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[users]" time="99.234">
+      <error message="Skipping due to these blockers BZ123" type="error"/>
+      <properties>
+        <property name="polarion-testcase-id" value="test_query_simple_collections[users]"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[conditions]" time="100.234">
+      <error type="error"/>
+      <system-out>skip</system-out>
+      <system-err>skipped</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="test_query_simple_collections[conditions]"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[data_stores]" time="101.234">
+      <error message="its blocked" type="error"/>
+      <system-out>blocked because of</system-out>
+      <system-err>this</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="test_query_simple_collections[data_stores]"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[clusters]" time="102.234">
+      <skipped message="reset" type="skipped"/>
+      <system-out>to</system-out>
+      <system-err>original</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="test_query_simple_collections[clusters]"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[requests]" time="103.234">
+      <skipped message="reset" type="skipped"/>
+      <system-out>to</system-out>
+      <system-err>original</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="test_query_simple_collections[requests]"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[tags]" time="104.234">
+      <skipped message="reset" type="skipped"/>
+      <system-out>to</system-out>
+      <system-err>original</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="test_query_simple_collections[tags]"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[events]" time="108.234">
+      <properties>
+        <property name="polarion-testcase-id" value="test_query_simple_collections[events]"/>
+      </properties>
+    </testcase>
+  </testsuite>
+</testsuites>
