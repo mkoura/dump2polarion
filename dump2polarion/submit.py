@@ -112,25 +112,26 @@ def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
 
     # get default configuration when missing
     config = config or get_config()
-    login = kwargs.pop('user', None) or config.get('username') or os.environ.get(
-        "POLARION_USERNAME")
-    pwd = kwargs.pop('password', None) or config.get('password') or os.environ.get(
-        "POLARION_PASSWORD")
-    no_verify = kwargs.get('no_verify')
-    msgbus_log = kwargs.get('msgbus_log')
-    verify_timeout = kwargs.get('verify_timeout')
 
-    if no_verify:
+    if kwargs.get('no_verify'):
         verification_func = None
     else:
+        msgbus_login = kwargs.get('msgbus_user') or config.get('msgbus_username') or kwargs.get(
+            'user') or config.get('username') or os.environ.get("POLARION_USERNAME")
+        msgbus_pwd = kwargs.get('msgbus_password') or config.get('msgbus_password') or kwargs.get(
+            'password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
         # avoid slow initialization of stomp when it's not needed
         from dump2polarion import msgbus
         verification_func = msgbus.get_verification_func(
-            config, xml_input, user=login, password=pwd, log_file=msgbus_log)
+            config.get('message_bus'),
+            xml_input,
+            user=msgbus_login,
+            password=msgbus_pwd,
+            log_file=kwargs.get('msgbus_log'))
 
-    response = submit(xml_input, config=config, user=login, password=pwd, **kwargs)
+    response = submit(xml_input, config=config, **kwargs)
 
     if verification_func:
-        response = verification_func(skip=not response, timeout=verify_timeout)
+        response = verification_func(skip=not response, timeout=kwargs.get('verify_timeout'))
 
     return bool(response)

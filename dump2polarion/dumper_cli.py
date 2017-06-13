@@ -40,6 +40,10 @@ def get_args(args=None):
                         help="Username to use to submit results to Polarion")
     parser.add_argument('--password',
                         help="Password to use to submit results to Polarion")
+    parser.add_argument('--msgbus-user',
+                        help="Username to use to connect to the message bus")
+    parser.add_argument('--msgbus-password',
+                        help="Password to use to connect to the message bus")
     parser.add_argument('-f', '--force', action='store_true',
                         help="Don't validate test run id")
     parser.add_argument('--no-verify', action='store_true',

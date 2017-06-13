@@ -146,9 +146,8 @@ def check_outcome(message, is_error, log_file=None):
     return False
 
 
-def get_verification_func(config, xunit, **kwargs):
+def get_verification_func(bus_url, xunit, user, password, **kwargs):
     """Subscribes to the message bus and returns verification function."""
-    bus_url = config.get('message_bus')
     if not bus_url:
         logger.error(
             "Message bus url ('message_bus') not configured, skipping submit verification")
@@ -160,9 +159,7 @@ def get_verification_func(config, xunit, **kwargs):
             "The 'polarion-response-*' property not set, skipping submit verification")
         return
 
-    login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
-    pwd = kwargs.get('password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
-    if not all([login, pwd]):
+    if not all([user, password]):
         logger.error("Missing credentials, skipping submit verification")
         return
 
@@ -172,7 +169,7 @@ def get_verification_func(config, xunit, **kwargs):
     conn.set_listener('XUnit Listener', listener)
     logger.debug('Subscribing to the XUnit Importer message bus')
     conn.start()
-    conn.connect(login=login, passcode=pwd)
+    conn.connect(login=user, passcode=password)
 
     try:
         conn.subscribe(
