@@ -65,8 +65,6 @@ def get_testrun_from_csv(file_obj, csv_reader):
                      strip().
                      replace('"', '').
                      replace(' ', '').
-                     replace('(', '').
-                     replace(')', '').
                      lower())
             if field == 'id':
                 # we are too far, tests results start here
@@ -85,32 +83,55 @@ def get_testrun_from_csv(file_obj, csv_reader):
     return testrun_id
 
 
+def get_results(csv_reader, fieldnames):
+    """Maps data to fieldnames.
+
+    The reader needs to be at position after fieldnames, before the results data.
+    """
+    fieldnames_count = len(fieldnames)
+    results = []
+    for row in csv_reader:
+        for col in row:
+            if col:
+                break
+        else:
+            # empty row, skip it
+            continue
+        record = OrderedDict(zip(fieldnames, row))
+        # skip rows that were already exported
+        if record.get('exported') == 'yes':
+            continue
+        row_len = len(row)
+        if fieldnames_count > row_len:
+            for key in fieldnames[row_len:]:
+                record[key] = None
+        results.append(record)
+
+    return results
+
+
+def get_csv_reader(input_file):
+    """Returns csv reader."""
+    dialect = csv.Sniffer().sniff(input_file.read(2048))
+    input_file.seek(0)
+    return csv.reader(input_file, dialect)
+
+
 # pylint: disable=unused-argument
 def import_csv(csv_file, **kwargs):
     """Reads the content of the Polarion exported csv file and returns imported data."""
     with open(os.path.expanduser(csv_file), 'rb') as input_file:
-        dialect = csv.Sniffer().sniff(input_file.read(2048))
-        input_file.seek(0)
-        reader = csv.reader(input_file, dialect)
+        reader = get_csv_reader(input_file)
 
         fieldnames = get_csv_fieldnames(reader)
         if not fieldnames:
             raise Dump2PolarionException(
                 "Cannot find field names in CSV file '{}'".format(csv_file))
-        fieldnames_count = len(fieldnames)
 
-        # map data to fieldnames
-        results = []
-        for row in reader:
-            record = OrderedDict(zip(fieldnames, row))
-            # skip rows that were already exported
-            if record.get('exported') == 'yes':
-                continue
-            row_len = len(row)
-            if fieldnames_count > row_len:
-                for key in fieldnames[row_len:]:
-                    record[key] = None
-            results.append(record)
+        results = get_results(reader, fieldnames)
+        if not results:
+            raise Dump2PolarionException(
+                "No results read from CSV file '{}'".format(csv_file))
 
         testrun = get_testrun_from_csv(input_file, reader)
 
@@ -120,7 +141,7 @@ def import_csv(csv_file, **kwargs):
 def import_csv_and_check(csv_file, **kwargs):
     """Like `import_csv` but check that all columns are there."""
     records = import_csv(csv_file, **kwargs)
-    required_columns = {'id': 'ID', 'verdict': 'Verdict'}
+    required_columns = {'verdict': 'Verdict'}
     missing_columns = [required_columns[k] for k in required_columns if k not in records.results[0]]
     if missing_columns:
         raise Dump2PolarionException(
