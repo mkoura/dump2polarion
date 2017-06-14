@@ -19,7 +19,6 @@ setup(
         'Topic :: Software Development :: Libraries :: Python Modules',
         'Topic :: Software Development :: Testing',
         'License :: OSI Approved :: GNU General Public License v2 (GPLv2)',
-        'Programming Language :: Python :: 2.6',
         'Programming Language :: Python :: 2.7'],
     include_package_data=True
 )
