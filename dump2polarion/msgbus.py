@@ -118,7 +118,8 @@ def download_log(url, output_file):
 def check_outcome(message, is_error, log_file=None):
     """Parses returned message and checks submit outcome."""
     if is_error is None:
-        logger.error("Submit verification timed out, results probably not updated")
+        logger.error("Submit verification timed out, check in the web UI if results were updated "
+                     "(might take a while, please don't resubmit)")
         return False
     elif is_error:
         logger.error("Received an error, results not updated")
