@@ -1,5 +1,7 @@
 dump2polarion
 =============
+.. image:: https://travis-ci.org/mkoura/dump2polarion.svg?branch=master
+    :target: https://travis-ci.org/mkoura/dump2polarion
 
 Usage
 -----
@@ -41,6 +43,8 @@ or install it from cloned directory
 
     pip install .
 
+Package on PyPI - <https://pypi.python.org/pypi/dump2polarion/>
+
 Requirements
 ------------
 You need ``sqlite3``, all recent python versions include it by default. The rest is listed in ``requirements.txt``.
@@ -79,5 +83,4 @@ or
 More info
 ---------
 For CFME QE specific instructions see <https://mojo.redhat.com/docs/DOC-1098563>
-
 For info about XUnit Importer see <https://mojo.redhat.com/docs/DOC-1073077>
