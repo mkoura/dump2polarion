@@ -6,6 +6,7 @@ Helper functions for handling JSON data from Ostriz.
 from __future__ import unicode_literals, absolute_import
 
 import os
+import io
 import json
 import datetime
 import requests
@@ -25,7 +26,7 @@ def get_json(location):
 
     location = os.path.expanduser(location)
     if os.path.isfile(location):
-        with open(location) as json_data:
+        with io.open(location, encoding='utf-8') as json_data:
             try:
                 return json.load(json_data).get('tests')
             except Exception as err:

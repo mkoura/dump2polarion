@@ -7,6 +7,7 @@ Submit results to the Polarion XUnit Importer.
 from __future__ import unicode_literals, absolute_import
 
 import os
+import io
 import logging
 
 import requests
@@ -37,7 +38,7 @@ def _get_xml_input(xml_str, xml_file):
     if xml_str:
         xml_input = xml_str
     elif xml_file and os.path.exists(xml_file):
-        with open(xml_file) as input_file:
+        with io.open(xml_file, encoding='utf-8') as input_file:
             xml_input = input_file.read()
     else:
         logger.error("Failed to submit results to Polarion - no data supplied")

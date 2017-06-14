@@ -7,6 +7,7 @@ Configuration loading.
 from __future__ import unicode_literals, absolute_import
 
 import os
+import io
 import logging
 import yaml
 
@@ -29,12 +30,12 @@ def get_config(config_file=None, args=None):
         if config_file:
             raise Dump2PolarionException("Cannot open config file '{}'".format(config_file))
 
-    with open(default_conf) as input_file:
+    with io.open(default_conf, encoding='utf-8') as input_file:
         config_settings = yaml.load(input_file)
     logger.debug("Default config loaded from '{}'".format(default_conf))
 
     if user_conf:
-        with open(user_conf) as input_file:
+        with io.open(user_conf, encoding='utf-8') as input_file:
             config_settings_user = yaml.load(input_file)
         logger.info("Config loaded from '{}'".format(user_conf))
 

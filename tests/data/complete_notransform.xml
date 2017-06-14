@@ -58,7 +58,7 @@
       </properties>
     </testcase>
     <testcase name="test_query_simple_collections[data_stores]" time="101.234">
-      <error message="its blocked" type="error"/>
+      <error message="it’s blocked" type="error"/>
       <system-out>blocked because of</system-out>
       <system-err>this</system-err>
       <properties>

@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 import os
 import copy
+import io
 
 from xml.etree import ElementTree
 
@@ -106,7 +107,7 @@ class TestE2E(object):
         exporter = d2p.XunitExport('5_8_0_17', records_ids, config, transform_func=lambda arg: arg)
         complete = exporter.export()
         fname = 'complete_notransform.xml'
-        with open(os.path.join(DATA_PATH, fname)) as input_xml:
+        with io.open(os.path.join(DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -114,7 +115,7 @@ class TestE2E(object):
         exporter = d2p.XunitExport('5_8_0_17', records_ids, config)
         complete = exporter.export()
         fname = 'complete_transform.xml'
-        with open(os.path.join(DATA_PATH, fname)) as input_xml:
+        with io.open(os.path.join(DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -123,7 +124,7 @@ class TestE2E(object):
             '5_8_0_17', records_names, config, transform_func=lambda arg: arg)
         complete = exporter.export()
         fname = 'complete_notransform_name.xml'
-        with open(os.path.join(DATA_PATH, fname)) as input_xml:
+        with io.open(os.path.join(DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -131,6 +132,6 @@ class TestE2E(object):
         exporter = d2p.XunitExport('5_8_0_17', records_names, config)
         complete = exporter.export()
         fname = 'complete_transform_name.xml'
-        with open(os.path.join(DATA_PATH, fname)) as input_xml:
+        with io.open(os.path.join(DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
         assert complete == parsed

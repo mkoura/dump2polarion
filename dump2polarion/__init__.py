@@ -20,7 +20,7 @@ from xml.etree.ElementTree import Element, SubElement, Comment
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.verdicts import Verdicts
 from dump2polarion.transform import get_results_transform
-from dump2polarion.utils import write_xml
+from dump2polarion.utils import write_xml, get_unicode_str
 
 
 # pylint: disable=invalid-name
@@ -103,21 +103,21 @@ class XunitExport(object):
             records['failures'] += 1
             verdict_data = {'type': 'failure'}
             if result.get('comment'):
-                verdict_data['message'] = unicode(str(result['comment']), errors='ignore')
+                verdict_data['message'] = get_unicode_str(result['comment'])
             SubElement(testcase, 'failure', verdict_data)
         # xunit Error maps to Blocked in Polarion
         elif verdict in Verdicts.SKIP:
             records['skipped'] += 1
             verdict_data = {'type': 'error'}
             if result.get('comment'):
-                verdict_data['message'] = unicode(str(result['comment']), errors='ignore')
+                verdict_data['message'] = get_unicode_str(result['comment'])
             SubElement(testcase, 'error', verdict_data)
         # xunit Skipped maps to Waiting in Polarion
         elif verdict in Verdicts.WAIT:
             records['waiting'] += 1
             verdict_data = {'type': 'skipped'}
             if result.get('comment'):
-                verdict_data['message'] = unicode(str(result['comment']), errors='ignore')
+                verdict_data['message'] = get_unicode_str(result['comment'])
             SubElement(testcase, 'skipped', verdict_data)
 
     def gen_testcase(self, parent_element, result, records):
@@ -150,11 +150,11 @@ class XunitExport(object):
 
         if result.get('stdout'):
             system_out = SubElement(testcase, 'system-out')
-            system_out.text = unicode(str(result['stdout']), errors='ignore')
+            system_out.text = get_unicode_str(result['stdout'])
 
         if result.get('stderr'):
             system_err = SubElement(testcase, 'system-err')
-            system_err.text = unicode(str(result['stderr']), errors='ignore')
+            system_err.text = get_unicode_str(result['stderr'])
 
         properties = SubElement(testcase, 'properties')
         SubElement(properties, 'property',
@@ -162,7 +162,7 @@ class XunitExport(object):
         if verdict in Verdicts.PASS and result.get('comment'):
             SubElement(properties, 'property',
                        {'name': 'polarion-testcase-comment',
-                        'value': unicode(str(result['comment']), errors='ignore')})
+                        'value': get_unicode_str(result['comment'])})
 
     def fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""

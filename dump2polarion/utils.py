@@ -7,6 +7,7 @@ Utils for dump2polarion.
 from __future__ import unicode_literals, absolute_import
 
 import os
+import io
 import datetime
 import string
 import random
@@ -41,7 +42,7 @@ def write_xml(xml, output_loc=None, filename=None):
     else:
         filename_fin = filename
 
-    with open(filename_fin, 'w') as xml_file:
+    with io.open(filename_fin, 'w', encoding='utf-8') as xml_file:
         xml_file.write(xml)
     logger.info("Data written to '{}'".format(filename_fin))
 
@@ -62,3 +63,12 @@ def xunit_fill_testrun_id(xml, testrun_id):
     ElementTree.SubElement(properties, 'property',
                            {'name': 'polarion-testrun-id', 'value': str(testrun_id)})
     return ElementTree.tostring(xml_root, encoding='utf8')
+
+
+def get_unicode_str(obj):
+    """Makes sure obj is a unicode string."""
+    if isinstance(obj, unicode):
+        return obj
+    if isinstance(obj, basestring):
+        return unicode(obj, errors='ignore')
+    return unicode(obj)

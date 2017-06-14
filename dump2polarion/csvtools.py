@@ -13,6 +13,7 @@ from collections import OrderedDict
 
 from dump2polarion import ImportedData
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.csv_unicode import UnicodeReader
 
 
 def get_csv_fieldnames(csv_reader):
@@ -20,7 +21,7 @@ def get_csv_fieldnames(csv_reader):
     fieldnames = []
     for row in csv_reader:
         for col in row:
-            field = (unicode(str(col), errors='ignore').
+            field = (col.
                      strip().
                      replace('"', '').
                      replace(' ', '').
@@ -61,7 +62,7 @@ def get_testrun_from_csv(file_obj, csv_reader):
         for col in row:
             if not col:
                 continue
-            field = (unicode(str(col), errors='ignore').
+            field = (col.
                      strip().
                      replace('"', '').
                      replace(' ', '').
@@ -114,7 +115,7 @@ def get_csv_reader(input_file):
     """Returns csv reader."""
     dialect = csv.Sniffer().sniff(input_file.read(2048))
     input_file.seek(0)
-    return csv.reader(input_file, dialect)
+    return UnicodeReader(input_file, dialect)
 
 
 # pylint: disable=unused-argument
@@ -148,14 +149,3 @@ def import_csv_and_check(csv_file, **kwargs):
             "The input file '{}' is missing following columns: {}".format(
                 csv_file, ', '.join(missing_columns)))
     return records
-
-
-def export_csv(csv_file, records):
-    """Writes testcases results into csv file."""
-    with open(os.path.expanduser(csv_file), 'wb') as output_file:
-        csvwriter = csv.writer(output_file, delimiter=str(';'),
-                               quotechar=str('"'), quoting=csv.QUOTE_MINIMAL)
-
-        csvwriter.writerow(records.results[0].keys())
-        for result in records.results:
-            csvwriter.writerow(result.values())

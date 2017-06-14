@@ -7,9 +7,10 @@ to the Polarion XUnit Importer.
 
 from __future__ import unicode_literals, absolute_import
 
+import os
+import io
 import argparse
 import logging
-import os
 import datetime
 
 import dump2polarion
@@ -102,7 +103,7 @@ def main(args=None):
         from dump2polarion import ostriztools
         importer = ostriztools.import_ostriz
     elif ext == '.xml':
-        with open(args.input_file) as input_file:
+        with io.open(args.input_file, encoding='utf-8') as input_file:
             xml = input_file.read()
 
         if '<testsuites' in xml or '<testcases' in xml:
