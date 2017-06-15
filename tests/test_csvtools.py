@@ -7,17 +7,15 @@ import os
 from StringIO import StringIO
 
 import pytest
+from tests import conf
 
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion import csvtools
 
 
-DATA_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'data')
-
-
-class TestFileldNames(object):
+class TestCSVFileldNames(object):
     def test_fieldnames_exported(self):
-        csv_file = os.path.join(DATA_PATH, 'workitems_ids.csv')
+        csv_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
         with open(csv_file, 'rb') as input_file:
             reader = csvtools.get_csv_reader(input_file)
             fieldnames = csvtools.get_csv_fieldnames(reader)
@@ -62,10 +60,18 @@ class TestFileldNames(object):
             'caseimportance'
         ]
 
+    def test_fieldnames_missing_id(self):
+        csv_content = str('Title,Test Case I D,Caseimportance,,,')
+        input_file = StringIO(csv_content)
+        reader = csvtools.get_csv_reader(input_file)
+        fieldnames = csvtools.get_csv_fieldnames(reader)
+        input_file.close()
+        assert fieldnames is None
 
-class TestTestrunId(object):
+
+class TestCSVTestrunId(object):
     def test_testrun_id_exported(self):
-        csv_file = os.path.join(DATA_PATH, 'workitems_ids.csv')
+        csv_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
         with open(csv_file, 'rb') as input_file:
             reader = csvtools.get_csv_reader(input_file)
             testrun_id = csvtools.get_testrun_from_csv(input_file, reader)
@@ -90,13 +96,15 @@ class TestTestrunId(object):
         assert not testrun_id
 
 
-class TestImport(object):
+class TestCSVImport(object):
     def test_import_orig_data(self):
-        csv_file = os.path.join(DATA_PATH, 'workitems_ids.csv')
+        csv_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
         data = csvtools.import_csv(csv_file)
         assert hasattr(data, 'results')
         assert len(data.results) == 15
         assert 'id' in data.results[0]
+        assert hasattr(data, 'testrun')
+        assert data.testrun == '5_8_0_17'
 
     def test_import_no_results(self, tmpdir):
         csv_content = str('ID,Title,Test Case I D,Caseimportance,,,')

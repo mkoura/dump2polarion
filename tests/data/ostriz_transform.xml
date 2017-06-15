@@ -1,0 +1,29 @@
+<?xml version="1.0" ?>
+<testsuites>
+  <!--Generated for testrun 5_8_0_17-->
+  <properties>
+    <property name="polarion-testrun-id" value="5_8_0_17"/>
+    <property name="polarion-dry-run" value="False"/>
+    <property name="polarion-testrun-status-id" value="inprogress"/>
+    <property name="polarion-response-test" value="test"/>
+    <property name="polarion-project-id" value="RHCF3"/>
+    <property name="polarion-lookup-method" value="Name"/>
+  </properties>
+  <testsuite errors="0" failures="0" name="Import for RHCF3 - 5_8_0_17 testrun" skipped="0" tests="3" time="2457.0">
+    <testcase name="TestInstanceRESTAPI.test_start[azure-from_detail]" time="627.0">
+      <properties>
+        <property name="polarion-testcase-id" value="TestInstanceRESTAPI.test_start[azure-from_detail]"/>
+      </properties>
+    </testcase>
+    <testcase name="TestInstanceRESTAPI.test_stop[gce_central-from_collection]" time="733.0">
+      <properties>
+        <property name="polarion-testcase-id" value="TestInstanceRESTAPI.test_stop[gce_central-from_collection]"/>
+      </properties>
+    </testcase>
+    <testcase name="test_quadicon_terminate_cancel[foo]" time="1097.0">
+      <properties>
+        <property name="polarion-testcase-id" value="test_quadicon_terminate_cancel[foo]"/>
+      </properties>
+    </testcase>
+  </testsuite>
+</testsuites>
