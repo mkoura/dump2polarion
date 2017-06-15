@@ -50,3 +50,23 @@ class TestUtils(object):
             parsed = input_xml.read()
         filled = utils.xunit_fill_testrun_id(parsed, '5_8_0_17')
         assert 'name="polarion-testrun-id" value="5_8_0_17"' in filled
+
+    def test_write_xml_gen(self, tmpdir):
+        dirname = str(tmpdir)
+        utils.write_xml('<xml />', output_loc=dirname)
+        assert 'output-' in os.listdir(dirname)[0]
+
+    def test_write_xml_loc(self, tmpdir):
+        dirname = str(tmpdir)
+        utils.write_xml('<xml />', output_loc=os.path.join(dirname, 'output123.xml'))
+        assert 'output123.xml' in os.listdir(dirname)[0]
+
+    def test_write_xml_file(self, tmpdir):
+        dirname = str(tmpdir)
+        utils.write_xml('<xml />', filename=os.path.join(dirname, 'output123.xml'))
+        assert 'output123.xml' in os.listdir(dirname)[0]
+
+    def test_write_xml_no_data(self, tmpdir):
+        dirname = str(tmpdir)
+        with pytest.raises(Dump2PolarionException):
+            utils.write_xml('', filename=os.path.join(dirname, 'output123.xml'))

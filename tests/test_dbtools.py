@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 
 import os
 import io
+import datetime
 
 import pytest
 from tests import conf
@@ -32,6 +33,13 @@ class TestDB(object):
         assert 'id' in records_db.results[0]
         assert hasattr(records_db, 'testrun')
         assert records_db.testrun == '5_8_0_17'
+
+    def test_import_time(self):
+        db_file = os.path.join(conf.DATA_PATH, 'workitems_ids.sqlite3')
+        older_than = datetime.datetime(2017, 6, 15)
+        records = dbtools.import_sqlite(db_file, older_than=older_than)
+        assert hasattr(records, 'results')
+        assert len(records.results) == 14
 
     def test_e2e_ids_notransform(self, config_prop, records_db):
         exporter = d2p.XunitExport(
