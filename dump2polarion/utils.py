@@ -50,12 +50,14 @@ def write_xml(xml, output_loc=None, filename=None):
 def xunit_fill_testrun_id(xml, testrun_id):
     """Adds the polarion-testrun-id property when it's missing."""
     try:
-        xml_root = ElementTree.fromstring(xml)
+        xml_root = ElementTree.fromstring(xml.encode('utf-8'))
     # pylint: disable=broad-except
     except Exception as err:
         raise Dump2PolarionException("Failed to parse XML file: {}".format(err))
 
     properties = xml_root.find('properties')
+    if properties is None:
+        raise Dump2PolarionException("Failed to find <properties> in the XML file")
     for prop in properties:
         if prop.get('name') == 'polarion-testrun-id':
             return xml
