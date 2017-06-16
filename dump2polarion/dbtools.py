@@ -34,12 +34,12 @@ def get_testrun_from_sqlite(conn):
 def open_sqlite(db_file):
     """Opens database connection."""
     db_file = os.path.expanduser(db_file)
-    with open(db_file):
-        # test that the file can be accessed
-        pass
     try:
+        with open(db_file):
+            # test that the file can be accessed
+            pass
         return sqlite3.connect(db_file, detect_types=sqlite3.PARSE_DECLTYPES)
-    except SQLiteError as err:
+    except (IOError, SQLiteError) as err:
         raise Dump2PolarionException('{}'.format(err))
 
 
