@@ -6,11 +6,13 @@ from __future__ import unicode_literals
 import os
 import io
 import datetime
+import shutil
 
 import pytest
 from tests import conf
 
 import dump2polarion as d2p
+from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion import dbtools
 
 
@@ -27,6 +29,12 @@ class TestDB(object):
         testrun_id = dbtools.get_testrun_from_sqlite(conn)
         assert testrun_id == '5_8_0_17'
 
+    def test_testrun_invalid_db(self):
+        db_file = os.path.join(conf.DATA_PATH, 'ostriz.json')
+        conn = dbtools.open_sqlite(db_file)
+        testrun_id = dbtools.get_testrun_from_sqlite(conn)
+        assert testrun_id is None
+
     def test_import_orig_data(self, records_db):
         assert hasattr(records_db, 'results')
         assert len(records_db.results) == 15
@@ -40,6 +48,38 @@ class TestDB(object):
         records = dbtools.import_sqlite(db_file, older_than=older_than)
         assert hasattr(records, 'results')
         assert len(records.results) == 14
+
+    def test_open_nonexistent(self):
+        db_file = 'nonexistent'
+        with pytest.raises(Dump2PolarionException):
+            dbtools.open_sqlite(db_file)
+
+    def test_exported_older_than(self, tmpdir):
+        orig_db_file = os.path.join(conf.DATA_PATH, 'workitems_ids.sqlite3')
+        older_than = datetime.datetime(2017, 6, 15)
+        db_file = os.path.join(str(tmpdir), 'workitems_copy.sqlite3')
+        shutil.copy(orig_db_file, db_file)
+        dbtools.mark_exported_sqlite(db_file, older_than=older_than)
+        conn = dbtools.open_sqlite(db_file)
+        cur = conn.cursor()
+        select = "SELECT count(*) FROM testcases WHERE exported == 'yes'"
+        cur.execute(select)
+        num = cur.fetchone()
+        conn.close()
+        assert num[0] == 12
+
+    def test_exported_all(self, tmpdir):
+        orig_db_file = os.path.join(conf.DATA_PATH, 'workitems_ids.sqlite3')
+        db_file = os.path.join(str(tmpdir), 'workitems_copy.sqlite3')
+        shutil.copy(orig_db_file, db_file)
+        dbtools.mark_exported_sqlite(db_file)
+        conn = dbtools.open_sqlite(db_file)
+        cur = conn.cursor()
+        select = "SELECT count(*) FROM testcases WHERE exported == 'yes'"
+        cur.execute(select)
+        num = cur.fetchone()
+        conn.close()
+        assert num[0] == 13
 
     def test_e2e_ids_notransform(self, config_prop, records_db):
         exporter = d2p.XunitExport(
