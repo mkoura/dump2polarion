@@ -43,7 +43,7 @@ def write_xml(xml, output_loc=None, filename=None):
         filename_fin = filename
 
     with io.open(filename_fin, 'w', encoding='utf-8') as xml_file:
-        xml_file.write(xml)
+        xml_file.write(get_unicode_str(xml))
     logger.info("Data written to '{}'".format(filename_fin))
 
 
@@ -64,13 +64,13 @@ def xunit_fill_testrun_id(xml, testrun_id):
 
     ElementTree.SubElement(properties, 'property',
                            {'name': 'polarion-testrun-id', 'value': str(testrun_id)})
-    return ElementTree.tostring(xml_root, encoding='utf8')
+    return get_unicode_str(ElementTree.tostring(xml_root, encoding='utf-8'))
 
 
 def get_unicode_str(obj):
     """Makes sure obj is a unicode string."""
     if isinstance(obj, unicode):
         return obj
-    if isinstance(obj, basestring):
-        return unicode(obj, errors='ignore')
+    if isinstance(obj, str):
+        return obj.decode('utf-8', errors='ignore')
     return unicode(obj)

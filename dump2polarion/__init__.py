@@ -193,7 +193,7 @@ class XunitExport(object):
         """Returns a pretty-printed XML."""
         rough_string = ElementTree.tostring(top_element, 'utf-8')
         reparsed = minidom.parseString(rough_string)
-        return reparsed.toprettyxml(indent='  ')
+        return get_unicode_str(reparsed.toprettyxml(indent='  ', encoding='utf-8'))
 
     def export(self):
         """Returns xunit XML."""
