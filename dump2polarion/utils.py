@@ -74,3 +74,11 @@ def get_unicode_str(obj):
     if isinstance(obj, str):
         return obj.decode('utf-8', errors='ignore')
     return unicode(obj)
+
+
+def init_log(log_level):
+    """Initializes logging."""
+    log_level = log_level or 'INFO'
+    logging.basicConfig(
+        format='%(name)s:%(levelname)s:%(message)s',
+        level=getattr(logging, log_level.upper(), logging.INFO))

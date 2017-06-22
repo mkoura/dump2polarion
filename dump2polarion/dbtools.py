@@ -13,12 +13,15 @@ from sqlite3 import Error as SQLiteError
 
 from collections import OrderedDict
 
-from dump2polarion import ImportedData
+from dump2polarion.exporter import ImportedData
 from dump2polarion.exceptions import Dump2PolarionException
 
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
+
+
+SQLITE_EXT = ('.sqlite', '.sqlite3', '.db', '.db3')
 
 
 def get_testrun_from_sqlite(conn):

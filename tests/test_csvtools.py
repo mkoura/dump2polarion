@@ -99,7 +99,7 @@ class TestCSVTestrunId(object):
 class TestCSVImport(object):
     def test_import_orig_data(self):
         csv_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
-        data = csvtools.import_csv(csv_file)
+        data = csvtools.get_imported_data(csv_file)
         assert hasattr(data, 'results')
         assert len(data.results) == 15
         assert 'id' in data.results[0]
@@ -112,7 +112,7 @@ class TestCSVImport(object):
         csv_file.write(csv_content)
         csv_file_path = str(csv_file)
         with pytest.raises(Dump2PolarionException):
-            csvtools.import_csv(csv_file_path)
+            csvtools.get_imported_data(csv_file_path)
 
     def test_import_and_check_verdict(self, tmpdir):
         csv_content = str("""
@@ -122,4 +122,4 @@ class TestCSVImport(object):
         csv_file.write(csv_content)
         csv_file_path = str(csv_file)
         with pytest.raises(Dump2PolarionException):
-            csvtools.import_csv_and_check(csv_file_path)
+            csvtools.import_csv(csv_file_path)

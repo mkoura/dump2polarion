@@ -9,7 +9,7 @@ import io
 import pytest
 from tests import conf
 
-import dump2polarion as d2p
+from dump2polarion.exporter import XunitExport
 from dump2polarion import ostriztools
 
 
@@ -52,7 +52,7 @@ class TestOstriz(object):
         assert records_json.testrun == '5_8_0_17'
 
     def test_e2e_ids_notransform(self, config_prop, records_json):
-        exporter = d2p.XunitExport(
+        exporter = XunitExport(
             '5_8_0_17', records_json, config_prop, transform_func=lambda arg: arg)
         complete = exporter.export()
         fname = 'ostriz_notransform.xml'
@@ -61,7 +61,7 @@ class TestOstriz(object):
         assert complete == parsed
 
     def test_e2e_ids_transform(self, config_prop, records_json):
-        exporter = d2p.XunitExport('5_8_0_17', records_json, config_prop)
+        exporter = XunitExport('5_8_0_17', records_json, config_prop)
         complete = exporter.export()
         fname = 'ostriz_transform.xml'
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:

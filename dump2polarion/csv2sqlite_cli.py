@@ -14,6 +14,7 @@ import datetime
 
 from dump2polarion import csvtools
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.utils import init_log
 
 
 # pylint: disable=invalid-name
@@ -77,10 +78,7 @@ def main(args=None):
     """Main function for cli."""
     args = get_args(args)
 
-    log_level = args.log_level or 'INFO'
-    logging.basicConfig(
-        format='%(name)s:%(levelname)s:%(message)s',
-        level=getattr(logging, log_level.upper(), logging.INFO))
+    init_log(args.log_level)
 
     try:
         records = csvtools.import_csv(args.input_file)

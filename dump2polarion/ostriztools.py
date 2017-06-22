@@ -11,7 +11,7 @@ import json
 import datetime
 import requests
 
-from dump2polarion import ImportedData
+from dump2polarion.exporter import ImportedData
 from dump2polarion.exceptions import Dump2PolarionException
 
 

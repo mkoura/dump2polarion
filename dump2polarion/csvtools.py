@@ -11,7 +11,7 @@ import csv
 
 from collections import OrderedDict
 
-from dump2polarion import ImportedData
+from dump2polarion.exporter import ImportedData
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.csv_unicode import UnicodeReader
 
@@ -119,7 +119,7 @@ def get_csv_reader(input_file):
 
 
 # pylint: disable=unused-argument
-def import_csv(csv_file, **kwargs):
+def get_imported_data(csv_file, **kwargs):
     """Reads the content of the Polarion exported csv file and returns imported data."""
     with open(os.path.expanduser(csv_file), 'rb') as input_file:
         reader = get_csv_reader(input_file)
@@ -139,9 +139,9 @@ def import_csv(csv_file, **kwargs):
     return ImportedData(results=results, testrun=testrun)
 
 
-def import_csv_and_check(csv_file, **kwargs):
-    """Like `import_csv` but check that all columns are there."""
-    records = import_csv(csv_file, **kwargs)
+def import_csv(csv_file, **kwargs):
+    """Imports data and checks that all required columns are there."""
+    records = get_imported_data(csv_file, **kwargs)
     required_columns = {'verdict': 'Verdict'}
     missing_columns = [required_columns[k] for k in required_columns if k not in records.results[0]]
     if missing_columns:

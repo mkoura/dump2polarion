@@ -14,10 +14,9 @@ import logging
 import datetime
 
 import dump2polarion
-from dump2polarion import dbtools
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.configuration import get_config
-from dump2polarion.submit import submit_and_verify
+from dump2polarion.utils import init_log
+from dump2polarion import dbtools
 
 
 # pylint: disable=invalid-name
@@ -59,14 +58,6 @@ def get_args(args=None):
     return parser.parse_args(args)
 
 
-def init_log(log_level):
-    """Initializes logging."""
-    log_level = log_level or 'INFO'
-    logging.basicConfig(
-        format='%(name)s:%(levelname)s:%(message)s',
-        level=getattr(logging, log_level.upper(), logging.INFO))
-
-
 def get_testrun_id(args, testrun_id):
     """Returns testrun id."""
     if (args.testrun_id and testrun_id and not args.force and
@@ -83,7 +74,24 @@ def get_testrun_id(args, testrun_id):
     return found_testrun_id
 
 
-# pylint: disable=too-many-locals,too-many-return-statements,too-many-branches,too-many-statements
+def submit_if_ready(args, config):
+    """Submits the input XML file if it's already in the expected format."""
+    _, ext = os.path.splitext(args.input_file)
+    if ext.lower() != '.xml':
+        return
+
+    with io.open(args.input_file, encoding='utf-8') as input_file:
+        xml = input_file.read()
+
+    if '<testsuites' in xml or '<testcases' in xml:
+        if args.no_submit:
+            logger.info("Nothing to do")
+            return 0
+        # expect importer xml and just submit it
+        response = dump2polarion.submit_and_verify(xml, config=config, **vars(args))
+        return 0 if response else 2
+
+
 def main(args=None):
     """Main function for cli."""
     args = get_args(args)
@@ -91,54 +99,22 @@ def main(args=None):
     init_log(args.log_level)
 
     try:
-        config = get_config(args.config_file, args=vars(args))
+        config = dump2polarion.get_config(args.config_file, args=vars(args))
     except Dump2PolarionException as err:
         logger.fatal(err)
         return 1
 
-    # select importer based on input file type and load needed tools
-    _, ext = os.path.splitext(args.input_file)
-    ext = ext.lower()
-    if 'ostriz' in args.input_file:
-        from dump2polarion import ostriztools
-        importer = ostriztools.import_ostriz
-    elif ext == '.xml':
-        with io.open(args.input_file, encoding='utf-8') as input_file:
-            xml = input_file.read()
-
-        if '<testsuites' in xml or '<testcases' in xml:
-            if args.no_submit:
-                logger.info("Nothing to do")
-                return 0
-            # expect importer xml and just submit it
-            response = submit_and_verify(xml, config=config, **vars(args))
-            return 0 if response else 2
-
-        # expect junit-report from pytest
-        from dump2polarion import junittools
-        del xml
-        importer = junittools.import_junit
-    elif ext == '.csv':
-        from dump2polarion import csvtools
-        importer = csvtools.import_csv_and_check
-    elif ext in ('.sqlite', '.sqlite3', '.db', '.db3'):
-        importer = dbtools.import_sqlite
-    else:
-        logger.fatal(
-            "Cannot recognize type of input data, add file extension.")
-        return 1
+    submit_outcome = submit_if_ready(args, config)
+    if submit_outcome is not None:
+        # submitted, nothing more to do
+        return submit_outcome
 
     import_time = datetime.datetime.utcnow()
 
     try:
-        records = importer(args.input_file, older_than=import_time)
+        records = dump2polarion.do_import(args.input_file, older_than=import_time)
         testrun_id = get_testrun_id(args, records.testrun)
-    except (EnvironmentError, Dump2PolarionException) as err:
-        logger.fatal(err)
-        return 1
-
-    exporter = dump2polarion.XunitExport(testrun_id, records, config)
-    try:
+        exporter = dump2polarion.XunitExport(testrun_id, records, config)
         output = exporter.export()
     except (EnvironmentError, Dump2PolarionException) as err:
         logger.fatal(err)
@@ -150,9 +126,12 @@ def main(args=None):
         exporter.write_xml(output, args.output_file)
 
     if not args.no_submit:
-        response = submit_and_verify(output, config=config, **vars(args))
+        response = dump2polarion.submit_and_verify(output, config=config, **vars(args))
 
-        if importer is dbtools.import_sqlite and response:
+        _, ext = os.path.splitext(args.input_file)
+        if ext.lower() in dbtools.SQLITE_EXT and response:
             dbtools.mark_exported_sqlite(args.input_file, import_time)
 
         return 0 if response else 2
+
+    return 0

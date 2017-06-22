@@ -11,7 +11,7 @@ import shutil
 import pytest
 from tests import conf
 
-import dump2polarion as d2p
+from dump2polarion.exporter import XunitExport
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion import dbtools
 
@@ -82,7 +82,7 @@ class TestDB(object):
         assert num[0] == 13
 
     def test_e2e_ids_notransform(self, config_prop, records_db):
-        exporter = d2p.XunitExport(
+        exporter = XunitExport(
             '5_8_0_17', records_db, config_prop, transform_func=lambda arg: arg)
         complete = exporter.export()
         fname = 'complete_notransform.xml'
@@ -91,7 +91,7 @@ class TestDB(object):
         assert complete == parsed
 
     def test_e2e_ids_transform(self, config_prop, records_db):
-        exporter = d2p.XunitExport('5_8_0_17', records_db, config_prop)
+        exporter = XunitExport('5_8_0_17', records_db, config_prop)
         complete = exporter.export()
         fname = 'complete_transform.xml'
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
