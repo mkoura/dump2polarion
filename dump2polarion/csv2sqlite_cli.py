@@ -101,3 +101,5 @@ def main(args=None):
     except Exception as err:
         logger.fatal(err)
         return 1
+
+    return 0
