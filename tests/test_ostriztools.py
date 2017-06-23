@@ -1,5 +1,5 @@
 # encoding: utf-8
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,too-few-public-methods
+# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
 from __future__ import unicode_literals
 
@@ -21,27 +21,27 @@ def records_json():
 
 class TestOstriz(object):
     def test_testrun_id_simple(self):
-        testrun_id = ostriztools.get_testrun_id('5.8.0.17')
+        testrun_id = ostriztools._get_testrun_id('5.8.0.17')
         assert testrun_id == '5_8_0_17'
 
     def test_testrun_id_build(self):
-        testrun_id = ostriztools.get_testrun_id('5.8.0.17-20170525183055_6317a22')
+        testrun_id = ostriztools._get_testrun_id('5.8.0.17-20170525183055_6317a22')
         assert testrun_id == '5_8_0_17'
 
     def test_testrun_id_fill(self):
-        testrun_id = ostriztools.get_testrun_id('5.8.0.7-2017')
+        testrun_id = ostriztools._get_testrun_id('5.8.0.7-2017')
         assert testrun_id == '5_8_0_07'
 
     def test_duration_good(self):
-        duration = ostriztools.calculate_duration(1495766591.151192, 1495768544.573208)
+        duration = ostriztools._calculate_duration(1495766591.151192, 1495768544.573208)
         assert duration == 1953
 
     def test_duration_bad_finish(self):
-        duration = ostriztools.calculate_duration(1495766591.151192, None)
+        duration = ostriztools._calculate_duration(1495766591.151192, None)
         assert duration == 0
 
     def test_duration_bad_start(self):
-        duration = ostriztools.calculate_duration(0, 1495768544.573208)
+        duration = ostriztools._calculate_duration(0, 1495768544.573208)
         assert duration == 0
 
     def test_import_orig_data(self, records_json):

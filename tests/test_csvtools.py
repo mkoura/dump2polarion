@@ -1,5 +1,5 @@
 # encoding: utf-8
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,too-few-public-methods
+# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
 from __future__ import unicode_literals
 
@@ -17,8 +17,8 @@ class TestCSVFileldNames(object):
     def test_fieldnames_exported(self):
         csv_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
         with open(csv_file, 'rb') as input_file:
-            reader = csvtools.get_csv_reader(input_file)
-            fieldnames = csvtools.get_csv_fieldnames(reader)
+            reader = csvtools._get_csv_reader(input_file)
+            fieldnames = csvtools._get_csv_fieldnames(reader)
         assert fieldnames == [
             'id',
             'title',
@@ -35,8 +35,8 @@ class TestCSVFileldNames(object):
     def test_fieldnames_unanotated(self):
         csv_content = str(',,ID,Title,Test Case I D,Caseimportance')
         input_file = StringIO(csv_content)
-        reader = csvtools.get_csv_reader(input_file)
-        fieldnames = csvtools.get_csv_fieldnames(reader)
+        reader = csvtools._get_csv_reader(input_file)
+        fieldnames = csvtools._get_csv_fieldnames(reader)
         input_file.close()
         assert fieldnames == [
             'field1',
@@ -50,8 +50,8 @@ class TestCSVFileldNames(object):
     def test_fieldnames_trailing(self):
         csv_content = str('ID,Title,Test Case I D,Caseimportance,,,')
         input_file = StringIO(csv_content)
-        reader = csvtools.get_csv_reader(input_file)
-        fieldnames = csvtools.get_csv_fieldnames(reader)
+        reader = csvtools._get_csv_reader(input_file)
+        fieldnames = csvtools._get_csv_fieldnames(reader)
         input_file.close()
         assert fieldnames == [
             'id',
@@ -63,8 +63,8 @@ class TestCSVFileldNames(object):
     def test_fieldnames_missing_id(self):
         csv_content = str('Title,Test Case I D,Caseimportance,,,')
         input_file = StringIO(csv_content)
-        reader = csvtools.get_csv_reader(input_file)
-        fieldnames = csvtools.get_csv_fieldnames(reader)
+        reader = csvtools._get_csv_reader(input_file)
+        fieldnames = csvtools._get_csv_fieldnames(reader)
         input_file.close()
         assert fieldnames is None
 
@@ -73,8 +73,8 @@ class TestCSVTestrunId(object):
     def test_testrun_id_exported(self):
         csv_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
         with open(csv_file, 'rb') as input_file:
-            reader = csvtools.get_csv_reader(input_file)
-            testrun_id = csvtools.get_testrun_from_csv(input_file, reader)
+            reader = csvtools._get_csv_reader(input_file)
+            testrun_id = csvtools._get_testrun_from_csv(input_file, reader)
         assert testrun_id == '5_8_0_17'
 
     def test_testrun_id_line(self):
@@ -82,8 +82,8 @@ class TestCSVTestrunId(object):
                           '(TEST_RECORDS:(""RHCF3/5_8_0_17"", @null))) '
                           'AND project.id:RHCF3",,,,,,,')
         input_file = StringIO(csv_content)
-        reader = csvtools.get_csv_reader(input_file)
-        testrun_id = csvtools.get_testrun_from_csv(input_file, reader)
+        reader = csvtools._get_csv_reader(input_file)
+        testrun_id = csvtools._get_testrun_from_csv(input_file, reader)
         assert testrun_id == '5_8_0_17'
 
     def test_testrun_id_far(self):
@@ -91,8 +91,8 @@ class TestCSVTestrunId(object):
             ,ID,Title,Test Case I D,,,,
             ,(TEST_RECORDS:(""RHCF3/5_8_0_17"", @null)),,,,,""")
         input_file = StringIO(csv_content)
-        reader = csvtools.get_csv_reader(input_file)
-        testrun_id = csvtools.get_testrun_from_csv(input_file, reader)
+        reader = csvtools._get_csv_reader(input_file)
+        testrun_id = csvtools._get_testrun_from_csv(input_file, reader)
         assert not testrun_id
 
 

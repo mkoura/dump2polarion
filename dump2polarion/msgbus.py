@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 logging.getLogger('stomp.py').setLevel(logging.WARNING)
 
 
-class XunitListener(object):
+class _XunitListener(object):
     """Listener for xunit importer message bus."""
     def __init__(self):
         self.message_list = []
@@ -57,7 +57,7 @@ class XunitListener(object):
         return self.message_list[-1]
 
 
-def get_response_property(xunit):
+def _get_response_property(xunit):
     """Parse xunit xml and finds the "polarion-response-" name and value."""
     try:
         root = ElementTree.fromstring(xunit.encode('utf-8'))
@@ -82,7 +82,7 @@ def get_response_property(xunit):
                 return (prop_name, str(prop_value))
 
 
-def log_received_data(headers, message):
+def _log_received_data(headers, message):
     """Logs received message and headers."""
     if not logger.isEnabledFor(logging.DEBUG) or headers is None or message is None:
         return
@@ -91,7 +91,7 @@ def log_received_data(headers, message):
     logging.debug("Message body: \n{}".format(message))
 
 
-def download_log(url, output_file):
+def _download_log(url, output_file):
     """Saves log returned by the message bus."""
     logger.info("Saving log {} to {}".format(url, output_file))
 
@@ -115,7 +115,7 @@ def download_log(url, output_file):
         out.write(log_data.content)
 
 
-def check_outcome(message, is_error, log_file=None):
+def _check_outcome(message, is_error, log_file=None):
     """Parses returned message and checks submit outcome."""
     if is_error is None:
         logger.error("Submit verification timed out, check in the web UI if results were updated "
@@ -137,7 +137,7 @@ def check_outcome(message, is_error, log_file=None):
         if not log_file:
             logger.info("Submit log: {}".format(url))
         else:
-            download_log(url, log_file)
+            _download_log(url, log_file)
 
     if data.get('status') == 'passed':
         logger.info("Results successfully submitted!")
@@ -154,7 +154,7 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
             "Message bus url ('message_bus') not configured, skipping submit verification")
         return
 
-    selector = get_response_property(xunit)
+    selector = _get_response_property(xunit)
     if not selector:
         logger.error(
             "The 'polarion-response-*' property not set, skipping submit verification")
@@ -166,7 +166,7 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
 
     host, port = bus_url.split(':')
     conn = stomp.Connection([(host.encode('ascii', 'ignore'), int(port))])
-    listener = XunitListener()
+    listener = _XunitListener()
     conn.set_listener('XUnit Listener', listener)
     logger.debug('Subscribing to the XUnit Importer message bus')
     conn.start()
@@ -202,8 +202,8 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
             logger.debug('Terminating subscription')
             conn.disconnect()
 
-        log_received_data(headers, message)
+        _log_received_data(headers, message)
 
-        return check_outcome(message, is_error, log_file=kwargs.get('log_file'))
+        return _check_outcome(message, is_error, log_file=kwargs.get('log_file'))
 
     return verify_submit

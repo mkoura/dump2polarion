@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 SQLITE_EXT = ('.sqlite', '.sqlite3', '.db', '.db3')
 
 
-def get_testrun_from_sqlite(conn):
+def _get_testrun_from_sqlite(conn):
     """Returns testrun id saved from original csv file."""
     cur = conn.cursor()
     try:
@@ -34,7 +34,7 @@ def get_testrun_from_sqlite(conn):
         return
 
 
-def open_sqlite(db_file):
+def _open_sqlite(db_file):
     """Opens database connection."""
     db_file = os.path.expanduser(db_file)
     try:
@@ -49,7 +49,7 @@ def open_sqlite(db_file):
 # pylint: disable=unused-argument
 def import_sqlite(db_file, older_than=None, **kwargs):
     """Reads the content of the database file and returns imported data."""
-    conn = open_sqlite(db_file)
+    conn = _open_sqlite(db_file)
     cur = conn.cursor()
     # get rows that were not exported yet
     select = "SELECT * FROM testcases WHERE exported != 'yes'"
@@ -66,7 +66,7 @@ def import_sqlite(db_file, older_than=None, **kwargs):
         record = OrderedDict(zip(columns, row))
         results.append(record)
 
-    testrun = get_testrun_from_sqlite(conn)
+    testrun = _get_testrun_from_sqlite(conn)
 
     conn.close()
 
@@ -76,7 +76,7 @@ def import_sqlite(db_file, older_than=None, **kwargs):
 def mark_exported_sqlite(db_file, older_than=None):
     """Marks rows with verdict as exported."""
     logger.debug("Marking rows in database as exported")
-    conn = open_sqlite(db_file)
+    conn = _open_sqlite(db_file)
     cur = conn.cursor()
     update = "UPDATE testcases SET exported = 'yes' WHERE verdict IS NOT null AND verdict != ''"
     if older_than:

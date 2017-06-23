@@ -1,5 +1,5 @@
 # encoding: utf-8
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,too-few-public-methods
+# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
 from __future__ import unicode_literals
 
@@ -16,7 +16,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion import dbtools
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope='module')
 def records_db():
     db_file = os.path.join(conf.DATA_PATH, 'workitems_ids.sqlite3')
     return dbtools.import_sqlite(db_file)
@@ -25,14 +25,14 @@ def records_db():
 class TestDB(object):
     def test_testrun_id_exported(self):
         db_file = os.path.join(conf.DATA_PATH, 'workitems_ids.sqlite3')
-        conn = dbtools.open_sqlite(db_file)
-        testrun_id = dbtools.get_testrun_from_sqlite(conn)
+        conn = dbtools._open_sqlite(db_file)
+        testrun_id = dbtools._get_testrun_from_sqlite(conn)
         assert testrun_id == '5_8_0_17'
 
     def test_testrun_invalid_db(self):
         db_file = os.path.join(conf.DATA_PATH, 'ostriz.json')
-        conn = dbtools.open_sqlite(db_file)
-        testrun_id = dbtools.get_testrun_from_sqlite(conn)
+        conn = dbtools._open_sqlite(db_file)
+        testrun_id = dbtools._get_testrun_from_sqlite(conn)
         assert testrun_id is None
 
     def test_import_orig_data(self, records_db):
@@ -52,7 +52,7 @@ class TestDB(object):
     def test_open_nonexistent(self):
         db_file = 'nonexistent'
         with pytest.raises(Dump2PolarionException):
-            dbtools.open_sqlite(db_file)
+            dbtools._open_sqlite(db_file)
 
     def test_exported_older_than(self, tmpdir):
         orig_db_file = os.path.join(conf.DATA_PATH, 'workitems_ids.sqlite3')
@@ -60,7 +60,7 @@ class TestDB(object):
         db_file = os.path.join(str(tmpdir), 'workitems_copy.sqlite3')
         shutil.copy(orig_db_file, db_file)
         dbtools.mark_exported_sqlite(db_file, older_than=older_than)
-        conn = dbtools.open_sqlite(db_file)
+        conn = dbtools._open_sqlite(db_file)
         cur = conn.cursor()
         select = "SELECT count(*) FROM testcases WHERE exported == 'yes'"
         cur.execute(select)
@@ -73,7 +73,7 @@ class TestDB(object):
         db_file = os.path.join(str(tmpdir), 'workitems_copy.sqlite3')
         shutil.copy(orig_db_file, db_file)
         dbtools.mark_exported_sqlite(db_file)
-        conn = dbtools.open_sqlite(db_file)
+        conn = dbtools._open_sqlite(db_file)
         cur = conn.cursor()
         select = "SELECT count(*) FROM testcases WHERE exported == 'yes'"
         cur.execute(select)

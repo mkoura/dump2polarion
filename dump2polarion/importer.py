@@ -11,7 +11,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.dbtools import SQLITE_EXT
 
 
-def get_importer(input_file):
+def _get_importer(input_file):
     """Selects importer based on input file type."""
     _, ext = os.path.splitext(input_file)
     ext = ext.lower()
@@ -39,4 +39,4 @@ def get_importer(input_file):
 def do_import(input_file, **kwargs):
     """Imports the input file."""
 
-    return get_importer(input_file)(input_file, **kwargs)
+    return _get_importer(input_file)(input_file, **kwargs)

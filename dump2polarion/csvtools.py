@@ -16,7 +16,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.csv_unicode import UnicodeReader
 
 
-def get_csv_fieldnames(csv_reader):
+def _get_csv_fieldnames(csv_reader):
     """Finds fieldnames in Polarion exported csv file."""
     fieldnames = []
     for row in csv_reader:
@@ -52,7 +52,7 @@ def get_csv_fieldnames(csv_reader):
     return fieldnames
 
 
-def get_testrun_from_csv(file_obj, csv_reader):
+def _get_testrun_from_csv(file_obj, csv_reader):
     """Tries to find the testrun id in  Polarion exported csv file."""
     file_obj.seek(0)
     search_str = r'TEST_RECORDS:\("[^/]+/([^"]+)"'
@@ -84,7 +84,7 @@ def get_testrun_from_csv(file_obj, csv_reader):
     return testrun_id
 
 
-def get_results(csv_reader, fieldnames):
+def _get_results(csv_reader, fieldnames):
     """Maps data to fieldnames.
 
     The reader needs to be at position after fieldnames, before the results data.
@@ -111,7 +111,7 @@ def get_results(csv_reader, fieldnames):
     return results
 
 
-def get_csv_reader(input_file):
+def _get_csv_reader(input_file):
     """Returns csv reader."""
     dialect = csv.Sniffer().sniff(input_file.read(2048))
     input_file.seek(0)
@@ -122,30 +122,34 @@ def get_csv_reader(input_file):
 def get_imported_data(csv_file, **kwargs):
     """Reads the content of the Polarion exported csv file and returns imported data."""
     with open(os.path.expanduser(csv_file), 'rb') as input_file:
-        reader = get_csv_reader(input_file)
+        reader = _get_csv_reader(input_file)
 
-        fieldnames = get_csv_fieldnames(reader)
+        fieldnames = _get_csv_fieldnames(reader)
         if not fieldnames:
             raise Dump2PolarionException(
                 "Cannot find field names in CSV file '{}'".format(csv_file))
 
-        results = get_results(reader, fieldnames)
+        results = _get_results(reader, fieldnames)
         if not results:
             raise Dump2PolarionException(
                 "No results read from CSV file '{}'".format(csv_file))
 
-        testrun = get_testrun_from_csv(input_file, reader)
+        testrun = _get_testrun_from_csv(input_file, reader)
 
     return ImportedData(results=results, testrun=testrun)
+
+
+def _check_required_columns(csv_file, results):
+    required_columns = {'verdict': 'Verdict'}
+    missing_columns = [required_columns[k] for k in required_columns if k not in results[0]]
+    if missing_columns:
+        raise Dump2PolarionException(
+            "The input file '{}' is missing following columns: {}".format(
+                csv_file, ', '.join(missing_columns)))
 
 
 def import_csv(csv_file, **kwargs):
     """Imports data and checks that all required columns are there."""
     records = get_imported_data(csv_file, **kwargs)
-    required_columns = {'verdict': 'Verdict'}
-    missing_columns = [required_columns[k] for k in required_columns if k not in records.results[0]]
-    if missing_columns:
-        raise Dump2PolarionException(
-            "The input file '{}' is missing following columns: {}".format(
-                csv_file, ', '.join(missing_columns)))
+    _check_required_columns(csv_file, records.results)
     return records
