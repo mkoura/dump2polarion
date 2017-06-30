@@ -81,7 +81,7 @@ def main(args=None):
     init_log(args.log_level)
 
     try:
-        records = csvtools.import_csv(args.input_file)
+        records = csvtools.get_imported_data(args.input_file)
     except (EnvironmentError, Dump2PolarionException) as err:
         logger.fatal(err)
         return 1
