@@ -157,7 +157,7 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
     selector = _get_response_property(xunit)
     if not selector:
         logger.error(
-            "The 'polarion-response-*' property not set, skipping submit verification")
+            "The response property is not set, skipping submit verification")
         return
 
     if not all([user, password]):
@@ -168,7 +168,7 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
     conn = stomp.Connection([(host.encode('ascii', 'ignore'), int(port))])
     listener = _XunitListener()
     conn.set_listener('XUnit Listener', listener)
-    logger.debug('Subscribing to the XUnit Importer message bus')
+    logger.debug("Subscribing to the XUnit Importer message bus")
     conn.start()
     conn.connect(login=user, passcode=password)
 
@@ -182,7 +182,7 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
     # pylint: disable=broad-except
     except Exception as err:
         logger.error("Skipping submit verification: {}".format(err))
-        logger.debug('Terminating subscription')
+        logger.debug("Terminating subscription")
         conn.disconnect()
 
     def verify_submit(skip=False, timeout=None):
@@ -193,13 +193,14 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
                 # just do cleanup in finally
                 return
             logger.info("Waiting for response on the XUnit Importer message bus...")
+            logger.debug("Response selector: {}={}".format(selector[0], selector[1]))
             if listener.wait_for_message(timeout=timeout):
                 headers, message, is_error = listener.get_latest_message()
         # pylint: disable=broad-except
         except Exception as err:
             logger.error("Skipping submit verification: {}".format(err))
         finally:
-            logger.debug('Terminating subscription')
+            logger.debug("Terminating subscription")
             conn.disconnect()
 
         _log_received_data(headers, message)

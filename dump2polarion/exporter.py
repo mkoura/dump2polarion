@@ -9,7 +9,6 @@ from __future__ import unicode_literals, absolute_import
 import datetime
 import string
 import random
-import logging
 
 from collections import namedtuple
 
@@ -21,10 +20,6 @@ from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.verdicts import Verdicts
 from dump2polarion.transform import get_results_transform
 from dump2polarion.utils import write_xml, get_unicode_str
-
-
-# pylint: disable=invalid-name
-logger = logging.getLogger(__name__)
 
 
 ImportedData = namedtuple('ImportedData', 'results testrun')
