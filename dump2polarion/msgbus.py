@@ -107,7 +107,7 @@ def _download_log(url, output_file):
         log_data = _do_log_download()
         if log_data or log_data is None:
             break
-        time.sleep(1)
+        time.sleep(2)
 
     if not log_data:
         logger.error("Failed to download log file '{}'.".format(url))
