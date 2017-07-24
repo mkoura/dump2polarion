@@ -7,10 +7,10 @@ Dump testcases results from a CSV input file to SQLite.
 from __future__ import unicode_literals, absolute_import
 
 import argparse
+import datetime
 import logging
 import os
 import sqlite3
-import datetime
 
 from dump2polarion import csvtools
 from dump2polarion.exceptions import Dump2PolarionException
@@ -87,7 +87,7 @@ def main(args=None):
         return 1
 
     # check if all columns required by `pytest_polarion_cfme` are there
-    required_columns = {'id': 'ID', 'testcaseid': 'Test Case ID'}
+    required_columns = {'id': 'ID', 'title': 'Title'}
     missing_columns = [required_columns[k] for k in required_columns if k not in records.results[0]]
     if missing_columns:
         logger.fatal(
