@@ -26,7 +26,3 @@ class TestConfiguration(object):
         cfg = configuration.get_config(conf_file)
         assert cfg['xunit_import_properties']['polarion-dry-run'] is True
         assert cfg['username'] == 'user1'
-
-    def test_args(self):
-        cfg = configuration.get_config(args={'arg1': 'val1'})
-        assert cfg['args']['arg1'] == 'val1'

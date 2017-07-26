@@ -99,7 +99,7 @@ def main(args=None):
     init_log(args.log_level)
 
     try:
-        config = dump2polarion.get_config(args.config_file, args=vars(args))
+        config = dump2polarion.get_config(args.config_file)
     except Dump2PolarionException as err:
         logger.fatal(err)
         return 1

@@ -66,9 +66,7 @@ def submit(xml_str=None, xml_file=None, config=None, **kwargs):
     elif '<testsuites' in xml_input:
         submit_target = config.get('xunit_target')
         if 'polarion-testrun-id' not in xml_input:
-            if config.get('args'):
-                testrun_id = config['args'].get('testrun_id')
-            testrun_id = kwargs.get('testrun_id') or testrun_id
+            testrun_id = kwargs.get('testrun_id')
             if not testrun_id:
                 logger.error("Failed to submit results to Polarion - missing testrun id")
                 return
