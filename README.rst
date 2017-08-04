@@ -85,3 +85,4 @@ More info
 For CFME QE specific instructions see <https://mojo.redhat.com/docs/DOC-1098563>
 
 For info about XUnit Importer see <https://mojo.redhat.com/docs/DOC-1073077>
+For info about Test Case Importer see <https://mojo.redhat.com/docs/DOC-1075945>

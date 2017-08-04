@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Connects to the Polarion XUnit Importer message bus and verifies that results were submitted.
+Connects to the Polarion Importer message bus and verifies that results were submitted.
 """
 
 from __future__ import unicode_literals, absolute_import
@@ -170,8 +170,8 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
     conn = stomp.Connection([(host.encode('ascii', 'ignore'), int(port))])
 
     listener = _XunitListener()
-    conn.set_listener('XUnit Listener', listener)
-    logger.debug("Subscribing to the XUnit Importer message bus")
+    conn.set_listener('Importer Listener', listener)
+    logger.debug("Subscribing to the Importer message bus")
     conn.start()
     conn.connect(login=user, passcode=password)
 
@@ -195,7 +195,7 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
             if skip:
                 # just do cleanup in finally
                 return
-            logger.info("Waiting for response on the XUnit Importer message bus...")
+            logger.info("Waiting for response on the Importer message bus...")
             logger.debug("Response selector: {}={}".format(selector[0], selector[1]))
             if listener.wait_for_message(timeout=timeout):
                 headers, message, is_error = listener.get_latest_message()

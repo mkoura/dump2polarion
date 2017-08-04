@@ -76,7 +76,7 @@ def _fill_testrun_id(xml_input, testrun_id):
 
 
 def submit(xml_str=None, xml_file=None, config=None, **kwargs):
-    """Submits results to the XUnit Importer."""
+    """Submits results to the Polarion Importer."""
     try:
         # get default configuration when missing
         config = config or get_config()
@@ -110,7 +110,7 @@ def submit(xml_str=None, xml_file=None, config=None, **kwargs):
 
 
 def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
-    """Submits results to the XUnit Importer and checks that it was imported."""
+    """Submits results to the Polarion Importer and checks that it was imported."""
     try:
         xml_input = _get_xml_input(xml_str, xml_file)
     except Dump2PolarionException as err:
