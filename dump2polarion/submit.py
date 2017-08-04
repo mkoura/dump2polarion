@@ -100,7 +100,7 @@ def submit(xml_str=None, xml_file=None, config=None, **kwargs):
     if response is None:
         logger.error("Failed to submit results to {}".format(submit_target))
     elif response:
-        logger.info("Results received by Importer (HTTP status {})".format(
+        logger.info("Results received by the Importer (HTTP status {})".format(
             response.status_code))
     else:
         logger.error("HTTP status {}: failed to submit results to {}".format(
