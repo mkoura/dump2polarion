@@ -16,12 +16,10 @@ import pprint
 from xml.etree import ElementTree
 
 import requests
-import stomp
 
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
-logging.getLogger('stomp.py').setLevel(logging.WARNING)
 
 
 class _XunitListener(object):
@@ -165,7 +163,12 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
         return
 
     host, port = bus_url.split(':')
+
+    # avoid slow initialization of stomp when it's not needed
+    import stomp
+    logging.getLogger('stomp.py').setLevel(logging.WARNING)
     conn = stomp.Connection([(host.encode('ascii', 'ignore'), int(port))])
+
     listener = _XunitListener()
     conn.set_listener('XUnit Listener', listener)
     logger.debug("Subscribing to the XUnit Importer message bus")

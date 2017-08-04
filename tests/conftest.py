@@ -3,6 +3,9 @@
 
 from __future__ import unicode_literals
 
+import io
+import logging
+
 import pytest
 
 
@@ -14,7 +17,9 @@ def config_prop():
             'polarion-project-id': 'RHCF3',
             'polarion-testrun-status-id': 'inprogress',
             'polarion-response-test': 'test'
-        }
+        },
+        'xunit_target': 'https://polarion/import/xunit',
+        'testcase_taget': 'https://polarion/import/testcase'
     }
 
 
@@ -30,3 +35,26 @@ xunit_import_properties:
     conf_file = tmpdir.join('dump2polarion.yaml')
     conf_file.write(conf_content)
     return str(conf_file)
+
+
+class SimpleFormatter(object):
+    def format(self, record):
+        message = record.getMessage()
+        if isinstance(message, bytes):
+            message = message.decode('utf-8')
+        return message
+
+
+@pytest.yield_fixture
+def captured_log():
+    buff = io.StringIO()
+    handler = logging.StreamHandler(buff)
+    handler.setFormatter(SimpleFormatter())
+
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
+    logger.addHandler(handler)
+
+    yield buff
+
+    logger.handlers.remove(handler)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Submit results to the Polarion XUnit Importer.
+Submit results to the Polarion XUnit/TestCase Importer.
 """
 
 from __future__ import unicode_literals, absolute_import
@@ -12,8 +12,9 @@ import logging
 
 import requests
 
-from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion import msgbus
 from dump2polarion.configuration import get_config
+from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.utils import xunit_fill_testrun_id
 
 # requests package backwards compatibility mess
@@ -34,58 +35,63 @@ logger = logging.getLogger(__name__)
 
 
 def _get_xml_input(xml_str, xml_file):
-    xml_input = None
     if xml_str:
         xml_input = xml_str
     elif xml_file and os.path.exists(xml_file):
         with io.open(xml_file, encoding='utf-8') as input_file:
             xml_input = input_file.read()
     else:
-        logger.error("Failed to submit results to Polarion - no data supplied")
+        raise Dump2PolarionException("Failed to submit results to Polarion - no data supplied")
     return xml_input
 
 
-# pylint: disable=too-many-branches
-def submit(xml_str=None, xml_file=None, config=None, **kwargs):
-    """Submits results to the XUnit Importer."""
-    xml_input = _get_xml_input(xml_str, xml_file)
-    if not xml_input:
-        return
+def _get_submit_target(xml_input, config):
+    if '<testcases' in xml_input:
+        target = config.get('testcase_taget')
+    elif '<testsuites' in xml_input:
+        target = config.get('xunit_target')
+    else:
+        raise Dump2PolarionException(
+            "Failed to submit results to Polarion - submit target not found")
+    return target
 
-    # get default configuration when missing
-    config = config or get_config()
+
+def _get_credentials(config, **kwargs):
     login = kwargs.get('user') or config.get('username') or os.environ.get("POLARION_USERNAME")
     pwd = kwargs.get('password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
 
     if not all([login, pwd]):
-        logger.error("Failed to submit results to Polarion - missing credentials")
-        return
+        raise Dump2PolarionException("Failed to submit results to Polarion - missing credentials")
 
-    if '<testcases' in xml_input:
-        submit_target = config.get('testcase_taget')
-    elif '<testsuites' in xml_input:
-        submit_target = config.get('xunit_target')
-        if 'polarion-testrun-id' not in xml_input:
-            testrun_id = kwargs.get('testrun_id')
-            if not testrun_id:
-                logger.error("Failed to submit results to Polarion - missing testrun id")
-                return
-            try:
-                xml_input = xunit_fill_testrun_id(xml_input, testrun_id)
-            except Dump2PolarionException as err:
-                logger.error(err)
-                return
-    else:
-        submit_target = None
+    return (login, pwd)
 
-    if not submit_target:
-        logger.error("Failed to submit results to Polarion - missing submit target")
+
+def _fill_testrun_id(xml_input, testrun_id):
+    if '<testsuites' in xml_input and 'polarion-testrun-id' not in xml_input:
+        if not testrun_id:
+            raise Dump2PolarionException(
+                "Failed to submit results to Polarion - missing testrun id")
+        return xunit_fill_testrun_id(xml_input, testrun_id)
+    return xml_input
+
+
+def submit(xml_str=None, xml_file=None, config=None, **kwargs):
+    """Submits results to the XUnit Importer."""
+    try:
+        # get default configuration when missing
+        config = config or get_config()
+        xml_input = _get_xml_input(xml_str, xml_file)
+        credentials = _get_credentials(config, **kwargs)
+        submit_target = _get_submit_target(xml_input, config)
+        xml_input = _fill_testrun_id(xml_input, kwargs.get('testrun_id'))
+    except Dump2PolarionException as err:
+        logger.error(err)
         return
 
     logger.info("Submitting results to {}".format(submit_target))
     files = {'file': ('results.xml', xml_input)}
     try:
-        response = requests.post(submit_target, files=files, auth=(login, pwd), verify=False)
+        response = requests.post(submit_target, files=files, auth=credentials, verify=False)
     # pylint: disable=broad-except
     except Exception as err:
         logger.error(err)
@@ -94,7 +100,7 @@ def submit(xml_str=None, xml_file=None, config=None, **kwargs):
     if response is None:
         logger.error("Failed to submit results to {}".format(submit_target))
     elif response:
-        logger.info("Results received by XUnit Importer (HTTP status {})".format(
+        logger.info("Results received by Importer (HTTP status {})".format(
             response.status_code))
     else:
         logger.error("HTTP status {}: failed to submit results to {}".format(
@@ -105,8 +111,10 @@ def submit(xml_str=None, xml_file=None, config=None, **kwargs):
 
 def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
     """Submits results to the XUnit Importer and checks that it was imported."""
-    xml_input = _get_xml_input(xml_str, xml_file)
-    if not xml_input:
+    try:
+        xml_input = _get_xml_input(xml_str, xml_file)
+    except Dump2PolarionException as err:
+        logger.error(err)
         return
 
     # get default configuration when missing
@@ -119,8 +127,7 @@ def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
             'user') or config.get('username') or os.environ.get("POLARION_USERNAME")
         msgbus_pwd = kwargs.get('msgbus_password') or config.get('msgbus_password') or kwargs.get(
             'password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
-        # avoid slow initialization of stomp when it's not needed
-        from dump2polarion import msgbus
+
         verification_func = msgbus.get_verification_func(
             config.get('message_bus'),
             xml_input,
