@@ -6,12 +6,13 @@ Connects to the Polarion Importer message bus and verifies that results were sub
 
 from __future__ import unicode_literals, absolute_import
 
-import os
+import json
 import logging
+import os
+import pprint
+import thread
 import threading
 import time
-import json
-import pprint
 
 from xml.etree import ElementTree
 
@@ -23,7 +24,7 @@ logger = logging.getLogger(__name__)
 
 
 class _XunitListener(object):
-    """Listener for xunit importer message bus."""
+    """Listener for Polarion Importer message bus."""
     def __init__(self):
         self.message_list = []
         self.message_condition = threading.Condition()
@@ -41,7 +42,7 @@ class _XunitListener(object):
         return self.on_message(headers, message, True)
 
     def wait_for_message(self, timeout=None):
-        """Waits for message on xunit importer message bus."""
+        """Waits for message on Polarion Importer message bus."""
         timeout = timeout or 300
         with self.message_condition:
             if not self.message_received:
@@ -55,10 +56,10 @@ class _XunitListener(object):
         return self.message_list[-1]
 
 
-def _get_response_property(xunit):
-    """Parse xunit xml and finds the "polarion-response-" name and value."""
+def _get_response_property(xml):
+    """Parses xml and finds the "polarion-response-" name and value."""
     try:
-        root = ElementTree.fromstring(xunit.encode('utf-8'))
+        root = ElementTree.fromstring(xml.encode('utf-8'))
     except ElementTree.ParseError as err:
         logger.error(err)
         return
@@ -145,14 +146,34 @@ def _check_outcome(message, is_error, log_file=None):
     return False
 
 
-def get_verification_func(bus_url, xunit, user, password, **kwargs):
+def _force_disconnect(conn, timeout=10):
+    """Makes sure connection to the message bus is closed in timely manner."""
+    def _disconnect_timeout():
+        countdown = timeout
+        while countdown > 0:
+            if conn.transport.socket is None:
+                break
+            time.sleep(0.2)
+            countdown -= 0.2
+        else:
+            conn.transport.disconnect_socket()
+
+    logger.debug("Terminating subscription")
+
+    # Under some conditions, `conn.disconnect()` can wait forever.
+    # This workaround tries to prevent that.
+    thread.start_new_thread(_disconnect_timeout, ())
+    conn.disconnect()
+
+
+def get_verification_func(bus_url, xml, user, password, **kwargs):
     """Subscribes to the message bus and returns verification function."""
     if not bus_url:
         logger.error(
             "Message bus url ('message_bus') not configured, skipping submit verification")
         return
 
-    selector = _get_response_property(xunit)
+    selector = _get_response_property(xml)
     if not selector:
         logger.error(
             "The response property is not set, skipping submit verification")
@@ -185,8 +206,7 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
     # pylint: disable=broad-except
     except Exception as err:
         logger.error("Skipping submit verification: {}".format(err))
-        logger.debug("Terminating subscription")
-        conn.disconnect()
+        _force_disconnect(conn)
 
     def verify_submit(skip=False, timeout=None):
         """Verifies that the results were successfully submitted."""
@@ -203,8 +223,7 @@ def get_verification_func(bus_url, xunit, user, password, **kwargs):
         except Exception as err:
             logger.error("Skipping submit verification: {}".format(err))
         finally:
-            logger.debug("Terminating subscription")
-            conn.disconnect()
+            _force_disconnect(conn)
 
         _log_received_data(headers, message)
 
