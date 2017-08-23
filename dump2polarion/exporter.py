@@ -16,7 +16,7 @@ from xml.dom import minidom
 from xml.etree import ElementTree
 from xml.etree.ElementTree import Element, SubElement, Comment
 
-from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 from dump2polarion.verdicts import Verdicts
 from dump2polarion.transform import get_results_transform
 from dump2polarion.utils import write_xml, get_unicode_str
@@ -162,7 +162,7 @@ class XunitExport(object):
     def _fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""
         if not self.tests_records.results:
-            raise Dump2PolarionException("Nothing to export")
+            raise NothingToDoException("Nothing to export")
 
         records = dict(passed=0, skipped=0, failures=0, waiting=0, time=0.0)
         for testcase_result in self.tests_records.results:
@@ -175,7 +175,7 @@ class XunitExport(object):
             records['waiting'])
 
         if tests_num == 0:
-            raise Dump2PolarionException("Nothing to export")
+            raise NothingToDoException("Nothing to export")
 
         testsuite_element.set('errors', str(records['skipped']))
         testsuite_element.set('failures', str(records['failures']))

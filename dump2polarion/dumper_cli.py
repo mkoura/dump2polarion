@@ -14,7 +14,7 @@ import logging
 import datetime
 
 import dump2polarion
-from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 from dump2polarion.utils import init_log
 from dump2polarion import dbtools
 
@@ -116,6 +116,9 @@ def main(args=None):
         testrun_id = get_testrun_id(args, records.testrun)
         exporter = dump2polarion.XunitExport(testrun_id, records, config)
         output = exporter.export()
+    except NothingToDoException as info:
+        logger.info(info)
+        return 0
     except (EnvironmentError, Dump2PolarionException) as err:
         logger.fatal(err)
         return 1
