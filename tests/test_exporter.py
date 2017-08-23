@@ -12,9 +12,9 @@ from xml.etree import ElementTree
 import pytest
 from tests import conf
 
-from dump2polarion.exporter import XunitExport
+from dump2polarion.exporter import ImportedData, XunitExport
 from dump2polarion.importer import do_import
-from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 
 
 @pytest.fixture(scope="module")
@@ -91,6 +91,19 @@ class TestProperties(object):
 
 
 class TestE2E(object):
+    def test_e2e_noresults(self, config_prop, records_ids):
+        exporter = XunitExport(
+            '5_8_0_17', records_ids, config_prop, transform_func=lambda arg: None)
+        with pytest.raises(NothingToDoException):
+            exporter.export()
+
+    def test_e2e_missing_results(self, config_prop):
+        new_records = ImportedData(results=[], testrun=None)
+        exporter = XunitExport(
+            '5_8_0_17', new_records, config_prop, transform_func=lambda arg: None)
+        with pytest.raises(NothingToDoException):
+            exporter._fill_tests_results(None)
+
     def test_e2e_ids_notransform(self, config_prop, records_ids):
         exporter = XunitExport(
             '5_8_0_17', records_ids, config_prop, transform_func=lambda arg: arg)

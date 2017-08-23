@@ -111,6 +111,33 @@ class TestDumperCLI(object):
             retval = dumper_cli.main(args)
         assert retval == 0
 
+    def test_main_noreport(self):
+        input_file = os.path.join(conf.DATA_PATH, 'noreport.csv')
+        args = ['-i', input_file]
+
+        with patch('dump2polarion.submit_and_verify', return_value=True), \
+                patch('dump2polarion.dumper_cli.init_log'):
+            retval = dumper_cli.main(args)
+        assert retval == 0
+
+    def test_main_noresults(self):
+        input_file = os.path.join(conf.DATA_PATH, 'noresults.csv')
+        args = ['-i', input_file]
+
+        with patch('dump2polarion.submit_and_verify', return_value=True), \
+                patch('dump2polarion.dumper_cli.init_log'):
+            retval = dumper_cli.main(args)
+        assert retval == 1
+
+    def test_main_noconfig(self):
+        input_file = os.path.join(conf.DATA_PATH, 'noreport.csv')
+        args = ['-i', input_file, '-c', 'nonexistent']
+
+        with patch('dump2polarion.submit_and_verify', return_value=True), \
+                patch('dump2polarion.dumper_cli.init_log'):
+            retval = dumper_cli.main(args)
+        assert retval == 1
+
     def test_main_submit_failed(self, tmpdir, config_e2e):
         input_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
         output_file = tmpdir.join('out.xml')

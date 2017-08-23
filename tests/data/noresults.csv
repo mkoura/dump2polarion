@@ -1,0 +1,4 @@
+Exported on,2017-05-29 04:21,,,,,,,,
+Query,"(assignee.id:$[user.id] AND NOT status:inactive AND (TEST_RECORDS:(""RHCF3/5_8_0_17"", @null))) AND project.id:RHCF3",,,,,,,,
+,,,,,,,,,
+ID,Title,Test Case I D,Caseimportance,Verdict,Comment,stdout,stderr,exported,time
