@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?><testsuite errors="1" failures="1" name="pytest" skips="3" tests="7">
+<testcase classname="cfme.tests.test_utilization_metrics" file="cfme/tests/test_utilization_metrics.py" line="187" name="test_raw_metric_vm_network[rhv41]" time="1.78114914894"><skipped message="Skipping due to these blockers:
+        - Bugzilla bug https://bugzilla.redhat.com/show_bug.cgi?id=1408963 (or one of its copies)" type="pytest.skip">/var/lib/jenkins/workspace/downstream-58z-tests/cfme/metaplugins/blockers.py:119: &lt;py._xmlgen.raw object at 0x7ff5a7e02310&gt;</skipped></testcase>
+<testcase classname="cfme.tests.test_utilization_metrics" file="cfme/tests/test_utilization_metrics.py" line="260" name="test_raw_metric_host_disk[rhv41]" time="612.010917187"><system-out>#x1B[32mTrying to set up provider rhv41
+#x1B[0m
+</system-out></testcase>
+<testcase classname="cfme.tests.infrastructure.test_pxe_provisioning" file="cfme/tests/infrastructure/test_pxe_provisioning.py" line="75" name="test_pxe_provision_from_template[vsphere55]" time="2080.81645632"><system-out>Threads started ...
+#x1B[32mTrying to set up provider vsphere55
+#x1B[0m
+Finishing ...
+</system-out></testcase>
+<testcase classname="cfme.tests.services.test_rest_services.TestServiceRESTAPI" file="cfme/tests/services/test_rest_services.py" line="387" name="test_power_parent_service" time="0.996364116669"><skipped message="Skipping due to these blockers:
+        - Bugzilla bug https://bugzilla.redhat.com/show_bug.cgi?id=1416903 (or one of its copies)" type="pytest.skip">/var/lib/jenkins/workspace/downstream-58z-tests/cfme/metaplugins/blockers.py:119: &lt;py._xmlgen.raw object at 0x7ff5a7dfde10&gt;</skipped></testcase>
+<testcase classname="cfme.tests.services.test_rest_services.TestServiceRESTAPI" file="cfme/tests/services/test_rest_services.py" line="416" name="test_retire_parent_service_now" time="0.836498022079"><skipped message="Skipping due to these blockers:
+        - Bugzilla bug https://bugzilla.redhat.com/show_bug.cgi?id=1441412 (or one of its copies)" type="pytest.skip">/var/lib/jenkins/workspace/downstream-58z-tests/cfme/metaplugins/blockers.py:119: &lt;py._xmlgen.raw object at 0x7ff5a7dfd5d0&gt;</skipped></testcase>
+<testcase classname="cfme.tests.control.test_actions" file="cfme/tests/control/test_actions.py" line="621" name="test_action_initiate_smartstate_analysis[vsphere65-nested]" time="1042.33158112"><error message="test setup failure">automate_role_set = None
+vm = &lt;test_actions.VMWrapper _vm=&apos;test-action-khgs&apos;, _prov=&lt;cfme.infrastructure.pro...eProvider name=&apos;vSphere 6.5 (nested)&apos;, key=&apos;vsphere65-nested&apos;, zone=&apos;default&apos;&gt;&gt;
+E           URLError: &lt;urlopen error [Errno 111] Connection refused&gt;
+
+/usr/lib64/python2.7/urllib2.py:1200: URLError</error><system-out>2017-08-11 19:19:00,661 INFO sqlalchemy.pool.QueuePool Disconnection detected on checkout: 
+2017-08-11 19:19:00,662 INFO sqlalchemy.pool.QueuePool Invalidate connection &lt;connection object at 0x7fd47d4e28d8; dsn: &apos;host=10.8.197.187 password=xxxxxxx port=5432 dbname=vmdb_production user=root&apos;, closed: 2&gt; (reason: DisconnectionError:)
+#x1B[32mTrying to set up provider vsphere65-nested
+#x1B[0m
+2017-08-11 19:32:45,828 INFO sqlalchemy.pool.QueuePool Disconnection detected on checkout: 
+2017-08-11 19:32:45,828 INFO sqlalchemy.pool.QueuePool Invalidate connection &lt;connection object at 0x7fd4682b4b48; dsn: &apos;host=10.8.197.187 password=xxxxxxx port=5432 dbname=vmdb_production user=root&apos;, closed: 2&gt; (reason: DisconnectionError:)
+</system-out></testcase>
+<testcase classname="cfme.tests.infrastructure.test_vm_power_control" file="cfme/tests/infrastructure/test_vm_power_control.py" line="316" name="test_power_options_from_on[vsphere65-nested]" time="125.673520088"><failure message="provider = &lt;cfme.infrastructure.provider.virtualcenter.VMwareProvider name=&apos;vSphere 6.5 (nested)&apos;, key=&apos;vsphere65-nested&apos;, zone=&apos;default&apos;&gt;
+soft_assert = &lt;function soft_assert_func at 0x7fd44f512aa0&gt;
+testing_vm = &lt;cfme.infrastructure.virtual_machines.Vm name=&apos;test-pwr-c-4o3v&apos;, provider=&lt;cfm...ere 6.5 (nested)&apos;, key=&apos;vsphere65-nested&apos;, zone=&apos;default&apos;&gt;, template_name=None&gt;
+
+cfme/fixtures/pytest_selenium.py:271: NoSuchElementException">provider = &lt;cfme.infrastructure.provider.virtualcenter.VMwareProvider name=&apos;vSphere 6.5 (nested)&apos;, key=&apos;vsphere65-nested&apos;, zone=&apos;default&apos;&gt;
+
+cfme/fixtures/pytest_selenium.py:271: NoSuchElementException</failure><error message="test teardown failure">item = &lt;Function &apos;test_power_options_from_on[vsphere65-nested]&apos;&gt;
+fixtures/soft_assert.py:62: SoftAssertionError</error><system-out>#x1B[32mTrying to set up provider vsphere65-nested
+#x1B[0m
+</system-out></testcase>
+</testsuite>

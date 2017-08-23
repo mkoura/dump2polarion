@@ -15,7 +15,7 @@ from dump2polarion import dumper_cli
 from dump2polarion import dbtools
 
 
-class TestDumperCLI(object):
+class TestDumperCLIUnits(object):
     def test_get_args(self):
         args = dumper_cli.get_args(['-i', 'dummy', '-t', 'testrun_id'])
         assert args.input_file == 'dummy'
@@ -82,11 +82,32 @@ class TestDumperCLI(object):
             retval = dumper_cli.submit_if_ready(args, config_prop)
         assert retval == 0
 
+
+E2E_DATA = [
+    ('junit-report.xml', 'junit_transform.xml', ['-t', '5_8_0_17']),
+    ('workitems_ids.csv', 'complete_transform.xml', []),
+    ('workitems_ids.sqlite3', 'complete_transform.xml', []),
+    ('ostriz.json', 'ostriz_transform.xml', []),
+]
+
+
+class TestDumperCLIE2E(object):
+    @pytest.mark.parametrize('data', E2E_DATA, ids=[d[0] for d in E2E_DATA])
     @pytest.mark.parametrize('submit', (True, False), ids=('submit', 'nosubmit'))
-    def test_main_valid(self, tmpdir, config_e2e, submit):
-        input_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
+    # pylint: disable=too-many-locals
+    def test_main_formats(self, tmpdir, config_e2e, data, submit):
+        input_name, golden_output, extra_args = data
+        # copy the sqlite db so the records are not marked as exported
+        if 'sqlite3' in input_name:
+            orig_db_file = os.path.join(conf.DATA_PATH, input_name)
+            db_file = os.path.join(str(tmpdir), 'workitems_copy.sqlite3')
+            shutil.copy(orig_db_file, db_file)
+            input_file = db_file
+        else:
+            input_file = os.path.join(conf.DATA_PATH, input_name)
         output_file = tmpdir.join('out.xml')
         args = ['-i', input_file, '-o', str(output_file), '-c', config_e2e]
+        args.extend(extra_args)
         if not submit:
             args.append('-n')
 
@@ -95,12 +116,24 @@ class TestDumperCLI(object):
             retval = dumper_cli.main(args)
         assert retval == 0
 
-        golden_output = 'complete_transform.xml'
         with io.open(os.path.join(conf.DATA_PATH, golden_output), encoding='utf-8') as golden_xml:
             parsed = golden_xml.read()
         with io.open(str(output_file), encoding='utf-8') as out_xml:
             produced = out_xml.read()
         assert produced == parsed
+
+    def test_main_missing_testrun(self, tmpdir, config_e2e):
+        input_file = os.path.join(conf.DATA_PATH, 'junit-report.xml')
+        output_file = tmpdir.join('out.xml')
+        args = ['-i', input_file, '-o', str(output_file), '-c', config_e2e, '-n']
+
+        with patch('dump2polarion.submit_and_verify', return_value=True),\
+                patch('dump2polarion.dumper_cli.init_log'):
+            retval = dumper_cli.main(args)
+        assert retval == 1
+
+        with pytest.raises(IOError):
+            open(str(output_file))
 
     def test_main_submit_ready(self):
         input_file = os.path.join(conf.DATA_PATH, 'complete_transform.xml')
