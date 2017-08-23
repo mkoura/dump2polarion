@@ -59,7 +59,7 @@ class XunitExport(object):
 
         if not response_prop_set:
             name = 'polarion-response-dump2polarion'
-            value = ''.join(random.sample(string.lowercase, 10)) + '8'
+            value = ''.join(random.sample(string.lowercase, 10)) + '9'
             SubElement(testsuites_properties, 'property', {'name': name, 'value': value})
 
         if not self._lookup_prop:
