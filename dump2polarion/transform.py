@@ -26,9 +26,21 @@ def get_results_transform_cfme(config):
 
     def results_transform_cfme(result):
         """Results transform for CFME."""
-        if result.get('classname'):
-            # we don't need classnames?
+        # make sure that last part of classname is included in "title", e.g.
+        # "TestServiceRESTAPI.test_power_parent_service"
+        classname = result.get('classname', '')
+        if classname:
+            filepath = result.get('file', '')
+            title = result.get('title')
+            if title and '/' in filepath and '.' in classname:
+                fname = filepath.split('/')[-1].replace('.py', '')
+                last_classname = classname.split('.')[-1]
+                # last part of classname is not file name
+                if fname != last_classname and last_classname not in title:
+                    result['title'] = '{0}.{1}'.format(last_classname, title)
+            # we don't need to pass classnames?
             del result['classname']
+
         verdict = result.get('verdict', '').strip().lower()
         # we want to submit PASS and WAIT results
         if verdict in Verdicts.PASS + Verdicts.WAIT:
