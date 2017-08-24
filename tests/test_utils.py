@@ -63,6 +63,18 @@ class TestUtils(object):
         filled = utils.fill_reponse_property(parsed)
         assert '<response-property name="dump2polarion" value="' in filled
 
+    @pytest.mark.parametrize(
+        'fname',
+        (
+            'testcases.xml',
+            'complete_transform.xml',
+        ))
+    def test_nofill_response(self, fname):
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
+            parsed = input_xml.read()
+        filled = utils.fill_reponse_property(parsed)
+        assert filled is parsed
+
     def test_fill_testsuites_response(self):
         fname = 'complete_transform_noresponse.xml'
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
@@ -83,6 +95,13 @@ class TestUtils(object):
             parsed = input_xml.read()
         filled = utils.fill_reponse_property(parsed, 'test', 'test')
         assert '<property name="polarion-response-test" value="test"' in filled
+
+    def test_fill_invalid_testsuites_response(self):
+        fname = 'ostriz.json'
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
+            parsed = input_xml.read()
+        with pytest.raises(Dump2PolarionException):
+            utils.fill_reponse_property(parsed, 'test', 'test')
 
     def test_write_xml_gen(self, tmpdir):
         dirname = str(tmpdir)
