@@ -9,8 +9,9 @@ import io
 import pytest
 from tests import conf
 
-from dump2polarion.exporter import XunitExport
 from dump2polarion import ostriztools
+from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporter import XunitExport
 
 
 @pytest.fixture(scope="module")
@@ -32,6 +33,10 @@ class TestOstriz(object):
         testrun_id = ostriztools._get_testrun_id('5.8.0.7-2017')
         assert testrun_id == '5_8_0_07'
 
+    def test_testrun_id_invalid(self):
+        with pytest.raises(Dump2PolarionException):
+            ostriztools._get_testrun_id('INVALID')
+
     def test_duration_good(self):
         duration = ostriztools._calculate_duration(1495766591.151192, 1495768544.573208)
         assert duration == 1953
@@ -50,6 +55,15 @@ class TestOstriz(object):
         assert 'title' in records_json.results[0]
         assert hasattr(records_json, 'testrun')
         assert records_json.testrun == '5_8_0_17'
+
+    def test_invalid_json(self):
+        fname = 'junit-report.xml'
+        with pytest.raises(Dump2PolarionException):
+            ostriztools._get_json(os.path.join(conf.DATA_PATH, fname))
+
+    def test_no_json(self):
+        with pytest.raises(Dump2PolarionException):
+            ostriztools.import_ostriz('NONEXISTENT.json')
 
     def test_e2e_ids_notransform(self, config_prop, records_json):
         exporter = XunitExport(

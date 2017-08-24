@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+  <!--Generated for testrun 5_8_0_17-->
+  <properties>
+    <property name="polarion-testrun-id" value="5_8_0_17"/>
+    <property name="polarion-dry-run" value="False"/>
+    <property name="polarion-testrun-status-id" value="inprogress"/>
+    <property name="polarion-response-test" value="test"/>
+    <property name="polarion-project-id" value="RHCF3"/>
+    <property name="polarion-lookup-method" value="Name"/>
+  </properties>
+  <testsuite errors="3" failures="2" name="Import for RHCF3 - 5_8_0_17 testrun" skipped="0" tests="7" time="3864.446486">
+    <testcase classname="cfme.tests.test_utilization_metrics" name="test_raw_metric_vm_network[rhv41]" time="1.78114914894">
+      <error message="Skipping due to these blockers:         - Bugzilla bug https://bugzilla.redhat.com/show_bug.cgi?id=1408963 (or one of its copies)" type="error"/>
+      <properties>
+        <property name="polarion-testcase-id" value="test_raw_metric_vm_network[rhv41]"/>
+      </properties>
+    </testcase>
+    <testcase classname="cfme.tests.test_utilization_metrics" name="test_raw_metric_host_disk[rhv41]" time="612.010917187">
+      <properties>
+        <property name="polarion-testcase-id" value="test_raw_metric_host_disk[rhv41]"/>
+      </properties>
+    </testcase>
+    <testcase classname="cfme.tests.infrastructure.test_pxe_provisioning" name="test_pxe_provision_from_template[vsphere55]" time="2080.81645632">
+      <properties>
+        <property name="polarion-testcase-id" value="test_pxe_provision_from_template[vsphere55]"/>
+      </properties>
+    </testcase>
+    <testcase classname="cfme.tests.services.test_rest_services.TestServiceRESTAPI" name="test_power_parent_service" time="0.996364116669">
+      <error message="Skipping due to these blockers:         - Bugzilla bug https://bugzilla.redhat.com/show_bug.cgi?id=1416903 (or one of its copies)" type="error"/>
+      <properties>
+        <property name="polarion-testcase-id" value="test_power_parent_service"/>
+      </properties>
+    </testcase>
+    <testcase classname="cfme.tests.services.test_rest_services.TestServiceRESTAPI" name="test_retire_parent_service_now" time="0.836498022079">
+      <error message="Skipping due to these blockers:         - Bugzilla bug https://bugzilla.redhat.com/show_bug.cgi?id=1441412 (or one of its copies)" type="error"/>
+      <properties>
+        <property name="polarion-testcase-id" value="test_retire_parent_service_now"/>
+      </properties>
+    </testcase>
+    <testcase classname="cfme.tests.control.test_actions" name="test_action_initiate_smartstate_analysis[vsphere65-nested]" time="1042.33158112">
+      <failure message="test setup failure" type="failure"/>
+      <properties>
+        <property name="polarion-testcase-id" value="test_action_initiate_smartstate_analysis[vsphere65-nested]"/>
+      </properties>
+    </testcase>
+    <testcase classname="cfme.tests.infrastructure.test_vm_power_control" name="test_power_options_from_on[vsphere65-nested]" time="125.673520088">
+      <failure message="provider = &lt;cfme.infrastructure.provider.virtualcenter.VMwareProvider name='vSphere 6.5 (nested)', key='vsphere65-nested', zone='default'&gt; soft_assert = &lt;function soft_assert_func at 0x7fd44f512aa0&gt; testing_vm = &lt;cfme.infrastructure.virtual_machines.Vm name='test-pwr-c-4o3v', provider=&lt;cfm...ere 6.5 (nested)', key='vsphere65-nested', zone='default'&gt;, template_name=None&gt;  cfme/fixtures/pytest_selenium.py:271: NoSuchElementException" type="failure"/>
+      <properties>
+        <property name="polarion-testcase-id" value="test_power_options_from_on[vsphere65-nested]"/>
+      </properties>
+    </testcase>
+  </testsuite>
+</testsuites>

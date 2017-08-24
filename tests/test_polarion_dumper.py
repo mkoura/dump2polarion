@@ -10,9 +10,10 @@ from mock import patch
 
 from tests import conf
 
-from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion import dumper_cli
 from dump2polarion import dbtools
+from dump2polarion import dumper_cli
+from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.transform import only_passed_and_wait
 
 
 class TestDumperCLIUnits(object):
@@ -84,10 +85,22 @@ class TestDumperCLIUnits(object):
 
 
 E2E_DATA = [
-    ('junit-report.xml', 'junit_transform.xml', ['-t', '5_8_0_17']),
-    ('workitems_ids.csv', 'complete_transform.xml', []),
-    ('workitems_ids.sqlite3', 'complete_transform.xml', []),
-    ('ostriz.json', 'ostriz_transform.xml', []),
+    # default transform
+    ('junit-report.xml', 'junit_transform.xml', ['-t', '5_8_0_17'], None),
+    ('workitems_ids.csv', 'complete_transform.xml', [], None),
+    ('workitems_ids.sqlite3', 'complete_transform.xml', [], None),
+    ('ostriz.json', 'ostriz_transform.xml', [], None),
+    # no transform
+    ('junit-report.xml', 'junit_notransform.xml', ['-t', '5_8_0_17'], lambda arg: arg),
+    ('workitems_ids.csv', 'complete_notransform.xml', [], lambda arg: arg),
+    ('workitems_ids.sqlite3', 'complete_notransform.xml', [], lambda arg: arg),
+    ('ostriz.json', 'ostriz_notransform.xml', [], lambda arg: arg),
+    # only passed and wait
+    ('junit-report.xml', 'junit_passed_wait_transform.xml', ['-t', '5_8_0_17'],
+     only_passed_and_wait),
+    ('workitems_ids.csv', 'complete_passed_wait_transform.xml', [], only_passed_and_wait),
+    ('workitems_ids.sqlite3', 'complete_passed_wait_transform.xml', [], only_passed_and_wait),
+    ('ostriz.json', 'ostriz_passed_wait_transform.xml', [], only_passed_and_wait),
 ]
 
 
@@ -96,7 +109,7 @@ class TestDumperCLIE2E(object):
     @pytest.mark.parametrize('submit', (True, False), ids=('submit', 'nosubmit'))
     # pylint: disable=too-many-locals
     def test_main_formats(self, tmpdir, config_e2e, data, submit):
-        input_name, golden_output, extra_args = data
+        input_name, golden_output, extra_args, transform_func = data
         # copy the sqlite db so the records are not marked as exported
         if 'sqlite3' in input_name:
             orig_db_file = os.path.join(conf.DATA_PATH, input_name)
@@ -113,7 +126,7 @@ class TestDumperCLIE2E(object):
 
         with patch('dump2polarion.submit_and_verify', return_value=True),\
                 patch('dump2polarion.dumper_cli.init_log'):
-            retval = dumper_cli.main(args)
+            retval = dumper_cli.main(args, transform_func=transform_func)
         assert retval == 0
 
         with io.open(os.path.join(conf.DATA_PATH, golden_output), encoding='utf-8') as golden_xml:

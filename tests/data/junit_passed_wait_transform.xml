@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+  <!--Generated for testrun 5_8_0_17-->
+  <properties>
+    <property name="polarion-testrun-id" value="5_8_0_17"/>
+    <property name="polarion-dry-run" value="False"/>
+    <property name="polarion-testrun-status-id" value="inprogress"/>
+    <property name="polarion-response-test" value="test"/>
+    <property name="polarion-project-id" value="RHCF3"/>
+    <property name="polarion-lookup-method" value="Name"/>
+  </properties>
+  <testsuite errors="0" failures="0" name="Import for RHCF3 - 5_8_0_17 testrun" skipped="0" tests="2" time="2692.82737351">
+    <testcase classname="cfme.tests.test_utilization_metrics" name="test_raw_metric_host_disk[rhv41]" time="612.010917187">
+      <properties>
+        <property name="polarion-testcase-id" value="test_raw_metric_host_disk[rhv41]"/>
+      </properties>
+    </testcase>
+    <testcase classname="cfme.tests.infrastructure.test_pxe_provisioning" name="test_pxe_provision_from_template[vsphere55]" time="2080.81645632">
+      <properties>
+        <property name="polarion-testcase-id" value="test_pxe_provision_from_template[vsphere55]"/>
+      </properties>
+    </testcase>
+  </testsuite>
+</testsuites>
