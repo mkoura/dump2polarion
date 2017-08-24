@@ -92,7 +92,7 @@ def submit_if_ready(args, config):
         return 0 if response else 2
 
 
-def main(args=None):
+def main(args=None, transform_func=None):
     """Main function for cli."""
     args = get_args(args)
 
@@ -114,7 +114,8 @@ def main(args=None):
     try:
         records = dump2polarion.do_import(args.input_file, older_than=import_time)
         testrun_id = get_testrun_id(args, records.testrun)
-        exporter = dump2polarion.XunitExport(testrun_id, records, config)
+        exporter = dump2polarion.XunitExport(
+            testrun_id, records, config, transform_func=transform_func)
         output = exporter.export()
     except NothingToDoException as info:
         logger.info(info)
