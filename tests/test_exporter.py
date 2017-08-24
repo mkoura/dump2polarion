@@ -55,15 +55,6 @@ class TestProperties(object):
                   '</properties>'.strip())
         assert ElementTree.tostring(properties_element, 'utf-8').strip() == parsed
 
-    def test_properties_response(self, config_prop, records_ids):
-        new_config = copy.deepcopy(config_prop)
-        del new_config['xunit_import_properties']['polarion-response-test']
-        exporter = XunitExport('5_8_0_17', records_ids, new_config, transform_func=lambda: None)
-        top_element = exporter._top_element()
-        properties_element = exporter._properties_element(top_element)
-        assert '<property name="polarion-response-dump2polarion" value=' in ElementTree.tostring(
-            properties_element, 'utf-8').strip()
-
     def test_properties_lookup_name(self, config_prop, records_names):
         exporter = XunitExport(
             '5_8_0_17', records_names, config_prop, transform_func=lambda: None)

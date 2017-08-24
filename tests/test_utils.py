@@ -1,5 +1,5 @@
 # encoding: utf-8
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,too-few-public-methods
+# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,invalid-name
 
 from __future__ import unicode_literals
 
@@ -50,6 +50,39 @@ class TestUtils(object):
             parsed = input_xml.read()
         filled = utils.xunit_fill_testrun_id(parsed, '5_8_0_17')
         assert 'name="polarion-testrun-id" value="5_8_0_17"' in filled
+
+    @pytest.mark.parametrize(
+        'fname',
+        (
+            'testcases_noresponse.xml',
+            'testcases_noresponse2.xml',
+        ))
+    def test_fill_testcase_response(self, fname):
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
+            parsed = input_xml.read()
+        filled = utils.fill_reponse_property(parsed)
+        assert '<response-property name="dump2polarion" value="' in filled
+
+    def test_fill_testsuites_response(self):
+        fname = 'complete_transform_noresponse.xml'
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
+            parsed = input_xml.read()
+        filled = utils.fill_reponse_property(parsed)
+        assert '<property name="polarion-response-dump2polarion" value="' in filled
+
+    def test_fill_custom_testcase_response(self):
+        fname = 'testcases_noresponse.xml'
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
+            parsed = input_xml.read()
+        filled = utils.fill_reponse_property(parsed, 'test', 'test')
+        assert '<response-property name="test" value="test"' in filled
+
+    def test_fill_custom_testsuites_response(self):
+        fname = 'complete_transform_noresponse.xml'
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
+            parsed = input_xml.read()
+        filled = utils.fill_reponse_property(parsed, 'test', 'test')
+        assert '<property name="polarion-response-test" value="test"' in filled
 
     def test_write_xml_gen(self, tmpdir):
         dirname = str(tmpdir)

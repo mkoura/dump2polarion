@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+  <!--Generated for testrun 5_8_0_17-->
+  <properties>
+    <property name="polarion-testrun-id" value="5_8_0_17"/>
+    <property name="polarion-dry-run" value="False"/>
+    <property name="polarion-testrun-status-id" value="inprogress"/>
+    <property name="polarion-project-id" value="RHCF3"/>
+    <property name="polarion-lookup-method" value="ID"/>
+  </properties>
+  <testsuite errors="1" failures="0" name="Import for RHCF3 - 5_8_0_17 testrun" skipped="3" tests="7" time="411.936">
+    <testcase name="test_vm_scan[from_collection]" time="1.0">
+      <properties>
+        <property name="polarion-testcase-id" value="RHCF3-9313"/>
+        <property name="polarion-testcase-comment" value="YES it passed!"/>
+      </properties>
+    </testcase>
+    <testcase name="test_vm_scan[from_detail]" time="1.0">
+      <system-out>success</system-out>
+      <system-err>no fails</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="RHCF3-9352"/>
+      </properties>
+    </testcase>
+    <testcase name="test_user_settings" time="1.0">
+      <properties>
+        <property name="polarion-testcase-id" value="RHCF3-12909"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[users]" time="99.234">
+      <error message="Skipping due to these blockers BZ123" type="error"/>
+      <properties>
+        <property name="polarion-testcase-id" value="RHCF3-3313"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[clusters]" time="102.234">
+      <skipped message="reset" type="skipped"/>
+      <system-out>to</system-out>
+      <system-err>original</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="RHCF3-3394"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[requests]" time="103.234">
+      <skipped message="reset" type="skipped"/>
+      <system-out>to</system-out>
+      <system-err>original</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="RHCF3-3400"/>
+      </properties>
+    </testcase>
+    <testcase name="test_query_simple_collections[tags]" time="104.234">
+      <skipped message="reset" type="skipped"/>
+      <system-out>to</system-out>
+      <system-err>original</system-err>
+      <properties>
+        <property name="polarion-testcase-id" value="RHCF3-3417"/>
+      </properties>
+    </testcase>
+  </testsuite>
+</testsuites>

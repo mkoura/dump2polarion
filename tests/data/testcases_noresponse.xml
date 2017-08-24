@@ -1,0 +1,26 @@
+<testcases project-id="RHCF3">
+  <properties>
+    <property name="lookup-method" value="custom"/>
+    <property name="dry-run" value="False"/>
+    <property name="dry-run" value="False"/>
+  </properties>
+  <testcase id="test_rpms_present[cfme]">
+    <title>test_rpms_present[cfme]</title>
+    <description>Verifies nfs-util rpms are in place needed for pxe &amp; nfs operations&lt;br/&gt;&lt;br/&gt;&lt;a href="http://github.com/ManageIQ/integration_tests/blob/master/cfme/tests/test_appliance.py#L12"&gt;Test Source&lt;/a&gt;</description>
+    <test-steps>
+      <test-step>
+        <test-step-column id="step"/>
+      </test-step>
+    </test-steps>
+    <custom-fields>
+      <custom-field content="high" id="caseimportance"/>
+      <custom-field content="http://github.com/ManageIQ/integration_tests/blob/master/cfme/tests/test_appliance.py#L12" id="automation_script"/>
+      <custom-field content="automated" id="caseautomation"/>
+      <custom-field content="-" id="subtype2"/>
+      <custom-field content="positive" id="caseposneg"/>
+      <custom-field content="-" id="subtype1"/>
+      <custom-field content="functional" id="testtype"/>
+      <custom-field content="integration" id="caselevel"/>
+    </custom-fields>
+  </testcase>
+</testcases>
