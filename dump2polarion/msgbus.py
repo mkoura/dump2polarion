@@ -60,7 +60,8 @@ def _get_response_property(xml):
     """Parses xml and finds the "polarion-response-" name and value."""
     try:
         root = ElementTree.fromstring(xml.encode('utf-8'))
-    except ElementTree.ParseError as err:
+    # pylint: disable=broad-except
+    except Exception as err:
         logger.error(err)
         return
 
@@ -72,6 +73,8 @@ def _get_response_property(xml):
                 return (prop_name[len('polarion-response-'):], str(prop.get('value')))
     elif root.tag == 'testcases':
         properties = root.find('response-properties')
+        if properties is None:
+            return
         for prop in properties:
             if prop.tag != 'response-property':
                 continue
@@ -110,6 +113,7 @@ def _download_log(url, output_file):
 
     if not log_data:
         logger.error("Failed to download log file '{}'.".format(url))
+        return
     with open(os.path.expanduser(output_file), 'wb') as out:
         out.write(log_data.content)
 
