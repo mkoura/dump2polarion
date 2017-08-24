@@ -13,6 +13,13 @@ import re
 from dump2polarion.verdicts import Verdicts
 
 
+def only_passed_and_wait(result):
+    """Returns PASS and WAIT results only, skips everything else."""
+    verdict = result.get('verdict', '').strip().lower()
+    if verdict in Verdicts.PASS + Verdicts.WAIT:
+        return result
+
+
 # pylint: disable=unused-argument
 def get_results_transform_cfme(config):
     """Return result transformation function for CFME."""
