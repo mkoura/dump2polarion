@@ -1,11 +1,16 @@
 dump2polarion
 =============
+
+.. image:: https://coveralls.io/repos/github/mkoura/dump2polarion/badge.svg?branch=master
+    :target: https://coveralls.io/github/mkoura/dump2polarion?branch=master
+
 .. image:: https://travis-ci.org/mkoura/dump2polarion.svg?branch=master
     :target: https://travis-ci.org/mkoura/dump2polarion
 
 Usage
 -----
-Automatic submission out of the CSV or SQLite input file to Polarion® XUnit Importer:
+Automatic submission out of the CSV, SQLite, junit-report.xml (from pytest) or Ostriz JSON input file to Polarion® XUnit Importer,
+or submission of pre-generated XUnit or Test Case xml files to corresponding Polarion® Importer:
 
 .. code-block::
 
