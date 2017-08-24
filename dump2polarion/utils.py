@@ -14,6 +14,7 @@ import random
 import logging
 
 from xml.etree import ElementTree
+from xml.etree.ElementTree import SubElement
 
 from dump2polarion.exceptions import Dump2PolarionException
 
@@ -82,3 +83,34 @@ def init_log(log_level):
     logging.basicConfig(
         format='%(name)s:%(levelname)s:%(message)s',
         level=getattr(logging, log_level.upper(), logging.INFO))
+
+
+def fill_reponse_property(xml, name=None, value=None):
+    """Fills response property if missing."""
+    try:
+        xml_root = ElementTree.fromstring(xml.encode('utf-8'))
+    # pylint: disable=broad-except
+    except Exception as err:
+        raise Dump2PolarionException("Failed to parse XML file: {}".format(err))
+
+    name = name or 'dump2polarion'
+    value = value or ''.join(random.sample(string.lowercase, 10)) + '9'
+
+    if xml_root.tag == 'testsuites':
+        properties = xml_root.find('properties')
+        for prop in properties:
+            prop_name = prop.get('name', '')
+            if 'polarion-response-' in prop_name:
+                return xml
+        name = 'polarion-response-{}'.format(name)
+        SubElement(properties, 'property', {'name': name, 'value': value})
+    elif xml_root.tag == 'testcases':
+        properties = xml_root.find('response-properties')
+        if properties is None:
+            properties = SubElement(xml_root, 'response-properties')
+        for prop in properties:
+            if prop.tag == 'response-property':
+                return xml
+        SubElement(properties, 'response-property', {'name': name, 'value': value})
+
+    return get_unicode_str(ElementTree.tostring(xml_root, encoding='utf-8'))

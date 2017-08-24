@@ -7,8 +7,6 @@ Dump testcases results to xunit file for submitting to the Polarion XUnit Import
 from __future__ import unicode_literals, absolute_import
 
 import datetime
-import string
-import random
 
 from collections import namedtuple
 
@@ -48,19 +46,11 @@ class XunitExport(object):
         SubElement(testsuites_properties, 'property',
                    {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)})
 
-        response_prop_set = False
         for name, value in self.config['xunit_import_properties'].iteritems():
             SubElement(testsuites_properties, 'property',
                        {'name': name, 'value': str(value)})
-            if 'polarion-response-' in name:
-                response_prop_set = True
-            elif name == 'polarion-lookup-method':
+            if name == 'polarion-lookup-method':
                 self._lookup_prop = str(value)
-
-        if not response_prop_set:
-            name = 'polarion-response-dump2polarion'
-            value = ''.join(random.sample(string.lowercase, 10)) + '9'
-            SubElement(testsuites_properties, 'property', {'name': name, 'value': value})
 
         if not self._lookup_prop:
             if 'id' in self.tests_records.results[0]:
