@@ -80,6 +80,9 @@ def main(args=None):
 
     init_log(args.log_level)
 
+    if '.csv' not in args.input_file.lower():
+        logger.warn("Make sure the input file '{}' is in CSV format".format(args.input_file))
+
     try:
         records = csvtools.get_imported_data(args.input_file)
     except (EnvironmentError, Dump2PolarionException) as err:
