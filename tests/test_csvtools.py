@@ -4,19 +4,31 @@
 from __future__ import unicode_literals
 
 import os
-from StringIO import StringIO
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 import pytest
 from tests import conf
 
-from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion import csvtools
+from dump2polarion.exceptions import Dump2PolarionException
 
 
 class TestCSVFileldNames(object):
     def test_fieldnames_exported(self):
         csv_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
-        with open(csv_file, 'rb') as input_file:
+        open_args = []
+        open_kwargs = {}
+        try:
+            # pylint: disable=pointless-statement
+            unicode
+            open_args.append('rb')
+        except NameError:
+            open_kwargs['encoding'] = 'utf-8'
+        with open(csv_file, *open_args, **open_kwargs) as input_file:
             reader = csvtools._get_csv_reader(input_file)
             fieldnames = csvtools._get_csv_fieldnames(reader)
         assert fieldnames == [
@@ -72,7 +84,15 @@ class TestCSVFileldNames(object):
 class TestCSVTestrunId(object):
     def test_testrun_id_exported(self):
         csv_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
-        with open(csv_file, 'rb') as input_file:
+        open_args = []
+        open_kwargs = {}
+        try:
+            # pylint: disable=pointless-statement
+            unicode
+            open_args.append('rb')
+        except NameError:
+            open_kwargs['encoding'] = 'utf-8'
+        with open(csv_file, *open_args, **open_kwargs) as input_file:
             reader = csvtools._get_csv_reader(input_file)
             testrun_id = csvtools._get_testrun_from_csv(input_file, reader)
         assert testrun_id == '5_8_0_17'

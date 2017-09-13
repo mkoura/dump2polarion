@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 import io
 import os
-import thread
+import threading
 import time
 
 import pytest
@@ -54,7 +54,7 @@ class TestMsgBusListener(object):
             time.sleep(0.05)
             listener.on_message('header', 'message')
 
-        thread.start_new_thread(_msg_received, ())
+        threading.Thread(target=_msg_received).start()
         retval = listener.wait_for_message()
         assert retval
 
@@ -65,19 +65,19 @@ class TestMsgBusListener(object):
 
     def test_on_message(self):
         listener = msgbus._XunitListener()
-        thread.start_new_thread(listener.wait_for_message, (0.05,))
+        threading.Thread(target=listener.wait_for_message, args=(0.05,)).start()
         listener.on_message('header', 'message')
         assert listener.message_list[0] == ('header', 'message', False)
 
     def test_on_error(self):
         listener = msgbus._XunitListener()
-        thread.start_new_thread(listener.wait_for_message, (0.05,))
+        threading.Thread(target=listener.wait_for_message, args=(0.05,)).start()
         listener.on_error('header', 'message')
         assert listener.message_list[0] == ('header', 'message', True)
 
     def test_lastest_message(self):
         listener = msgbus._XunitListener()
-        thread.start_new_thread(listener.wait_for_message, (0.05,))
+        threading.Thread(target=listener.wait_for_message, args=(0.05,)).start()
         listener.on_message('header', 'message')
         assert listener.get_latest_message() == ('header', 'message', False)
 

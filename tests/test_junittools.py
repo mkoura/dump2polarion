@@ -4,13 +4,17 @@
 from __future__ import unicode_literals
 
 import os
-from StringIO import StringIO
+
+try:
+    from StringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 import pytest
 from tests import conf
 
-from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion import junittools
+from dump2polarion.exceptions import Dump2PolarionException
 
 
 class TestJunitImport(object):
