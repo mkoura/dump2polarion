@@ -1,7 +1,3 @@
-flake8
-pylint
-
+mock
 pytest
 pytest-cov
-mock
-coveralls
