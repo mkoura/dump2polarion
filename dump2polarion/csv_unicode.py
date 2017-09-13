@@ -4,6 +4,15 @@ import csv
 import codecs
 
 
+def get_csv_reader(f, dialect=csv.excel, encoding='utf-8', **kwds):
+    try:
+        # pylint: disable=pointless-statement
+        unicode
+        return UnicodeReader(f, dialect=dialect, encoding=encoding, **kwds)
+    except NameError:
+        return csv.reader(f, dialect=dialect, **kwds)
+
+
 class UTF8Recoder(object):
     """Iterator that reads an encoded stream and reencodes the input to UTF-8."""
     def __init__(self, f, encoding):

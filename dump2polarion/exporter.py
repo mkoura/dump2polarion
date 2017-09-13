@@ -46,7 +46,7 @@ class XunitExport(object):
         SubElement(testsuites_properties, 'property',
                    {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)})
 
-        for name, value in self.config['xunit_import_properties'].iteritems():
+        for name, value in sorted(self.config['xunit_import_properties'].items()):
             SubElement(testsuites_properties, 'property',
                        {'name': name, 'value': str(value)})
             if name == 'polarion-lookup-method':
@@ -170,7 +170,7 @@ class XunitExport(object):
         testsuite_element.set('errors', str(records['skipped']))
         testsuite_element.set('failures', str(records['failures']))
         testsuite_element.set('skipped', str(records['waiting']))
-        testsuite_element.set('time', str(records['time']))
+        testsuite_element.set('time', '{0:.4f}'.format(records['time']))
         testsuite_element.set('tests', str(tests_num))
 
     @staticmethod

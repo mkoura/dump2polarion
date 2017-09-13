@@ -9,6 +9,9 @@ import os
 import io
 import json
 import datetime
+
+from collections import OrderedDict
+
 import requests
 
 from dump2polarion.exporter import ImportedData
@@ -22,13 +25,13 @@ def _get_json(location):
     except ValueError:
         pass
     else:
-        return json.loads(json_data.text).get('tests')
+        return json.loads(json_data.text, object_pairs_hook=OrderedDict).get('tests')
 
     location = os.path.expanduser(location)
     if os.path.isfile(location):
         with io.open(location, encoding='utf-8') as json_data:
             try:
-                return json.load(json_data).get('tests')
+                return json.load(json_data, object_pairs_hook=OrderedDict).get('tests')
             except Exception as err:
                 raise Dump2PolarionException(
                     "Failed to parse JSON from {}: {}".format(location, err))
@@ -74,10 +77,11 @@ def _parse_ostriz(ostriz_data):
         statuses = data.get('statuses')
         if not statuses:
             continue
-        test_data.append(dict(
-            verdict=statuses.get('overall'),
-            title=data.get('test_name'),
-            time=_calculate_duration(data.get('start_time'), data.get('finish_time')) or 0))
+        test_data.append(OrderedDict([
+            ('verdict', statuses.get('overall')),
+            ('title', data.get('test_name')),
+            ('time', _calculate_duration(data.get('start_time'), data.get('finish_time')) or 0)
+        ]))
     testrun_id = _get_testrun_id(found_version)
     return ImportedData(results=test_data, testrun=testrun_id)
 

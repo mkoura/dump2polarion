@@ -10,7 +10,6 @@ import json
 import logging
 import os
 import pprint
-import thread
 import threading
 import time
 
@@ -166,7 +165,7 @@ def _force_disconnect(conn, timeout=10):
 
     # Under some conditions, `conn.disconnect()` can wait forever.
     # This workaround tries to prevent that.
-    thread.start_new_thread(_disconnect_timeout, ())
+    threading.Thread(target=_disconnect_timeout).start()
     conn.disconnect()
 
 

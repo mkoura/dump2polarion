@@ -35,7 +35,7 @@ def write_xml(xml, output_loc=None, filename=None):
     if not xml:
         raise Dump2PolarionException("No data to write.")
     filename = filename or 'output-{}-{:%Y%m%d%H%M%S}.xml'.format(
-        ''.join(random.sample(string.lowercase, 5)), datetime.datetime.now())
+        ''.join(random.sample(string.ascii_lowercase, 5)), datetime.datetime.now())
     if output_loc:
         filename_fin = os.path.expanduser(output_loc)
         if os.path.isdir(filename_fin):
@@ -70,11 +70,20 @@ def xunit_fill_testrun_id(xml, testrun_id):
 
 def get_unicode_str(obj):
     """Makes sure obj is a unicode string."""
-    if isinstance(obj, unicode):
-        return obj
-    if isinstance(obj, str):
-        return obj.decode('utf-8', errors='ignore')
-    return unicode(obj)
+    try:
+        # Python 2.x
+        if isinstance(obj, unicode):
+            return obj
+        if isinstance(obj, str):
+            return obj.decode('utf-8', errors='ignore')
+        return unicode(obj)
+    except NameError:
+        # Python 3.x
+        if isinstance(obj, str):
+            return obj
+        if isinstance(obj, bytes):
+            return obj.decode('utf-8', errors='ignore')
+        return str(obj)
 
 
 def init_log(log_level):
@@ -94,7 +103,7 @@ def fill_reponse_property(xml, name=None, value=None):
         raise Dump2PolarionException("Failed to parse XML file: {}".format(err))
 
     name = name or 'dump2polarion'
-    value = value or ''.join(random.sample(string.lowercase, 10)) + '9'
+    value = value or ''.join(random.sample(string.ascii_lowercase, 10)) + '9'
 
     if xml_root.tag == 'testsuites':
         properties = xml_root.find('properties')

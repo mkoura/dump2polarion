@@ -63,7 +63,7 @@ def import_sqlite(db_file, older_than=None, **kwargs):
     # map data to columns
     results = []
     for row in rows:
-        record = OrderedDict(zip(columns, row))
+        record = OrderedDict(list(zip(columns, row)))
         results.append(record)
 
     testrun = _get_testrun_from_sqlite(conn)

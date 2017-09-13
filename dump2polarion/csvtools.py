@@ -11,9 +11,9 @@ import csv
 
 from collections import OrderedDict
 
-from dump2polarion.exporter import ImportedData
+from dump2polarion.csv_unicode import get_csv_reader
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.csv_unicode import UnicodeReader
+from dump2polarion.exporter import ImportedData
 
 
 def _get_csv_fieldnames(csv_reader):
@@ -98,7 +98,7 @@ def _get_results(csv_reader, fieldnames):
         else:
             # empty row, skip it
             continue
-        record = OrderedDict(zip(fieldnames, row))
+        record = OrderedDict(list(zip(fieldnames, row)))
         # skip rows that were already exported
         if record.get('exported') == 'yes':
             continue
@@ -115,13 +115,21 @@ def _get_csv_reader(input_file):
     """Returns csv reader."""
     dialect = csv.Sniffer().sniff(input_file.read(2048))
     input_file.seek(0)
-    return UnicodeReader(input_file, dialect)
+    return get_csv_reader(input_file, dialect)
 
 
 # pylint: disable=unused-argument
 def get_imported_data(csv_file, **kwargs):
     """Reads the content of the Polarion exported csv file and returns imported data."""
-    with open(os.path.expanduser(csv_file), 'rb') as input_file:
+    open_args = []
+    open_kwargs = {}
+    try:
+        # pylint: disable=pointless-statement
+        unicode
+        open_args.append('rb')
+    except NameError:
+        open_kwargs['encoding'] = 'utf-8'
+    with open(os.path.expanduser(csv_file), *open_args, **open_kwargs) as input_file:
         reader = _get_csv_reader(input_file)
 
         fieldnames = _get_csv_fieldnames(reader)

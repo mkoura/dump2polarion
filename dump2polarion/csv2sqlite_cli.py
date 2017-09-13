@@ -35,7 +35,7 @@ def get_args(args=None):
 
 def dump2sqlite(records, output_file):
     """Dumps tests results to database."""
-    results_keys = records.results[0].keys()
+    results_keys = list(records.results[0].keys())
     keys_len = len(results_keys)
     for key in (
             'verdict', 'last_status', 'exported', 'time', 'comment', 'stdout', 'stderr', 'user1'):
@@ -55,7 +55,7 @@ def dump2sqlite(records, output_file):
         row.append(now)
         return row
 
-    to_db = [_extend_row(row.values()) for row in records.results]
+    to_db = [_extend_row(list(row.values())) for row in records.results]
 
     cur = conn.cursor()
     cur.execute(
