@@ -15,7 +15,7 @@ import requests
 from dump2polarion import msgbus
 from dump2polarion.configuration import get_config
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.utils import fill_reponse_property, xunit_fill_testrun_id
+from dump2polarion.utils import fill_response_property, xunit_fill_testrun_id
 
 # requests package backwards compatibility mess
 # pylint: disable=import-error,ungrouped-imports
@@ -128,7 +128,7 @@ def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
         msgbus_pwd = kwargs.get('msgbus_password') or config.get('msgbus_password') or kwargs.get(
             'password') or config.get('password') or os.environ.get("POLARION_PASSWORD")
 
-        xml_input = fill_reponse_property(xml_input)
+        xml_input = fill_response_property(xml_input)
 
         verification_func = msgbus.get_verification_func(
             config.get('message_bus'),

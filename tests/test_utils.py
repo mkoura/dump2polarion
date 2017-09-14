@@ -60,7 +60,7 @@ class TestUtils(object):
     def test_fill_testcase_response(self, fname):
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
-        filled = utils.fill_reponse_property(parsed)
+        filled = utils.fill_response_property(parsed)
         assert '<response-property name="dump2polarion" value="' in filled
 
     @pytest.mark.parametrize(
@@ -72,28 +72,28 @@ class TestUtils(object):
     def test_nofill_response(self, fname):
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
-        filled = utils.fill_reponse_property(parsed)
+        filled = utils.fill_response_property(parsed)
         assert filled is parsed
 
     def test_fill_testsuites_response(self):
         fname = 'complete_transform_noresponse.xml'
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
-        filled = utils.fill_reponse_property(parsed)
+        filled = utils.fill_response_property(parsed)
         assert '<property name="polarion-response-dump2polarion" value="' in filled
 
     def test_fill_custom_testcase_response(self):
         fname = 'testcases_noresponse.xml'
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
-        filled = utils.fill_reponse_property(parsed, 'test', 'test')
+        filled = utils.fill_response_property(parsed, 'test', 'test')
         assert '<response-property name="test" value="test"' in filled
 
     def test_fill_custom_testsuites_response(self):
         fname = 'complete_transform_noresponse.xml'
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
-        filled = utils.fill_reponse_property(parsed, 'test', 'test')
+        filled = utils.fill_response_property(parsed, 'test', 'test')
         assert '<property name="polarion-response-test" value="test"' in filled
 
     def test_fill_invalid_testsuites_response(self):
@@ -101,7 +101,7 @@ class TestUtils(object):
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
         with pytest.raises(Dump2PolarionException):
-            utils.fill_reponse_property(parsed, 'test', 'test')
+            utils.fill_response_property(parsed, 'test', 'test')
 
     def test_write_xml_gen(self, tmpdir):
         dirname = str(tmpdir)

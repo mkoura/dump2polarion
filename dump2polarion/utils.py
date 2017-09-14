@@ -94,7 +94,7 @@ def init_log(log_level):
         level=getattr(logging, log_level.upper(), logging.INFO))
 
 
-def fill_reponse_property(xml, name=None, value=None):
+def fill_response_property(xml, name=None, value=None):
     """Fills response property if missing."""
     try:
         xml_root = ElementTree.fromstring(xml.encode('utf-8'))
