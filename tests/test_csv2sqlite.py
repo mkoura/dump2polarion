@@ -8,9 +8,9 @@ from mock import patch
 
 from tests import conf
 
-from dump2polarion.exporter import XunitExport
 from dump2polarion import csv2sqlite_cli
 from dump2polarion import dbtools
+from dump2polarion.exporter import XunitExport
 
 
 class TestCSV2sqliteCLI(object):
@@ -42,3 +42,11 @@ class TestCSV2sqliteCLI(object):
         with patch('dump2polarion.csv2sqlite_cli.init_log'):
             retval = csv2sqlite_cli.main(args)
         assert retval == 1
+
+    def test_e2e_not_csv(self, captured_log):
+        non_file = 'nonexistent.txt'
+        args = ['-i', non_file, '-o', non_file]
+        with patch('dump2polarion.csv2sqlite_cli.init_log'):
+            retval = csv2sqlite_cli.main(args)
+        assert retval == 1
+        assert 'is in CSV format' in captured_log.getvalue()
