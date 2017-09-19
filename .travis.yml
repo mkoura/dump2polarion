@@ -4,11 +4,17 @@ python:
     - 3.3
     - 3.4
     - 3.5
-# command to install dependencies
 install:
     - pip install tox-travis coveralls
-# command to run tests
 script:
     - tox
 after_success:
     - coveralls
+deploy:
+    provider: pypi
+    user: mkoura
+    password:
+        secure: HlNLXr53bpxHTykTUiLW3ZaUPPeWjDJdN5ccRgocEuVcdOT2JtB/3XKsRQSy2PlK8jHSmoHbydtL/JVZoxyrEH4P5dArAMnmrVdC67TvW5h0jRryK1RRMMTt8DzJNE2CISE75FDV9EnOMN1g1mT0bZohnwSIpDale3z++yFCaGaHv2v6nZGZKX56oN5t/b/mawpGdbrSvqF80TJNp8C5nu+HZfJdQ6JTMEh5wb/a4CVdJbcUA2QBrywWvAixz/ZSyhNNdfKGhqIwm0QLJt6r2DEoJCD71NOubfc+2BI01vn5JKMT3BnhqcUFhubP51VNITdkc55yMMS7zVdzuIEEC9Mcy0TFVY+6tZaT0245kBlqPsnspxYxoirKvYwllQjU2kh1Sf/L7VmMah73AUFDFeFEdIp3pEla3+7aS+7iR26Yc61uJxaDtZpzP1xSepeMjhW9WWMKWiZwUrgVivBKv2GgH1+C4oHWPLDf8m/kKAy2cg2ud+dfaDekDpXQfmDqpcHNR5GxQ74k6x3Z3cTpjw0Ey/pNdu4cl54ACQ7DsCM4RXJQUl/n+vEx8kyj6Hwf7Flw8FZLkmkHwjTmL08vEw1U271pmSSH9jpMwe52H8Xi/ygZDwKSbBunKjqf3xNQgSNsFiBQXQHuH6jp4GtNZiUB8nbPDREbFDfeUg62a94=
+    on:
+        tags: true
+        branch: master
