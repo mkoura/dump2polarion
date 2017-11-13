@@ -36,17 +36,16 @@ class TestCSV2sqliteCLI(object):
             parsed = input_xml.read()
         assert complete == parsed
 
-    def test_e2e_invalid_csv(self):
+    def test_e2e_invalid_csv(self, captured_log):
         non_file = 'nonexistent.csv'
         args = ['-i', non_file, '-o', non_file]
-        with patch('dump2polarion.csv2sqlite_cli.init_log'):
-            retval = csv2sqlite_cli.main(args)
+        retval = csv2sqlite_cli.main(args)
         assert retval == 1
+        assert 'No such file or directory' in captured_log.getvalue()
 
     def test_e2e_not_csv(self, captured_log):
         non_file = 'nonexistent.txt'
         args = ['-i', non_file, '-o', non_file]
-        with patch('dump2polarion.csv2sqlite_cli.init_log'):
-            retval = csv2sqlite_cli.main(args)
+        retval = csv2sqlite_cli.main(args)
         assert retval == 1
         assert 'is in CSV format' in captured_log.getvalue()

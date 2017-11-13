@@ -13,6 +13,9 @@ import yaml
 
 from dump2polarion.exceptions import Dump2PolarionException
 
+
+DEFAULT_USER_CONF = '~/.config/dump2polarion.yaml'
+
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
 
@@ -31,10 +34,10 @@ def _check_config(config):
 def get_config(config_file=None):
     """Loads config file and returns its content."""
     default_conf = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dump2polarion.yaml')
-    user_conf = config_file or '~/.config/dump2polarion.yaml'
+    user_conf = os.path.expanduser(config_file or DEFAULT_USER_CONF)
 
     try:
-        with open(os.path.expanduser(user_conf)):
+        with open(user_conf):
             pass
     except EnvironmentError:
         user_conf = None

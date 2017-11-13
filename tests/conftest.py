@@ -62,3 +62,8 @@ def captured_log():
     yield buff
 
     logger.handlers.remove(handler)
+
+
+@pytest.fixture(autouse=True)
+def no_user_conf(monkeypatch):
+    monkeypatch.setattr('dump2polarion.configuration.DEFAULT_USER_CONF', '')

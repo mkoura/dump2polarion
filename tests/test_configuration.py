@@ -8,8 +8,8 @@ import pytest
 
 from tests import conf
 
-from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion import configuration
+from dump2polarion.exceptions import Dump2PolarionException
 
 
 class TestConfiguration(object):
