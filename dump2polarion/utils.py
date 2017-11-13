@@ -103,7 +103,7 @@ def fill_response_property(xml, name=None, value=None):
         raise Dump2PolarionException("Failed to parse XML file: {}".format(err))
 
     name = name or 'dump2polarion'
-    value = value or ''.join(random.sample(string.ascii_lowercase, 9)) + '11'
+    value = value or ''.join(random.sample(string.ascii_lowercase, 9)) + '12'
 
     if xml_root.tag == 'testsuites':
         properties = xml_root.find('properties')
