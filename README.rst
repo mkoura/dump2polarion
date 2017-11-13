@@ -16,6 +16,14 @@ or submission of pre-generated XUnit or Test Case xml files to corresponding Pol
 
     polarion_dumper.py -i {input_file}
 
+By default test results are submitted to Polarion®. You can disable this bahavior with ``-n`` option. In this case the XML file used for results submission will be saved to disk. Default file location is current directory, default file name is `testrun_TESTRUN_ID-TIMESTAMP.xml` (can be overriden with ``-o`` option).
+
+When output file is specified with ``-o PATH``, the XML file used for results submission will be saved to disk. If `PATH` is a directory, resulting file will be `PATH/testrun_TESTRUN_ID-TIMESTAMP.xml`.
+
+When the input file is a XML file with results (e.g. saved earlier with ``-o FILE -n``) or test cases to be imported, it is submitted to Polarion®.
+
+Configuration
+-------------
 You need to set the following environment variables (the same are used for pylarion):
 
 .. code-block::
@@ -24,13 +32,14 @@ You need to set the following environment variables (the same are used for pylar
     export POLARION_PASSWORD=kerberos_password
 
 Or you can specify credentials on command line with ``--user kerberos_username --password kerberos_password``.  
-Or you can specify credentials in ``dump2polarion.yaml`` file. Lookup path is current directory and ``~/.config``. You can also specify the config file on command line with ``-c config_file.yaml``.
+Or you can specify credentials in ``dump2polarion.yaml`` file.
 
-By default test results are submitted to Polarion®. You can disable this bahavior with ``-n`` option. In this case the XML file used for results submission will be saved to disk. Default file location is current directory, default file name is `testrun_TESTRUN_ID-TIMESTAMP.xml` (can be overriden with ``-o`` option).
+The default user config file is ``~/.config/dump2polarion.yaml``. You can also specify the config file on command line with ``-c config_file.yaml``.
 
-When output file is specified with ``-o PATH``, the XML file used for results submission will be saved to disk. If `PATH` is a directory, resulting file will be `PATH/testrun_TESTRUN_ID-TIMESTAMP.xml`.
+.. IMPORTANT::
 
-When the input file is XML, it is expected that it's XML file with results (e.g. saved earlier with ``-o FILE -n``) and it is submitted to Polarion®.
+    You need to specify URLs of the importer service and of the message bus in the config file. See <https://mojo.redhat.com/docs/DOC-1098563#config>
+
 
 Install
 -------
