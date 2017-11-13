@@ -135,54 +135,63 @@ class TestDumperCLIE2E(object):
             produced = out_xml.read()
         assert produced == parsed
 
-    def test_main_missing_testrun(self, tmpdir, config_e2e):
+    def test_main_missing_testrun(self, tmpdir, config_e2e, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'junit-report.xml')
         output_file = tmpdir.join('out.xml')
         args = ['-i', input_file, '-o', str(output_file), '-c', config_e2e, '-n']
 
-        with patch('dump2polarion.submit_and_verify', return_value=True),\
-                patch('dump2polarion.dumper_cli.init_log'):
+        with patch('dump2polarion.submit_and_verify', return_value=True):
             retval = dumper_cli.main(args)
         assert retval == 1
+        assert 'The testrun id was not specified' in captured_log.getvalue()
 
         with pytest.raises(IOError):
             open(str(output_file))
 
-    def test_main_submit_ready(self):
+    def test_main_submit_ready(self, config_e2e):
         input_file = os.path.join(conf.DATA_PATH, 'complete_transform.xml')
-        args = ['-i', input_file]
+        args = ['-i', input_file, '-c', config_e2e]
 
         with patch('dump2polarion.submit_and_verify', return_value=True), \
                 patch('dump2polarion.dumper_cli.init_log'):
             retval = dumper_cli.main(args)
         assert retval == 0
 
-    def test_main_noreport(self):
+    def test_main_noreport(self, config_e2e):
+        input_file = os.path.join(conf.DATA_PATH, 'noreport.csv')
+        args = ['-i', input_file, '-c', config_e2e]
+
+        with patch('dump2polarion.submit_and_verify', return_value=True), \
+                patch('dump2polarion.dumper_cli.init_log'):
+            retval = dumper_cli.main(args)
+        assert retval == 0
+
+    def test_main_noresults(self, config_e2e, captured_log):
+        input_file = os.path.join(conf.DATA_PATH, 'noresults.csv')
+        args = ['-i', input_file, '-c', config_e2e]
+
+        with patch('dump2polarion.submit_and_verify', return_value=True):
+            retval = dumper_cli.main(args)
+        assert retval == 1
+        assert 'No results read from' in captured_log.getvalue()
+
+    def test_main_unconfigured(self, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'noreport.csv')
         args = ['-i', input_file]
 
-        with patch('dump2polarion.submit_and_verify', return_value=True), \
-                patch('dump2polarion.dumper_cli.init_log'):
-            retval = dumper_cli.main(args)
-        assert retval == 0
-
-    def test_main_noresults(self):
-        input_file = os.path.join(conf.DATA_PATH, 'noresults.csv')
-        args = ['-i', input_file]
-
-        with patch('dump2polarion.submit_and_verify', return_value=True), \
-                patch('dump2polarion.dumper_cli.init_log'):
+        with patch('dump2polarion.submit_and_verify', return_value=True):
             retval = dumper_cli.main(args)
         assert retval == 1
+        assert 'Failed to find following keys in config file' in captured_log.getvalue()
 
-    def test_main_noconfig(self):
+    def test_main_noconfig(self, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'noreport.csv')
         args = ['-i', input_file, '-c', 'nonexistent']
 
-        with patch('dump2polarion.submit_and_verify', return_value=True), \
-                patch('dump2polarion.dumper_cli.init_log'):
+        with patch('dump2polarion.submit_and_verify', return_value=True):
             retval = dumper_cli.main(args)
         assert retval == 1
+        assert 'Cannot open config file' in captured_log.getvalue()
 
     def test_main_submit_failed(self, tmpdir, config_e2e):
         input_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')

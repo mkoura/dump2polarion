@@ -18,8 +18,9 @@ def config_prop():
             'polarion-testrun-status-id': 'inprogress',
             'polarion-response-test': 'test'
         },
-        'xunit_target': 'https://polarion/import/xunit',
-        'testcase_taget': 'https://polarion/import/testcase'
+        'message_bus': 'ci-bus.example.com:6000',
+        'xunit_target': 'https://polarion.example.com/import/xunit',
+        'testcase_taget': 'https://polarion.example.com/import/testcase'
     }
 
 
@@ -31,6 +32,9 @@ xunit_import_properties:
     polarion-project-id         : RHCF3
     polarion-testrun-status-id  : inprogress
     polarion-response-test      : test
+message_bus: ci-bus.example.com:6000
+xunit_target: https://polarion.example.com/import/xunit
+testcase_taget: https://polarion.example.com/import/testcase
 """
     conf_file = tmpdir.join('dump2polarion.yaml')
     conf_file.write(conf_content)
