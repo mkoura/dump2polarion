@@ -1,5 +1,5 @@
 # encoding: utf-8
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,too-few-public-methods
+# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
 from __future__ import unicode_literals
 
@@ -26,3 +26,8 @@ class TestConfiguration(object):
         cfg = configuration.get_config(conf_file)
         assert cfg['xunit_import_properties']['polarion-dry-run'] is True
         assert cfg['username'] == 'user1'
+
+    def test_check_config(self):
+        cfg = {}
+        with pytest.raises(Dump2PolarionException):
+            configuration._check_config(cfg)

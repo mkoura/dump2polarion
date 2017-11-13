@@ -17,6 +17,17 @@ from dump2polarion.exceptions import Dump2PolarionException
 logger = logging.getLogger(__name__)
 
 
+def _check_config(config):
+    missing = []
+    for key in ('testcase_taget', 'xunit_target', 'message_bus'):
+        if not config.get(key):
+            missing.append(key)
+    if missing:
+        raise Dump2PolarionException(
+            "Failed to find following keys in config file: {}\n"
+            "Please read https://mojo.redhat.com/docs/DOC-1098563".format(', '.join(missing)))
+
+
 def get_config(config_file=None):
     """Loads config file and returns its content."""
     default_conf = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dump2polarion.yaml')
@@ -45,5 +56,7 @@ def get_config(config_file=None):
         except ValueError as err:
             raise Dump2PolarionException(
                 "Failed to load the '{}' config file: {}".format(user_conf, err))
+
+    _check_config(config_settings)
 
     return config_settings
