@@ -25,6 +25,7 @@ def get_results_transform_cfme(config):
     """Return result transformation function for CFME."""
     cfme_searches = [
         'Skipping due to these blockers',
+        'SKIPME:',
         'BZ ?[0-9]+',
         'GH ?#?[0-9]+',
         'GH#ManageIQ',
