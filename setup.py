@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='dump2polarion',
-    version='0.11',
+    use_scm_version=True,
     url='https://github.com/mkoura/dump2polarion',
     description='Dump testcases results to xunit file and submit it to Polarion xunit importer',
     long_description=open('README.rst').read().strip(),
@@ -11,6 +11,7 @@ setup(
     license='GPL',
     packages=find_packages(exclude=('tests',)),
     scripts=['csv2sqlite.py', 'polarion_dumper.py'],
+    setup_requires=['setuptools_scm'],
     install_requires=['requests', 'pyyaml', 'stomp.py'],
     keywords=['polarion', 'testing'],
     classifiers=[
