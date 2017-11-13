@@ -25,7 +25,7 @@ def _check_config(config):
     if missing:
         raise Dump2PolarionException(
             "Failed to find following keys in config file: {}\n"
-            "Please read https://mojo.redhat.com/docs/DOC-1098563".format(', '.join(missing)))
+            "Please see https://mojo.redhat.com/docs/DOC-1098563#config".format(', '.join(missing)))
 
 
 def get_config(config_file=None):

@@ -2,6 +2,3 @@ xunit_import_properties:
     polarion-project-id         : RHCF3
     polarion-dry-run            : false
     polarion-testrun-status-id  : inprogress
-message_bus: ci-bus.lab.eng.rdu2.redhat.com:61613
-xunit_target: https://polarion.engineering.redhat.com/polarion/import/xunit
-testcase_taget: https://polarion.engineering.redhat.com/polarion/import/testcase
