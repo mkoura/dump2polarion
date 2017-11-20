@@ -7,7 +7,7 @@
     <property name="polarion-project-id" value="RHCF3"/>
     <property name="polarion-response-test" value="test"/>
     <property name="polarion-testrun-status-id" value="inprogress"/>
-    <property name="polarion-lookup-method" value="Name"/>
+    <property name="polarion-lookup-method" value="name"/>
   </properties>
   <testsuite errors="3" failures="0" name="Import for RHCF3 - 5_8_0_17 testrun" skipped="0" tests="5" time="2696.4414">
     <testcase name="test_raw_metric_vm_network[rhv41]" time="1.78114914894">

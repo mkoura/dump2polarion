@@ -31,20 +31,26 @@ def import_junit(junit_file, **kwargs):
             continue
 
         verdict = None
+        verdict_found = False
         comment = ''
+        properties = {}
         for element in test_data:
-            if element.tag == 'error':
-                verdict = 'failed'
-                comment = element.get('message')
-                # continue to see if there's more telling verdict for this record
-            elif element.tag == 'failure':
-                verdict = 'failed'
-                comment = element.get('message')
-                break
-            elif element.tag == 'skipped':
-                verdict = 'skipped'
-                comment = element.get('message')
-                break
+            if not verdict_found:
+                if element.tag == 'error':
+                    verdict = 'failed'
+                    comment = element.get('message')
+                    # continue to see if there's more telling verdict for this record
+                elif element.tag == 'failure':
+                    verdict = 'failed'
+                    comment = element.get('message')
+                    verdict_found = True
+                elif element.tag == 'skipped':
+                    verdict = 'skipped'
+                    comment = element.get('message')
+                    verdict_found = True
+            if element.tag == 'properties':
+                for prop in element:
+                    properties[prop.get('name')] = prop.get('value')
         if not verdict:
             verdict = 'passed'
 
@@ -53,14 +59,18 @@ def import_junit(junit_file, **kwargs):
         time = test_data.get('time', 0)
         filepath = test_data.get('file')
 
-        record = OrderedDict([
+        data = [
             ('title', title),
             ('classname', classname),
             ('verdict', verdict),
             ('comment', comment),
             ('time', time),
             ('file', filepath),
-        ])
+        ]
+        for key in properties:
+            data.append((key, properties[key]))
+
+        record = OrderedDict(data)
         results.append(record)
 
     return ImportedData(results=results, testrun=None)

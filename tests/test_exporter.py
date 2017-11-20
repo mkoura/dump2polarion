@@ -53,28 +53,20 @@ class TestProperties(object):
                   '<property name="polarion-project-id" value="RHCF3" />'
                   '<property name="polarion-response-test" value="test" />'
                   '<property name="polarion-testrun-status-id" value="inprogress" />'
-                  '<property name="polarion-lookup-method" value="ID" />'
                   '</properties>'.strip())
         properties_str = get_unicode_str(ElementTree.tostring(properties_element, 'utf-8').strip())
         assert properties_str == parsed
 
-    def test_properties_lookup_name(self, config_prop, records_names):
-        exporter = XunitExport(
-            '5_8_0_17', records_names, config_prop, transform_func=lambda: None)
-        top_element = exporter._top_element()
-        properties_element = exporter._properties_element(top_element)
-        properties_str = get_unicode_str(ElementTree.tostring(properties_element, 'utf-8').strip())
-        assert '<property name="polarion-lookup-method" value="Name" />' in properties_str
-
     def test_properties_lookup_config(self, config_prop, records_names):
         new_config = copy.deepcopy(config_prop)
-        new_config['xunit_import_properties']['polarion-lookup-method'] = "ID"
+        new_config['xunit_import_properties']['polarion-lookup-method'] = "id"
         exporter = XunitExport(
             '5_8_0_17', records_names, new_config, transform_func=lambda: None)
         top_element = exporter._top_element()
         properties_element = exporter._properties_element(top_element)
+        exporter._fill_lookup_prop(properties_element)
         properties_str = get_unicode_str(ElementTree.tostring(properties_element, 'utf-8').strip())
-        assert '<property name="polarion-lookup-method" value="ID" />' in properties_str
+        assert '<property name="polarion-lookup-method" value="id" />' in properties_str
 
     def test_properties_invalid_lookup(self, config_prop, records_ids):
         new_config = copy.deepcopy(config_prop)

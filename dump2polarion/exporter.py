@@ -15,9 +15,9 @@ from xml.etree import ElementTree
 from xml.etree.ElementTree import Element, SubElement, Comment
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.verdicts import Verdicts
 from dump2polarion.transform import get_results_transform
 from dump2polarion.utils import write_xml, get_unicode_str
+from dump2polarion.verdicts import Verdicts
 
 
 ImportedData = namedtuple('ImportedData', 'results testrun')
@@ -47,27 +47,27 @@ class XunitExport(object):
                    {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)})
 
         for name, value in sorted(self.config['xunit_import_properties'].items()):
-            SubElement(testsuites_properties, 'property',
-                       {'name': name, 'value': str(value)})
             if name == 'polarion-lookup-method':
-                self._lookup_prop = str(value)
-
-        if not self._lookup_prop:
-            if 'id' in self.tests_records.results[0]:
-                self._lookup_prop = 'ID'
-            elif 'title' in self.tests_records.results[0]:
-                self._lookup_prop = 'Name'
+                lookup_prop = str(value).lower()
+                if lookup_prop not in ('id', 'name', 'custom'):
+                    raise Dump2PolarionException(
+                        "Invalid value '{}' for the 'polarion-lookup-method' property".format(
+                            str(value)))
+                self._lookup_prop = lookup_prop
             else:
-                raise Dump2PolarionException(
-                    "Failed to set the 'polarion-lookup-method' property")
-            SubElement(testsuites_properties, 'property',
-                       {'name': 'polarion-lookup-method', 'value': self._lookup_prop})
-        elif self._lookup_prop.lower() not in ('id', 'name', 'custom'):
-            raise Dump2PolarionException(
-                "Invalid value '{}' for the 'polarion-lookup-method' property".format(
-                    self._lookup_prop))
+                SubElement(testsuites_properties, 'property',
+                           {'name': name, 'value': str(value)})
 
         return testsuites_properties
+
+    def _fill_lookup_prop(self, testsuites_properties):
+        """Fills the polarion-lookup-method property."""
+        if not self._lookup_prop:
+            raise Dump2PolarionException(
+                "Failed to set the 'polarion-lookup-method' property")
+
+        SubElement(testsuites_properties, 'property',
+                   {'name': 'polarion-lookup-method', 'value': self._lookup_prop})
 
     def _testsuite_element(self, parent_element):
         """Returns testsuite XML element."""
@@ -116,10 +116,17 @@ class XunitExport(object):
             return
         testcase_id = result.get('id')
         testcase_title = result.get('title')
-        if not testcase_id and self._lookup_prop.lower() == 'id':
-            return
-        if not testcase_title and self._lookup_prop.lower() == 'name':
-            return
+
+        if self._lookup_prop:
+            if not testcase_id and self._lookup_prop != 'name':
+                return
+            if not testcase_title and self._lookup_prop == 'name':
+                return
+        else:
+            if testcase_id:
+                self._lookup_prop = 'id'
+            elif testcase_title:
+                self._lookup_prop = 'name'
 
         testcase_time = float(result.get('time') or result.get('duration') or 0)
         records['time'] += testcase_time
@@ -183,9 +190,10 @@ class XunitExport(object):
     def export(self):
         """Returns xunit XML."""
         top = self._top_element()
-        self._properties_element(top)
+        properties = self._properties_element(top)
         testsuite = self._testsuite_element(top)
         self._fill_tests_results(testsuite)
+        self._fill_lookup_prop(properties)
         return self._prettify(top)
 
     def write_xml(self, xml, output_file=None):
