@@ -196,10 +196,10 @@ def get_verification_func(bus_url, xml, user, password, **kwargs):
     listener = _XunitListener()
     conn.set_listener('Importer Listener', listener)
     logger.debug("Subscribing to the Importer message bus")
-    conn.start()
-    conn.connect(login=user, passcode=password)
 
     try:
+        conn.start()
+        conn.connect(login=user, passcode=password)
         conn.subscribe(
             destination='/topic/CI',
             id=1,
@@ -210,6 +210,7 @@ def get_verification_func(bus_url, xml, user, password, **kwargs):
     except Exception as err:
         logger.error("Skipping submit verification: {}".format(err))
         _force_disconnect(conn)
+        return
 
     def verify_submit(skip=False, timeout=None):
         """Verifies that the results were successfully submitted."""
@@ -225,6 +226,7 @@ def get_verification_func(bus_url, xml, user, password, **kwargs):
         # pylint: disable=broad-except
         except Exception as err:
             logger.error("Skipping submit verification: {}".format(err))
+            return
         finally:
             _force_disconnect(conn)
 
