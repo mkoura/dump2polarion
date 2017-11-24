@@ -120,6 +120,8 @@ def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
     # get default configuration when missing
     config = config or get_config()
 
+    verification_skipped = False
+
     if kwargs.get('no_verify'):
         verification_func = None
     else:
@@ -136,10 +138,15 @@ def submit_and_verify(xml_str=None, xml_file=None, config=None, **kwargs):
             user=msgbus_login,
             password=msgbus_pwd,
             log_file=kwargs.get('msgbus_log'))
+        if not verification_func:
+            verification_skipped = True
 
     response = submit(xml_input, config=config, **kwargs)
 
     if verification_func:
         response = verification_func(skip=not response, timeout=kwargs.get('verify_timeout'))
+    elif verification_skipped:
+        # we wanted to verify the import but it didn't happen for some reason
+        response = False
 
     return bool(response)

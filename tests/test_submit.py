@@ -112,10 +112,10 @@ class TestSubmitAndVerify(object):
                 patch('dump2polarion.msgbus.get_verification_func', return_value=None):
             response = submit.submit_and_verify(
                 xml_file=input_file, config=config_prop, user='john', password='123')
-        assert response
+        assert not response
         assert 'Results received' in captured_log.getvalue()
 
-    def test_verify_skipped(self, config_prop, captured_log):
+    def test_no_verify(self, config_prop, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'complete_transform.xml')
         with patch('requests.post'):
             response = submit.submit_and_verify(
