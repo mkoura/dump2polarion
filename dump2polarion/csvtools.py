@@ -3,11 +3,11 @@
 Helper functions for handling data in CSV format.
 """
 
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
+import csv
 import os
 import re
-import csv
 
 from collections import OrderedDict
 

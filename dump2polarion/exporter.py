@@ -4,7 +4,7 @@
 Dump testcases results to xunit file for submitting to the Polarion XUnit Importer.
 """
 
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
 import datetime
 

@@ -6,7 +6,7 @@ If the 'polarion-lookup-method' is set to 'custom', this is the place where you 
 set the 'id' of the testcase to desired value.
 """
 
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
 import re
 

@@ -3,18 +3,16 @@
 Helper functions for handling data in sqlite3.
 """
 
-from __future__ import unicode_literals, absolute_import
-
-import os
+from __future__ import absolute_import, unicode_literals
 
 import logging
+import os
 import sqlite3
-from sqlite3 import Error as SQLiteError
 
 from collections import OrderedDict
 
-from dump2polarion.exporter import ImportedData
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporter import ImportedData
 
 
 # pylint: disable=invalid-name
@@ -30,7 +28,7 @@ def _get_testrun_from_sqlite(conn):
     try:
         cur.execute('SELECT testrun FROM testrun')
         return cur.fetchone()[0]
-    except (IndexError, SQLiteError):
+    except (IndexError, sqlite3.Error):
         return
 
 
@@ -42,7 +40,7 @@ def _open_sqlite(db_file):
             # test that the file can be accessed
             pass
         return sqlite3.connect(db_file, detect_types=sqlite3.PARSE_DECLTYPES)
-    except (IOError, SQLiteError) as err:
+    except (IOError, sqlite3.Error) as err:
         raise Dump2PolarionException('{}'.format(err))
 
 

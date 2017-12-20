@@ -3,17 +3,17 @@
 Import data using correct tools.
 """
 
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
 import os
 
-from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.dbtools import SQLITE_EXT
+from dump2polarion.exceptions import Dump2PolarionException
 
 
 def _get_importer(input_file):
     """Selects importer based on input file type."""
-    _, ext = os.path.splitext(input_file)
+    __, ext = os.path.splitext(input_file)
     ext = ext.lower()
 
     if 'ostriz' in input_file:

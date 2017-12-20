@@ -3,19 +3,19 @@
 Helper functions for handling JSON data from Ostriz.
 """
 
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
-import os
+import datetime
 import io
 import json
-import datetime
+import os
 
 from collections import OrderedDict
 
 import requests
 
-from dump2polarion.exporter import ImportedData
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporter import ImportedData
 
 
 def _get_json(location):

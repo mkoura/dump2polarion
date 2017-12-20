@@ -4,7 +4,7 @@
 Helper functions for handling data in pytest junit format.
 """
 
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
 import os
 
@@ -12,8 +12,8 @@ from collections import OrderedDict
 
 from xml.etree import ElementTree
 
-from dump2polarion.exporter import ImportedData
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporter import ImportedData
 
 
 # pylint: disable=unused-argument

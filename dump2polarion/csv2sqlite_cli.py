@@ -4,7 +4,7 @@
 Dump testcases results from a CSV input file to SQLite.
 """
 
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
 import argparse
 import datetime
@@ -45,7 +45,7 @@ def dump2sqlite(records, output_file):
     conn = sqlite3.connect(os.path.expanduser(output_file), detect_types=sqlite3.PARSE_DECLTYPES)
 
     # in each row there needs to be data for every column
-    pad_data = ['' for _ in range(len(results_keys) - keys_len)]
+    pad_data = ['' for __ in range(len(results_keys) - keys_len)]
     # last column is current time
     now = datetime.datetime.utcnow()
 
@@ -62,7 +62,7 @@ def dump2sqlite(records, output_file):
         "CREATE TABLE testcases ({},sqltime TIMESTAMP)".format(
             ','.join(['{} TEXT'.format(key) for key in results_keys])))
     cur.executemany("INSERT INTO testcases VALUES ({},?)".format(
-        ','.join(['?' for _ in results_keys])), to_db)
+        ','.join(['?' for __ in results_keys])), to_db)
 
     if records.testrun:
         cur.execute("CREATE TABLE testrun (testrun TEXT)")
