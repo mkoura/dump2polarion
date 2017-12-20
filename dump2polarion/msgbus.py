@@ -4,7 +4,7 @@
 Connects to the Polarion Importer message bus and verifies that results were submitted.
 """
 
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
 import json
 import logging
@@ -12,8 +12,6 @@ import os
 import pprint
 import threading
 import time
-
-from xml.etree import ElementTree
 
 import requests
 
@@ -55,34 +53,6 @@ class _XunitListener(object):
         return self.message_list[-1]
 
 
-def _get_response_property(xml):
-    """Parses xml and finds the "polarion-response-" name and value."""
-    try:
-        root = ElementTree.fromstring(xml.encode('utf-8'))
-    # pylint: disable=broad-except
-    except Exception as err:
-        logger.error(err)
-        return
-
-    if root.tag == 'testsuites':
-        properties = root.find('properties')
-        for prop in properties:
-            prop_name = prop.get('name', '')
-            if 'polarion-response-' in prop_name:
-                return (prop_name[len('polarion-response-'):], str(prop.get('value')))
-    elif root.tag == 'testcases':
-        properties = root.find('response-properties')
-        if properties is None:
-            return
-        for prop in properties:
-            if prop.tag != 'response-property':
-                continue
-            prop_name = prop.get('name')
-            prop_value = prop.get('value')
-            if prop_name and prop_value:
-                return (prop_name, str(prop_value))
-
-
 def _log_received_data(headers, message):
     """Logs received message and headers."""
     if not logger.isEnabledFor(logging.DEBUG) or headers is None or message is None:
@@ -104,7 +74,7 @@ def _download_log(url, output_file):
             logger.error(err)
 
     # log file may not be ready yet, wait a bit
-    for _ in range(5):
+    for __ in range(5):
         log_data = _do_log_download()
         if log_data or log_data is None:
             break
@@ -136,15 +106,18 @@ def _check_outcome(message, is_error, log_file=None):
 
     url = data.get('log-url')
     if url:
-        if not log_file:
-            logger.info("Submit log: {}".format(url))
-        else:
+        if log_file:
             _download_log(url, log_file)
+        else:
+            logger.info("Submit log: {}".format(url))
 
-    if data.get('status') == 'passed':
+    status = data.get('status')
+    if status == 'passed':
         logger.info("Results successfully submitted!")
         return True
-
+    if status == 'partial':
+        logger.info("Results successfully submitted, some records were not updated (see log)!")
+        return True
     logger.error("Status = {}, results not updated".format(data.get('status')))
     return False
 
@@ -169,14 +142,13 @@ def _force_disconnect(conn, timeout=10):
     conn.disconnect()
 
 
-def get_verification_func(bus_url, xml, user, password, **kwargs):
+def get_verification_func(bus_url, selector, user, password, **kwargs):
     """Subscribes to the message bus and returns verification function."""
     if not bus_url:
         logger.error(
             "Message bus url ('message_bus') not configured, skipping submit verification")
         return
 
-    selector = _get_response_property(xml)
     if not selector:
         logger.error(
             "The response property is not set, skipping submit verification")

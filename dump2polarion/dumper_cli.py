@@ -5,18 +5,18 @@ Dump testcases results from a CSV, SQLite, junit or Ostriz input file to xunit f
 to the Polarion XUnit Importer.
 """
 
-from __future__ import unicode_literals, absolute_import
+from __future__ import absolute_import, unicode_literals
 
-import os
-import io
 import argparse
-import logging
 import datetime
+import io
+import logging
+import os
 
 import dump2polarion
+from dump2polarion import dbtools
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 from dump2polarion.utils import init_log
-from dump2polarion import dbtools
 
 
 # pylint: disable=invalid-name
@@ -58,6 +58,20 @@ def get_args(args=None):
     return parser.parse_args(args)
 
 
+def get_submit_args(args):
+    """Gets arguments for the ``submit_and_verify`` method."""
+    submit_args = dict(
+        testrun_id=args.testrun_id,
+        user=args.user,
+        password=args.password,
+        msgbus_user=args.msgbus_user,
+        msgbus_password=args.msgbus_password,
+        no_verify=args.no_verify,
+        verify_timeout=args.verify_timeout,
+    )
+    return {k: v for k, v in submit_args.items() if v is not None}
+
+
 def get_testrun_id(args, testrun_id):
     """Returns testrun id."""
     if (args.testrun_id and testrun_id and not args.force and
@@ -74,9 +88,9 @@ def get_testrun_id(args, testrun_id):
     return found_testrun_id
 
 
-def submit_if_ready(args, config):
+def submit_if_ready(args, submit_args, config):
     """Submits the input XML file if it's already in the expected format."""
-    _, ext = os.path.splitext(args.input_file)
+    __, ext = os.path.splitext(args.input_file)
     if ext.lower() != '.xml':
         return
 
@@ -88,13 +102,14 @@ def submit_if_ready(args, config):
             logger.info("Nothing to do")
             return 0
         # expect importer xml and just submit it
-        response = dump2polarion.submit_and_verify(xml, config=config, **vars(args))
+        response = dump2polarion.submit_and_verify(xml, config=config, **submit_args)
         return 0 if response else 2
 
 
 def main(args=None, transform_func=None):
     """Main function for cli."""
     args = get_args(args)
+    submit_args = get_submit_args(args)
 
     init_log(args.log_level)
 
@@ -104,7 +119,7 @@ def main(args=None, transform_func=None):
         logger.fatal(err)
         return 1
 
-    submit_outcome = submit_if_ready(args, config)
+    submit_outcome = submit_if_ready(args, submit_args, config)
     if submit_outcome is not None:
         # submitted, nothing more to do
         return submit_outcome
@@ -130,9 +145,9 @@ def main(args=None, transform_func=None):
         exporter.write_xml(output, args.output_file)
 
     if not args.no_submit:
-        response = dump2polarion.submit_and_verify(output, config=config, **vars(args))
+        response = dump2polarion.submit_and_verify(output, config=config, **submit_args)
 
-        _, ext = os.path.splitext(args.input_file)
+        __, ext = os.path.splitext(args.input_file)
         if ext.lower() in dbtools.SQLITE_EXT and response:
             dbtools.mark_exported_sqlite(args.input_file, import_time)
 
