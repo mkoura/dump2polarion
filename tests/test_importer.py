@@ -38,5 +38,6 @@ class TestImporterFormats(object):
         assert importer == import_sqlite
 
     def test_invalid(self):
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             _get_importer('workitems.txt')
+        assert 'Cannot recognize type of input data, add file extension' in str(excinfo.value)

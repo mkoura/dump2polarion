@@ -36,8 +36,9 @@ class TestDumperCLIUnits(object):
 
     def test_testrun_id_nomatch(self):
         args = dumper_cli.get_args(['-i', 'dummy', '-t', '5_8_0_17'])
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             dumper_cli.get_testrun_id(args, '5_8_0_18')
+        assert "found in exported data doesn't match" in str(excinfo.value)
 
     def test_testrun_id_force(self):
         args = dumper_cli.get_args(['-i', 'dummy', '-t', '5_8_0_18', '--force'])
@@ -46,13 +47,15 @@ class TestDumperCLIUnits(object):
 
     def test_testrun_id_missing(self):
         args = dumper_cli.get_args(['-i', 'dummy'])
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             dumper_cli.get_testrun_id(args, None)
+        assert 'The testrun id was not specified' in str(excinfo.value)
 
     def test_submit_if_ready_noxml(self, config_prop):
         args = dumper_cli.get_args(['-i', 'submit.txt'])
+        submit_args = dumper_cli.get_submit_args(args)
         with patch('dump2polarion.submit_and_verify', return_value=True):
-            retval = dumper_cli.submit_if_ready(args, config_prop)
+            retval = dumper_cli.submit_if_ready(args, submit_args, config_prop)
         assert retval is None
 
     def test_submit_if_ready_nosubmit(self, tmpdir, config_prop):
@@ -60,8 +63,9 @@ class TestDumperCLIUnits(object):
         xml_file = tmpdir.join('submit_nosubmit.xml')
         xml_file.write(xml_content)
         args = dumper_cli.get_args(['-i', str(xml_file), '--no-submit'])
+        submit_args = dumper_cli.get_submit_args(args)
         with patch('dump2polarion.submit_and_verify', return_value=True):
-            retval = dumper_cli.submit_if_ready(args, config_prop)
+            retval = dumper_cli.submit_if_ready(args, submit_args, config_prop)
         assert retval == 0
 
     def test_submit_if_ready_failed(self, tmpdir, config_prop):
@@ -69,8 +73,9 @@ class TestDumperCLIUnits(object):
         xml_file = tmpdir.join('submit_failed.xml')
         xml_file.write(xml_content)
         args = dumper_cli.get_args(['-i', str(xml_file)])
+        submit_args = dumper_cli.get_submit_args(args)
         with patch('dump2polarion.submit_and_verify', return_value=False):
-            retval = dumper_cli.submit_if_ready(args, config_prop)
+            retval = dumper_cli.submit_if_ready(args, submit_args, config_prop)
         assert retval == 2
 
     @pytest.mark.parametrize('tag', ('testsuites', 'testcases'))
@@ -79,8 +84,9 @@ class TestDumperCLIUnits(object):
         xml_file = tmpdir.join('submit_ready.xml')
         xml_file.write(xml_content)
         args = dumper_cli.get_args(['-i', str(xml_file)])
+        submit_args = dumper_cli.get_submit_args(args)
         with patch('dump2polarion.submit_and_verify', return_value=True):
-            retval = dumper_cli.submit_if_ready(args, config_prop)
+            retval = dumper_cli.submit_if_ready(args, submit_args, config_prop)
         assert retval == 0
 
 
@@ -145,8 +151,9 @@ class TestDumperCLIE2E(object):
         assert retval == 1
         assert 'The testrun id was not specified' in captured_log.getvalue()
 
-        with pytest.raises(IOError):
+        with pytest.raises(IOError) as excinfo:
             open(str(output_file))
+        assert 'No such file or directory' in str(excinfo.value)
 
     def test_main_submit_ready(self, config_e2e):
         input_file = os.path.join(conf.DATA_PATH, 'complete_transform.xml')

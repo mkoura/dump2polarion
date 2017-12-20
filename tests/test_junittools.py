@@ -42,6 +42,7 @@ class TestJunitImport(object):
     def test_invalid_input(self):
         invalid_content = str('foo')
         input_file = StringIO(invalid_content)
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             junittools.import_junit(input_file)
         input_file.close()
+        assert 'Failed to parse XML file' in str(excinfo.value)

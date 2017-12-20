@@ -3,47 +3,10 @@
 
 from __future__ import unicode_literals
 
-import io
-import os
 import threading
 import time
 
-import pytest
-
-from tests import conf
-
 from dump2polarion import msgbus
-
-
-class TestMsgBusProperties(object):
-    @pytest.mark.parametrize(
-        'fname', ('testcases.xml', 'complete_transform.xml'))
-    def test_get_testsuites_property(self, fname):
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
-            xml_str = input_xml.read()
-        name, value = msgbus._get_response_property(xml_str)
-        assert name == 'test'
-        assert value == 'test'
-
-    @pytest.mark.parametrize(
-        'fname',
-        (
-            'testcases_noresponse.xml',
-            'testcases_noresponse2.xml',
-            'complete_transform_noresponse.xml'
-        ))
-    def test_missing_testcases_property(self, fname):
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
-            xml_str = input_xml.read()
-        selector = msgbus._get_response_property(xml_str)
-        assert selector is None
-
-    def test_invalid_input(self):
-        fname = 'ostriz.json'
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
-            xml_str = input_xml.read()
-        selector = msgbus._get_response_property(xml_str)
-        assert selector is None
 
 
 class TestMsgBusListener(object):
@@ -117,16 +80,6 @@ class TestMsgBusVerification(object):
         assert msgbus.get_verification_func('foo', None, None, None) is None
         assert 'The response property is not set, skipping' in captured_log.getvalue()
 
-    def test_missing_response_properties(self, captured_log):
-        fname = 'complete_transform_noresponse.xml'
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
-            parsed = input_xml.read()
-        assert msgbus.get_verification_func('foo', parsed, None, None) is None
-        assert 'The response property is not set, skipping' in captured_log.getvalue()
-
     def test_missing_credentials(self, captured_log):
-        fname = 'complete_transform.xml'
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
-            parsed = input_xml.read()
-        assert msgbus.get_verification_func('foo', parsed, None, None) is None
+        assert msgbus.get_verification_func('foo', ('test', 'test'), None, None) is None
         assert 'Missing credentials, skipping' in captured_log.getvalue()

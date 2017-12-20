@@ -72,23 +72,26 @@ class TestProperties(object):
         new_config = copy.deepcopy(config_prop)
         new_config['xunit_import_properties']['polarion-lookup-method'] = 'invalid'
         exporter = XunitExport('5_8_0_17', records_ids, new_config)
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             exporter.export()
+        assert "Invalid value 'invalid' for the 'polarion-lookup-method'" in str(excinfo.value)
 
 
 class TestE2E(object):
     def test_e2e_noresults(self, config_prop, records_ids):
         exporter = XunitExport(
             '5_8_0_17', records_ids, config_prop, transform_func=lambda arg: None)
-        with pytest.raises(NothingToDoException):
+        with pytest.raises(NothingToDoException) as excinfo:
             exporter.export()
+        assert 'Nothing to export' in str(excinfo.value)
 
     def test_e2e_missing_results(self, config_prop):
         new_records = ImportedData(results=[], testrun=None)
         exporter = XunitExport(
             '5_8_0_17', new_records, config_prop, transform_func=lambda arg: None)
-        with pytest.raises(NothingToDoException):
+        with pytest.raises(NothingToDoException) as excinfo:
             exporter._fill_tests_results(None)
+        assert 'Nothing to export' in str(excinfo.value)
 
     def test_e2e_ids_notransform(self, config_prop, records_ids):
         exporter = XunitExport(

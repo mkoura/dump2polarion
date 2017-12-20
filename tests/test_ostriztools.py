@@ -34,8 +34,9 @@ class TestOstriz(object):
         assert testrun_id == '5_8_0_07'
 
     def test_testrun_id_invalid(self):
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             ostriztools._get_testrun_id('INVALID')
+        assert 'Cannot find testrun id' in str(excinfo.value)
 
     def test_duration_good(self):
         duration = ostriztools._calculate_duration(1495766591.151192, 1495768544.573208)
@@ -58,12 +59,14 @@ class TestOstriz(object):
 
     def test_invalid_json(self):
         fname = 'junit-report.xml'
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             ostriztools._get_json(os.path.join(conf.DATA_PATH, fname))
+        assert 'Failed to parse JSON' in str(excinfo.value)
 
     def test_no_json(self):
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             ostriztools.import_ostriz('NONEXISTENT.json')
+        assert 'No data to import' in str(excinfo.value)
 
     def test_e2e_ids_notransform(self, config_prop, records_json):
         exporter = XunitExport(

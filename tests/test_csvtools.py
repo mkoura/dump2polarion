@@ -131,8 +131,9 @@ class TestCSVImport(object):
         csv_file = tmpdir.join('no_results.csv')
         csv_file.write(csv_content)
         csv_file_path = str(csv_file)
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             csvtools.get_imported_data(csv_file_path)
+        assert 'No results read from CSV file' in str(excinfo.value)
 
     def test_import_and_check_verdict(self, tmpdir):
         csv_content = str("""
@@ -141,5 +142,6 @@ class TestCSVImport(object):
         csv_file = tmpdir.join('invalid_fieldnames.csv')
         csv_file.write(csv_content)
         csv_file_path = str(csv_file)
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             csvtools.import_csv(csv_file_path)
+        assert 'missing following columns: Verdict' in str(excinfo.value)

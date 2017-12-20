@@ -1,16 +1,15 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,too-few-public-methods
+# pylint: disable=missing-docstring,no-self-use,too-few-public-methods,protected-access
 
 
 from __future__ import unicode_literals
 
-import io
 import os
 
 from mock import Mock, patch
 from tests import conf
 
-from dump2polarion import submit
+from dump2polarion import utils, submit
 
 
 class TestSubmit(object):
@@ -21,25 +20,22 @@ class TestSubmit(object):
 
     def test_missing_credentials(self, config_prop, captured_log):
         with patch('requests.post'):
-            submit.submit('foo', config=config_prop)
+            submit.submit('<foo/>', config=config_prop)
         assert 'missing credentials' in captured_log.getvalue()
 
     def test_missing_target(self, config_prop, captured_log):
         with patch('requests.post'):
-            submit.submit('foo', config=config_prop, user='john', password='123')
+            submit.submit('<foo/>', config=config_prop, user='john', password='123')
         assert 'submit target not found' in captured_log.getvalue()
 
     def test_missing_testrun_id(self, config_prop, captured_log):
         with patch('requests.post'):
-            submit.submit('<testsuites', config=config_prop, user='john', password='123')
+            submit.submit(
+                '<testsuites><properties></properties></testsuites>',
+                config=config_prop,
+                user='john',
+                password='123')
         assert 'missing testrun id' in captured_log.getvalue()
-
-    def test_fill_testrun_id(self):
-        fname = 'properties.xml'
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
-            parsed = input_xml.read()
-        filled = submit._fill_testrun_id(parsed, '5_8_0_17')
-        assert 'name="polarion-testrun-id" value="5_8_0_17"' in filled
 
     def test_fill_testrun_submit(self, config_prop):
         fname = 'properties.xml'
@@ -52,11 +48,13 @@ class TestSubmit(object):
                 password='123')
 
     def test_get_testcases_taget(self, config_prop):
-        response = submit._get_submit_target('<testcases', config_prop)
+        xml_root = utils.get_xml_root_from_str('<testcases/>')
+        response = submit._get_submit_target(xml_root, config_prop)
         assert 'testcase' in response
 
     def test_get_testsuites_taget(self, config_prop):
-        response = submit._get_submit_target('<testsuites', config_prop)
+        xml_root = utils.get_xml_root_from_str('<testsuites/>')
+        response = submit._get_submit_target(xml_root, config_prop)
         assert 'xunit' in response
 
     def test_file_testsuites_failure(self, config_prop, captured_log):
@@ -93,6 +91,14 @@ class TestSubmit(object):
 
     def test_file_testsuites_success(self, config_prop, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'complete_transform.xml')
+        with patch('requests.post'):
+            response = submit.submit(
+                xml_file=input_file, config=config_prop, user='john', password='123')
+        assert response
+        assert 'Results received' in captured_log.getvalue()
+
+    def test_file_testcases_success(self, config_prop, captured_log):
+        input_file = os.path.join(conf.DATA_PATH, 'testcases.xml')
         with patch('requests.post'):
             response = submit.submit(
                 xml_file=input_file, config=config_prop, user='john', password='123')

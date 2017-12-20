@@ -14,12 +14,14 @@ from dump2polarion.exceptions import Dump2PolarionException
 
 class TestConfiguration(object):
     def test_nonexistant(self):
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             configuration.get_config('nonexistant')
+        assert "Cannot open config file 'nonexistant'" in str(excinfo.value)
 
     def test_default(self):
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             configuration.get_config()
+        assert 'Failed to find following keys in config file' in str(excinfo.value)
 
     def test_user(self):
         conf_file = os.path.join(conf.DATA_PATH, 'dump2polarion.yaml')
@@ -30,5 +32,6 @@ class TestConfiguration(object):
 
     def test_check_config(self):
         cfg = {}
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             configuration._check_config(cfg)
+        assert 'Failed to find following keys in config file' in str(excinfo.value)

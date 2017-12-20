@@ -51,8 +51,9 @@ class TestDB(object):
 
     def test_open_nonexistent(self):
         db_file = 'nonexistent'
-        with pytest.raises(Dump2PolarionException):
+        with pytest.raises(Dump2PolarionException) as excinfo:
             dbtools._open_sqlite(db_file)
+        assert 'No such file or directory' in str(excinfo.value)
 
     def test_exported_older_than(self, tmpdir):
         orig_db_file = os.path.join(conf.DATA_PATH, 'workitems_ids.sqlite3')
