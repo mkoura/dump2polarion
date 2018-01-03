@@ -24,7 +24,7 @@ class TestCSV2sqliteCLI(object):
         input_file = os.path.join(conf.DATA_PATH, 'workitems_ids.csv')
         db_file = os.path.join(str(tmpdir), 'workitems_copy.sqlite3')
         args = ['-i', input_file, '-o', db_file]
-        with patch('dump2polarion.csv2sqlite_cli.init_log'):
+        with patch('dump2polarion.csv2sqlite_cli.utils.init_log'):
             retval = csv2sqlite_cli.main(args)
         assert retval == 0
 

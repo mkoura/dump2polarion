@@ -131,7 +131,7 @@ class TestDumperCLIE2E(object):
             args.append('-n')
 
         with patch('dump2polarion.submit_and_verify', return_value=True),\
-                patch('dump2polarion.dumper_cli.init_log'):
+                patch('dump2polarion.dumper_cli.utils.init_log'):
             retval = dumper_cli.main(args, transform_func=transform_func)
         assert retval == 0
 
@@ -160,7 +160,7 @@ class TestDumperCLIE2E(object):
         args = ['-i', input_file, '-c', config_e2e]
 
         with patch('dump2polarion.submit_and_verify', return_value=True), \
-                patch('dump2polarion.dumper_cli.init_log'):
+                patch('dump2polarion.dumper_cli.utils.init_log'):
             retval = dumper_cli.main(args)
         assert retval == 0
 
@@ -169,7 +169,7 @@ class TestDumperCLIE2E(object):
         args = ['-i', input_file, '-c', config_e2e]
 
         with patch('dump2polarion.submit_and_verify', return_value=True), \
-                patch('dump2polarion.dumper_cli.init_log'):
+                patch('dump2polarion.dumper_cli.utils.init_log'):
             retval = dumper_cli.main(args)
         assert retval == 0
 
@@ -206,7 +206,7 @@ class TestDumperCLIE2E(object):
         args = ['-i', input_file, '-o', str(output_file), '-c', config_e2e]
 
         with patch('dump2polarion.submit_and_verify', return_value=False), \
-                patch('dump2polarion.dumper_cli.init_log'):
+                patch('dump2polarion.dumper_cli.utils.init_log'):
             retval = dumper_cli.main(args)
         assert retval == 2
 
@@ -227,7 +227,7 @@ class TestDumperCLIE2E(object):
         args = ['-i', db_file, '-o', str(output_file), '-c', config_e2e]
 
         with patch('dump2polarion.submit_and_verify', return_value=True), \
-                patch('dump2polarion.dumper_cli.init_log'):
+                patch('dump2polarion.dumper_cli.utils.init_log'):
             retval = dumper_cli.main(args)
         assert retval == 0
 

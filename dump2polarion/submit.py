@@ -11,8 +11,7 @@ import os
 
 import requests
 
-from dump2polarion import msgbus, utils
-from dump2polarion.configuration import get_config
+from dump2polarion import configuration, msgbus, utils
 from dump2polarion.exceptions import Dump2PolarionException
 
 # requests package backwards compatibility mess
@@ -66,7 +65,7 @@ def _get_credentials(config, **kwargs):
 def submit(xml_str=None, xml_file=None, xml_root=None, config=None, **kwargs):
     """Submits results to the Polarion Importer."""
     try:
-        config = config or get_config()
+        config = config or configuration.get_config()
         xml_root = _get_xml_root(xml_root, xml_str, xml_file)
         credentials = _get_credentials(config, **kwargs)
         submit_target = _get_submit_target(xml_root, config)
@@ -100,7 +99,7 @@ def submit(xml_str=None, xml_file=None, xml_root=None, config=None, **kwargs):
 def submit_and_verify(xml_str=None, xml_file=None, xml_root=None, config=None, **kwargs):
     """Submits results to the Polarion Importer and checks that it was imported."""
     try:
-        config = config or get_config()
+        config = config or configuration.get_config()
         xml_root = _get_xml_root(xml_root, xml_str, xml_file)
         response_property = utils.fill_response_property(xml_root)
     except Dump2PolarionException as err:

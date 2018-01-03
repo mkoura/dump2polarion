@@ -12,8 +12,8 @@ from collections import OrderedDict
 
 from xml.etree import ElementTree
 
+from dump2polarion import exporter
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.exporter import ImportedData
 
 
 # pylint: disable=unused-argument
@@ -73,4 +73,4 @@ def import_junit(junit_file, **kwargs):
         record = OrderedDict(data)
         results.append(record)
 
-    return ImportedData(results=results, testrun=None)
+    return exporter.ImportedData(results=results, testrun=None)

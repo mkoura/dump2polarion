@@ -14,9 +14,8 @@ import logging
 import os
 
 import dump2polarion
-from dump2polarion import dbtools
+from dump2polarion import dbtools, utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.utils import init_log
 
 
 # pylint: disable=invalid-name
@@ -111,7 +110,7 @@ def main(args=None, transform_func=None):
     args = get_args(args)
     submit_args = get_submit_args(args)
 
-    init_log(args.log_level)
+    utils.init_log(args.log_level)
 
     try:
         config = dump2polarion.get_config(args.config_file)

@@ -11,9 +11,8 @@ import re
 
 from collections import OrderedDict
 
-from dump2polarion.csv_unicode import get_csv_reader
+from dump2polarion import csv_unicode, exporter
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.exporter import ImportedData
 
 
 def _get_csv_fieldnames(csv_reader):
@@ -115,7 +114,7 @@ def _get_csv_reader(input_file):
     """Returns csv reader."""
     dialect = csv.Sniffer().sniff(input_file.read(2048))
     input_file.seek(0)
-    return get_csv_reader(input_file, dialect)
+    return csv_unicode.get_csv_reader(input_file, dialect)
 
 
 # pylint: disable=unused-argument
@@ -144,7 +143,7 @@ def get_imported_data(csv_file, **kwargs):
 
         testrun = _get_testrun_from_csv(input_file, reader)
 
-    return ImportedData(results=results, testrun=testrun)
+    return exporter.ImportedData(results=results, testrun=testrun)
 
 
 def _check_required_columns(csv_file, results):

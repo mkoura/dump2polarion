@@ -14,8 +14,8 @@ from collections import OrderedDict
 
 import requests
 
+from dump2polarion import exporter
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.exporter import ImportedData
 
 
 def _get_json(location):
@@ -83,7 +83,7 @@ def _parse_ostriz(ostriz_data):
             ('time', _calculate_duration(data.get('start_time'), data.get('finish_time')) or 0)
         ]))
     testrun_id = _get_testrun_id(found_version)
-    return ImportedData(results=test_data, testrun=testrun_id)
+    return exporter.ImportedData(results=test_data, testrun=testrun_id)
 
 
 # pylint: disable=unused-argument

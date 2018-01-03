@@ -12,9 +12,8 @@ import logging
 import os
 import sqlite3
 
-from dump2polarion import csvtools
+from dump2polarion import csvtools, utils
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.utils import init_log
 
 
 # pylint: disable=invalid-name
@@ -78,7 +77,7 @@ def main(args=None):
     """Main function for cli."""
     args = get_args(args)
 
-    init_log(args.log_level)
+    utils.init_log(args.log_level)
 
     if '.csv' not in args.input_file.lower():
         logger.warn("Make sure the input file '{}' is in CSV format".format(args.input_file))

@@ -7,7 +7,7 @@ from __future__ import absolute_import, unicode_literals
 
 import os
 
-from dump2polarion.dbtools import SQLITE_EXT
+from dump2polarion import dbtools
 from dump2polarion.exceptions import Dump2PolarionException
 
 
@@ -26,8 +26,7 @@ def _get_importer(input_file):
     elif ext == '.csv':
         from dump2polarion import csvtools
         importer = csvtools.import_csv
-    elif ext in SQLITE_EXT:
-        from dump2polarion import dbtools
+    elif ext in dbtools.SQLITE_EXT:
         importer = dbtools.import_sqlite
     else:
         raise Dump2PolarionException(

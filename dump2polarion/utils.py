@@ -14,7 +14,6 @@ import random
 import string
 
 from xml.etree import ElementTree
-from xml.etree.ElementTree import SubElement
 
 from dump2polarion.exceptions import Dump2PolarionException
 
@@ -144,7 +143,7 @@ def fill_response_property(xml_root, name=None, value=None):
                 break
         else:
             prop_name = 'polarion-response-{}'.format(name)
-            SubElement(properties, 'property', {'name': prop_name, 'value': value})
+            ElementTree.SubElement(properties, 'property', {'name': prop_name, 'value': value})
             response_property = (name, value)
     elif xml_root.tag == 'testcases':
         properties = xml_root.find('response-properties')
@@ -160,7 +159,7 @@ def fill_response_property(xml_root, name=None, value=None):
                     response_property = (prop_name, str(prop_value))
                 break
         else:
-            SubElement(properties, 'response-property', {'name': name, 'value': value})
+            ElementTree.SubElement(properties, 'response-property', {'name': name, 'value': value})
             response_property = (name, value)
     else:
         raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)

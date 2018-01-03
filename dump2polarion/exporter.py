@@ -12,11 +12,9 @@ from collections import namedtuple
 
 from xml.dom import minidom
 from xml.etree import ElementTree
-from xml.etree.ElementTree import Element, SubElement, Comment
 
+from dump2polarion import transform, utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.transform import get_results_transform
-from dump2polarion.utils import write_xml, get_unicode_str
 from dump2polarion.verdicts import Verdicts
 
 
@@ -30,21 +28,21 @@ class XunitExport(object):
         self.tests_records = tests_records
         self.config = config
         self._lookup_prop = ''
-        self._transform_func = transform_func or get_results_transform(config)
+        self._transform_func = transform_func or transform.get_results_transform(config)
 
     def _top_element(self):
         """Returns top XML element."""
-        top = Element('testsuites')
-        comment = Comment("Generated for testrun {}".format(self.testrun_id))
+        top = ElementTree.Element('testsuites')
+        comment = ElementTree.Comment("Generated for testrun {}".format(self.testrun_id))
         top.append(comment)
         return top
 
     def _properties_element(self, parent_element):
         """Returns properties XML element."""
-        testsuites_properties = SubElement(parent_element, 'properties')
+        testsuites_properties = ElementTree.SubElement(parent_element, 'properties')
 
-        SubElement(testsuites_properties, 'property',
-                   {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)})
+        ElementTree.SubElement(testsuites_properties, 'property',
+                               {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)})
 
         for name, value in sorted(self.config['xunit_import_properties'].items()):
             if name == 'polarion-lookup-method':
@@ -55,8 +53,8 @@ class XunitExport(object):
                             str(value)))
                 self._lookup_prop = lookup_prop
             else:
-                SubElement(testsuites_properties, 'property',
-                           {'name': name, 'value': str(value)})
+                ElementTree.SubElement(testsuites_properties, 'property',
+                                       {'name': name, 'value': str(value)})
 
         return testsuites_properties
 
@@ -66,12 +64,12 @@ class XunitExport(object):
             raise Dump2PolarionException(
                 "Failed to set the 'polarion-lookup-method' property")
 
-        SubElement(testsuites_properties, 'property',
-                   {'name': 'polarion-lookup-method', 'value': self._lookup_prop})
+        ElementTree.SubElement(testsuites_properties, 'property',
+                               {'name': 'polarion-lookup-method', 'value': self._lookup_prop})
 
     def _testsuite_element(self, parent_element):
         """Returns testsuite XML element."""
-        testsuite = SubElement(
+        testsuite = ElementTree.SubElement(
             parent_element,
             'testsuite',
             {'name': 'Import for {} - {} testrun'.format(
@@ -88,22 +86,22 @@ class XunitExport(object):
             records['failures'] += 1
             verdict_data = {'type': 'failure'}
             if result.get('comment'):
-                verdict_data['message'] = get_unicode_str(result['comment'])
-            SubElement(testcase, 'failure', verdict_data)
+                verdict_data['message'] = utils.get_unicode_str(result['comment'])
+            ElementTree.SubElement(testcase, 'failure', verdict_data)
         # xunit Error maps to Blocked in Polarion
         elif verdict in Verdicts.SKIP:
             records['skipped'] += 1
             verdict_data = {'type': 'error'}
             if result.get('comment'):
-                verdict_data['message'] = get_unicode_str(result['comment'])
-            SubElement(testcase, 'error', verdict_data)
+                verdict_data['message'] = utils.get_unicode_str(result['comment'])
+            ElementTree.SubElement(testcase, 'error', verdict_data)
         # xunit Skipped maps to Waiting in Polarion
         elif verdict in Verdicts.WAIT:
             records['waiting'] += 1
             verdict_data = {'type': 'skipped'}
             if result.get('comment'):
-                verdict_data['message'] = get_unicode_str(result['comment'])
-            SubElement(testcase, 'skipped', verdict_data)
+                verdict_data['message'] = utils.get_unicode_str(result['comment'])
+            ElementTree.SubElement(testcase, 'skipped', verdict_data)
 
     def _gen_testcase(self, parent_element, result, records):
         """Creates XML element for given testcase result and update testcases records."""
@@ -136,25 +134,30 @@ class XunitExport(object):
             'time': str(testcase_time)}
         if result.get('classname'):
             testcase_data['classname'] = result['classname']
-        testcase = SubElement(parent_element, 'testcase', testcase_data)
+        testcase = ElementTree.SubElement(parent_element, 'testcase', testcase_data)
 
         self._fill_verdict(verdict, result, testcase, records)
 
         if result.get('stdout'):
-            system_out = SubElement(testcase, 'system-out')
-            system_out.text = get_unicode_str(result['stdout'])
+            system_out = ElementTree.SubElement(testcase, 'system-out')
+            system_out.text = utils.get_unicode_str(result['stdout'])
 
         if result.get('stderr'):
-            system_err = SubElement(testcase, 'system-err')
-            system_err.text = get_unicode_str(result['stderr'])
+            system_err = ElementTree.SubElement(testcase, 'system-err')
+            system_err.text = utils.get_unicode_str(result['stderr'])
 
-        properties = SubElement(testcase, 'properties')
-        SubElement(properties, 'property',
-                   {'name': 'polarion-testcase-id', 'value': testcase_id or testcase_title})
+        properties = ElementTree.SubElement(testcase, 'properties')
+        ElementTree.SubElement(
+            properties,
+            'property',
+            {'name': 'polarion-testcase-id', 'value': testcase_id or testcase_title}
+        )
         if verdict in Verdicts.PASS and result.get('comment'):
-            SubElement(properties, 'property',
-                       {'name': 'polarion-testcase-comment',
-                        'value': get_unicode_str(result['comment'])})
+            ElementTree.SubElement(
+                properties, 'property',
+                {'name': 'polarion-testcase-comment',
+                 'value': utils.get_unicode_str(result['comment'])}
+            )
 
     def _fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""
@@ -185,7 +188,7 @@ class XunitExport(object):
         """Returns a pretty-printed XML."""
         rough_string = ElementTree.tostring(top_element, 'utf-8')
         reparsed = minidom.parseString(rough_string)
-        return get_unicode_str(reparsed.toprettyxml(indent='  ', encoding='utf-8'))
+        return utils.get_unicode_str(reparsed.toprettyxml(indent='  ', encoding='utf-8'))
 
     def export(self):
         """Returns xunit XML."""
@@ -200,4 +203,4 @@ class XunitExport(object):
         """Outputs the XML content into a file."""
         gen_filename = 'testrun_{}-{:%Y%m%d%H%M%S}.xml'.format(
             self.testrun_id, datetime.datetime.now())
-        write_xml(xml, output_loc=output_file, filename=gen_filename)
+        utils.write_xml(xml, output_loc=output_file, filename=gen_filename)
