@@ -9,7 +9,7 @@ dump2polarion
 
 Usage
 -----
-Automatic submission out of the CSV, SQLite, junit-report.xml (from pytest) or Ostriz JSON input file to Polarion® XUnit Importer,
+Automatic submission of testing results from the CSV, SQLite, junit-report.xml (from pytest) or Ostriz JSON input file to Polarion® XUnit Importer,
 or submission of pre-generated XUnit or Test Case xml files to corresponding Polarion® Importer:
 
 .. code-block::
