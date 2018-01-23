@@ -11,7 +11,7 @@ import os
 
 import requests
 
-from dump2polarion import configuration, msgbus, utils
+from dump2polarion import configuration, utils, verify
 from dump2polarion.exceptions import Dump2PolarionException
 
 # requests package backwards compatibility mess
@@ -52,6 +52,16 @@ def _get_submit_target(xml_root, config):
     return target
 
 
+def _get_queue_url(xml_root, config):
+    if xml_root.tag == 'testcases':
+        target = config.get('testcase_queue')
+    elif xml_root.tag == 'testsuites':
+        target = config.get('xunit_queue')
+    else:
+        return
+    return target
+
+
 def _get_credentials(config, **kwargs):
     login = kwargs.get('user') or config.get('username') or os.environ.get('POLARION_USERNAME')
     pwd = kwargs.get('password') or config.get('password') or os.environ.get('POLARION_PASSWORD')
@@ -60,6 +70,16 @@ def _get_credentials(config, **kwargs):
         raise Dump2PolarionException("Failed to submit results to Polarion - missing credentials")
 
     return (login, pwd)
+
+
+def get_job_id(response):
+    """Returns job ID of the import."""
+    try:
+        parsed = response.json()
+        return parsed['files']['results.xml']['job-id']
+    # pylint: disable=broad-except
+    except Exception:
+        return
 
 
 def submit(xml_str=None, xml_file=None, xml_root=None, config=None, **kwargs):
@@ -89,6 +109,7 @@ def submit(xml_str=None, xml_file=None, xml_root=None, config=None, **kwargs):
     elif response:
         logger.info("Results received by the Importer (HTTP status {})".format(
             response.status_code))
+        logger.info("Job ID: {}".format(get_job_id(response)))
     else:
         logger.error("HTTP status {}: failed to submit results to {}".format(
             response.status_code, submit_target))
@@ -101,36 +122,28 @@ def submit_and_verify(xml_str=None, xml_file=None, xml_root=None, config=None, *
     try:
         config = config or configuration.get_config()
         xml_root = _get_xml_root(xml_root, xml_str, xml_file)
-        response_property = utils.fill_response_property(xml_root)
+        credentials = _get_credentials(config, **kwargs)
+        queue_url = _get_queue_url(xml_root, config)
     except Dump2PolarionException as err:
         logger.error(err)
-        return False
+        return
 
-    verification_skipped = False
-
-    if kwargs.get('no_verify'):
-        verification_func = None
-    else:
-        msgbus_login = kwargs.get('msgbus_user') or config.get('msgbus_username') or kwargs.get(
-            'user') or config.get('username') or os.environ.get('POLARION_USERNAME')
-        msgbus_pwd = kwargs.get('msgbus_password') or config.get('msgbus_password') or kwargs.get(
-            'password') or config.get('password') or os.environ.get('POLARION_PASSWORD')
-
-        verification_func = msgbus.get_verification_func(
-            config.get('message_bus'),
-            response_property,
-            user=msgbus_login,
-            password=msgbus_pwd,
-            log_file=kwargs.get('msgbus_log'))
-        if not verification_func:
-            verification_skipped = True
+    verify_import = True
+    job_id = None
+    if not kwargs.get('no_verify'):
+        verification_queue = verify.QueueSearch(
+            user=credentials[0], password=credentials[1], queue_url=queue_url)
+        verify_import = verification_queue.queue_init()
 
     response = submit(xml_root=xml_root, config=config, **kwargs)
 
-    if verification_func:
-        response = verification_func(skip=not response, timeout=kwargs.get('verify_timeout'))
-    elif verification_skipped:
+    if not verify_import:
         # we wanted to verify the import but it didn't happen for some reason
-        response = False
+        return False
+
+    if response:
+        job_id = get_job_id(response)
+    if not kwargs.get('no_verify') and job_id:
+        response = verification_queue.verify_submit(job_id, timeout=kwargs.get('verify_timeout'))
 
     return bool(response)

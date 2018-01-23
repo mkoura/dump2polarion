@@ -4,9 +4,12 @@
 from __future__ import unicode_literals
 
 import io
+import os
 import logging
 
 import pytest
+
+from tests import conf
 
 
 @pytest.fixture(scope='module')
@@ -18,26 +21,16 @@ def config_prop():
             'polarion-testrun-status-id': 'inprogress',
             'polarion-response-test': 'test'
         },
-        'message_bus': 'ci-bus.example.com:6000',
         'xunit_target': 'https://polarion.example.com/import/xunit',
-        'testcase_taget': 'https://polarion.example.com/import/testcase'
+        'testcase_taget': 'https://polarion.example.com/import/testcase',
+        'xunit_queue': 'https://polarion.example.com/import/xunit-queue',
+        'testcase_queue': 'https://polarion.example.com/import/testcase-queue'
     }
 
 
 @pytest.fixture(scope='function')
-def config_e2e(tmpdir):
-    conf_content = """
-xunit_import_properties:
-    polarion-dry-run            : false
-    polarion-project-id         : RHCF3
-    polarion-testrun-status-id  : inprogress
-    polarion-response-test      : test
-message_bus: ci-bus.example.com:6000
-xunit_target: https://polarion.example.com/import/xunit
-testcase_taget: https://polarion.example.com/import/testcase
-"""
-    conf_file = tmpdir.join('dump2polarion.yaml')
-    conf_file.write(conf_content)
+def config_e2e():
+    conf_file = os.path.join(conf.DATA_PATH, 'dump2polarion.yaml')
     return str(conf_file)
 
 

@@ -6,7 +6,7 @@ from __future__ import unicode_literals
 
 import os
 
-from mock import Mock, patch
+from mock import patch
 from tests import conf
 
 from dump2polarion import utils, submit
@@ -86,8 +86,9 @@ class TestSubmit(object):
             response = submit.submit(
                 xml_file=input_file, config=config_prop, user='john', password='123')
         assert not response
-        assert 'request failed' in captured_log.getvalue()
-        assert 'Failed to submit results' in captured_log.getvalue()
+        logged_data = captured_log.getvalue()
+        assert 'request failed' in logged_data
+        assert 'Failed to submit results' in logged_data
 
     def test_file_testsuites_success(self, config_prop, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'complete_transform.xml')
@@ -95,7 +96,9 @@ class TestSubmit(object):
             response = submit.submit(
                 xml_file=input_file, config=config_prop, user='john', password='123')
         assert response
-        assert 'Results received' in captured_log.getvalue()
+        logged_data = captured_log.getvalue()
+        assert 'Results received' in logged_data
+        assert 'Job ID' in logged_data
 
     def test_file_testcases_success(self, config_prop, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'testcases.xml')
@@ -103,7 +106,9 @@ class TestSubmit(object):
             response = submit.submit(
                 xml_file=input_file, config=config_prop, user='john', password='123')
         assert response
-        assert 'Results received' in captured_log.getvalue()
+        logged_data = captured_log.getvalue()
+        assert 'Results received' in logged_data
+        assert 'Job ID' in logged_data
 
 
 class TestSubmitAndVerify(object):
@@ -115,7 +120,10 @@ class TestSubmitAndVerify(object):
     def test_verify_none(self, config_prop, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'complete_transform.xml')
         with patch('requests.post'), \
-                patch('dump2polarion.msgbus.get_verification_func', return_value=None):
+                patch('dump2polarion.verify.QueueSearch') as mock:
+            instance = mock.return_value
+            instance.queue_init.return_value = None
+            instance.verify_submit.return_value = True
             response = submit.submit_and_verify(
                 xml_file=input_file, config=config_prop, user='john', password='123')
         assert not response
@@ -136,8 +144,10 @@ class TestSubmitAndVerify(object):
     def test_verify_failed(self, config_prop, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'complete_transform.xml')
         with patch('requests.post'), \
-                patch('dump2polarion.msgbus.get_verification_func',
-                      return_value=Mock(return_value=False)):
+                patch('dump2polarion.verify.QueueSearch') as mock:
+            instance = mock.return_value
+            instance.queue_init.return_value = True
+            instance.verify_submit.return_value = False
             response = submit.submit_and_verify(
                 xml_file=input_file, config=config_prop, user='john', password='123')
         assert not response
@@ -146,8 +156,10 @@ class TestSubmitAndVerify(object):
     def test_verify_success(self, config_prop, captured_log):
         input_file = os.path.join(conf.DATA_PATH, 'complete_transform.xml')
         with patch('requests.post'), \
-                patch('dump2polarion.msgbus.get_verification_func',
-                      return_value=Mock()):
+                patch('dump2polarion.verify.QueueSearch') as mock:
+            instance = mock.return_value
+            instance.queue_init.return_value = True
+            instance.verify_submit.return_value = True
             response = submit.submit_and_verify(
                 xml_file=input_file, config=config_prop, user='john', password='123')
         assert response

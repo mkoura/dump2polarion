@@ -22,7 +22,7 @@ logger = logging.getLogger(__name__)
 
 def _check_config(config):
     missing = []
-    for key in ('testcase_taget', 'xunit_target', 'message_bus'):
+    for key in ('testcase_taget', 'xunit_target', 'testcase_queue', 'xunit_queue'):
         if not config.get(key):
             missing.append(key)
     if missing:

@@ -3,10 +3,7 @@
 
 from __future__ import unicode_literals
 
-import os
 import pytest
-
-from tests import conf
 
 from dump2polarion import configuration
 from dump2polarion.exceptions import Dump2PolarionException
@@ -23,10 +20,9 @@ class TestConfiguration(object):
             configuration.get_config()
         assert 'Failed to find following keys in config file' in str(excinfo.value)
 
-    def test_user(self):
-        conf_file = os.path.join(conf.DATA_PATH, 'dump2polarion.yaml')
-        cfg = configuration.get_config(conf_file)
-        assert cfg['xunit_import_properties']['polarion-dry-run'] is True
+    def test_user(self, config_e2e):
+        cfg = configuration.get_config(config_e2e)
+        assert cfg['xunit_import_properties']['polarion-dry-run'] is False
         assert cfg['username'] == 'user1'
         assert cfg['xunit_import_properties']['polarion-project-id'] == 'RHCF3'
 

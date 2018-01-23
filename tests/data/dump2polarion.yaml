@@ -1,11 +1,11 @@
 xunit_import_properties:
+    polarion-dry-run            : false
     polarion-project-id         : RHCF3
-    polarion-dry-run            : true
     polarion-testrun-status-id  : inprogress
-message_bus: ci-bus.example.com:6000
+    polarion-response-test      : test
 xunit_target: https://polarion.example.com/import/xunit
 testcase_taget: https://polarion.example.com/import/testcase
+xunit_queue: https://polarion.example.com/import/xunit-queue
+testcase_queue: https://polarion.example.com/import/testcase-queue
 username:  user1
 password:  password1
-msgbus_username:  user2
-msgbus_password:  password2
