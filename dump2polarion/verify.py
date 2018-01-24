@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Verifies that data were submitted to Polarion Importers.
+Verifies that data were updated in Polarion.
 """
 
 from __future__ import absolute_import, unicode_literals
@@ -82,14 +82,15 @@ class QueueSearch(object):
         first_id = jobs[0]['id']
         if _current_page == 1:
             self.last_id = first_id
-        if _current_page >= max_depth or _current_page >= json_data.get('maxPages', 0):
-            return
         for job in jobs:
             cur_id = job.get('id')
             if cur_id == job_id:
                 return job
             elif cur_id == last_id:
                 return
+        if _current_page >= max_depth or _current_page >= json_data.get('maxPages', 0):
+            return
+
         return self.find_job(job_id, last_id, _current_page=_current_page + 1)
 
     def wait_for_job(self, job_id, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY):
