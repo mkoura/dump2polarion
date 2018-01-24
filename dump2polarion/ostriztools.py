@@ -58,32 +58,43 @@ def _calculate_duration(start_time, finish_time):
     start = datetime.datetime.fromtimestamp(start_time)
     finish = datetime.datetime.fromtimestamp(finish_time)
     duration = finish - start
-    return duration.seconds
+
+    microseconds = float(('0.' + str(duration.microseconds)))
+    return duration.seconds + microseconds
 
 
 def _parse_ostriz(ostriz_data):
     """Reads the content of the input JSON and returns testcases results."""
     if not ostriz_data:
         raise Dump2PolarionException("No data to import")
-    test_data = []
-    data = found_version = None
-    for data in ostriz_data.values():
+
+    results = []
+    found_version = None
+    for test_data in ostriz_data.values():
         # make sure we are collecting data for the same appliance version
         if found_version:
-            if found_version != data.get('version'):
+            if found_version != test_data.get('version'):
                 continue
         else:
-            found_version = data.get('version')
-        statuses = data.get('statuses')
+            found_version = test_data.get('version')
+        statuses = test_data.get('statuses')
         if not statuses:
             continue
-        test_data.append(OrderedDict([
+
+        data = [
+            ('title', test_data.get('test_name')),
             ('verdict', statuses.get('overall')),
-            ('title', data.get('test_name')),
-            ('time', _calculate_duration(data.get('start_time'), data.get('finish_time')) or 0)
-        ]))
+            ('time', _calculate_duration(
+                test_data.get('start_time'), test_data.get('finish_time')) or 0)
+        ]
+        test_id = test_data.get('test_id')
+        if test_id:
+            data.append(('id', test_id))
+
+        results.append(OrderedDict(data))
+
     testrun_id = _get_testrun_id(found_version)
-    return exporter.ImportedData(results=test_data, testrun=testrun_id)
+    return exporter.ImportedData(results=results, testrun=testrun_id)
 
 
 # pylint: disable=unused-argument

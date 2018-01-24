@@ -40,7 +40,7 @@ class TestOstriz(object):
 
     def test_duration_good(self):
         duration = ostriztools._calculate_duration(1495766591.151192, 1495768544.573208)
-        assert duration == 1953
+        assert duration == 1953.422016
 
     def test_duration_bad_finish(self):
         duration = ostriztools._calculate_duration(1495766591.151192, None)

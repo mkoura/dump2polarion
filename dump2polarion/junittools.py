@@ -23,6 +23,7 @@ def import_junit(junit_file, **kwargs):
         tree = ElementTree.parse(os.path.expanduser(junit_file))
     except Exception as err:
         raise Dump2PolarionException("Failed to parse XML file '{}': {}".format(junit_file, err))
+
     xml_root = tree.getroot()
 
     results = []
@@ -70,7 +71,6 @@ def import_junit(junit_file, **kwargs):
         for key in properties:
             data.append((key, properties[key]))
 
-        record = OrderedDict(data)
-        results.append(record)
+        results.append(OrderedDict(data))
 
     return exporter.ImportedData(results=results, testrun=None)
