@@ -34,6 +34,8 @@ def get_results_transform_cfme(config):
 
     def results_transform(result):
         """Results transform for CFME."""
+        result = result.copy()
+
         # make sure that last part of classname is included in "title", e.g.
         # "TestServiceRESTAPI.test_power_parent_service"
         classname = result.get('classname', '')
@@ -80,6 +82,8 @@ def get_results_transform_cmp(config):
 
     def results_transform(result):
         """Results transform for CMP."""
+        result = result.copy()
+
         classname = result.get('classname', '')
         if classname:
             # we don't need to pass classnames?

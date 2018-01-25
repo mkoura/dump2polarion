@@ -113,6 +113,13 @@ class TestQueueSearch(object):
             response = vq.download_queue()
         assert response is None
 
+    def test_download_queue_exception(self, captured_log):
+        with patch('requests.get', side_effect=Exception('TestFail')):
+            vq = verify.QueueSearch('foo', 'bar', 'baz')
+            response = vq.download_queue()
+        assert response is None
+        assert 'TestFail' in captured_log.getvalue()
+
     # find job in queue
     def test_job_not_found(self):
         vq = verify.QueueSearch('foo', 'bar', 'baz')
