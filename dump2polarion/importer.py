@@ -37,5 +37,4 @@ def _get_importer(input_file):
 
 def do_import(input_file, **kwargs):
     """Imports the input file."""
-
     return _get_importer(input_file)(input_file, **kwargs)

@@ -3,6 +3,8 @@
 
 from __future__ import unicode_literals
 
+import os
+
 from mock import patch
 
 from dump2polarion import verify
@@ -30,7 +32,7 @@ SEARCH_QUEUE = {
 }
 
 
-class ResponseQueue(object):
+class DummyResponse(object):
     def __init__(self, response):
         self.status_code = 200
         self.response = response
@@ -39,6 +41,10 @@ class ResponseQueue(object):
         return 1
 
     def json(self):
+        return self.response
+
+    @property
+    def content(self):
         return self.response
 
 
@@ -90,13 +96,13 @@ class TestQueueSearch(object):
 
     # download queue
     def test_download_queue_none(self):
-        with patch('requests.get', return_value=ResponseQueue(None)):
+        with patch('requests.get', return_value=DummyResponse(None)):
             vq = verify.QueueSearch('foo', 'bar', 'baz')
             response = vq.download_queue()
         assert response is None
 
     def test_download_queue_data(self):
-        with patch('requests.get', return_value=ResponseQueue(SEARCH_QUEUE)):
+        with patch('requests.get', return_value=DummyResponse(SEARCH_QUEUE)):
             vq = verify.QueueSearch('foo', 'bar', 'baz')
             response = vq.download_queue()
         assert response == SEARCH_QUEUE
@@ -128,6 +134,31 @@ class TestQueueSearch(object):
         outcome = vq.find_job(17977, 17976)
         assert vq.last_id == 17977
         assert outcome is SEARCH_QUEUE['jobs'][0]
+
+    # job log handling
+    def test_get_log_failed(self, tmpdir, captured_log):
+        log_file = os.path.join(str(tmpdir), 'out.log')
+        job = {'logstashURL': 'foo'}
+        with patch('requests.get', return_value=None):
+            vq = verify.QueueSearch('foo', 'bar', 'baz')
+            vq.get_log(job, log_file)
+        assert not os.path.exists(log_file)
+        assert 'Failed to download log file' in captured_log.getvalue()
+
+    def test_get_log_saved(self, tmpdir):
+        log_file = os.path.join(str(tmpdir), 'out.log')
+        job = {'logstashURL': 'foo'}
+        with patch('requests.get', return_value=DummyResponse(b'content')):
+            vq = verify.QueueSearch('foo', 'bar', 'baz')
+            vq.get_log(job, log_file)
+        assert os.path.exists(log_file)
+
+    def test_get_log_displayed(self, captured_log):
+        job = {'logstashURL': 'foo'}
+        with patch('requests.get', return_value=None):
+            vq = verify.QueueSearch('foo', 'bar', 'baz')
+            vq.get_log(job)
+        assert 'Submit log: foo' in captured_log.getvalue()
 
     # verify submit
     def test_queue_submit_failed(self, captured_log):

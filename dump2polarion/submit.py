@@ -144,6 +144,7 @@ def submit_and_verify(xml_str=None, xml_file=None, xml_root=None, config=None, *
     if response:
         job_id = get_job_id(response)
     if not kwargs.get('no_verify') and job_id:
-        response = verification_queue.verify_submit(job_id, timeout=kwargs.get('verify_timeout'))
+        response = verification_queue.verify_submit(
+            job_id, timeout=kwargs.get('verify_timeout'), log_file=kwargs.get('log_file'))
 
     return bool(response)

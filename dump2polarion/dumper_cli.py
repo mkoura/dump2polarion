@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=logging-format-interpolation
 """
-Dump testcases results from a CSV, SQLite, junit or Ostriz input file to xunit file and submit it
-to the Polarion XUnit Importer.
+Dump testcases results from a CSV, SQLite, junit or Ostriz input file to XUnit file.
+Submit XUnit or testcases XML to the Polarion Importers.
 """
 
 from __future__ import absolute_import, unicode_literals
@@ -39,10 +39,6 @@ def get_args(args=None):
                         help="Username to use to submit results to Polarion")
     parser.add_argument('--password',
                         help="Password to use to submit results to Polarion")
-    parser.add_argument('--msgbus-user',
-                        help="Username to use to connect to the message bus")
-    parser.add_argument('--msgbus-password',
-                        help="Password to use to connect to the message bus")
     parser.add_argument('-f', '--force', action='store_true',
                         help="Don't validate test run id")
     parser.add_argument('--no-verify', action='store_true',
@@ -50,8 +46,9 @@ def get_args(args=None):
     parser.add_argument('--verify-timeout', type=int, default=300, metavar='SEC',
                         help="How long to wait (in seconds) for verification of results submission"
                              " (default: %(default)s)")
-    parser.add_argument('--msgbus-log',
-                        help="Where to save the log file returned by msgbus (default: not saved)")
+    parser.add_argument('--job-log',
+                        help="Where to save the log file produced by the Importer"
+                             " (default: not saved)")
     parser.add_argument('--log-level',
                         help="Set logging to specified level")
     return parser.parse_args(args)
@@ -63,10 +60,9 @@ def get_submit_args(args):
         testrun_id=args.testrun_id,
         user=args.user,
         password=args.password,
-        msgbus_user=args.msgbus_user,
-        msgbus_password=args.msgbus_password,
         no_verify=args.no_verify,
         verify_timeout=args.verify_timeout,
+        log_file=args.job_log,
     )
     return {k: v for k, v in submit_args.items() if v is not None}
 
@@ -94,15 +90,19 @@ def submit_if_ready(args, submit_args, config):
         return
 
     with io.open(args.input_file, encoding='utf-8') as input_file:
-        xml = input_file.read()
+        xml = input_file.read(1024)
 
-    if '<testsuites' in xml or '<testcases' in xml:
-        if args.no_submit:
-            logger.info("Nothing to do")
-            return 0
-        # expect importer xml and just submit it
-        response = dump2polarion.submit_and_verify(xml, config=config, **submit_args)
-        return 0 if response else 2
+    if not ('<testsuites' in xml or '<testcases' in xml):
+        return
+
+    if args.no_submit:
+        logger.info("Nothing to do")
+        return 0
+
+    # expect importer xml and just submit it
+    response = dump2polarion.submit_and_verify(
+        xml_file=args.input_file, config=config, **submit_args)
+    return 0 if response else 2
 
 
 def main(args=None, transform_func=None):

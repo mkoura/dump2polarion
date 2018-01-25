@@ -104,6 +104,8 @@ class QueueSearch(object):
                 return job
             return
 
+        logger.debug("Waiting up to {} sec for completion of the job ID {}".format(timeout, job_id))
+
         countdown = timeout
         while countdown > 0:
             job = self.find_job(job_id, self.last_id)
