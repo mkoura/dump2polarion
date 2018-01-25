@@ -167,6 +167,15 @@ class TestQueueSearch(object):
             vq.get_log(job)
         assert 'Submit log: foo' in captured_log.getvalue()
 
+    def test_get_log_exception(self, tmpdir, captured_log):
+        log_file = os.path.join(str(tmpdir), 'out.log')
+        job = {'logstashURL': 'foo'}
+        with patch('requests.get', side_effect=Exception('TestFail')):
+            vq = verify.QueueSearch('foo', 'bar', 'baz')
+            vq.get_log(job, log_file)
+        assert not os.path.exists(log_file)
+        assert 'TestFail' in captured_log.getvalue()
+
     # verify submit
     def test_queue_submit_failed(self, captured_log):
         vq = verify.QueueSearch('foo', 'bar', 'baz')
