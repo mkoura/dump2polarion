@@ -134,3 +134,13 @@ class TestUtils(object):
         with pytest.raises(Dump2PolarionException) as excinfo:
             utils.write_xml('', filename=os.path.join(dirname, 'output123.xml'))
         assert 'No data to write' in str(excinfo.value)
+
+    def test_invalid_xml_root(self):
+        with pytest.raises(Dump2PolarionException) as excinfo:
+            utils.get_xml_root('NONEXISTENT.xml')
+        assert 'Failed to parse XML file' in str(excinfo.value)
+
+    def test_invalid_xml_str(self):
+        with pytest.raises(Dump2PolarionException) as excinfo:
+            utils.get_xml_root_from_str(None)
+        assert 'Failed to parse XML file' in str(excinfo.value)

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+  <!--Generated for testrun 5_8_0_17-->
+  <properties>
+    <property name="polarion-testrun-id" value="5_8_0_17"/>
+    <property name="polarion-dry-run" value="False"/>
+    <property name="polarion-project-id" value="CMP"/>
+    <property name="polarion-response-test" value="test"/>
+    <property name="polarion-testrun-status-id" value="inprogress"/>
+    <property name="polarion-lookup-method" value="id"/>
+  </properties>
+  <testsuite errors="0" failures="0" name="Import for CMP - 5_8_0_17 testrun" skipped="0" tests="2" time="66.2962">
+    <testcase name="test_tables_fields[ocp-v1-ImageRegistry (CMP-9985)]" time="27.379995">
+      <properties>
+        <property name="polarion-testcase-id" value="CMP-9985"/>
+      </properties>
+    </testcase>
+    <testcase name="test_tables_fields[ocp-v2-Container (CMP-9943)]" time="38.916182">
+      <properties>
+        <property name="polarion-testcase-id" value="CMP-9943"/>
+      </properties>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -20,21 +20,21 @@ from dump2polarion.exceptions import Dump2PolarionException
 
 def _get_json(location):
     """Reads JSON data from file or URL."""
-    try:
-        json_data = requests.get(location)
-    except ValueError:
-        pass
-    else:
-        return json.loads(json_data.text, object_pairs_hook=OrderedDict).get('tests')
-
     location = os.path.expanduser(location)
-    if os.path.isfile(location):
-        with io.open(location, encoding='utf-8') as json_data:
-            try:
+    try:
+        if os.path.isfile(location):
+            with io.open(location, encoding='utf-8') as json_data:
                 return json.load(json_data, object_pairs_hook=OrderedDict).get('tests')
-            except Exception as err:
-                raise Dump2PolarionException(
-                    "Failed to parse JSON from {}: {}".format(location, err))
+        elif 'http' in location:
+            json_data = requests.get(location)
+            if not json_data:
+                raise Dump2PolarionException("Failed to download")
+            return json.loads(json_data.text, object_pairs_hook=OrderedDict).get('tests')
+        else:
+            raise Dump2PolarionException("Invalid location")
+    except Exception as err:
+        raise Dump2PolarionException(
+            "Failed to parse JSON from {}: {}".format(location, err))
 
 
 def _get_testrun_id(version):

@@ -7,6 +7,8 @@ import os
 import io
 
 import pytest
+
+from mock import Mock, patch
 from tests import conf
 
 from dump2polarion import ostriztools
@@ -17,6 +19,12 @@ from dump2polarion.exporter import XunitExport
 @pytest.fixture(scope="module")
 def records_json():
     json_file = os.path.join(conf.DATA_PATH, 'ostriz.json')
+    return ostriztools.import_ostriz(json_file)
+
+
+@pytest.fixture(scope="module")
+def records_json_cmp():
+    json_file = os.path.join(conf.DATA_PATH, 'ostriz_cmp.json')
     return ostriztools.import_ostriz(json_file)
 
 
@@ -60,12 +68,33 @@ class TestOstriz(object):
     def test_invalid_json(self):
         fname = 'junit-report.xml'
         with pytest.raises(Dump2PolarionException) as excinfo:
-            ostriztools._get_json(os.path.join(conf.DATA_PATH, fname))
+            ostriztools.import_ostriz(os.path.join(conf.DATA_PATH, fname))
         assert 'Failed to parse JSON' in str(excinfo.value)
+
+    def test_remote_invalid_json(self):
+        with patch('requests.get', return_value=False):
+            with pytest.raises(Dump2PolarionException) as excinfo:
+                ostriztools.import_ostriz('https://foo')
+        assert 'Failed to parse JSON' in str(excinfo.value)
+
+    def test_remote_json(self, records_json):
+        json_file = os.path.join(conf.DATA_PATH, 'ostriz.json')
+        with io.open(json_file, encoding='utf-8') as input_json:
+            parsed = input_json.read()
+        retval = Mock()
+        retval.text = parsed
+        with patch('requests.get', return_value=retval):
+            loaded_json = ostriztools.import_ostriz('https://foo')
+        assert loaded_json == records_json
 
     def test_no_json(self):
         with pytest.raises(Dump2PolarionException) as excinfo:
             ostriztools.import_ostriz('NONEXISTENT.json')
+        assert 'Invalid location' in str(excinfo.value)
+
+    def test_empty_json(self):
+        with pytest.raises(Dump2PolarionException) as excinfo:
+            ostriztools._parse_ostriz('')
         assert 'No data to import' in str(excinfo.value)
 
     def test_e2e_ids_notransform(self, config_prop, records_json):
@@ -81,6 +110,14 @@ class TestOstriz(object):
         exporter = XunitExport('5_8_0_17', records_json, config_prop)
         complete = exporter.export()
         fname = 'ostriz_transform.xml'
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
+            parsed = input_xml.read()
+        assert complete == parsed
+
+    def test_e2e_cmp_ids_transform(self, config_prop_cmp, records_json_cmp):
+        exporter = XunitExport('5_8_0_17', records_json_cmp, config_prop_cmp)
+        complete = exporter.export()
+        fname = 'ostriz_transform_cmp.xml'
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
