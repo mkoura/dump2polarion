@@ -87,9 +87,11 @@ def _parse_ostriz(ostriz_data):
             ('time', _calculate_duration(
                 test_data.get('start_time'), test_data.get('finish_time')) or 0)
         ]
-        test_id = test_data.get('test_id')
+        test_id = test_data.get('polarion')
         if test_id:
-            data.append(('id', test_id))
+            if isinstance(test_id, list):
+                test_id = test_id[0]
+            data.append(('test_id', test_id))
 
         results.append(OrderedDict(data))
 
