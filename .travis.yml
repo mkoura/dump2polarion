@@ -18,3 +18,4 @@ deploy:
     on:
         tags: true
         branch: master
+        condition: $TRAVIS_TEST_RESULT = 0
