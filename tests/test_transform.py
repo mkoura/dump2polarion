@@ -48,7 +48,7 @@ NOT_PASSED = [
     ),
 ]
 
-RHCF3_TITLES = [
+RHCF3_ONLY = [
     (
         {'classname': 'cfme.tests.rest.TestRESTAPI', 'title': 'test1', 'verdict': 'passed',
          'comment': 'comment', 'file': 'cfme/tests/rest.py'},
@@ -70,18 +70,25 @@ RHCF3_TITLES = [
          'file': 'cfme/tests/rest.py'},
         'no_append_class',
     ),
+    (
+        {'title': 'test1', 'verdict': 'skipped', 'comment': 'SKIPME: foo',
+         'source': 'jenkins', 'stream': 'downstream', 'run': '123'},
+        {'title': 'test1', 'verdict': 'skipped', 'comment': 'Source: jenkins/downstream/123\nfoo',
+         'source': 'jenkins', 'stream': 'downstream', 'run': '123'},
+        'skipped_skipme',
+    ),
 ]
 
-CMP_IDS = [
+CMP_ONLY = [
     (
-        {'title': 'test1', 'verdict': 'passed', 'test_id': 'CMP-9985'},
+        {'classname': 'test1', 'title': 'test1', 'verdict': 'passed', 'test_id': 'CMP-9985'},
         {'title': 'test1', 'verdict': 'passed', 'test_id': 'CMP-9985', 'id': 'CMP-9985'},
         'add_id',
     ),
 ]
 
-RHCF3_DATA = RHCF3_TITLES + NOT_PASSED
-CMP_DATA = CMP_IDS + NOT_PASSED
+RHCF3_DATA = RHCF3_ONLY + NOT_PASSED
+CMP_DATA = CMP_ONLY + NOT_PASSED
 
 
 class TestTransform(object):

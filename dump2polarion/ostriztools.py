@@ -84,6 +84,9 @@ def _parse_ostriz(ostriz_data):
         data = [
             ('title', test_data.get('test_name')),
             ('verdict', statuses.get('overall')),
+            ('source', test_data.get('source')),
+            ('stream', test_data.get('stream')),
+            ('run', test_data.get('run')),
             ('time', _calculate_duration(
                 test_data.get('start_time'), test_data.get('finish_time')) or 0)
         ]

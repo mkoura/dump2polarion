@@ -20,6 +20,24 @@ def only_passed_and_wait(result):
         return result
 
 
+def _insert_source_info(result):
+    """Adds info about source of test result if available."""
+    source = result.get('source')
+    stream = result.get('stream')
+    run = result.get('run')
+    source_list = [source, stream, run]
+    if not all(source_list):
+        return result
+
+    source_note = '/'.join(source_list)
+    source_note = 'Source: {}'.format(source_note)
+    comment = result.get('comment')
+    if comment:
+        result['comment'] = '{}\n{}'.format(source_note, comment)
+    else:
+        result['comment'] = source_note
+
+
 # pylint: disable=unused-argument
 def get_results_transform_cfme(config):
     """Return result transformation function for CFME."""
@@ -50,6 +68,9 @@ def get_results_transform_cfme(config):
                     result['title'] = '{0}.{1}'.format(last_classname, title)
             # we don't need to pass classnames?
             del result['classname']
+
+        # add source of test result if available
+        _insert_source_info(result)
 
         verdict = result.get('verdict', '').strip().lower()
         # we want to submit PASS and WAIT results
