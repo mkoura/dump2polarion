@@ -25,6 +25,10 @@ SEARCH_QUEUE = {
         "status": "SUCCESS",
         "logstashURL": "http://logstash/00017977.log"
     }, {
+        "id": 17974,
+        "status": "FAILED",
+        "logstashURL": "http://logstash/00017974.log"
+    }, {
         "id": 17976,
         "status": "SUCCESS",
         "logstashURL": "http://logstash/00017976.log"
@@ -177,18 +181,27 @@ class TestQueueSearch(object):
         assert 'TestFail' in captured_log.getvalue()
 
     # verify submit
-    def test_queue_submit_failed(self, captured_log):
+    def test_queue_empty_queue(self, captured_log):
         vq = verify.QueueSearch('foo', 'bar', 'baz')
         vq.download_queue = lambda **kwargs: None
         vq.last_id = 17975
-        assert vq.verify_submit(17977, timeout=0) is False
+        outcome = vq.verify_submit(17974, timeout=0.0000001, delay=0.0000001)
+        assert outcome is False
         assert 'not updated' in captured_log.getvalue()
+
+    def test_queue_submit_failed(self, captured_log):
+        vq = verify.QueueSearch('foo', 'bar', 'baz')
+        vq.download_queue = download_queue_data
+        vq.last_id = 17975
+        outcome = vq.verify_submit(17974, timeout=0.0000001, delay=0.0000001)
+        assert outcome is False
+        assert 'Status = FAILED' in captured_log.getvalue()
 
     def test_queue_submit_not_found(self, captured_log):
         vq = verify.QueueSearch('foo', 'bar', 'baz')
         vq.download_queue = download_queue_data
         vq.last_id = 17975
-        outcome = vq.verify_submit(17978, timeout=0)
+        outcome = vq.verify_submit(17978, timeout=0.0000001, delay=0.0000001)
         assert outcome is False
         assert 'not updated' in captured_log.getvalue()
 
@@ -196,12 +209,12 @@ class TestQueueSearch(object):
         vq = verify.QueueSearch('foo', 'bar', 'baz')
         vq.download_queue = download_queue_data
         vq.last_id = 17975
-        outcome = vq.verify_submit(17977, timeout=0)
+        outcome = vq.verify_submit(17977, timeout=0.0000001, delay=0.0000001)
         assert outcome
-        assert 'successfully submitted' in captured_log.getvalue()
+        assert 'successfully updated' in captured_log.getvalue()
 
     def test_queue_submit_skip(self):
         vq = verify.QueueSearch('foo', 'bar', 'baz')
         vq.skip = True
-        outcome = vq.verify_submit(17977, timeout=0)
+        outcome = vq.verify_submit(17977, timeout=0.0000001, delay=0.0000001)
         assert outcome is False

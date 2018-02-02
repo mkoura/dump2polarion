@@ -38,7 +38,7 @@ The default user config file is ``~/.config/dump2polarion.yaml``. You can also s
 
 .. IMPORTANT::
 
-    You need to specify URLs of the importer service and of the message bus in the config file. See <https://mojo.redhat.com/docs/DOC-1098563#config>
+    You need to specify URLs of the importer services and queues in the config file. See <https://mojo.redhat.com/docs/DOC-1098563#config>
 
 
 Install

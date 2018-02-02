@@ -98,13 +98,7 @@ class QueueSearch(object):
         if self.skip:
             return
 
-        if timeout == 0:
-            job = self.find_job(job_id, self.last_id)
-            if job:
-                return job
-            return
-
-        logger.debug("Waiting up to {} sec for completion of the job ID {}".format(timeout, job_id))
+        logger.debug('Waiting up to {} sec for completion of the job ID {}'.format(timeout, job_id))
 
         countdown = timeout
         while countdown > 0:
@@ -114,12 +108,19 @@ class QueueSearch(object):
             time.sleep(delay)
             countdown -= delay
 
+        logger.error(
+            'Timed out while waiting for completion of the job ID {}. '
+            'Results not updated.'.format(job_id))
+
     # pylint: disable=no-self-use
     def _check_outcome(self, job):
         """Parses returned message and checks submit outcome."""
         status = job.get('status') if job else None
-        if status and status.lower() == 'success':
-            logger.info('Results successfully submitted!')
+        if not status:
+            return False
+
+        if status.lower() == 'success':
+            logger.info('Results successfully updated!')
             return True
         logger.error('Status = {}, results not updated'.format(status))
         return False
