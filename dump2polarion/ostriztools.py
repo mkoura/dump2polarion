@@ -13,9 +13,10 @@ import os
 from collections import OrderedDict
 
 import requests
+import six
 
 from dump2polarion import exporter
-from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 
 
 def _get_json(location):
@@ -63,26 +64,48 @@ def _calculate_duration(start_time, finish_time):
     return duration.seconds + microseconds
 
 
+# pylint: disable=inconsistent-return-statements
+def _get_testname(test_path):
+    """Gets test name out of full test path."""
+    path_end = test_path.find('.py/')
+    if path_end:
+        return test_path[path_end+4:]
+
+
 def _parse_ostriz(ostriz_data):
     """Reads the content of the input JSON and returns testcases results."""
     if not ostriz_data:
-        raise Dump2PolarionException("No data to import")
+        raise NothingToDoException("No data to import")
 
     results = []
     found_version = None
-    for test_data in ostriz_data.values():
+    found_build = None
+    for test_path, test_data in six.iteritems(ostriz_data):
         # make sure we are collecting data for the same appliance version
         if found_version:
             if found_version != test_data.get('version'):
                 continue
+        # ... or the same build if version is not available
+        elif found_build:
+            if found_build != test_data.get('build'):
+                continue
+        # Every record should have "version" and/or "build". Skip if doesn't
+        # and set `found_version` and `found_build` from first
+        # record where these are present.
+        # WARNING: if the first record has only "build", all the other records
+        # are compared to "build" even when they have also "version".
         else:
             found_version = test_data.get('version')
+            found_build = test_data.get('build')
+            if not any([found_version, found_build]):
+                continue
+
         statuses = test_data.get('statuses')
         if not statuses:
             continue
 
         data = [
-            ('title', test_data.get('test_name')),
+            ('title', test_data.get('test_name') or _get_testname(test_path)),
             ('verdict', statuses.get('overall')),
             ('source', test_data.get('source')),
             ('stream', test_data.get('stream')),
@@ -98,7 +121,7 @@ def _parse_ostriz(ostriz_data):
 
         results.append(OrderedDict(data))
 
-    testrun_id = _get_testrun_id(found_version)
+    testrun_id = _get_testrun_id(found_version or found_build)
     return exporter.ImportedData(results=results, testrun=testrun_id)
 
 

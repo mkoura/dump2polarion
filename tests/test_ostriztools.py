@@ -28,6 +28,12 @@ def records_json_cmp():
     return ostriztools.import_ostriz(json_file)
 
 
+@pytest.fixture(scope="module")
+def records_json_search():
+    json_file = os.path.join(conf.DATA_PATH, 'ostriz_search.json')
+    return ostriztools.import_ostriz(json_file)
+
+
 class TestOstriz(object):
     def test_testrun_id_simple(self):
         testrun_id = ostriztools._get_testrun_id('5.8.0.17')
@@ -118,6 +124,14 @@ class TestOstriz(object):
         exporter = XunitExport('5_8_0_17', records_json_cmp, config_prop_cmp)
         complete = exporter.export()
         fname = 'ostriz_transform_cmp.xml'
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
+            parsed = input_xml.read()
+        assert complete == parsed
+
+    def test_e2e_ids_search_transform(self, config_prop, records_json_search):
+        exporter = XunitExport('5_8_0_17', records_json_search, config_prop)
+        complete = exporter.export()
+        fname = 'ostriz_search_transform.xml'
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
         assert complete == parsed

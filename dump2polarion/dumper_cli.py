@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation
+# pylint: disable=logging-format-interpolation,inconsistent-return-statements
 """
 Dump testcases results from a CSV, SQLite, junit or Ostriz input file to XUnit file.
 Submit XUnit or testcases XML to the Polarion Importers.
