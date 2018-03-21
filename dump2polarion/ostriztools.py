@@ -78,26 +78,17 @@ def _parse_ostriz(ostriz_data):
         raise NothingToDoException("No data to import")
 
     results = []
-    found_version = None
     found_build = None
     for test_path, test_data in six.iteritems(ostriz_data):
-        # make sure we are collecting data for the same appliance version
-        if found_version:
-            if found_version != test_data.get('version'):
-                continue
-        # ... or the same build if version is not available
-        elif found_build:
+        # make sure we are collecting data for the same build
+        if found_build:
             if found_build != test_data.get('build'):
                 continue
-        # Every record should have "version" and/or "build". Skip if doesn't
-        # and set `found_version` and `found_build` from first
-        # record where these are present.
-        # WARNING: if the first record has only "build", all the other records
-        # are compared to "build" even when they have also "version".
+        # Every record should have "build" key. Skip if doesn't and
+        # set `found_build` from first record where it's present.
         else:
-            found_version = test_data.get('version')
             found_build = test_data.get('build')
-            if not any([found_version, found_build]):
+            if not found_build:
                 continue
 
         statuses = test_data.get('statuses')
@@ -123,7 +114,7 @@ def _parse_ostriz(ostriz_data):
 
         results.append(OrderedDict(data))
 
-    testrun_id = _get_testrun_id(found_version or found_build)
+    testrun_id = _get_testrun_id(found_build)
     return exporter.ImportedData(results=results, testrun=testrun_id)
 
 
