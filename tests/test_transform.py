@@ -71,11 +71,11 @@ RHCF3_ONLY = [
         'no_append_class',
     ),
     (
-        {'title': 'test1', 'verdict': 'skipped', 'comment': 'SKIPME: foo',
+        {'title': 'test1', 'verdict': 'passed',
          'source': 'jenkins', 'stream': 'downstream', 'run': '123'},
-        {'title': 'test1', 'verdict': 'skipped', 'comment': 'Source: jenkins/downstream/123\nfoo',
+        {'title': 'test1', 'verdict': 'passed', 'comment': 'Source: jenkins/downstream/123',
          'source': 'jenkins', 'stream': 'downstream', 'run': '123'},
-        'skipped_skipme',
+        'passed_comment',
     ),
 ]
 

@@ -13,6 +13,7 @@ import re
 from dump2polarion.verdicts import Verdicts
 
 
+# pylint: disable=inconsistent-return-statements
 def only_passed_and_wait(result):
     """Returns PASS and WAIT results only, skips everything else."""
     verdict = result.get('verdict', '').strip().lower()
@@ -22,20 +23,21 @@ def only_passed_and_wait(result):
 
 def _insert_source_info(result):
     """Adds info about source of test result if available."""
+    comment = result.get('comment')
+    # don't change comment if it already exists
+    if comment:
+        return
+
     source = result.get('source')
     stream = result.get('stream')
     run = result.get('run')
     source_list = [source, stream, run]
     if not all(source_list):
-        return result
+        return
 
     source_note = '/'.join(source_list)
     source_note = 'Source: {}'.format(source_note)
-    comment = result.get('comment')
-    if comment:
-        result['comment'] = '{}\n{}'.format(source_note, comment)
-    else:
-        result['comment'] = source_note
+    result['comment'] = source_note
 
 
 # pylint: disable=unused-argument
@@ -85,6 +87,8 @@ def get_results_transform_cfme(config):
         if verdict in Verdicts.FAIL and comment and 'FAILME' in comment:
             result['comment'] = comment.replace('FAILME: ', '').replace('FAILME', '')
             return result
+        # we don't want to report this result if here
+        return None
 
     return results_transform
 
@@ -128,6 +132,8 @@ def get_results_transform_cmp(config):
         if verdict in Verdicts.FAIL and comment and 'FAILME' in comment:
             result['comment'] = comment.replace('FAILME: ', '').replace('FAILME', '')
             return result
+        # we don't want to report this result if here
+        return None
 
     return results_transform
 
@@ -138,6 +144,7 @@ PROJECT_MAPPING = {
 }
 
 
+# pylint: disable=inconsistent-return-statements
 def get_results_transform(config):
     """Returns results transformation function.
 
