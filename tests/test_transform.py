@@ -72,9 +72,9 @@ RHCF3_ONLY = [
     ),
     (
         {'title': 'test1', 'verdict': 'passed',
-         'source': 'jenkins', 'stream': 'downstream', 'run': '123'},
+         'source': 'jenkins', 'job_name': 'downstream', 'run': '123'},
         {'title': 'test1', 'verdict': 'passed', 'comment': 'Source: jenkins/downstream/123',
-         'source': 'jenkins', 'stream': 'downstream', 'run': '123'},
+         'source': 'jenkins', 'job_name': 'downstream', 'run': '123'},
         'passed_comment',
     ),
 ]

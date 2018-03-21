@@ -104,12 +104,14 @@ def _parse_ostriz(ostriz_data):
         if not statuses:
             continue
 
+        jenkins_data = test_data.get('jenkins', {})
+
         data = [
             ('title', test_data.get('test_name') or _get_testname(test_path)),
             ('verdict', statuses.get('overall')),
             ('source', test_data.get('source')),
-            ('stream', test_data.get('stream')),
-            ('run', test_data.get('run')),
+            ('job_name', jenkins_data.get('job_name')),
+            ('run', jenkins_data.get('build_number')),
             ('time', _calculate_duration(
                 test_data.get('start_time'), test_data.get('finish_time')) or 0)
         ]

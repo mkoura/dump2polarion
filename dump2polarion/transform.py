@@ -29,9 +29,9 @@ def _insert_source_info(result):
         return
 
     source = result.get('source')
-    stream = result.get('stream')
+    job_name = result.get('job_name')
     run = result.get('run')
-    source_list = [source, stream, run]
+    source_list = [source, job_name, run]
     if not all(source_list):
         return
 
