@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<testsuites>
+  <!--Generated for testrun 5_8_0_17-->
+  <properties>
+    <property name="polarion-testrun-id" value="5_8_0_17"/>
+    <property name="polarion-dry-run" value="False"/>
+    <property name="polarion-project-id" value="RHCF3"/>
+    <property name="polarion-response-test" value="test"/>
+    <property name="polarion-testrun-status-id" value="inprogress"/>
+    <property name="polarion-lookup-method" value="name"/>
+  </properties>
+  <testsuite errors="0" failures="0" name="Import for RHCF3 - 5_8_0_17 testrun" skipped="0" tests="19" time="4751.1835">
+    <testcase name="test_tenant_quota_enforce_via_service_cloud[rhos11-max_storage]" time="122.943416">
+      <properties>
+        <property name="polarion-testcase-id" value="test_tenant_quota_enforce_via_service_cloud[rhos11-max_storage]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_set_retirement_offset[ec2west-no_warning]" time="100.853016">
+      <properties>
+        <property name="polarion-testcase-id" value="test_set_retirement_offset[ec2west-no_warning]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_vm_reconfig_add_remove_hw_cold[rhv41-cores_per_socket]" time="461.250791">
+      <properties>
+        <property name="polarion-testcase-id" value="test_vm_reconfig_add_remove_hw_cold[rhv41-cores_per_socket]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_timeline_events[vsphere55]" time="1340.160153">
+      <properties>
+        <property name="polarion-testcase-id" value="test_timeline_events[vsphere55]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_db_migrate[candu_5717]" time="1136.438625">
+      <properties>
+        <property name="polarion-testcase-id" value="test_db_migrate[candu_5717]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_attributes_present[vms]" time="3.493652">
+      <properties>
+        <property name="polarion-testcase-id" value="test_attributes_present[vms]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="TestInstanceRESTAPI.test_terminate[gce_central-from_detail]" time="134.393178">
+      <properties>
+        <property name="polarion-testcase-id" value="TestInstanceRESTAPI.test_terminate[gce_central-from_detail]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_no_power_controls_on_archived_vm[vsphere55]" time="107.39022">
+      <properties>
+        <property name="polarion-testcase-id" value="test_no_power_controls_on_archived_vm[vsphere55]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_service_ansible_playbook_order_retire[provisioning-default]" time="159.964152">
+      <properties>
+        <property name="polarion-testcase-id" value="test_service_ansible_playbook_order_retire[provisioning-default]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_cloud_grid_page_per_item[keypairs-500]" time="39.55518">
+      <properties>
+        <property name="polarion-testcase-id" value="test_cloud_grid_page_per_item[keypairs-500]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_action_prevent_ssa[vsphere65-nested]" time="781.697753">
+      <properties>
+        <property name="polarion-testcase-id" value="test_action_prevent_ssa[vsphere65-nested]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_policy_copy[HostCompliancePolicy]" time="71.380468">
+      <properties>
+        <property name="polarion-testcase-id" value="test_policy_copy[HostCompliancePolicy]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_cloud_tile_page_per_item[cloud_tenants-200]" time="35.756458">
+      <properties>
+        <property name="polarion-testcase-id" value="test_cloud_tile_page_per_item[cloud_tenants-200]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="TestTagsViaREST.test_bulk_assign_and_unassign_tag[services]" time="5.917926">
+      <properties>
+        <property name="polarion-testcase-id" value="TestTagsViaREST.test_bulk_assign_and_unassign_tag[services]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_add_new_storage_chargeback[variable_storage_rate]" time="63.658924">
+      <properties>
+        <property name="polarion-testcase-id" value="test_add_new_storage_chargeback[variable_storage_rate]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_host_drift_analysis[vsphere65-nested-esxi]" time="180.619042">
+      <properties>
+        <property name="polarion-testcase-id" value="test_host_drift_analysis[vsphere65-nested-esxi]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="TestRatesViaREST.test_edit_rates[one_request]" time="3.40128">
+      <properties>
+        <property name="polarion-testcase-id" value="TestRatesViaREST.test_edit_rates[one_request]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="TestCustomAttributesRESTAPI.test_delete_from_detail_post[vsphere65-nested-services]" time="1.68961">
+      <properties>
+        <property name="polarion-testcase-id" value="TestCustomAttributesRESTAPI.test_delete_from_detail_post[vsphere65-nested-services]"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+    <testcase name="test_appliance_collections_dir" time="0.619671">
+      <properties>
+        <property name="polarion-testcase-id" value="test_appliance_collections_dir"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-59z-rc/34"/>
+      </properties>
+    </testcase>
+  </testsuite>
+</testsuites>
