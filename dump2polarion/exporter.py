@@ -109,7 +109,10 @@ class XunitExport(object):
             result = self._transform_func(result)
             if not result:
                 return
-        verdict = result.get('verdict', '').strip().lower()
+        verdict = result.get('verdict')
+        if not verdict:
+            return
+        verdict = verdict.strip().lower()
         if verdict not in Verdicts.PASS + Verdicts.FAIL + Verdicts.SKIP + Verdicts.WAIT:
             return
         testcase_id = result.get('id')

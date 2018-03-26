@@ -54,6 +54,10 @@ def get_results_transform_cfme(config):
 
     def results_transform(result):
         """Results transform for CFME."""
+        verdict = result.get('verdict')
+        if not verdict:
+            return None
+
         result = result.copy()
 
         # make sure that last part of classname is included in "title", e.g.
@@ -74,7 +78,7 @@ def get_results_transform_cfme(config):
         # add source of test result if available
         _insert_source_info(result)
 
-        verdict = result.get('verdict', '').strip().lower()
+        verdict = verdict.strip().lower()
         # we want to submit PASS and WAIT results
         if verdict in Verdicts.PASS + Verdicts.WAIT:
             return result
@@ -107,6 +111,10 @@ def get_results_transform_cmp(config):
 
     def results_transform(result):
         """Results transform for CMP."""
+        verdict = result.get('verdict')
+        if not verdict:
+            return None
+
         result = result.copy()
 
         classname = result.get('classname', '')
@@ -119,7 +127,7 @@ def get_results_transform_cmp(config):
         if test_id:
             result['id'] = test_id
 
-        verdict = result.get('verdict', '').strip().lower()
+        verdict = verdict.strip().lower()
         # we want to submit PASS and WAIT results
         if verdict in Verdicts.PASS + Verdicts.WAIT:
             return result
