@@ -21,7 +21,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
 
-_VERSION_ID = '20'
+_VERSION_ID = '21'
 _NOT_EXPECTED_FORMAT_MSG = 'XML file is not in expected format'
 
 
