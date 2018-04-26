@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation
+# pylint: disable=logging-format-interpolation,inconsistent-return-statements
 """
-Submit results to the Polarion XUnit/TestCase Importer.
+Submit data to the Polarion XUnit/TestCase Importer.
 """
 
 from __future__ import absolute_import, unicode_literals
@@ -9,22 +9,9 @@ from __future__ import absolute_import, unicode_literals
 import logging
 import os
 
-import requests
-
-from dump2polarion import configuration, utils, verify
+from dump2polarion import configuration, utils
 from dump2polarion.exceptions import Dump2PolarionException
-
-# requests package backwards compatibility mess
-# pylint: disable=import-error,ungrouped-imports
-from requests.packages.urllib3.exceptions import InsecureRequestWarning as IRWrequests
-# pylint: disable=no-member
-requests.packages.urllib3.disable_warnings(IRWrequests)
-try:
-    import urllib3
-    from urllib3.exceptions import InsecureRequestWarning as IRWurllib3
-    urllib3.disable_warnings(IRWurllib3)
-except ImportError:
-    pass
+from dump2polarion.verify import verify_submit
 
 
 # pylint: disable=invalid-name
@@ -38,7 +25,7 @@ def _get_xml_root(xml_root, xml_str, xml_file):
         return utils.get_xml_root_from_str(xml_str)
     if xml_file:
         return utils.get_xml_root(xml_file)
-    raise Dump2PolarionException("Failed to submit results to Polarion - no data supplied")
+    raise Dump2PolarionException("Failed to submit to Polarion - no data supplied")
 
 
 def _get_submit_target(xml_root, config):
@@ -48,7 +35,7 @@ def _get_submit_target(xml_root, config):
         target = config.get('xunit_target')
     else:
         raise Dump2PolarionException(
-            "Failed to submit results to Polarion - submit target not found")
+            "Failed to submit to Polarion - submit target not found")
     return target
 
 
@@ -62,28 +49,78 @@ def _get_queue_url(xml_root, config):
     return target
 
 
-def _get_credentials(config, **kwargs):
-    login = kwargs.get('user') or config.get('username') or os.environ.get('POLARION_USERNAME')
-    pwd = kwargs.get('password') or config.get('password') or os.environ.get('POLARION_PASSWORD')
-
-    if not all([login, pwd]):
-        raise Dump2PolarionException("Failed to submit results to Polarion - missing credentials")
-
-    return (login, pwd)
-
-
-def get_job_id(response):
-    """Returns job ID of the import."""
+def response2dict(response):
+    """Returns dict of the response."""
     try:
-        parsed = response.json()
-        return parsed['files']['results.xml']['job-id']
+        return response.json()
     # pylint: disable=broad-except
     except Exception:
         return
 
 
-def submit(xml_str=None, xml_file=None, xml_root=None, config=None, **kwargs):
-    """Submits results to the Polarion Importer."""
+def get_job_ids(response):
+    """Returns job IDs of the import."""
+    if not isinstance(response, dict):
+        response = response2dict(response)
+    if response:
+        return response['files']['results.xml']['job-ids']
+
+
+def get_error_message(response):
+    """Returns job IDs of the import."""
+    if not isinstance(response, dict):
+        response = response2dict(response)
+    if response:
+        return response['files']['results.xml'].get('error-message')
+
+
+def validate_response(response, submit_target):
+    """Checks that the response is valid and import succeeded."""
+    if response is None:
+        logger.error('Failed to submit to {}'.format(submit_target))
+        return False
+
+    if not response:
+        logger.error('HTTP status {}: failed to submit to {}'.format(
+            response.status_code, submit_target))
+        return False
+
+    parsed_response = response2dict(response)
+
+    if not parsed_response:
+        logger.error('Submit to {} failed, invalid response received'.format(submit_target))
+        return False
+
+    error_message = get_error_message(parsed_response)
+    if error_message:
+        logger.error('Submit to {} failed with error'.format(submit_target))
+        logger.debug('Error message: {}'.format(error_message))
+        return False
+
+    job_ids = get_job_ids(parsed_response)
+    if job_ids == [0]:
+        logger.error('Submit to {} failed to get job id'.format(submit_target))
+        return False
+
+    logger.info('Results received by the Importer (HTTP status {})'.format(
+        response.status_code))
+    logger.info('Job IDs: {}'.format(job_ids))
+
+    return response
+
+
+def _get_credentials(config, **kwargs):
+    login = kwargs.get('user') or config.get('username') or os.environ.get('POLARION_USERNAME')
+    pwd = kwargs.get('password') or config.get('password') or os.environ.get('POLARION_PASSWORD')
+
+    if not all([login, pwd]):
+        raise Dump2PolarionException("Failed to submit to Polarion - missing credentials")
+
+    return (login, pwd)
+
+
+def submit(xml_str=None, xml_file=None, xml_root=None, config=None, session=None, **kwargs):
+    """Submits data to the Polarion Importer."""
     try:
         config = config or configuration.get_config()
         xml_root = _get_xml_root(xml_root, xml_str, xml_file)
@@ -91,60 +128,48 @@ def submit(xml_str=None, xml_file=None, xml_root=None, config=None, **kwargs):
         submit_target = _get_submit_target(xml_root, config)
         utils.xunit_fill_testrun_id(xml_root, kwargs.get('testrun_id'))
         xml_input = utils.etree_to_string(xml_root)
+        session = session or utils.get_session(credentials, config)
     except Dump2PolarionException as err:
         logger.error(err)
         return
 
-    logger.info("Submitting results to {}".format(submit_target))
+    logger.info("Submitting data to {}".format(submit_target))
     files = {'file': ('results.xml', xml_input)}
     try:
-        response = requests.post(submit_target, files=files, auth=credentials, verify=False)
+        response = session.post(submit_target, files=files)
     # pylint: disable=broad-except
     except Exception as err:
         logger.error(err)
         response = None
 
-    if response is None:
-        logger.error("Failed to submit results to {}".format(submit_target))
-    elif response:
-        logger.info("Results received by the Importer (HTTP status {})".format(
-            response.status_code))
-        logger.info("Job ID: {}".format(get_job_id(response)))
-    else:
-        logger.error("HTTP status {}: failed to submit results to {}".format(
-            response.status_code, submit_target))
-
-    return response
+    return validate_response(response, submit_target)
 
 
-def submit_and_verify(xml_str=None, xml_file=None, xml_root=None, config=None, **kwargs):
-    """Submits results to the Polarion Importer and checks that it was imported."""
+def submit_and_verify(
+        xml_str=None, xml_file=None, xml_root=None, config=None, session=None, **kwargs):
+    """Submits data to the Polarion Importer and checks that it was imported."""
     try:
         config = config or configuration.get_config()
         xml_root = _get_xml_root(xml_root, xml_str, xml_file)
         credentials = _get_credentials(config, **kwargs)
         queue_url = _get_queue_url(xml_root, config)
+        session = session or utils.get_session(credentials, config)
     except Dump2PolarionException as err:
         logger.error(err)
         return
 
-    verify_import = True
-    job_id = None
-    if not kwargs.get('no_verify'):
-        verification_queue = verify.QueueSearch(
-            user=credentials[0], password=credentials[1], queue_url=queue_url)
-        verify_import = verification_queue.queue_init()
-
-    response = submit(xml_root=xml_root, config=config, **kwargs)
-
-    if not verify_import:
-        # we wanted to verify the import but it didn't happen for some reason
+    response = submit(xml_root=xml_root, config=config, session=session, **kwargs)
+    if not response:
         return False
 
-    if response:
-        job_id = get_job_id(response)
-    if not kwargs.get('no_verify') and job_id:
-        response = verification_queue.verify_submit(
-            job_id, timeout=kwargs.get('verify_timeout'), log_file=kwargs.get('log_file'))
+    job_ids = get_job_ids(response)
+    if not kwargs.get('no_verify') and job_ids:
+        response = verify_submit(
+            session,
+            queue_url,
+            job_ids,
+            timeout=kwargs.get('verify_timeout'),
+            log_file=kwargs.get('log_file')
+        )
 
     return bool(response)

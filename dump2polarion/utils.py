@@ -15,7 +15,21 @@ import string
 
 from xml.etree import ElementTree
 
+import requests
+
 from dump2polarion.exceptions import Dump2PolarionException
+
+# requests package backwards compatibility mess
+# pylint: disable=import-error,ungrouped-imports,wrong-import-order
+from requests.packages.urllib3.exceptions import InsecureRequestWarning as IRWrequests
+# pylint: disable=no-member
+requests.packages.urllib3.disable_warnings(IRWrequests)
+try:
+    import urllib3
+    from urllib3.exceptions import InsecureRequestWarning as IRWurllib3
+    urllib3.disable_warnings(IRWurllib3)
+except ImportError:
+    pass
 
 
 # pylint: disable=invalid-name
@@ -166,3 +180,28 @@ def fill_response_property(xml_root, name=None, value=None):
         raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)
 
     return response_property
+
+
+def get_session(credentials, config):
+    """Gets requests session."""
+    session = requests.Session()
+    session.verify = False
+    auth_url = config.get('auth_url')
+
+    if auth_url:
+        cookie = session.post(
+            auth_url,
+            data={
+                'j_username': credentials[0],
+                'j_password': credentials[1],
+                'submit': 'Log In',
+                'rememberme': 'true'},
+            headers={'Content-Type': 'application/x-www-form-urlencoded'})
+        if not cookie:
+            raise Dump2PolarionException(
+                'Cookie was not retrieved from {}.'.format(auth_url))
+    else:
+        # TODO: can be removed once basic auth is discontinued on prod
+        session.auth = credentials
+
+    return session

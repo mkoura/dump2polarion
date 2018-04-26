@@ -17,17 +17,18 @@ import requests
 logger = logging.getLogger(__name__)
 
 
+_DEFAULT_TIMEOUT = 600
+_DEFAULT_DELAY = 10
+
+_NOT_FINISHED_STATUSES = ('ready', 'running')
+
+
 class QueueSearch(object):
-    """Search for job in the completed jobs queue."""
+    """Search for jobs in the completed jobs queue."""
 
-    _DEFAULT_TIMEOUT = 600
-    _DEFAULT_DELAY = 10
-
-    def __init__(self, user, password, queue_url):
-        self.user = user
-        self.password = password
+    def __init__(self, session, queue_url):
+        self.session = session
         self.queue_url = queue_url
-        self.last_id = None
         self.skip = False
         self._check_setup()
 
@@ -39,23 +40,22 @@ class QueueSearch(object):
             self.skip = True
             return
 
-        if not all([self.user, self.password]):
-            logger.error('Missing credentials, skipping submit verification')
+        if not self.session:
+            logger.error('Missing requests session, skipping submit verification')
             self.skip = True
             return
 
-    def download_queue(self, jobs_per_page=50, current_page=1):
+    # pylint:disable=inconsistent-return-statements
+    def download_queue(self, job_ids):
         """Downloads data of completed jobs."""
         if self.skip:
             return
 
-        url = '{0}?jobtype=completed&jobsPerPage={1}&currentPage={2}'.format(
-            self.queue_url, jobs_per_page, current_page)
+        url = '{0}?jobtype=completed&jobIds={1}'.format(
+            self.queue_url, ','.join(str(x) for x in job_ids))
         try:
-            response = requests.get(
+            response = self.session.get(
                 url,
-                auth=(self.user, self.password),
-                verify=False,
                 headers={'Accept': 'application/json'}
             )
             if response:
@@ -69,61 +69,81 @@ class QueueSearch(object):
 
         return response
 
-    def find_job(self, job_id, last_id, max_depth=10, _current_page=1):
-        """Finds the job in the completed job queue."""
+    # pylint:disable=inconsistent-return-statements
+    def find_jobs(self, job_ids):
+        """Finds the jobs in the completed job queue."""
         if self.skip:
             return
 
-        json_data = self.download_queue(current_page=_current_page)
+        json_data = self.download_queue(job_ids)
         if not json_data:
             return
 
         jobs = json_data['jobs']
-        first_id = jobs[0]['id']
-        if _current_page == 1:
-            self.last_id = first_id
+        matched_jobs = []
         for job in jobs:
-            cur_id = job.get('id')
-            if cur_id == job_id:
-                return job
-            elif cur_id == last_id:
-                return
-        if _current_page >= max_depth or _current_page >= json_data.get('maxPages', 0):
-            return
+            if (job.get('id') in job_ids and
+                    job.get('status', '').lower() not in _NOT_FINISHED_STATUSES):
+                matched_jobs.append(job)
 
-        return self.find_job(job_id, last_id, _current_page=_current_page + 1)
+        return matched_jobs
 
-    def wait_for_job(self, job_id, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY):
-        """Waits until the job appears in the completed job queue."""
+    def wait_for_jobs(self, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY):
+        """Waits until the jobs appears in the completed job queue."""
         if self.skip:
             return
 
-        logger.debug('Waiting up to {} sec for completion of the job ID {}'.format(timeout, job_id))
+        logger.debug(
+            'Waiting up to {} sec for completion of the job IDs {}'.format(timeout, job_ids))
+
+        remaining_job_ids = set(job_ids)
+        found_jobs = []
 
         countdown = timeout
         while countdown > 0:
-            job = self.find_job(job_id, self.last_id)
-            if job:
-                return job
+            matched_jobs = self.find_jobs(remaining_job_ids)
+            if matched_jobs:
+                remaining_job_ids.difference_update({job['id'] for job in matched_jobs})
+                found_jobs.extend(matched_jobs)
+            if not remaining_job_ids:
+                return found_jobs
             time.sleep(delay)
             countdown -= delay
 
         logger.error(
-            'Timed out while waiting for completion of the job ID {}. '
-            'Results not updated.'.format(job_id))
+            'Timed out while waiting for completion of the job IDs {}. '
+            'Results not updated.'.format(remaining_job_ids))
 
     # pylint: disable=no-self-use
-    def _check_outcome(self, job):
-        """Parses returned message and checks submit outcome."""
-        status = job.get('status') if job else None
-        if not status:
+    def _check_outcome(self, jobs):
+        """Parses returned messages and checks submit outcome."""
+        if self.skip:
             return False
 
-        if status.lower() == 'success':
+        if not jobs:
+            logger.error('Import failed!')
+            return False
+
+        failed_jobs = []
+        for job in jobs:
+            status = job.get('status')
+            if not status:
+                failed_jobs.append(job)
+                continue
+
+            if status.lower() != 'success':
+                failed_jobs.append(job)
+
+        for job in failed_jobs:
+            logger.error('job: {0}; status: {1}'.format(job.get('id'), job.get('status')))
+        if len(failed_jobs) == len(jobs):
+            logger.error('Import failed!')
+        elif failed_jobs:
+            logger.error('Some import jobs failed!')
+        else:
             logger.info('Results successfully updated!')
-            return True
-        logger.error('Status = {}, results not updated'.format(status))
-        return False
+
+        return not failed_jobs
 
     # pylint: disable=no-self-use
     def _download_log(self, url, output_file):
@@ -147,38 +167,35 @@ class QueueSearch(object):
         if not log_data:
             logger.error("Failed to download log file '{}'.".format(url))
             return
-        with open(os.path.expanduser(output_file), 'wb') as out:
+        with open(os.path.expanduser(output_file), 'ab') as out:
             out.write(log_data.content)
 
-    def get_log(self, job, log_file=None):
-        """Get log or log url of the job."""
-        if not job:
+    def get_logs(self, jobs, log_file=None):
+        """Get log or log url of the jobs."""
+        if not jobs:
             return
 
-        url = job.get('logstashURL')
-        if url:
-            if log_file:
-                self._download_log(url, log_file)
-            else:
-                logger.info('Submit log: {}'.format(url))
+        for job in jobs:
+            url = job.get('logstashURL')
+            if url:
+                if log_file:
+                    self._download_log(url, log_file)
+                else:
+                    logger.info('Submit log for job {0}: {1}'.format(job.get('id'), url))
 
-    def queue_init(self):
-        """Initializes the instance with the last job in the completed queue."""
-        if self.skip:
-            return
-
-        json_data = self.download_queue(jobs_per_page=1)
-        if json_data:
-            self.last_id = json_data['jobs'][0]['id']
-            return True
-
-        logger.error('Failed to initialize.')
-        self.skip = True
-        return False
-
-    def verify_submit(self, job_id, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
+    def verify_submit(self, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
         """Verifies that the results were successfully submitted."""
-        job = self.wait_for_job(job_id, timeout, delay)
-        self.get_log(job, log_file=kwargs.get('log_file'))
+        if self.skip:
+            return False
 
-        return self._check_outcome(job)
+        jobs = self.wait_for_jobs(job_ids, timeout, delay)
+        self.get_logs(jobs, log_file=kwargs.get('log_file'))
+
+        return self._check_outcome(jobs)
+
+
+def verify_submit(
+        session, queue_url, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
+    """Verifies that the results were successfully submitted."""
+    verification_queue = QueueSearch(session=session, queue_url=queue_url)
+    return verification_queue.verify_submit(job_ids, timeout=timeout, delay=delay, **kwargs)

@@ -12,6 +12,8 @@ import re
 
 from dump2polarion.verdicts import Verdicts
 
+TEST_PARAM_RE = re.compile(r'\[.*\]')
+
 
 # pylint: disable=inconsistent-return-statements
 def only_passed_and_wait(result):
@@ -40,7 +42,40 @@ def _insert_source_info(result):
     result['comment'] = source_note
 
 
-# pylint: disable=unused-argument
+def _setup_parametrization(result, parametrize):
+    """Modifies result's data according to the parametrization settings."""
+    parameters = result.get('params', {})
+
+    if parametrize:
+        # remove parameters from title
+        title = result.get('title')
+        if title:
+            result['title'] = TEST_PARAM_RE.sub('', title)
+    else:
+        # don't parametrize if not specifically configured
+        if parameters:
+            del result['params']
+
+
+def _include_class_in_title(result):
+    """Makes sure that test class is included in "title".
+
+    e.g. "TestServiceRESTAPI.test_power_parent_service"
+    """
+    classname = result.get('classname', '')
+    if classname:
+        filepath = result.get('file', '')
+        title = result.get('title')
+        if title and '/' in filepath and '.' in classname:
+            fname = filepath.split('/')[-1].replace('.py', '')
+            last_classname = classname.split('.')[-1]
+            # last part of classname is not file name
+            if fname != last_classname and last_classname not in title:
+                result['title'] = '{0}.{1}'.format(last_classname, title)
+        # we don't need to pass classnames?
+        del result['classname']
+
+
 def get_results_transform_cfme(config):
     """Return result transformation function for CFME."""
     skip_searches = [
@@ -52,6 +87,8 @@ def get_results_transform_cfme(config):
     ]
     skips = re.compile('(' + ')|('.join(skip_searches) + ')')
 
+    parametrize = config.get('cfme_parametrize', False)
+
     def results_transform(result):
         """Results transform for CFME."""
         verdict = result.get('verdict')
@@ -60,22 +97,8 @@ def get_results_transform_cfme(config):
 
         result = result.copy()
 
-        # make sure that last part of classname is included in "title", e.g.
-        # "TestServiceRESTAPI.test_power_parent_service"
-        classname = result.get('classname', '')
-        if classname:
-            filepath = result.get('file', '')
-            title = result.get('title')
-            if title and '/' in filepath and '.' in classname:
-                fname = filepath.split('/')[-1].replace('.py', '')
-                last_classname = classname.split('.')[-1]
-                # last part of classname is not file name
-                if fname != last_classname and last_classname not in title:
-                    result['title'] = '{0}.{1}'.format(last_classname, title)
-            # we don't need to pass classnames?
-            del result['classname']
-
-        # add source of test result if available
+        _setup_parametrization(result, parametrize)
+        _include_class_in_title(result)
         _insert_source_info(result)
 
         verdict = verdict.strip().lower()
@@ -116,6 +139,10 @@ def get_results_transform_cmp(config):
             return None
 
         result = result.copy()
+
+        # don't parametrize if not specifically configured
+        if result.get('params'):
+            del result['params']
 
         classname = result.get('classname', '')
         if classname:

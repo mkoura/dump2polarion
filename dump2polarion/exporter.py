@@ -13,6 +13,8 @@ from collections import namedtuple
 from xml.dom import minidom
 from xml.etree import ElementTree
 
+import six
+
 from dump2polarion import transform, utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 from dump2polarion.verdicts import Verdicts
@@ -157,9 +159,18 @@ class XunitExport(object):
         )
         if verdict in Verdicts.PASS and result.get('comment'):
             ElementTree.SubElement(
-                properties, 'property',
+                properties,
+                'property',
                 {'name': 'polarion-testcase-comment',
                  'value': utils.get_unicode_str(result['comment'])}
+            )
+
+        for param, value in six.iteritems(result.get('params', {})):
+            ElementTree.SubElement(
+                properties,
+                'property',
+                {'name': 'polarion-parameter-{}'.format(param),
+                 'value': utils.get_unicode_str(value)}
             )
 
     def _fill_tests_results(self, testsuite_element):

@@ -19,6 +19,9 @@ from dump2polarion import exporter
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 
 
+IGNORED_PARAMS = {'browserVersion', 'browserPlatform', 'browserName'}
+
+
 def _get_json(location):
     """Reads JSON data from file or URL."""
     location = os.path.expanduser(location)
@@ -72,6 +75,14 @@ def _get_testname(test_path):
         return test_path[path_end+4:]
 
 
+def _filter_parameters(parameters):
+    """Filters the ignored parameters out."""
+    if not parameters:
+        return
+    return OrderedDict((param, value) for param, value in six.iteritems(parameters)
+                       if param not in IGNORED_PARAMS)
+
+
 def _parse_ostriz(ostriz_data):
     """Reads the content of the input JSON and returns testcases results."""
     if not ostriz_data:
@@ -103,6 +114,7 @@ def _parse_ostriz(ostriz_data):
             ('source', test_data.get('source')),
             ('job_name', jenkins_data.get('job_name')),
             ('run', jenkins_data.get('build_number')),
+            ('params', _filter_parameters(test_data.get('params'))),
             ('time', _calculate_duration(
                 test_data.get('start_time'), test_data.get('finish_time')) or 0)
         ]

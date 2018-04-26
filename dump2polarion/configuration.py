@@ -11,10 +11,19 @@ import logging
 import os
 import yaml
 
+import six
+
 from dump2polarion.exceptions import Dump2PolarionException
 
 
 DEFAULT_USER_CONF = '~/.config/dump2polarion.yaml'
+URLS = {
+    'testcase_taget': 'import/testcase',
+    'xunit_target': 'import/xunit',
+    'testcase_queue': 'import/testcase-queue',
+    'xunit_queue': 'import/xunit-queue',
+    'auth_url': 'j_security_check',
+}
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
@@ -22,13 +31,30 @@ logger = logging.getLogger(__name__)
 
 def _check_config(config):
     missing = []
-    for key in ('testcase_taget', 'xunit_target', 'testcase_queue', 'xunit_queue'):
+    for key in six.iterkeys(URLS):
         if not config.get(key):
             missing.append(key)
+
+    # the 'auth_url' is allowed to be empty for now
+    # TODO: can be removed once basic auth is discontinued on prod
+    if not config.get('auth_url') and 'auth_url' in config:
+        missing.remove('auth_url')
+
     if missing:
         raise Dump2PolarionException(
             "Failed to find following keys in config file: {}\n"
             "Please see https://mojo.redhat.com/docs/DOC-1098563#config".format(', '.join(missing)))
+
+
+def _populate_urls(config):
+    base_url = config.get('polarion_url')
+    if not base_url:
+        return
+
+    base_url = base_url.rstrip('/')
+    for key, url in six.iteritems(URLS):
+        if key not in config:
+            config[key] = '{}/{}'.format(base_url, url)
 
 
 def get_config(config_file=None):
@@ -60,6 +86,7 @@ def get_config(config_file=None):
             raise Dump2PolarionException(
                 "Failed to load the '{}' config file: {}".format(user_conf, err))
 
+    _populate_urls(config_settings)
     _check_config(config_settings)
 
     return config_settings
