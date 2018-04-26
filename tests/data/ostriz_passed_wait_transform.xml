@@ -13,16 +13,21 @@
     <testcase name="TestInstanceRESTAPI.test_start[azure-from_detail]" time="627.839309">
       <properties>
         <property name="polarion-testcase-id" value="TestInstanceRESTAPI.test_start[azure-from_detail]"/>
+        <property name="polarion-parameter-provider" value="azure"/>
+        <property name="polarion-parameter-from_detail" value="True"/>
       </properties>
     </testcase>
     <testcase name="TestInstanceRESTAPI.test_stop[gce_central-from_collection]" time="733.560498">
       <properties>
         <property name="polarion-testcase-id" value="TestInstanceRESTAPI.test_stop[gce_central-from_collection]"/>
+        <property name="polarion-parameter-provider" value="gce_central"/>
+        <property name="polarion-parameter-from_detail" value="False"/>
       </properties>
     </testcase>
     <testcase name="test_quadicon_terminate_cancel[foo]" time="1097.956355">
       <properties>
         <property name="polarion-testcase-id" value="test_quadicon_terminate_cancel[foo]"/>
+        <property name="polarion-parameter-provider" value="ec2-west"/>
       </properties>
     </testcase>
   </testsuite>

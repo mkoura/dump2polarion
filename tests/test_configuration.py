@@ -3,10 +3,13 @@
 
 from __future__ import unicode_literals
 
+import os
+
 import pytest
 
 from dump2polarion import configuration
 from dump2polarion.exceptions import Dump2PolarionException
+from tests import conf
 
 
 class TestConfiguration(object):
@@ -25,6 +28,16 @@ class TestConfiguration(object):
         assert cfg['xunit_import_properties']['polarion-dry-run'] is False
         assert cfg['username'] == 'user1'
         assert cfg['xunit_import_properties']['polarion-project-id'] == 'RHCF3'
+
+    @pytest.mark.parametrize('config', ['dump2polarion_legacy.yaml', 'dump2polarion.yaml'])
+    def test_populate(self, config):
+        conf_file = os.path.join(conf.DATA_PATH, config)
+        cfg = configuration.get_config(conf_file)
+        polarion_url = cfg.get('polarion_url')
+        for key in configuration.URLS:
+            assert key in cfg
+            if polarion_url and cfg.get(key):
+                assert polarion_url in cfg[key]
 
     def test_check_config(self):
         cfg = {}

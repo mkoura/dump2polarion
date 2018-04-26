@@ -7,12 +7,14 @@ import os
 
 import pytest
 
+from mock import patch
 from tests import conf
 
 from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException
 
 
+# pylint: disable=too-many-public-methods
 class TestUtils(object):
     def test_get_unicode_char(self):
         unicode_str = utils.get_unicode_str(u'®')
@@ -144,3 +146,27 @@ class TestUtils(object):
         with pytest.raises(Dump2PolarionException) as excinfo:
             utils.get_xml_root_from_str(None)
         assert 'Failed to parse XML file' in str(excinfo.value)
+
+    def test_get_session_oldauth(self, config_prop):
+        if 'auth_url' in config_prop:
+            del config_prop['auth_url']
+        with patch('requests.Session'):
+            session = utils.get_session('foo', config_prop)
+        assert session.auth == 'foo'
+
+    def test_get_session_cookie_failed(self, config_prop):
+        config_prop['auth_url'] = 'http://example.com'
+        with patch('requests.Session') as mock:
+            instance = mock.return_value
+            instance.post.return_value = None
+            with pytest.raises(Dump2PolarionException) as excinfo:
+                utils.get_session('foo', config_prop)
+        assert 'Cookie was not retrieved' in str(excinfo.value)
+
+    def test_get_session_cookie_success(self, config_prop):
+        config_prop['auth_url'] = 'http://example.com'
+        with patch('requests.Session') as mock:
+            instance = mock.return_value
+            instance.post.return_value = True
+            session = utils.get_session('foo', config_prop)
+        assert session.auth != 'foo'
