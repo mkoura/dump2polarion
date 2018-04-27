@@ -105,21 +105,27 @@ class XunitExport(object):
                 verdict_data['message'] = utils.get_unicode_str(result['comment'])
             ElementTree.SubElement(testcase, 'skipped', verdict_data)
 
-    def _gen_testcase(self, parent_element, result, records):
-        """Creates XML element for given testcase result and update testcases records."""
+    def _transform_result(self, result):
+        """Calls transform function on result."""
         if self._transform_func:
             result = self._transform_func(result)
-            if not result:
-                return
+        return result or None
+
+    @staticmethod
+    # pylint: disable=inconsistent-return-statements
+    def _get_verdict(result):
+        """Gets verdict of the testcase."""
         verdict = result.get('verdict')
         if not verdict:
             return
         verdict = verdict.strip().lower()
         if verdict not in Verdicts.PASS + Verdicts.FAIL + Verdicts.SKIP + Verdicts.WAIT:
             return
-        testcase_id = result.get('id')
-        testcase_title = result.get('title')
+        return verdict
 
+    # pylint: disable=inconsistent-return-statements
+    def _check_lookup_prop(self, testcase_id, testcase_title):
+        """Checks that selected lookup property can be used for this testcase."""
         if self._lookup_prop:
             if not testcase_id and self._lookup_prop != 'name':
                 return
@@ -130,7 +136,11 @@ class XunitExport(object):
                 self._lookup_prop = 'id'
             elif testcase_title:
                 self._lookup_prop = 'name'
+        return True
 
+    @staticmethod
+    def _testcase_element(parent_element, result, records, testcase_id, testcase_title):
+        """Creates XML element for given testcase result and update testcases records."""
         testcase_time = float(result.get('time') or result.get('duration') or 0)
         records['time'] += testcase_time
 
@@ -140,9 +150,11 @@ class XunitExport(object):
         if result.get('classname'):
             testcase_data['classname'] = result['classname']
         testcase = ElementTree.SubElement(parent_element, 'testcase', testcase_data)
+        return testcase
 
-        self._fill_verdict(verdict, result, testcase, records)
-
+    @staticmethod
+    def _fill_out_err(result, testcase):
+        """Adds stdout and stderr if present."""
         if result.get('stdout'):
             system_out = ElementTree.SubElement(testcase, 'system-out')
             system_out.text = utils.get_unicode_str(result['stdout'])
@@ -151,6 +163,9 @@ class XunitExport(object):
             system_err = ElementTree.SubElement(testcase, 'system-err')
             system_err.text = utils.get_unicode_str(result['stderr'])
 
+    @staticmethod
+    def _fill_properties(verdict, result, testcase, testcase_id, testcase_title):
+        """Adds properties into testcase element."""
         properties = ElementTree.SubElement(testcase, 'properties')
         ElementTree.SubElement(
             properties,
@@ -172,6 +187,29 @@ class XunitExport(object):
                 {'name': 'polarion-parameter-{}'.format(param),
                  'value': utils.get_unicode_str(value)}
             )
+
+    def _gen_testcase(self, parent_element, result, records):
+        """Creates record for given testcase result."""
+        result = self._transform_result(result)
+        if not result:
+            return
+
+        verdict = self._get_verdict(result)
+        if not verdict:
+            return
+
+        testcase_id = result.get('id')
+        testcase_title = result.get('title')
+
+        if not self._check_lookup_prop(testcase_id, testcase_title):
+            return
+
+        testcase = self._testcase_element(
+            parent_element, result, records, testcase_id, testcase_title)
+
+        self._fill_verdict(verdict, result, testcase, records)
+        self._fill_out_err(result, testcase)
+        self._fill_properties(verdict, result, testcase, testcase_id, testcase_title)
 
     def _fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""

@@ -83,6 +83,30 @@ def _filter_parameters(parameters):
                        if param not in IGNORED_PARAMS)
 
 
+def _append_record(test_data, results, test_path):
+    """Adds data of single testcase results to results database."""
+    statuses = test_data.get('statuses')
+    jenkins_data = test_data.get('jenkins', {})
+
+    data = [
+        ('title', test_data.get('test_name') or _get_testname(test_path)),
+        ('verdict', statuses.get('overall')),
+        ('source', test_data.get('source')),
+        ('job_name', jenkins_data.get('job_name')),
+        ('run', jenkins_data.get('build_number')),
+        ('params', _filter_parameters(test_data.get('params'))),
+        ('time', _calculate_duration(
+            test_data.get('start_time'), test_data.get('finish_time')) or 0)
+    ]
+    test_id = test_data.get('polarion')
+    if test_id:
+        if isinstance(test_id, list):
+            test_id = test_id[0]
+        data.append(('test_id', test_id))
+
+    results.append(OrderedDict(data))
+
+
 def _parse_ostriz(ostriz_data):
     """Reads the content of the input JSON and returns testcases results."""
     if not ostriz_data:
@@ -91,40 +115,22 @@ def _parse_ostriz(ostriz_data):
     results = []
     found_build = None
     for test_path, test_data in six.iteritems(ostriz_data):
-        # make sure we are collecting data for the same build
-        if found_build:
-            if found_build != test_data.get('build'):
-                continue
-        # Every record should have "build" key. Skip if doesn't and
-        # set `found_build` from first record where it's present.
-        else:
-            found_build = test_data.get('build')
-            if not found_build:
-                continue
-
-        statuses = test_data.get('statuses')
-        if not statuses:
+        curr_build = test_data.get('build')
+        if not curr_build:
             continue
 
-        jenkins_data = test_data.get('jenkins', {})
+        # set `found_build` from first record where it's present
+        if not found_build:
+            found_build = curr_build
 
-        data = [
-            ('title', test_data.get('test_name') or _get_testname(test_path)),
-            ('verdict', statuses.get('overall')),
-            ('source', test_data.get('source')),
-            ('job_name', jenkins_data.get('job_name')),
-            ('run', jenkins_data.get('build_number')),
-            ('params', _filter_parameters(test_data.get('params'))),
-            ('time', _calculate_duration(
-                test_data.get('start_time'), test_data.get('finish_time')) or 0)
-        ]
-        test_id = test_data.get('polarion')
-        if test_id:
-            if isinstance(test_id, list):
-                test_id = test_id[0]
-            data.append(('test_id', test_id))
+        # make sure we are collecting data for the same build
+        if found_build != curr_build:
+            continue
 
-        results.append(OrderedDict(data))
+        if not test_data.get('statuses'):
+            continue
+
+        _append_record(test_data, results, test_path)
 
     testrun_id = _get_testrun_id(found_build)
     return exporter.ImportedData(results=results, testrun=testrun_id)

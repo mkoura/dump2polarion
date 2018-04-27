@@ -144,38 +144,52 @@ def generate_response_property(name=None, value=None):
     return (name, value)
 
 
+def _fill_testsuites_response_property(xml_root, name, value):
+    """Returns testsuites response property and fills it if missing."""
+    properties = xml_root.find('properties')
+    for prop in properties:
+        prop_name = prop.get('name', '')
+        if 'polarion-response-' in prop_name:
+            response_property = (prop_name[len('polarion-response-'):], str(prop.get('value')))
+            break
+    else:
+        prop_name = 'polarion-response-{}'.format(name)
+        ElementTree.SubElement(properties, 'property', {'name': prop_name, 'value': value})
+        response_property = (name, value)
+
+    return response_property
+
+
+def _fill_testcases_response_property(xml_root, name, value):
+    """Returns testcases response property and fills it if missing."""
+    properties = xml_root.find('response-properties')
+    if properties is None:
+        properties = ElementTree.Element('response-properties')
+        # response properties needs to be on top!
+        xml_root.insert(0, properties)
+    for prop in properties:
+        if prop.tag == 'response-property':
+            prop_name = prop.get('name')
+            prop_value = prop.get('value')
+            if prop_name and prop_value:
+                response_property = (prop_name, str(prop_value))
+            break
+    else:
+        ElementTree.SubElement(properties, 'response-property', {'name': name, 'value': value})
+        response_property = (name, value)
+
+    return response_property
+
+
 def fill_response_property(xml_root, name=None, value=None):
     """Returns response property and fills it if missing."""
     name, value = generate_response_property(name, value)
     response_property = None
 
     if xml_root.tag == 'testsuites':
-        properties = xml_root.find('properties')
-        for prop in properties:
-            prop_name = prop.get('name', '')
-            if 'polarion-response-' in prop_name:
-                response_property = (prop_name[len('polarion-response-'):], str(prop.get('value')))
-                break
-        else:
-            prop_name = 'polarion-response-{}'.format(name)
-            ElementTree.SubElement(properties, 'property', {'name': prop_name, 'value': value})
-            response_property = (name, value)
+        response_property = _fill_testsuites_response_property(xml_root, name, value)
     elif xml_root.tag == 'testcases':
-        properties = xml_root.find('response-properties')
-        if properties is None:
-            properties = ElementTree.Element('response-properties')
-            # response properties needs to be on top!
-            xml_root.insert(0, properties)
-        for prop in properties:
-            if prop.tag == 'response-property':
-                prop_name = prop.get('name')
-                prop_value = prop.get('value')
-                if prop_name and prop_value:
-                    response_property = (prop_name, str(prop_value))
-                break
-        else:
-            ElementTree.SubElement(properties, 'response-property', {'name': name, 'value': value})
-            response_property = (name, value)
+        response_property = _fill_testcases_response_property(xml_root, name, value)
     else:
         raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)
 
