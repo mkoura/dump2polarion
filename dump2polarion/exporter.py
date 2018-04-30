@@ -165,7 +165,7 @@ class XunitExport(object):
                  'value': utils.get_unicode_str(result['comment'])}
             )
 
-        for param, value in six.iteritems(result.get('params', {})):
+        for param, value in six.iteritems(result.get('params', {}) or {}):
             ElementTree.SubElement(
                 properties,
                 'property',
