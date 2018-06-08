@@ -15,12 +15,12 @@ from dump2polarion.verdicts import Verdicts
 TEST_PARAM_RE = re.compile(r'\[.*\]')
 
 
-# pylint: disable=inconsistent-return-statements
 def only_passed_and_wait(result):
     """Returns PASS and WAIT results only, skips everything else."""
     verdict = result.get('verdict', '').strip().lower()
     if verdict in Verdicts.PASS + Verdicts.WAIT:
         return result
+    return None
 
 
 def _insert_source_info(result):
@@ -179,7 +179,6 @@ PROJECT_MAPPING = {
 }
 
 
-# pylint: disable=inconsistent-return-statements
 def get_results_transform(config):
     """Returns results transformation function.
 
@@ -195,3 +194,4 @@ def get_results_transform(config):
     project = config['xunit_import_properties']['polarion-project-id']
     if project in PROJECT_MAPPING:
         return PROJECT_MAPPING[project](config)
+    return None

@@ -29,7 +29,7 @@ def _get_testrun_from_sqlite(conn):
         cur.execute('SELECT testrun FROM testrun')
         return cur.fetchone()[0]
     except (IndexError, sqlite3.Error):
-        return
+        return None
 
 
 def _open_sqlite(db_file):

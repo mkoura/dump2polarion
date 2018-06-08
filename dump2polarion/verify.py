@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation
 """
 Verifies that data were updated in Polarion.
 """
@@ -45,11 +44,10 @@ class QueueSearch(object):
             self.skip = True
             return
 
-    # pylint:disable=inconsistent-return-statements
     def download_queue(self, job_ids):
         """Downloads data of completed jobs."""
         if self.skip:
-            return
+            return None
 
         url = '{0}?jobtype=completed&jobIds={1}'.format(
             self.queue_url, ','.join(str(x) for x in job_ids))
@@ -73,11 +71,11 @@ class QueueSearch(object):
     def find_jobs(self, job_ids):
         """Finds the jobs in the completed job queue."""
         if self.skip:
-            return
+            return None
 
         json_data = self.download_queue(job_ids)
         if not json_data:
-            return
+            return None
 
         jobs = json_data['jobs']
         matched_jobs = []
@@ -94,7 +92,7 @@ class QueueSearch(object):
             return
 
         logger.debug(
-            'Waiting up to {} sec for completion of the job IDs {}'.format(timeout, job_ids))
+            'Waiting up to %d sec for completion of the job IDs %s', timeout, job_ids)
 
         remaining_job_ids = set(job_ids)
         found_jobs = []
@@ -111,10 +109,10 @@ class QueueSearch(object):
             countdown -= delay
 
         logger.error(
-            'Timed out while waiting for completion of the job IDs {}. '
-            'Results not updated.'.format(remaining_job_ids))
+            'Timed out while waiting for completion of the job IDs %s. Results not updated.',
+            list(remaining_job_ids)
+        )
 
-    # pylint: disable=no-self-use
     def _check_outcome(self, jobs):
         """Parses returned messages and checks submit outcome."""
         if self.skip:
@@ -135,7 +133,7 @@ class QueueSearch(object):
                 failed_jobs.append(job)
 
         for job in failed_jobs:
-            logger.error('job: {0}; status: {1}'.format(job.get('id'), job.get('status')))
+            logger.error('job: %s; status: %s', job.get('id'), job.get('status'))
         if len(failed_jobs) == len(jobs):
             logger.error('Import failed!')
         elif failed_jobs:
@@ -145,10 +143,10 @@ class QueueSearch(object):
 
         return not failed_jobs
 
-    # pylint: disable=no-self-use
-    def _download_log(self, url, output_file):
+    @staticmethod
+    def _download_log(url, output_file):
         """Saves log returned by the message bus."""
-        logger.info("Saving log {} to {}".format(url, output_file))
+        logger.info("Saving log %s to %s", url, output_file)
 
         def _do_log_download():
             try:
@@ -165,7 +163,7 @@ class QueueSearch(object):
             time.sleep(2)
 
         if not log_data:
-            logger.error("Failed to download log file '{}'.".format(url))
+            logger.error("Failed to download log file '%s'.", url)
             return
         with open(os.path.expanduser(output_file), 'ab') as out:
             out.write(log_data.content)
@@ -181,7 +179,7 @@ class QueueSearch(object):
                 if log_file:
                     self._download_log(url, log_file)
                 else:
-                    logger.info('Submit log for job {0}: {1}'.format(job.get('id'), url))
+                    logger.info('Submit log for job %s: %s', job.get('id'), url)
 
     def verify_submit(self, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
         """Verifies that the results were successfully submitted."""

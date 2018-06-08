@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation
+# pylint: disable=c-extension-no-member
 """
 Helper functions for handling data in pytest junit format.
 """
@@ -10,7 +10,7 @@ import os
 
 from collections import OrderedDict
 
-from xml.etree import ElementTree
+from lxml import etree
 
 from dump2polarion import exporter
 from dump2polarion.exceptions import Dump2PolarionException
@@ -18,7 +18,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 
 def _get_xml_root(junit_file):
     try:
-        tree = ElementTree.parse(os.path.expanduser(junit_file))
+        tree = etree.parse(os.path.expanduser(junit_file))
     except Exception as err:
         raise Dump2PolarionException("Failed to parse XML file '{}': {}".format(junit_file, err))
 

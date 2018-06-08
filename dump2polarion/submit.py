@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation,inconsistent-return-statements
 """
 Submit data to the Polarion XUnit/TestCase Importer.
 """
@@ -45,7 +44,7 @@ def _get_queue_url(xml_root, config):
     elif xml_root.tag == 'testsuites':
         target = config.get('xunit_queue')
     else:
-        return
+        return None
     return target
 
 
@@ -55,7 +54,7 @@ def response2dict(response):
         return response.json()
     # pylint: disable=broad-except
     except Exception:
-        return
+        return None
 
 
 def get_job_ids(response):
@@ -64,6 +63,7 @@ def get_job_ids(response):
         response = response2dict(response)
     if response:
         return response['files']['results.xml']['job-ids']
+    return None
 
 
 def get_error_message(response):
@@ -72,39 +72,38 @@ def get_error_message(response):
         response = response2dict(response)
     if response:
         return response['files']['results.xml'].get('error-message')
+    return None
 
 
 def validate_response(response, submit_target):
     """Checks that the response is valid and import succeeded."""
     if response is None:
-        logger.error('Failed to submit to {}'.format(submit_target))
+        logger.error('Failed to submit to %s', submit_target)
         return False
 
     if not response:
-        logger.error('HTTP status {}: failed to submit to {}'.format(
-            response.status_code, submit_target))
+        logger.error('HTTP status %d: failed to submit to %s', response.status_code, submit_target)
         return False
 
     parsed_response = response2dict(response)
 
     if not parsed_response:
-        logger.error('Submit to {} failed, invalid response received'.format(submit_target))
+        logger.error('Submit to %s failed, invalid response received', submit_target)
         return False
 
     error_message = get_error_message(parsed_response)
     if error_message:
-        logger.error('Submit to {} failed with error'.format(submit_target))
-        logger.debug('Error message: {}'.format(error_message))
+        logger.error('Submit to %s failed with error', submit_target)
+        logger.debug('Error message: %s', error_message)
         return False
 
     job_ids = get_job_ids(parsed_response)
     if job_ids == [0]:
-        logger.error('Submit to {} failed to get job id'.format(submit_target))
+        logger.error('Submit to %s failed to get job id', submit_target)
         return False
 
-    logger.info('Results received by the Importer (HTTP status {})'.format(
-        response.status_code))
-    logger.info('Job IDs: {}'.format(job_ids))
+    logger.info('Results received by the Importer (HTTP status %d)', response.status_code)
+    logger.info('Job IDs: %s', job_ids)
 
     return response
 
@@ -131,9 +130,9 @@ def submit(xml_str=None, xml_file=None, xml_root=None, config=None, session=None
         session = session or utils.get_session(credentials, config)
     except Dump2PolarionException as err:
         logger.error(err)
-        return
+        return None
 
-    logger.info("Submitting data to {}".format(submit_target))
+    logger.info("Submitting data to %s", submit_target)
     files = {'file': ('results.xml', xml_input)}
     try:
         response = session.post(submit_target, files=files)
@@ -156,7 +155,7 @@ def submit_and_verify(
         session = session or utils.get_session(credentials, config)
     except Dump2PolarionException as err:
         logger.error(err)
-        return
+        return None
 
     response = submit(xml_root=xml_root, config=config, session=session, **kwargs)
     if not response:

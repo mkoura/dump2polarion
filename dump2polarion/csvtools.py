@@ -34,7 +34,7 @@ def _get_csv_fieldnames(csv_reader):
             # this is not a row with fieldnames
             del fieldnames[:]
     if not fieldnames:
-        return
+        return None
     # remove trailing unannotated fields
     while True:
         field = fieldnames.pop()

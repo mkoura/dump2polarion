@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation
 """
 Configuration loading.
 """
@@ -72,12 +71,12 @@ def get_config(config_file=None):
 
     with io.open(default_conf, encoding='utf-8') as input_file:
         config_settings = yaml.load(input_file)
-    logger.debug("Default config loaded from '{}'".format(default_conf))
+    logger.debug("Default config loaded from '%s'", default_conf)
 
     if user_conf:
         with io.open(user_conf, encoding='utf-8') as input_file:
             config_settings_user = yaml.load(input_file)
-        logger.info("Config loaded from '{}'".format(user_conf))
+        logger.info("Config loaded from '%s'", user_conf)
 
         # merge default and user configuration
         try:

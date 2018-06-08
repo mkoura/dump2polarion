@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation,inconsistent-return-statements
 """
 Dump testcases results from a CSV, SQLite, junit or Ostriz input file to XUnit file.
 Submit XUnit or testcases XML to the Polarion Importers.
@@ -87,13 +86,13 @@ def submit_if_ready(args, submit_args, config):
     """Submits the input XML file if it's already in the expected format."""
     __, ext = os.path.splitext(args.input_file)
     if ext.lower() != '.xml':
-        return
+        return None
 
     with io.open(args.input_file, encoding='utf-8') as input_file:
         xml = input_file.read(1024)
 
     if not ('<testsuites' in xml or '<testcases' in xml):
-        return
+        return None
 
     if args.no_submit:
         logger.info("Nothing to do")

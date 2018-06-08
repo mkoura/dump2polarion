@@ -111,25 +111,23 @@ class XunitExport(object):
         return result or None
 
     @staticmethod
-    # pylint: disable=inconsistent-return-statements
     def _get_verdict(result):
         """Gets verdict of the testcase."""
         verdict = result.get('verdict')
         if not verdict:
-            return
+            return None
         verdict = verdict.strip().lower()
         if verdict not in Verdicts.PASS + Verdicts.FAIL + Verdicts.SKIP + Verdicts.WAIT:
-            return
+            return None
         return verdict
 
-    # pylint: disable=inconsistent-return-statements
     def _check_lookup_prop(self, testcase_id, testcase_title):
         """Checks that selected lookup property can be used for this testcase."""
         if self._lookup_prop:
             if not testcase_id and self._lookup_prop != 'name':
-                return
+                return None
             if not testcase_title and self._lookup_prop == 'name':
-                return
+                return None
         else:
             if testcase_id:
                 self._lookup_prop = 'id'

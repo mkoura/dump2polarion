@@ -72,18 +72,18 @@ def _calculate_duration(start_time, finish_time):
     return duration.seconds + decimals
 
 
-# pylint: disable=inconsistent-return-statements
 def _get_testname(test_path):
     """Gets test name out of full test path."""
     path_end = test_path.find('.py/')
     if path_end:
         return test_path[path_end+4:]
+    return None
 
 
 def _filter_parameters(parameters):
     """Filters the ignored parameters out."""
     if not parameters:
-        return
+        return None
     return OrderedDict((param, value) for param, value in six.iteritems(parameters)
                        if param not in IGNORED_PARAMS)
 
