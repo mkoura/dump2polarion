@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation
+# pylint: disable=c-extension-no-member
 """
 Utils for dump2polarion.
 """
@@ -13,7 +13,7 @@ import os
 import random
 import string
 
-from xml.etree import ElementTree
+from lxml import etree
 
 import requests
 
@@ -87,13 +87,13 @@ def write_xml(xml, output_loc=None, filename=None):
 
     with io.open(filename_fin, 'w', encoding='utf-8') as xml_file:
         xml_file.write(get_unicode_str(xml))
-    logger.info("Data written to '{}'".format(filename_fin))
+    logger.info("Data written to '%s'", filename_fin)
 
 
 def get_xml_root(xml_file):
     """Returns XML root."""
     try:
-        xml_tree = ElementTree.parse(os.path.expanduser(xml_file))
+        xml_tree = etree.parse(os.path.expanduser(xml_file))
         xml_root = xml_tree.getroot()
     # pylint: disable=broad-except
     except Exception as err:
@@ -104,7 +104,7 @@ def get_xml_root(xml_file):
 def get_xml_root_from_str(xml):
     """Returns XML root from string."""
     try:
-        xml_root = ElementTree.fromstring(xml.encode('utf-8'))
+        xml_root = etree.fromstring(xml.encode('utf-8'))
     # pylint: disable=broad-except
     except Exception as err:
         raise Dump2PolarionException("Failed to parse XML file: {}".format(err))
@@ -113,7 +113,7 @@ def get_xml_root_from_str(xml):
 
 def etree_to_string(xml_root):
     """Returns string representation of element tree."""
-    return get_unicode_str(ElementTree.tostring(xml_root, encoding='utf-8'))
+    return get_unicode_str(etree.tostring(xml_root, encoding='utf-8'))
 
 
 def xunit_fill_testrun_id(xml_root, testrun_id):
@@ -133,8 +133,8 @@ def xunit_fill_testrun_id(xml_root, testrun_id):
         if not testrun_id:
             raise Dump2PolarionException(
                 "Failed to submit results to Polarion - missing testrun id")
-        ElementTree.SubElement(properties, 'property',
-                               {'name': 'polarion-testrun-id', 'value': str(testrun_id)})
+        etree.SubElement(properties, 'property',
+                         {'name': 'polarion-testrun-id', 'value': str(testrun_id)})
 
 
 def generate_response_property(name=None, value=None):
@@ -154,7 +154,7 @@ def _fill_testsuites_response_property(xml_root, name, value):
             break
     else:
         prop_name = 'polarion-response-{}'.format(name)
-        ElementTree.SubElement(properties, 'property', {'name': prop_name, 'value': value})
+        etree.SubElement(properties, 'property', {'name': prop_name, 'value': value})
         response_property = (name, value)
 
     return response_property
@@ -164,7 +164,7 @@ def _fill_testcases_response_property(xml_root, name, value):
     """Returns testcases response property and fills it if missing."""
     properties = xml_root.find('response-properties')
     if properties is None:
-        properties = ElementTree.Element('response-properties')
+        properties = etree.Element('response-properties')
         # response properties needs to be on top!
         xml_root.insert(0, properties)
     for prop in properties:
@@ -175,7 +175,7 @@ def _fill_testcases_response_property(xml_root, name, value):
                 response_property = (prop_name, str(prop_value))
             break
     else:
-        ElementTree.SubElement(properties, 'response-property', {'name': name, 'value': value})
+        etree.SubElement(properties, 'response-property', {'name': name, 'value': value})
         response_property = (name, value)
 
     return response_property
