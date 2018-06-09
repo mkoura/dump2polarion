@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<work-item>
+    <field id="approvals">
+        <list>
+            <struct>
+                <item id="status">waiting</item>
+                <item id="user">dajohnso</item>
+            </struct>
+            <struct>
+                <item id="status">approved</item>
+                <item id="user">smallamp</item>
+            </struct>
+        </list>
+    </field>
+    <field id="assignee">apagac</field>
+    <field id="author">rananda</field>
+    <field id="caseautomation" type="enum:caseautomationstatus">notautomated</field>
+    <field id="casecomponent" type="enum:casecomponent">Appliance</field>
+    <field id="caseimportance" type="enum:caseimportance">medium</field>
+    <field id="caselevel" type="enum:caselevel">system</field>
+    <field id="caseposneg" type="enum:caseposneg">positive</field>
+    <field id="created">2015-07-24 08:03:33.000 +0000</field>
+    <field id="description" text-type="text/html">HTML5 Test</field>
+    <field id="initialEstimate">1/3h</field>
+    <field id="linkedWorkItems">
+        <list>
+            <struct>
+                <item id="role">verifies</item>
+                <item id="workItem">RHCF3-2823</item>
+            </struct>
+        </list>
+    </field>
+    <field id="previousStatus">proposed</field>
+    <field id="priority">50.0</field>
+    <field id="remainingEstimate">1/3h</field>
+    <field id="setup" text-type="text/html" type="text/html"><![CDATA[On CFME Appliance do the following: <br/>
+ <br/>
+1) Login to CFME Appliance as admin. <br/>
+2) On top right click Administrator|EVM -&gt; Configuration.<br/>
+3) Under <span style="color: #363636;">VMware Console Support section and click on Dropdown in front of &quot;Use&quot; and select &quot;VNC&quot;. <br/>
+  4) Click save at the bottom of the page. <br/>
+  <br/>
+  This will setup your appliance for using HTML5 VNC Console and not to use VMRC Plug in which is Default when you setup appliance.<br/>
+  <br/>
+  Note: [XX-YY-ZZ] stands for -&gt; <br/>
+  XX: Browser<br/>
+  YY: Platform or SSUI-Self Service UI<br/>
+  ZZ: OS<br/>
+  </span>]]></field>
+    <field id="severity">should_have</field>
+    <field id="status">approved</field>
+    <field id="subtype1" type="enum:subtype1">-</field>
+    <field id="subtype2" type="enum:subtype2">-</field>
+    <field id="testSteps" type="struct:TestSteps">
+        <struct>
+            <item id="keys">
+                <list>
+                    <item>step</item>
+                    <item>expectedResult</item>
+                </list>
+            </item>
+            <item id="steps">
+                <list>
+                    <struct>
+                        <item id="values">
+                            <list>
+                                <item text-type="text/html">&lt;span style="font-size: 10pt;line-height: 1.5;"&gt; Launch CFME Appliance on IE&lt;/span&gt;</item>
+                                <item text-type="text/html">&lt;span style="font-size: 10pt;line-height: 1.5;"&gt;CFME Appliance Login page should be displayed (Might warn you about certificate/trust please proceed by accepting (Click &amp;quot;Advanced&amp;quot; and then click &amp;quot;Proceed to &amp;lt;CFME_URL&amp;gt;(unsafe)&amp;quot;)&lt;/span&gt;</item>
+                            </list>
+                        </item>
+                    </struct>
+                    <struct>
+                        <item id="values">
+                            <list>
+                                <item text-type="text/html">&lt;span style="font-size: 10pt;line-height: 1.5;"&gt;Go to Compute-&amp;gt;Infrastructure-&amp;gt;Virtual Machines &lt;/span&gt;</item>
+                                <item text-type="text/html">&lt;span style="font-size: 10pt;line-height: 1.5;"&gt;Should see list of Available VMs by all providers&lt;/span&gt;</item>
+                            </list>
+                        </item>
+                    </struct>
+                    <struct>
+                        <item id="values">
+                            <list>
+                                <item text-type="text/html">&lt;span style="font-size: 10pt;line-height: 1.5;"&gt;Click on any of the running/powered on VMs&lt;/span&gt;</item>
+                                <item text-type="text/html">&lt;span style="font-size: 10pt;line-height: 1.5;"&gt;Should see a details page containing detailed info about that VM&lt;/span&gt;</item>
+                            </list>
+                        </item>
+                    </struct>
+                    <struct>
+                        <item id="values">
+                            <list>
+                                <item text-type="text/html">&lt;span style="font-size: 10pt;line-height: 1.5;"&gt;On top of details, Click on Access-&amp;gt;Select VM Console from Dropdown&lt;/span&gt;</item>
+                                <item text-type="text/html">&lt;span style="font-size: 10pt;line-height: 1.5;"&gt;You should see a Pop-up being Blocked, Please allow it to open (always allow pop-ups for this site) and then a new tab will open and then in few secs console should render in the HTML5 canvas element and should be able to interact with it using mouse &amp;amp; keyboard. &lt;/span&gt;</item>
+                            </list>
+                        </item>
+                    </struct>
+                </list>
+            </item>
+        </struct>
+    </field>
+    <field id="testtype" type="enum:testtype">functional</field>
+    <field id="title">test_html5_console[ie11-vsphere6-win7]</field>
+    <field id="type">testcase</field>
+</work-item>
