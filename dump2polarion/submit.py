@@ -98,7 +98,7 @@ def validate_response(response, submit_target):
         return False
 
     job_ids = get_job_ids(parsed_response)
-    if job_ids == [0]:
+    if not job_ids or job_ids == [0]:
         logger.error('Submit to %s failed to get job id', submit_target)
         return False
 
