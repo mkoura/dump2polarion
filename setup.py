@@ -1,11 +1,14 @@
 from setuptools import find_packages, setup
+with open('README.rst', 'rb') as fp:
+    LONG_DESCRIPTION = fp.read().decode('utf-8').strip()
+
 
 setup(
     name='dump2polarion',
     use_scm_version=True,
     url='https://github.com/mkoura/dump2polarion',
     description='Dump testcases results to xunit file; submit files to Polarion Importers',
-    long_description=open('README.rst').read().strip(),
+    long_description=LONG_DESCRIPTION,
     author='Martin Kourim',
     author_email='mkourim@redhat.com',
     license='GPL',
