@@ -13,7 +13,10 @@ setup(
     author_email='mkourim@redhat.com',
     license='GPL',
     packages=find_packages(exclude=('tests',)),
-    scripts=['csv2sqlite.py', 'polarion_dumper.py'],
+    entry_points={'console_scripts': [
+        'csv2sqlite.py = dump2polarion.csv2sqlite_cli:main',
+        'polarion_dumper.py = dump2polarion.dumper_cli:main'
+    ]},
     setup_requires=['setuptools_scm'],
     install_requires=['requests', 'pyyaml'],
     keywords=['polarion', 'testing'],

@@ -15,6 +15,16 @@ import sqlite3
 from dump2polarion import csvtools, utils
 from dump2polarion.exceptions import Dump2PolarionException
 
+REQUIRED_KEYS = (
+    "verdict",
+    "last_status",
+    "exported",
+    "time",
+    "comment",
+    "stdout",
+    "stderr",
+    "user1",
+)
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
@@ -35,33 +45,33 @@ def get_args(args=None):
 def dump2sqlite(records, output_file):
     """Dumps tests results to database."""
     results_keys = list(records.results[0].keys())
-    keys_len = len(results_keys)
-    for key in (
-            'verdict', 'last_status', 'exported', 'time', 'comment', 'stdout', 'stderr', 'user1'):
+    pad_data = []
+
+    for key in REQUIRED_KEYS:
         if key not in results_keys:
             results_keys.append(key)
+            pad_data.append("")
 
-    conn = sqlite3.connect(os.path.expanduser(output_file), detect_types=sqlite3.PARSE_DECLTYPES)
+    conn = sqlite3.connect(
+        os.path.expanduser(output_file),
+        detect_types=sqlite3.PARSE_DECLTYPES)
 
     # in each row there needs to be data for every column
-    pad_data = ['' for __ in range(len(results_keys) - keys_len)]
     # last column is current time
-    now = datetime.datetime.utcnow()
+    pad_data.append(datetime.datetime.utcnow())
 
-    def _extend_row(row):
-        if pad_data:
-            row.extend(pad_data)
-        row.append(now)
-        return row
-
-    to_db = [_extend_row(list(row.values())) for row in records.results]
+    to_db = [list(row.values()) + pad_data for row in records.results]
 
     cur = conn.cursor()
     cur.execute(
         "CREATE TABLE testcases ({},sqltime TIMESTAMP)".format(
-            ','.join(['{} TEXT'.format(key) for key in results_keys])))
-    cur.executemany("INSERT INTO testcases VALUES ({},?)".format(
-        ','.join(['?' for __ in results_keys])), to_db)
+            ','.join('{} TEXT'.format(key) for key in results_keys)))
+    cur.executemany(
+        "INSERT INTO testcases VALUES ({},?)".format(
+            ",".join(["?"] * len(results_keys))
+        ),
+        to_db,
+    )
 
     if records.testrun:
         cur.execute("CREATE TABLE testrun (testrun TEXT)")
@@ -101,7 +111,7 @@ def main(args=None):
         dump2sqlite(records, args.output_file)
     # pylint: disable=broad-except
     except Exception as err:
-        logger.fatal(err)
+        logger.exception(err)
         return 1
 
     return 0
