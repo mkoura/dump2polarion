@@ -25,9 +25,10 @@ _NOT_FINISHED_STATUSES = ('ready', 'running')
 class QueueSearch(object):
     """Search for jobs in the completed jobs queue."""
 
-    def __init__(self, session, queue_url):
+    def __init__(self, session, queue_url, log_url):
         self.session = session
         self.queue_url = queue_url
+        self.log_url = log_url
         self.skip = False
         self._check_setup()
 
@@ -143,14 +144,13 @@ class QueueSearch(object):
 
         return not failed_jobs
 
-    @staticmethod
-    def _download_log(url, output_file):
+    def _download_log(self, url, output_file):
         """Saves log returned by the message bus."""
         logger.info("Saving log %s to %s", url, output_file)
 
         def _do_log_download():
             try:
-                return requests.get(url)
+                return self.session.get(url)
             # pylint: disable=broad-except
             except Exception as err:
                 logger.error(err)
@@ -162,24 +162,23 @@ class QueueSearch(object):
                 break
             time.sleep(2)
 
-        if not log_data:
-            logger.error("Failed to download log file '%s'.", url)
+        if not (log_data and log_data.content):
+            logger.error('Failed to download log file %s.', url)
             return
         with open(os.path.expanduser(output_file), 'ab') as out:
             out.write(log_data.content)
 
     def get_logs(self, jobs, log_file=None):
         """Get log or log url of the jobs."""
-        if not jobs:
+        if not (jobs and self.log_url):
             return
 
         for job in jobs:
-            url = job.get('logstashURL')
-            if url:
-                if log_file:
-                    self._download_log(url, log_file)
-                else:
-                    logger.info('Submit log for job %s: %s', job.get('id'), url)
+            url = '{}?jobId={}&download'.format(self.log_url, job.get('id'))
+            if log_file:
+                self._download_log(url, log_file)
+            else:
+                logger.info('Submit log for job %s: %s', job.get('id'), url)
 
     def verify_submit(self, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
         """Verifies that the results were successfully submitted."""
@@ -192,8 +191,9 @@ class QueueSearch(object):
         return self._check_outcome(jobs)
 
 
-def verify_submit(
-        session, queue_url, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
+# pylint: disable=too-many-arguments
+def verify_submit(session, queue_url, log_url, job_ids,
+                  timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
     """Verifies that the results were successfully submitted."""
-    verification_queue = QueueSearch(session=session, queue_url=queue_url)
+    verification_queue = QueueSearch(session=session, queue_url=queue_url, log_url=log_url)
     return verification_queue.verify_submit(job_ids, timeout=timeout, delay=delay, **kwargs)

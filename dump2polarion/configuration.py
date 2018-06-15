@@ -19,8 +19,13 @@ DEFAULT_USER_CONF = '~/.config/dump2polarion.yaml'
 URLS = {
     'testcase_taget': 'import/testcase',
     'xunit_target': 'import/xunit',
+    'requirement_target': 'import/requirement',
     'testcase_queue': 'import/testcase-queue',
     'xunit_queue': 'import/xunit-queue',
+    'requirement_queue': 'import/requirement-queue',
+    'testcase_log': 'import/testcase-log',
+    'xunit_log': 'import/xunit-log',
+    'requirement_log': 'import/requirement-log',
     'auth_url': 'j_security_check',
 }
 
@@ -41,12 +46,21 @@ def _check_config(config):
 
     if missing:
         raise Dump2PolarionException(
-            "Failed to find following keys in config file: {}\n"
-            "Please see https://mojo.redhat.com/docs/DOC-1098563#config".format(', '.join(missing)))
+            'Failed to find following keys in config file: {}\n'
+            'Please see https://mojo.redhat.com/docs/DOC-1098563#config'.format(', '.join(missing)))
+
+
+def _guess_base_url(config):
+    for key, value in six.iteritems(URLS):
+        if config.get(key):
+            return config[key][:-len(value)]
+    return None
 
 
 def _populate_urls(config):
     base_url = config.get('polarion_url')
+    if not base_url:
+        base_url = _guess_base_url(config)
     if not base_url:
         return
 
@@ -67,23 +81,23 @@ def get_config(config_file=None):
     except EnvironmentError:
         user_conf = None
         if config_file:
-            raise Dump2PolarionException("Cannot open config file '{}'".format(config_file))
+            raise Dump2PolarionException('Cannot open config file {}'.format(config_file))
 
     with io.open(default_conf, encoding='utf-8') as input_file:
         config_settings = yaml.load(input_file)
-    logger.debug("Default config loaded from '%s'", default_conf)
+    logger.debug('Default config loaded from %s', default_conf)
 
     if user_conf:
         with io.open(user_conf, encoding='utf-8') as input_file:
             config_settings_user = yaml.load(input_file)
-        logger.info("Config loaded from '%s'", user_conf)
+        logger.info('Config loaded from %s', user_conf)
 
         # merge default and user configuration
         try:
             config_settings.update(config_settings_user)
         except ValueError as err:
             raise Dump2PolarionException(
-                "Failed to load the '{}' config file: {}".format(user_conf, err))
+                'Failed to load the \'{}\' config file: {}'.format(user_conf, err))
 
     _populate_urls(config_settings)
     _check_config(config_settings)

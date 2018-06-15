@@ -14,7 +14,7 @@ import pytest
 from tests import conf
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.exporter import ImportedData, XunitExport
+from dump2polarion.xunit_exporter import ImportedData, XunitExport
 from dump2polarion.importer import do_import
 from dump2polarion.utils import get_unicode_str
 

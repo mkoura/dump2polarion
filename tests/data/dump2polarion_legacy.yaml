@@ -7,5 +7,7 @@ xunit_target: https://polarion.example.com/import/xunit
 testcase_taget: https://polarion.example.com/import/testcase
 xunit_queue: https://polarion.example.com/import/xunit-queue
 testcase_queue: https://polarion.example.com/import/testcase-queue
+requirement_target: https://polarion.example.com/import/requirement
+requirement_queue: https://polarion.example.com/import/requirement-queue
 username:  user1
 password:  password1

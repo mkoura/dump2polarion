@@ -11,7 +11,7 @@ import re
 
 from collections import OrderedDict
 
-from dump2polarion import csv_unicode, exporter
+from dump2polarion import csv_unicode, xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException
 
 
@@ -143,7 +143,7 @@ def get_imported_data(csv_file, **kwargs):
 
         testrun = _get_testrun_from_csv(input_file, reader)
 
-    return exporter.ImportedData(results=results, testrun=testrun)
+    return xunit_exporter.ImportedData(results=results, testrun=testrun)
 
 
 def _check_required_columns(csv_file, results):

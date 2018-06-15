@@ -12,7 +12,7 @@ from collections import OrderedDict
 
 from lxml import etree
 
-from dump2polarion import exporter
+from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException
 
 
@@ -84,4 +84,4 @@ def import_junit(junit_file, **kwargs):
 
         results.append(OrderedDict(data))
 
-    return exporter.ImportedData(results=results, testrun=None)
+    return xunit_exporter.ImportedData(results=results, testrun=None)

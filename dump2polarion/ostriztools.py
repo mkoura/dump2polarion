@@ -16,7 +16,7 @@ from collections import OrderedDict
 import requests
 import six
 
-from dump2polarion import exporter
+from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 
 
@@ -149,7 +149,7 @@ def _parse_ostriz(ostriz_data):
         logger.info('Last result finished at %s', last_finish_time[0])
 
     testrun_id = _get_testrun_id(found_build)
-    return exporter.ImportedData(results=results, testrun=testrun_id)
+    return xunit_exporter.ImportedData(results=results, testrun=testrun_id)
 
 
 # pylint: disable=unused-argument

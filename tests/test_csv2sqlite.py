@@ -10,7 +10,7 @@ from tests import conf
 
 from dump2polarion import csv2sqlite_cli
 from dump2polarion import dbtools
-from dump2polarion.exporter import XunitExport
+from dump2polarion.xunit_exporter import XunitExport
 
 
 class TestCSV2sqliteCLI(object):

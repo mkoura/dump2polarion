@@ -173,9 +173,33 @@ def get_results_transform_cmp(config):
     return results_transform
 
 
-PROJECT_MAPPING = {
+def get_requirements_transform_cfme(config):
+    """Return requirement transformation function for CFME."""
+
+    def requirement_transform(requirement):
+        """Requirements transform for CFME."""
+        if 'id' in requirement:
+            del requirement['id']
+        # TODO: testing purposes, remove once ready
+        if not requirement.get('assignee-id'):
+            requirement['assignee-id'] = 'mkourim'
+        if not requirement.get('approver-ids'):
+            requirement['approver-ids'] = 'mkourim:approved'
+
+        # we don't want to import this requirement if here
+        return requirement
+
+    return requirement_transform
+
+
+PROJECT_MAPPING_XUNIT = {
     'RHCF3': get_results_transform_cfme,
     'CMP': get_results_transform_cmp,
+}
+
+
+PROJECT_MAPPING_REQ = {
+    'RHCF3': get_requirements_transform_cfme,
 }
 
 
@@ -192,6 +216,24 @@ def get_results_transform(config):
     """
 
     project = config['xunit_import_properties']['polarion-project-id']
-    if project in PROJECT_MAPPING:
-        return PROJECT_MAPPING[project](config)
+    if project in PROJECT_MAPPING_XUNIT:
+        return PROJECT_MAPPING_XUNIT[project](config)
+    return None
+
+
+def get_requirements_transform(config):
+    """Returns requirements transformation function.
+
+    The transformation function is returned by calling corresponding "getter" function.
+
+    This allows customizations of results data according to requirements
+    of the specific project.
+
+    When no results data are returned, this result will be ignored
+    and will not be written to the resulting XML.
+    """
+
+    project = config['xunit_import_properties']['polarion-project-id']
+    if project in PROJECT_MAPPING_REQ:
+        return PROJECT_MAPPING_REQ[project](config)
     return None

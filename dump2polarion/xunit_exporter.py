@@ -54,8 +54,8 @@ class XunitExport(object):
                             str(value)))
                 self._lookup_prop = lookup_prop
             else:
-                etree.SubElement(testsuites_properties, 'property',
-                                 {'name': name, 'value': str(value)})
+                etree.SubElement(
+                    testsuites_properties, 'property', {'name': name, 'value': str(value)})
 
         return testsuites_properties
 
@@ -232,13 +232,6 @@ class XunitExport(object):
         testsuite_element.set('time', '{0:.4f}'.format(records['time']))
         testsuite_element.set('tests', str(tests_num))
 
-    @staticmethod
-    def _prettify(top_element):
-        """Returns a pretty-printed XML."""
-        xml_string = etree.tostring(
-            top_element, encoding='utf-8', xml_declaration=True, pretty_print=True)
-        return utils.get_unicode_str(xml_string)
-
     def export(self):
         """Returns xunit XML."""
         top = self._top_element()
@@ -246,7 +239,7 @@ class XunitExport(object):
         testsuite = self._testsuite_element(top)
         self._fill_tests_results(testsuite)
         self._fill_lookup_prop(properties)
-        return self._prettify(top)
+        return utils.prettify_xml(top)
 
     def write_xml(self, xml, output_file=None):
         """Outputs the XML content into a file."""

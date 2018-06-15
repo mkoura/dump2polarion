@@ -35,9 +35,6 @@ except ImportError:
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
 
-_VERSION_ID = '23'
-_NOT_EXPECTED_FORMAT_MSG = 'XML file is not in expected format'
-
 
 def get_unicode_str(obj):
     """Makes sure obj is a unicode string."""
@@ -62,7 +59,21 @@ def init_log(log_level):
     log_level = log_level or 'INFO'
     logging.basicConfig(
         format='%(name)s:%(levelname)s:%(message)s',
-        level=getattr(logging, log_level.upper(), logging.INFO))
+        level=getattr(logging, log_level.upper(), logging.INFO)
+    )
+
+
+def _get_filename(output_loc=None, filename=None):
+    filename = filename or 'output-{}-{:%Y%m%d%H%M%S}.xml'.format(
+        ''.join(random.sample(string.ascii_lowercase, 5)), datetime.datetime.now())
+    if output_loc:
+        filename_fin = os.path.expanduser(output_loc)
+        if os.path.isdir(filename_fin):
+            filename_fin = os.path.join(filename_fin, filename)
+    else:
+        filename_fin = filename
+
+    return filename_fin
 
 
 def write_xml(xml, output_loc=None, filename=None):
@@ -76,17 +87,28 @@ def write_xml(xml, output_loc=None, filename=None):
     """
     if not xml:
         raise Dump2PolarionException("No data to write.")
-    filename = filename or 'output-{}-{:%Y%m%d%H%M%S}.xml'.format(
-        ''.join(random.sample(string.ascii_lowercase, 5)), datetime.datetime.now())
-    if output_loc:
-        filename_fin = os.path.expanduser(output_loc)
-        if os.path.isdir(filename_fin):
-            filename_fin = os.path.join(filename_fin, filename)
-    else:
-        filename_fin = filename
+    filename_fin = _get_filename(output_loc=output_loc, filename=filename)
 
     with io.open(filename_fin, 'w', encoding='utf-8') as xml_file:
         xml_file.write(get_unicode_str(xml))
+    logger.info("Data written to '%s'", filename_fin)
+
+
+def write_xml_root(xml_root, output_loc=None, filename=None):
+    """Outputs the XML content into a file.
+
+    Args:
+        xml_root: root element ot the XML document
+        output_loc: file or directory for saving the file
+        filename: file name that will be used if output_loc is directory
+            If it is needed and is not supplied, it will be generated
+    """
+    if xml_root is not None:
+        raise Dump2PolarionException('No data to write.')
+    filename_fin = _get_filename(output_loc=output_loc, filename=filename)
+
+    et = etree.ElementTree(xml_root)
+    et.write(filename_fin, xml_declaration=True, pretty_print=True, encoding='utf-8')
     logger.info("Data written to '%s'", filename_fin)
 
 
@@ -107,7 +129,7 @@ def get_xml_root_from_str(xml):
         xml_root = etree.fromstring(xml.encode('utf-8'))
     # pylint: disable=broad-except
     except Exception as err:
-        raise Dump2PolarionException("Failed to parse XML file: {}".format(err))
+        raise Dump2PolarionException("Failed to parse XML string: {}".format(err))
     return xml_root
 
 
@@ -116,84 +138,11 @@ def etree_to_string(xml_root):
     return get_unicode_str(etree.tostring(xml_root, encoding='utf-8'))
 
 
-def xunit_fill_testrun_id(xml_root, testrun_id):
-    """Adds the polarion-testrun-id property when it's missing."""
-    if xml_root.tag == 'testcases':
-        return
-    if xml_root.tag != 'testsuites':
-        raise Dump2PolarionException(
-            "{} {}".format(_NOT_EXPECTED_FORMAT_MSG, "- missing <testsuites>"))
-    properties = xml_root.find('properties')
-    if properties is None:
-        raise Dump2PolarionException("Failed to find <properties> in the XML file")
-    for prop in properties:
-        if prop.get('name') == 'polarion-testrun-id':
-            break
-    else:
-        if not testrun_id:
-            raise Dump2PolarionException(
-                "Failed to submit results to Polarion - missing testrun id")
-        etree.SubElement(properties, 'property',
-                         {'name': 'polarion-testrun-id', 'value': str(testrun_id)})
-
-
-def generate_response_property(name=None, value=None):
-    """Generates response property."""
-    name = name or 'dump2polarion'
-    value = value or ''.join(random.sample(string.ascii_lowercase, 9)) + _VERSION_ID
-    return (name, value)
-
-
-def _fill_testsuites_response_property(xml_root, name, value):
-    """Returns testsuites response property and fills it if missing."""
-    properties = xml_root.find('properties')
-    for prop in properties:
-        prop_name = prop.get('name', '')
-        if 'polarion-response-' in prop_name:
-            response_property = (prop_name[len('polarion-response-'):], str(prop.get('value')))
-            break
-    else:
-        prop_name = 'polarion-response-{}'.format(name)
-        etree.SubElement(properties, 'property', {'name': prop_name, 'value': value})
-        response_property = (name, value)
-
-    return response_property
-
-
-def _fill_testcases_response_property(xml_root, name, value):
-    """Returns testcases response property and fills it if missing."""
-    properties = xml_root.find('response-properties')
-    if properties is None:
-        properties = etree.Element('response-properties')
-        # response properties needs to be on top!
-        xml_root.insert(0, properties)
-    for prop in properties:
-        if prop.tag == 'response-property':
-            prop_name = prop.get('name')
-            prop_value = prop.get('value')
-            if prop_name and prop_value:
-                response_property = (prop_name, str(prop_value))
-            break
-    else:
-        etree.SubElement(properties, 'response-property', {'name': name, 'value': value})
-        response_property = (name, value)
-
-    return response_property
-
-
-def fill_response_property(xml_root, name=None, value=None):
-    """Returns response property and fills it if missing."""
-    name, value = generate_response_property(name, value)
-    response_property = None
-
-    if xml_root.tag == 'testsuites':
-        response_property = _fill_testsuites_response_property(xml_root, name, value)
-    elif xml_root.tag == 'testcases':
-        response_property = _fill_testcases_response_property(xml_root, name, value)
-    else:
-        raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)
-
-    return response_property
+def prettify_xml(xml_root):
+    """Returns pretty-printed string representation of element tree."""
+    xml_string = etree.tostring(
+        xml_root, encoding='utf-8', xml_declaration=True, pretty_print=True)
+    return get_unicode_str(xml_string)
 
 
 def get_session(credentials, config):

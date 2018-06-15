@@ -30,7 +30,7 @@ def _get_importer(input_file):
         importer = dbtools.import_sqlite
     else:
         raise Dump2PolarionException(
-            "Cannot recognize type of input data, add file extension.")
+            'Cannot recognize type of input data, add file extension.')
 
     return importer
 
