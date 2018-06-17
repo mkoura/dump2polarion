@@ -103,7 +103,7 @@ def write_xml_root(xml_root, output_loc=None, filename=None):
         filename: file name that will be used if output_loc is directory
             If it is needed and is not supplied, it will be generated
     """
-    if xml_root is not None:
+    if xml_root is None:
         raise Dump2PolarionException('No data to write.')
     filename_fin = _get_filename(output_loc=output_loc, filename=filename)
 
