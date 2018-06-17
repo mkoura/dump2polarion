@@ -200,6 +200,7 @@ PROJECT_MAPPING_XUNIT = {
 
 PROJECT_MAPPING_REQ = {
     'RHCF3': get_requirements_transform_cfme,
+    'CLOUDTP': get_requirements_transform_cfme,
 }
 
 
