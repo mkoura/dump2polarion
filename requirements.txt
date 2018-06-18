@@ -1,3 +1,8 @@
 lxml
+mock
+pytest
+pytest-cov
 pyyaml
 requests
+six
+tox

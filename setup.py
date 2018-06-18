@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
+
 from setuptools import find_packages, setup
+
+
 with open('README.rst', 'rb') as fp:
     LONG_DESCRIPTION = fp.read().decode('utf-8').strip()
 
@@ -18,7 +22,7 @@ setup(
         'polarion_dumper.py = dump2polarion.dumper_cli:main'
     ]},
     setup_requires=['setuptools_scm'],
-    install_requires=['requests', 'pyyaml'],
+    install_requires=['lxml', 'pyyaml', 'requests', 'six'],
     keywords=['polarion', 'testing'],
     classifiers=[
         'Development Status :: 3 - Alpha',
@@ -29,6 +33,7 @@ setup(
         'Programming Language :: Python :: 3.4',
         'Programming Language :: Python :: 3.5',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Intended Audience :: Developers'],
     include_package_data=True
 )
