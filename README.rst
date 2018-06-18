@@ -1,26 +1,28 @@
 dump2polarion
 =============
 
-.. image:: https://coveralls.io/repos/github/mkoura/dump2polarion/badge.svg?branch=master
-    :target: https://coveralls.io/github/mkoura/dump2polarion?branch=master
-
 .. image:: https://travis-ci.org/mkoura/dump2polarion.svg?branch=master
     :target: https://travis-ci.org/mkoura/dump2polarion
+    :alt: build status
+
+.. image:: https://coveralls.io/repos/github/mkoura/dump2polarion/badge.svg?branch=master
+    :target: https://coveralls.io/github/mkoura/dump2polarion?branch=master
+    :alt: coverage report
 
 Usage
 -----
-Automatic submission of testing results from the CSV, SQLite, junit-report.xml (from pytest) or Ostriz JSON input file to Polarion® XUnit Importer,
-or submission of pre-generated XUnit or Test Case xml files to corresponding Polarion® Importer:
+Automatic submission of testing results from the CSV, SQLite, junit-report.xml (from pytest) or Ostriz JSON input file to Polarion XUnit Importer,
+or submission of pre-generated XUnit, Test Case or Requirement XML files to corresponding Polarion Importer:
 
 .. code-block::
 
     polarion_dumper.py -i {input_file}
 
-By default test results are submitted to Polarion®. You can disable this bahavior with ``-n`` option. In this case the XML file used for results submission will be saved to disk. Default file location is current directory, default file name is `testrun_TESTRUN_ID-TIMESTAMP.xml` (can be overriden with ``-o`` option).
+By default the input data are submitted to Polarion. You can disable this bahavior with ``-n`` option. In this case the XML file used for submission will be saved to disk. Default file location is the current directory (can be overriden with ``-o`` option).
 
-When output file is specified with ``-o PATH``, the XML file used for results submission will be saved to disk. If `PATH` is a directory, resulting file will be `PATH/testrun_TESTRUN_ID-TIMESTAMP.xml`.
+When output file is specified with ``-o PATH``, the XML file used for results submission will be saved to disk. If `PATH` is a directory, resulting file name will be generated - `PATH/FILE_TYPE-TESTRUN_ID-TIMESTAMP.xml`.
 
-When the input file is a XML file with results (e.g. saved earlier with ``-o FILE -n``) or test cases to be imported, it is submitted to Polarion®.
+When the input file is a XML file in a format supported by one of the Polarion Importers (e.g. saved earlier with ``-o FILE -n``), it is submitted to Polarion.
 
 Configuration
 -------------
@@ -43,8 +45,6 @@ The default user config file is ``~/.config/dump2polarion.yaml``. You can also s
 
 Install
 -------
-You don't need to install the package, you can use the scripts directly from the cloned repository.
-
 To install the package to your virtualenv, run
 
 .. code-block::
@@ -55,17 +55,17 @@ or install it from cloned directory
 
 .. code-block::
 
-    pip install .
+    pip install -e .
 
 Package on PyPI <https://pypi.python.org/pypi/dump2polarion>
 
 Requirements
 ------------
-You need ``sqlite3``, all recent python versions include it by default. The rest is listed in ``requirements.txt``.
+Requirements are listed in ``requirements.txt``.
 
-CSV format
-----------
-There needs to be a row with field names - it is by default when exported from Polarion®.
+CSV format for XUnit
+--------------------
+There needs to be a row with field names - it is present by default when exported from Polarion.
 
 Fields are ID; Title; Test Case ID (optional but recommended); Verdict; Comment (optional); Time (optional); stdout (optional); stderr (optional) + any other field you want. Order of the fields and case doesn't matter.
 
@@ -73,9 +73,9 @@ The "Verdict" field and any optional fields must be added manually. Valid values
 
 There can be any content before the row with field names and the test results.
 
-SQLite format
--------------
-You can convert the CSV file exported out of Polarion® using the ``csv2sqlite.py`` script:
+SQLite format for XUnit
+-----------------------
+You can convert the CSV file exported out of Polarion using the ``csv2sqlite.py`` script:
 
 .. code-block::
 
@@ -92,7 +92,7 @@ or
 
 .. code-block::
 
-    curl -k -u {user}:{password} -X POST -F file=@./output.xml https://polarion.engineering.redhat.com/polarion/import/xunit
+    curl -k -u {user}:{password} -X POST -F file=@./output.xml {importer_url}
 
 More info
 ---------
