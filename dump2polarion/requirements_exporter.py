@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=c-extension-no-member
 """
-Dump testcases results to requirements XML file for submitting to the Polarion Importer.
+Creates a Requirement XML file for submitting to the Polarion Importer.
 """
 
 from __future__ import absolute_import, unicode_literals
@@ -170,7 +170,7 @@ class RequirementExport(object):
 
     def _fill_requirements(self, parent_element):
         if not self.requirements_data:
-            raise NothingToDoException("Nothing to export")
+            raise NothingToDoException('Nothing to export')
         for req_data in self.requirements_data:
             self._requirement_element(parent_element, req_data)
 

@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 
+import copy
 import io
 import os
 import logging
@@ -15,8 +16,10 @@ from tests import conf
 GENERIC_CONF = {
     'xunit_target': 'https://polarion.example.com/import/xunit',
     'testcase_taget': 'https://polarion.example.com/import/testcase',
+    'requirement_target': 'https://polarion.example.com/import/requirement',
     'xunit_queue': 'https://polarion.example.com/import/xunit-queue',
-    'testcase_queue': 'https://polarion.example.com/import/testcase-queue'
+    'testcase_queue': 'https://polarion.example.com/import/testcase-queue',
+    'requirement_queue': 'https://polarion.example.com/import/requirement-queue',
 }
 
 RHCF3_PROPS = {
@@ -36,12 +39,12 @@ CMP_CONF['xunit_import_properties']['polarion-project-id'] = 'CMP'
 
 @pytest.fixture(scope='module')
 def config_prop():
-    return RHCF3_CONF
+    return copy.deepcopy(RHCF3_CONF)
 
 
 @pytest.fixture(scope='module')
 def config_prop_cmp():
-    return CMP_CONF
+    return copy.deepcopy(CMP_CONF)
 
 
 @pytest.fixture(scope='function')

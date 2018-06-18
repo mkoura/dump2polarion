@@ -1,0 +1,27 @@
+<?xml version='1.0' encoding='utf-8'?>
+<requirements document-relative-path="testing/requirements" project-id="CLOUDTP">
+  <properties>
+    <property name="prop1" value="val1"/>
+    <property name="prop2" value="val2"/>
+    <property name="lookup-method" value="name"/>
+  </properties>
+  <requirement approver-ids="sbulage:approved" assignee-id="mkourim" category-ids="CAT-01" due-date="2018-05-30" initial-estimate="1/4h" planned-in-ids="PROJ-01" priority-id="medium" severity-id="good_to_have" status-id="STAT-01">
+    <title>req01</title>
+    <custom-fields>
+      <custom-field content="functional" id="reqtype"/>
+    </custom-fields>
+  </requirement>
+  <requirement approver-ids="mkourim:approved" assignee-id="mkourim" initial-estimate="1/4h" priority-id="high" severity-id="should_have">
+    <title>req02</title>
+    <description>requirement description</description>
+    <custom-fields>
+      <custom-field content="functional" id="reqtype"/>
+    </custom-fields>
+  </requirement>
+  <requirement approver-ids="mkourim:approved" assignee-id="mkourim" priority-id="high" severity-id="should_have">
+    <title>req03</title>
+    <custom-fields>
+      <custom-field content="functional" id="reqtype"/>
+    </custom-fields>
+  </requirement>
+</requirements>

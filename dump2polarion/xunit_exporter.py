@@ -211,7 +211,7 @@ class XunitExport(object):
     def _fill_tests_results(self, testsuite_element):
         """Creates records for all testcases results."""
         if not self.tests_records.results:
-            raise NothingToDoException("Nothing to export")
+            raise NothingToDoException('Nothing to export')
 
         records = dict(passed=0, skipped=0, failures=0, waiting=0, time=0.0)
         for testcase_result in self.tests_records.results:
