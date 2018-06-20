@@ -195,6 +195,7 @@ def get_requirements_transform_cfme(config):
 PROJECT_MAPPING_XUNIT = {
     'RHCF3': get_results_transform_cfme,
     'CMP': get_results_transform_cmp,
+    'CLOUDTP': get_results_transform_cfme,
 }
 
 
