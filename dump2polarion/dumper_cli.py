@@ -1,8 +1,7 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation,inconsistent-return-statements
 """
 Dump testcases results from a CSV, SQLite, junit or Ostriz input file to XUnit file.
-Submit XUnit or testcases XML to the Polarion Importers.
+Submit XUnit, testcases or requirements XML to the Polarion Importers.
 """
 
 from __future__ import absolute_import, unicode_literals
@@ -26,31 +25,33 @@ def get_args(args=None):
     """Get command line arguments."""
     parser = argparse.ArgumentParser(description='dump2polarion')
     parser.add_argument('-i', '--input_file', required=True,
-                        help="Path to CSV or SQLite reports file or xunit XML file")
+                        help='Path to CSV, SQLite or JUnit reports file or importers XML file')
     parser.add_argument('-o', '--output_file',
-                        help="Where to save the XML output file (default: not saved)")
+                        help='Where to save the XML output file (default: not saved)')
     parser.add_argument('-t', '--testrun-id',
-                        help="Polarion test run id")
+                        help='Polarion test run id')
     parser.add_argument('-c', '--config-file',
-                        help="Path to config YAML")
+                        help='Path to config YAML')
     parser.add_argument('-n', '--no-submit', action='store_true',
-                        help="Don't submit results to Polarion")
+                        help='Don\'t submit results to Polarion')
     parser.add_argument('--user',
-                        help="Username to use to submit results to Polarion")
+                        help='Username to use to submit results to Polarion')
     parser.add_argument('--password',
-                        help="Password to use to submit results to Polarion")
+                        help='Password to use to submit results to Polarion')
     parser.add_argument('-f', '--force', action='store_true',
-                        help="Don't validate test run id")
+                        help='Don\'t validate test run id')
+    parser.add_argument('--dry-run', action='store_true',
+                        help='Dry run, don\'t update anything')
     parser.add_argument('--no-verify', action='store_true',
-                        help="Don't verify results submission")
+                        help='Don\'t verify results submission')
     parser.add_argument('--verify-timeout', type=int, default=300, metavar='SEC',
-                        help="How long to wait (in seconds) for verification of results submission"
-                             " (default: %(default)s)")
+                        help='How long to wait (in seconds) for verification of results submission'
+                             ' (default: %(default)s)')
     parser.add_argument('--job-log',
-                        help="Where to save the log file produced by the Importer"
-                             " (default: not saved)")
+                        help='Where to save the log file produced by the Importer'
+                             ' (default: not saved)')
     parser.add_argument('--log-level',
-                        help="Set logging to specified level")
+                        help='Set logging to specified level')
     return parser.parse_args(args)
 
 
@@ -63,6 +64,7 @@ def get_submit_args(args):
         no_verify=args.no_verify,
         verify_timeout=args.verify_timeout,
         log_file=args.job_log,
+        dry_run=args.dry_run,
     )
     return {k: v for k, v in submit_args.items() if v is not None}
 
@@ -78,7 +80,7 @@ def get_testrun_id(args, testrun_id):
     found_testrun_id = args.testrun_id or testrun_id
     if not found_testrun_id:
         raise Dump2PolarionException(
-            "The testrun id was not specified on command line and not found in the input data.")
+            'The testrun id was not specified on command line and not found in the input data.')
 
     return found_testrun_id
 
@@ -87,16 +89,16 @@ def submit_if_ready(args, submit_args, config):
     """Submits the input XML file if it's already in the expected format."""
     __, ext = os.path.splitext(args.input_file)
     if ext.lower() != '.xml':
-        return
+        return None
 
     with io.open(args.input_file, encoding='utf-8') as input_file:
         xml = input_file.read(1024)
 
-    if not ('<testsuites' in xml or '<testcases' in xml):
-        return
+    if not ('<testsuites' in xml or '<testcases' in xml or '<requirements' in xml):
+        return None
 
     if args.no_submit:
-        logger.info("Nothing to do")
+        logger.info('Nothing to do')
         return 0
 
     # expect importer xml and just submit it

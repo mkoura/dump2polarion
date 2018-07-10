@@ -13,7 +13,7 @@ from tests import conf
 
 from dump2polarion import ostriztools
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.exporter import XunitExport
+from dump2polarion.xunit_exporter import XunitExport
 
 
 @pytest.fixture(scope="module")

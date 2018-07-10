@@ -1,5 +1,4 @@
+polarion-project-id             : RHCF3
 xunit_import_properties:
-    polarion-project-id         : RHCF3
-    polarion-dry-run            : false
     polarion-testrun-status-id  : inprogress
-auth_url: null
+auth_url                        : null

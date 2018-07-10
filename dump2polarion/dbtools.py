@@ -11,7 +11,7 @@ import sqlite3
 
 from collections import OrderedDict
 
-from dump2polarion import exporter
+from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException
 
 
@@ -29,7 +29,7 @@ def _get_testrun_from_sqlite(conn):
         cur.execute('SELECT testrun FROM testrun')
         return cur.fetchone()[0]
     except (IndexError, sqlite3.Error):
-        return
+        return None
 
 
 def _open_sqlite(db_file):
@@ -68,7 +68,7 @@ def import_sqlite(db_file, older_than=None, **kwargs):
 
     conn.close()
 
-    return exporter.ImportedData(results=results, testrun=testrun)
+    return xunit_exporter.ImportedData(results=results, testrun=testrun)
 
 
 def mark_exported_sqlite(db_file, older_than=None):

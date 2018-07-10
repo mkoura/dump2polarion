@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=logging-format-interpolation
 """
 Dump testcases results from a CSV input file to SQLite.
 """
@@ -80,7 +79,7 @@ def dump2sqlite(records, output_file):
     conn.commit()
     conn.close()
 
-    logger.info("Data written to '{}'".format(output_file))
+    logger.info("Data written to '%s'", output_file)
 
 
 def main(args=None):
@@ -90,7 +89,7 @@ def main(args=None):
     utils.init_log(args.log_level)
 
     if '.csv' not in args.input_file.lower():
-        logger.warn("Make sure the input file '{}' is in CSV format".format(args.input_file))
+        logger.warn("Make sure the input file '%s' is in CSV format", args.input_file)
 
     try:
         records = csvtools.get_imported_data(args.input_file)
@@ -103,8 +102,10 @@ def main(args=None):
     missing_columns = [required_columns[k] for k in required_columns if k not in records.results[0]]
     if missing_columns:
         logger.fatal(
-            "The input file '{}' is missing following columns: {}".format(
-                args.input_file, ', '.join(missing_columns)))
+            "The input file '%s' is missing following columns: %s",
+            args.input_file,
+            ', '.join(missing_columns)
+        )
         return 1
 
     try:

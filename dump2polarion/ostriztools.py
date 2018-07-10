@@ -7,6 +7,7 @@ from __future__ import absolute_import, unicode_literals
 
 import datetime
 import io
+import logging
 import json
 import os
 
@@ -15,8 +16,12 @@ from collections import OrderedDict
 import requests
 import six
 
-from dump2polarion import exporter
+from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
+
+
+# pylint: disable=invalid-name
+logger = logging.getLogger(__name__)
 
 
 IGNORED_PARAMS = {'browserVersion', 'browserPlatform', 'browserName'}
@@ -63,22 +68,22 @@ def _calculate_duration(start_time, finish_time):
     finish = datetime.datetime.fromtimestamp(finish_time)
     duration = finish - start
 
-    microseconds = float(('0.' + str(duration.microseconds)))
-    return duration.seconds + microseconds
+    decimals = float(('0.' + str(duration.microseconds)))
+    return duration.seconds + decimals
 
 
-# pylint: disable=inconsistent-return-statements
 def _get_testname(test_path):
     """Gets test name out of full test path."""
     path_end = test_path.find('.py/')
     if path_end:
         return test_path[path_end+4:]
+    return None
 
 
 def _filter_parameters(parameters):
     """Filters the ignored parameters out."""
     if not parameters:
-        return
+        return None
     return OrderedDict((param, value) for param, value in six.iteritems(parameters)
                        if param not in IGNORED_PARAMS)
 
@@ -86,7 +91,7 @@ def _filter_parameters(parameters):
 def _append_record(test_data, results, test_path):
     """Adds data of single testcase results to results database."""
     statuses = test_data.get('statuses')
-    jenkins_data = test_data.get('jenkins', {})
+    jenkins_data = test_data.get('jenkins') or {}
 
     data = [
         ('title', test_data.get('test_name') or _get_testname(test_path)),
@@ -107,6 +112,12 @@ def _append_record(test_data, results, test_path):
     results.append(OrderedDict(data))
 
 
+def _comp_finish_time(test_data, last_finish_time):
+    curr_finish_time = test_data.get('finish_time') or 0
+    if curr_finish_time > last_finish_time[0]:
+        last_finish_time[0] = curr_finish_time
+
+
 def _parse_ostriz(ostriz_data):
     """Reads the content of the input JSON and returns testcases results."""
     if not ostriz_data:
@@ -114,6 +125,7 @@ def _parse_ostriz(ostriz_data):
 
     results = []
     found_build = None
+    last_finish_time = [0]
     for test_path, test_data in six.iteritems(ostriz_data):
         curr_build = test_data.get('build')
         if not curr_build:
@@ -131,9 +143,13 @@ def _parse_ostriz(ostriz_data):
             continue
 
         _append_record(test_data, results, test_path)
+        _comp_finish_time(test_data, last_finish_time)
+
+    if last_finish_time[0]:
+        logger.info('Last result finished at %s', last_finish_time[0])
 
     testrun_id = _get_testrun_id(found_build)
-    return exporter.ImportedData(results=results, testrun=testrun_id)
+    return xunit_exporter.ImportedData(results=results, testrun=testrun_id)
 
 
 # pylint: disable=unused-argument

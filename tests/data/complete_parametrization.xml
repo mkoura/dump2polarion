@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testsuites>
+  <!--Generated for testrun 5_8_0_17-->
+  <properties>
+    <property name="polarion-testrun-id" value="5_8_0_17"/>
+    <property name="polarion-project-id" value="CLOUDTP"/>
+    <property name="polarion-dry-run" value="False"/>
+    <property name="polarion-response-test" value="test"/>
+    <property name="polarion-testrun-status-id" value="inprogress"/>
+    <property name="polarion-lookup-method" value="name"/>
+  </properties>
+  <testsuite name="Import for CLOUDTP - 5_8_0_17 testrun" errors="0" failures="0" skipped="0" time="2459.3562" tests="3">
+    <testcase name="TestInstanceRESTAPI.test_start" time="627.839309">
+      <properties>
+        <property name="polarion-testcase-id" value="TestInstanceRESTAPI.test_start"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-58z-extcloud-tests-master/10"/>
+        <property name="polarion-parameter-provider" value="azure"/>
+        <property name="polarion-parameter-from_detail" value="True"/>
+      </properties>
+    </testcase>
+    <testcase name="TestInstanceRESTAPI.test_stop" time="733.560498">
+      <properties>
+        <property name="polarion-testcase-id" value="TestInstanceRESTAPI.test_stop"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-58z-extcloud-tests-master/10"/>
+        <property name="polarion-parameter-provider" value="gce_central"/>
+        <property name="polarion-parameter-from_detail" value="False"/>
+      </properties>
+    </testcase>
+    <testcase name="test_quadicon_terminate_cancel" time="1097.956355">
+      <properties>
+        <property name="polarion-testcase-id" value="test_quadicon_terminate_cancel"/>
+        <property name="polarion-testcase-comment" value="Source: jenkins/downstream-58z-extcloud-tests-master/10"/>
+        <property name="polarion-parameter-provider" value="ec2-west"/>
+      </properties>
+    </testcase>
+  </testsuite>
+</testsuites>

@@ -11,7 +11,7 @@ import shutil
 import pytest
 from tests import conf
 
-from dump2polarion.exporter import XunitExport
+from dump2polarion.xunit_exporter import XunitExport
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion import dbtools
 

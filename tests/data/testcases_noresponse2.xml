@@ -4,7 +4,6 @@
   <properties>
     <property name="lookup-method" value="custom"/>
     <property name="dry-run" value="False"/>
-    <property name="dry-run" value="False"/>
   </properties>
   <testcase id="test_rpms_present[cfme]">
     <title>test_rpms_present[cfme]</title>

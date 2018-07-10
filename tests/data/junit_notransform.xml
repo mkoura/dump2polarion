@@ -1,15 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version='1.0' encoding='utf-8'?>
 <testsuites>
   <!--Generated for testrun 5_8_0_17-->
   <properties>
     <property name="polarion-testrun-id" value="5_8_0_17"/>
-    <property name="polarion-dry-run" value="False"/>
     <property name="polarion-project-id" value="RHCF3"/>
+    <property name="polarion-dry-run" value="False"/>
     <property name="polarion-response-test" value="test"/>
     <property name="polarion-testrun-status-id" value="inprogress"/>
     <property name="polarion-lookup-method" value="name"/>
   </properties>
-  <testsuite errors="3" failures="2" name="Import for RHCF3 - 5_8_0_17 testrun" skipped="0" tests="7" time="3864.4465">
+  <testsuite name="Import for RHCF3 - 5_8_0_17 testrun" errors="3" failures="2" skipped="0" time="3864.4465" tests="7">
     <testcase classname="cfme.tests.test_utilization_metrics" name="test_raw_metric_vm_network[rhv41]" time="1.78114914894">
       <error message="Skipping due to these blockers:         - Bugzilla bug https://bugzilla.redhat.com/show_bug.cgi?id=1408963 (or one of its copies)" type="error"/>
       <properties>

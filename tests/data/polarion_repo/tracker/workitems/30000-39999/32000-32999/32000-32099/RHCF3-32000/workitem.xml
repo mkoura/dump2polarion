@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<work-item>
+    <field id="approvals">
+        <list>
+            <struct>
+                <item id="status">approved</item>
+                <item id="user">psavage</item>
+            </struct>
+        </list>
+    </field>
+    <field id="assignee">mkourim</field>
+    <field id="author">importer</field>
+    <field id="automation_script" text-type="text/html" type="text/html">http://github.com/ManageIQ/integration_tests/blob/master/cfme/tests/cloud_infra_common/test_custom_attributes_rest.py#L247</field>
+    <field id="caseautomation" type="enum:caseautomationstatus">automated</field>
+    <field id="casecomponent" type="enum:casecomponent">-</field>
+    <field id="caseimportance" type="enum:caseimportance">high</field>
+    <field id="caselevel" type="enum:caselevel">system</field>
+    <field id="caseposneg" type="enum:caseposneg">positive</field>
+    <field id="created">2018-01-04 22:11:06.240 +0000</field>
+    <field id="description" text-type="text/html"><![CDATA[Test that editing custom attributes using REST API and adding invalid section fails.
+
+        Metadata:
+            test_flag: rest
+        <br id="20180607163747"/><br/><a href="http://github.com/ManageIQ/integration_tests/blob/master/cfme/tests/cloud_infra_common/test_custom_attributes_rest.py#L247">Test Source</a>]]></field>
+    <field id="initialEstimate">1/4h</field>
+    <field id="previousStatus">draft</field>
+    <field id="priority">50.0</field>
+    <field id="remainingEstimate">1/4h</field>
+    <field id="severity">-</field>
+    <field id="status">proposed</field>
+    <field id="subtype1" type="enum:subtype1">-</field>
+    <field id="subtype2" type="enum:subtype2">-</field>
+    <field id="testCaseID" type="string">TestCustomAttributesRESTAPI.test_bad_section_edit[scvmm-from_collection-providers]</field>
+    <field id="testSteps" type="struct:TestSteps">
+        <struct>
+            <item id="keys">
+                <list>
+                    <item>step</item>
+                    <item>expectedResult</item>
+                </list>
+            </item>
+            <item id="steps">
+                <list>
+                    <struct>
+                        <item id="values">
+                            <list>
+                                <item text-type="text/html"/>
+                                <item text-type="text/html"/>
+                            </list>
+                        </item>
+                    </struct>
+                </list>
+            </item>
+        </struct>
+    </field>
+    <field id="testtype" type="enum:testtype">functional</field>
+    <field id="title">TestCustomAttributesRESTAPI.test_bad_section_edit[scvmm-from_collection-providers]</field>
+    <field id="type">testcase</field>
+</work-item>

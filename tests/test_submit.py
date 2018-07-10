@@ -84,6 +84,11 @@ class TestSubmit(object):
         response = submit._get_submit_target(xml_root, config_prop)
         assert 'xunit' in response
 
+    def test_get_requirements_taget(self, config_prop):
+        xml_root = utils.get_xml_root_from_str('<requirements/>')
+        response = submit._get_submit_target(xml_root, config_prop)
+        assert 'requirement' in response
+
     def test_file_testsuites_failure(self, config_prop, captured_log):
         class Response(object):
             def __init__(self):

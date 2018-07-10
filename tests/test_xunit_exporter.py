@@ -1,5 +1,6 @@
 # encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
+# pylint: disable=c-extension-no-member
 
 from __future__ import unicode_literals
 
@@ -7,13 +8,13 @@ import os
 import copy
 import io
 
-from xml.etree import ElementTree
+from lxml import etree
 
 import pytest
 from tests import conf
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.exporter import ImportedData, XunitExport
+from dump2polarion.xunit_exporter import ImportedData, XunitExport
 from dump2polarion.importer import do_import
 from dump2polarion.utils import get_unicode_str
 
@@ -37,7 +38,7 @@ def test_top_element(config_prop, records_ids):
     exporter = XunitExport('5_8_0_17', records_ids, config_prop, transform_func=lambda: None)
     top_element = exporter._top_element()
     parsed = '<testsuites><!--Generated for testrun 5_8_0_17--></testsuites>'.strip()
-    top_element_str = get_unicode_str(ElementTree.tostring(top_element, 'utf-8').strip())
+    top_element_str = get_unicode_str(etree.tostring(top_element, encoding='utf-8').strip())
     assert top_element_str == parsed
 
 
@@ -48,25 +49,27 @@ class TestProperties(object):
         top_element = exporter._top_element()
         properties_element = exporter._properties_element(top_element)
         parsed = ('<properties>'
-                  '<property name="polarion-testrun-id" value="5_8_0_17" />'
-                  '<property name="polarion-dry-run" value="False" />'
-                  '<property name="polarion-project-id" value="RHCF3" />'
-                  '<property name="polarion-response-test" value="test" />'
-                  '<property name="polarion-testrun-status-id" value="inprogress" />'
+                  '<property name="polarion-testrun-id" value="5_8_0_17"/>'
+                  '<property name="polarion-project-id" value="RHCF3"/>'
+                  '<property name="polarion-dry-run" value="False"/>'
+                  '<property name="polarion-response-test" value="test"/>'
+                  '<property name="polarion-testrun-status-id" value="inprogress"/>'
                   '</properties>'.strip())
-        properties_str = get_unicode_str(ElementTree.tostring(properties_element, 'utf-8').strip())
+        properties_str = get_unicode_str(
+            etree.tostring(properties_element, encoding='utf-8').strip())
         assert properties_str == parsed
 
     def test_properties_lookup_config(self, config_prop, records_names):
         new_config = copy.deepcopy(config_prop)
-        new_config['xunit_import_properties']['polarion-lookup-method'] = "id"
+        new_config['xunit_import_properties']['polarion-lookup-method'] = 'id'
         exporter = XunitExport(
             '5_8_0_17', records_names, new_config, transform_func=lambda: None)
         top_element = exporter._top_element()
         properties_element = exporter._properties_element(top_element)
         exporter._fill_lookup_prop(properties_element)
-        properties_str = get_unicode_str(ElementTree.tostring(properties_element, 'utf-8').strip())
-        assert '<property name="polarion-lookup-method" value="id" />' in properties_str
+        properties_str = get_unicode_str(
+            etree.tostring(properties_element, encoding='utf-8').strip())
+        assert '<property name="polarion-lookup-method" value="id"/>' in properties_str
 
     def test_properties_invalid_lookup(self, config_prop, records_ids):
         new_config = copy.deepcopy(config_prop)

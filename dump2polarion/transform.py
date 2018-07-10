@@ -15,12 +15,12 @@ from dump2polarion.verdicts import Verdicts
 TEST_PARAM_RE = re.compile(r'\[.*\]')
 
 
-# pylint: disable=inconsistent-return-statements
 def only_passed_and_wait(result):
     """Returns PASS and WAIT results only, skips everything else."""
     verdict = result.get('verdict', '').strip().lower()
     if verdict in Verdicts.PASS + Verdicts.WAIT:
         return result
+    return None
 
 
 def _insert_source_info(result):
@@ -76,7 +76,7 @@ def _include_class_in_title(result):
         del result['classname']
 
 
-def get_results_transform_cfme(config):
+def get_xunit_transform_cfme(config):
     """Return result transformation function for CFME."""
     skip_searches = [
         'SKIPME:',
@@ -121,7 +121,7 @@ def get_results_transform_cfme(config):
 
 
 # pylint: disable=unused-argument
-def get_results_transform_cmp(config):
+def get_xunit_transform_cmp(config):
     """Return result transformation function for CFME."""
     skip_searches = [
         'SKIPME:',
@@ -173,14 +173,55 @@ def get_results_transform_cmp(config):
     return results_transform
 
 
-PROJECT_MAPPING = {
-    'RHCF3': get_results_transform_cfme,
-    'CMP': get_results_transform_cmp,
+def get_testcases_transform_cfme(config):
+    """Return testcases transformation function for CFME."""
+
+    parametrize = config.get('cfme_parametrize', False)
+
+    def testcase_transform(testcase):
+        """Testcases transform for CFME."""
+        _setup_parametrization(testcase, parametrize)
+
+        return testcase
+
+    return testcase_transform
+
+
+def get_requirements_transform_cfme(config):
+    """Return requirement transformation function for CFME."""
+
+    def requirement_transform(requirement):
+        """Requirements transform for CFME."""
+        if 'id' in requirement:
+            del requirement['id']
+        # TODO: testing purposes, remove once ready
+        if not requirement.get('assignee-id'):
+            requirement['assignee-id'] = 'mkourim'
+        if not requirement.get('approver-ids'):
+            requirement['approver-ids'] = 'mkourim:approved'
+
+        return requirement
+
+    return requirement_transform
+
+
+PROJECT_MAPPING_XUNIT = {
+    'RHCF3': get_xunit_transform_cfme,
+    'CMP': get_xunit_transform_cmp,
+    'CLOUDTP': get_xunit_transform_cfme,
+}
+
+PROJECT_MAPPING_TESTCASES = {
+    'RHCF3': get_testcases_transform_cfme,
+}
+
+PROJECT_MAPPING_REQ = {
+    'RHCF3': get_requirements_transform_cfme,
+    'CLOUDTP': get_requirements_transform_cfme,
 }
 
 
-# pylint: disable=inconsistent-return-statements
-def get_results_transform(config):
+def get_xunit_transform(config):
     """Returns results transformation function.
 
     The transformation function is returned by calling corresponding "getter" function.
@@ -192,6 +233,43 @@ def get_results_transform(config):
     and will not be written to the resulting XML.
     """
 
-    project = config['xunit_import_properties']['polarion-project-id']
-    if project in PROJECT_MAPPING:
-        return PROJECT_MAPPING[project](config)
+    project = config['polarion-project-id']
+    if project in PROJECT_MAPPING_XUNIT:
+        return PROJECT_MAPPING_XUNIT[project](config)
+    return None
+
+
+def get_testcases_transform(config):
+    """Returns results transformation function.
+
+    The transformation function is returned by calling corresponding "getter" function.
+
+    This allows customizations of results data according to requirements
+    of the specific project.
+
+    When no results data are returned, this result will be ignored
+    and will not be written to the resulting XML.
+    """
+
+    project = config['polarion-project-id']
+    if project in PROJECT_MAPPING_TESTCASES:
+        return PROJECT_MAPPING_TESTCASES[project](config)
+    return None
+
+
+def get_requirements_transform(config):
+    """Returns requirements transformation function.
+
+    The transformation function is returned by calling corresponding "getter" function.
+
+    This allows customizations of results data according to requirements
+    of the specific project.
+
+    When no results data are returned, this result will be ignored
+    and will not be written to the resulting XML.
+    """
+
+    project = config['polarion-project-id']
+    if project in PROJECT_MAPPING_REQ:
+        return PROJECT_MAPPING_REQ[project](config)
+    return None

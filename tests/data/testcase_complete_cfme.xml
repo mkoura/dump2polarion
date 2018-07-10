@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='utf-8'?>
+<testcases project-id="CLOUDTP">
+  <properties>
+    <property name="prop1" value="val1"/>
+    <property name="prop2" value="val2"/>
+    <property name="lookup-method" value="id"/>
+  </properties>
+  <testcase id="ITEM01" approver-ids="mkourim:approved" assignee-id="mkourim" due-date="2018-09-30" initial-estimate="1/4h">
+    <title>test_manual</title>
+    <description>Manual tests with all supported fields.</description>
+    <test-steps>
+      <test-step>
+        <test-step-column id="step">step1</test-step-column>
+        <test-step-column id="expectedResult">result1</test-step-column>
+      </test-step>
+      <test-step>
+        <test-step-column id="step">step2</test-step-column>
+        <test-step-column id="expectedResult">result2</test-step-column>
+      </test-step>
+    </test-steps>
+    <custom-fields>
+      <custom-field content="manualonly" id="caseautomation"/>
+      <custom-field content="high" id="caseimportance"/>
+      <custom-field content="component" id="caselevel"/>
+      <custom-field content="positive" id="caseposneg"/>
+      <custom-field content="functional" id="testtype"/>
+      <custom-field content="-" id="subtype1"/>
+      <custom-field content="-" id="subtype2"/>
+      <custom-field content="yes" id="upstream"/>
+      <custom-field content="tag1, tag2" id="tags"/>
+      <custom-field content="Do this first" id="setup"/>
+      <custom-field content="Clean up" id="teardown"/>
+      <custom-field content="https://gitlab.com/foo" id="automation_script"/>
+    </custom-fields>
+    <linked-work-items>
+      <linked-work-item workitem-id="ITEM01" role-id="verifies"/>
+    </linked-work-items>
+  </testcase>
+</testcases>

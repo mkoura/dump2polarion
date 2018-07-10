@@ -16,7 +16,7 @@ class TestConfiguration(object):
     def test_nonexistant(self):
         with pytest.raises(Dump2PolarionException) as excinfo:
             configuration.get_config('nonexistant')
-        assert "Cannot open config file 'nonexistant'" in str(excinfo.value)
+        assert "Cannot open config file nonexistant" in str(excinfo.value)
 
     def test_default(self):
         with pytest.raises(Dump2PolarionException) as excinfo:
@@ -27,7 +27,7 @@ class TestConfiguration(object):
         cfg = configuration.get_config(config_e2e)
         assert cfg['xunit_import_properties']['polarion-dry-run'] is False
         assert cfg['username'] == 'user1'
-        assert cfg['xunit_import_properties']['polarion-project-id'] == 'RHCF3'
+        assert cfg['polarion-project-id'] == 'RHCF3'
 
     @pytest.mark.parametrize('config', ['dump2polarion_legacy.yaml', 'dump2polarion.yaml'])
     def test_populate(self, config):
