@@ -70,6 +70,20 @@ def _populate_urls(config):
             config[key] = '{}/{}'.format(base_url, url)
 
 
+def _set_project_id(config):
+    if config.get('polarion-project-id'):
+        return
+    # use legacy configuration if available
+    xunit_project = config.get('xunit_import_properties', {}).get('polarion-project-id')
+    if xunit_project:
+        config['polarion-project-id'] = xunit_project
+        logger.warning(
+            'Loading the "polarion-project-id" from legacy configuration "xunit_import_properties"'
+            ' instead of from top level')
+    else:
+        raise Dump2PolarionException('The "polarion-project-id" key is missing in the config file')
+
+
 def get_config(config_file=None):
     """Loads config file and returns its content."""
     default_conf = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'dump2polarion.yaml')
@@ -100,6 +114,7 @@ def get_config(config_file=None):
                 'Failed to load the \'{}\' config file: {}'.format(user_conf, err))
 
     _populate_urls(config_settings)
+    _set_project_id(config_settings)
     _check_config(config_settings)
 
     return config_settings

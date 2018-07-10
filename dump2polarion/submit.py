@@ -136,7 +136,7 @@ def _get_credentials(config, **kwargs):
 
 # pylint: disable=too-many-arguments
 def submit(xml_str=None, xml_file=None, xml_root=None, config=None, session=None,
-           dry_run=False, **kwargs):
+           dry_run=None, **kwargs):
     """Submits data to the Polarion Importer."""
     try:
         config = config or configuration.get_config()
@@ -144,8 +144,8 @@ def submit(xml_str=None, xml_file=None, xml_root=None, config=None, session=None
         credentials = _get_credentials(config, **kwargs)
         submit_target = _get_submit_target(xml_root, config)
         properties.xunit_fill_testrun_id(xml_root, kwargs.get('testrun_id'))
-        if dry_run:
-            properties.set_dry_run(xml_root)
+        if dry_run is not None:
+            properties.set_dry_run(xml_root, dry_run)
         xml_input = utils.etree_to_string(xml_root)
         session = session or utils.get_session(credentials, config)
     except Dump2PolarionException as err:
@@ -166,7 +166,7 @@ def submit(xml_str=None, xml_file=None, xml_root=None, config=None, session=None
 
 # pylint: disable=too-many-arguments
 def submit_and_verify(xml_str=None, xml_file=None, xml_root=None, config=None, session=None,
-                      dry_run=False, **kwargs):
+                      dry_run=None, **kwargs):
     """Submits data to the Polarion Importer and checks that it was imported."""
     try:
         config = config or configuration.get_config()

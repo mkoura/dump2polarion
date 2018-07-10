@@ -27,7 +27,7 @@ class TestConfiguration(object):
         cfg = configuration.get_config(config_e2e)
         assert cfg['xunit_import_properties']['polarion-dry-run'] is False
         assert cfg['username'] == 'user1'
-        assert cfg['xunit_import_properties']['polarion-project-id'] == 'RHCF3'
+        assert cfg['polarion-project-id'] == 'RHCF3'
 
     @pytest.mark.parametrize('config', ['dump2polarion_legacy.yaml', 'dump2polarion.yaml'])
     def test_populate(self, config):

@@ -50,8 +50,8 @@ class TestProperties(object):
         properties_element = exporter._properties_element(top_element)
         parsed = ('<properties>'
                   '<property name="polarion-testrun-id" value="5_8_0_17"/>'
-                  '<property name="polarion-dry-run" value="False"/>'
                   '<property name="polarion-project-id" value="RHCF3"/>'
+                  '<property name="polarion-dry-run" value="False"/>'
                   '<property name="polarion-response-test" value="test"/>'
                   '<property name="polarion-testrun-status-id" value="inprogress"/>'
                   '</properties>'.strip())

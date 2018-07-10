@@ -138,11 +138,13 @@ def set_lookup_method(xml_root, value):
         raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)
 
 
-def set_dry_run(xml_root):
+def set_dry_run(xml_root, value=False):
     """Sets dry-run so records are not updated, only log file is produced."""
+    value_str = str(value).lower()
+    assert value_str in ('true', 'false')
     if xml_root.tag == 'testsuites':
-        _set_property(xml_root, 'polarion-dry-run', 'true')
+        _set_property(xml_root, 'polarion-dry-run', value_str)
     elif xml_root.tag in ('testcases', 'requirements'):
-        _set_property(xml_root, 'dry-run', 'true')
+        _set_property(xml_root, 'dry-run', value_str)
     else:
         raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)

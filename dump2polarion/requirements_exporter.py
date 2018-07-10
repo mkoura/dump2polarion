@@ -2,11 +2,34 @@
 # pylint: disable=c-extension-no-member
 """
 Creates a Requirement XML file for submitting to the Polarion Importer.
+
+Example of input requirements_data:
+requirements_data = [
+    {
+        'title': 'requirement_complete',
+        'description': 'Complete Requirement',
+        'approver-ids': 'mkourim:approved',
+        'assignee-id': 'mkourim',
+        'category-ids': 'category_id1, category_id2',
+        'due-date': '2018-09-30',
+        'planned-in-ids': 'planned_id1, planned_id2',
+        'initial-estimate': '1/4h',
+        'priority-id': 'high',
+        'severity-id': 'should_have',
+        'status-id': 'status_id',
+        'reqtype': 'functional',
+    },
+    {
+        'title': 'requirement_minimal',
+    },
+]
 """
 
 from __future__ import absolute_import, unicode_literals
 
 import datetime
+
+from collections import OrderedDict
 
 import six
 
@@ -19,20 +42,20 @@ from dump2polarion.exceptions import Dump2PolarionException, NothingToDoExceptio
 class RequirementExport(object):
     """Exports requirements data into XML representation."""
 
-    REQ_DATA = {
-        'approver-ids': None,
-        'assignee-id': None,
-        'category-ids': None,
-        'due-date': None,
-        'planned-in-ids': None,
-        'initial-estimate': None,
-        'priority-id': 'high',
-        'severity-id': 'should_have',
-        'status-id': None,
-    }
-    CUSTOM_FIELDS = {
-        'reqtype': 'functional',
-    }
+    REQ_DATA = OrderedDict((
+        ('approver-ids', None),
+        ('assignee-id', None),
+        ('category-ids', None),
+        ('due-date', None),
+        ('initial-estimate', None),
+        ('planned-in-ids', None),
+        ('priority-id', 'high'),
+        ('severity-id', 'should_have'),
+        ('status-id', None),
+    ))
+    CUSTOM_FIELDS = OrderedDict((
+        ('reqtype', 'functional'),
+    ))
 
     def __init__(self, requirements_data, config, transform_func=None):
         self.requirements_data = requirements_data
@@ -48,7 +71,7 @@ class RequirementExport(object):
 
     def _top_element(self):
         """Returns top XML element."""
-        attrs = {'project-id': self.config['xunit_import_properties']['polarion-project-id']}
+        attrs = {'project-id': self.config['polarion-project-id']}
         document_relative_path = self.config.get('requirements-document-relative-path')
         if document_relative_path:
             attrs['document-relative-path'] = document_relative_path
@@ -100,8 +123,8 @@ class RequirementExport(object):
         return True
 
     def _classify_data(self, req_data):
-        attrs = {}
-        custom_fields = {}
+        attrs = OrderedDict()
+        custom_fields = OrderedDict()
 
         for key, value in six.iteritems(req_data):
             if not value:

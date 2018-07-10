@@ -8,6 +8,8 @@ import copy
 import io
 import os
 
+from collections import OrderedDict
+
 import pytest
 from tests import conf
 
@@ -16,39 +18,39 @@ from dump2polarion.requirements_exporter import RequirementExport
 
 
 REQ_DATA = [
-    {
-        'title': 'req01',
-        'approver-ids': 'sbulage:approved',
-        'assignee-id': 'mkourim',
-        'category-ids': 'CAT-01',
-        'due-date': '2018-05-30',
-        'planned-in-ids': 'PROJ-01',
-        'initial-estimate': '1/4h',
-        'priority-id': 'medium',
-        'severity-id': 'good_to_have',
-        'status-id': 'STAT-01',
-        'reqtype': 'functional',
-    },
-    {
-        'title': 'req02',
-        'description': 'requirement description',
-        'assignee-id': 'mkourim',
-        'initial-estimate': '1/4h',
-    },
-    {
-        'id': 'PROJ-01',
-        'title': 'req03',
-        'initial-estimate': None,
-    },
-    {
-        'id': 'PROJ-02',
-    },
+    OrderedDict((
+        ('title', 'req01'),
+        ('approver-ids', 'sbulage:approved'),
+        ('assignee-id', 'mkourim'),
+        ('category-ids', 'CAT-01'),
+        ('due-date', '2018-05-30'),
+        ('planned-in-ids', 'PROJ-01'),
+        ('initial-estimate', '1/4h'),
+        ('priority-id', 'medium'),
+        ('severity-id', 'good_to_have'),
+        ('status-id', 'STAT-01'),
+        ('reqtype', 'functional'),
+    )),
+    OrderedDict((
+        ('title', 'req02'),
+        ('description', 'requirement description'),
+        ('assignee-id', 'mkourim'),
+        ('initial-estimate', '1/4h'),
+    )),
+    OrderedDict((
+        ('id', 'PROJ-01'),
+        ('title', 'req03'),
+        ('initial-estimate', None),
+    )),
+    OrderedDict((
+        ('id', 'PROJ-02'),
+    )),
 ]
 
 
 @pytest.fixture(scope='module')
 def config_cloudtp(config_prop):
-    config_prop['xunit_import_properties']['polarion-project-id'] = 'CLOUDTP'
+    config_prop['polarion-project-id'] = 'CLOUDTP'
     config_prop['requirements-document-relative-path'] = 'testing/requirements'
     config_prop['requirements_import_properties'] = {
         'prop1': 'val1',

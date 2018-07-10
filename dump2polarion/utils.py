@@ -76,31 +76,37 @@ def _get_filename(output_loc=None, filename=None):
     return filename_fin
 
 
-def write_xml(xml, output_loc=None, filename=None):
-    """Outputs the XML content into a file.
+def write_xml(xml_str, output_loc=None, filename=None):
+    """Outputs the XML content (string) into a file.
+
+    If `output_loc` is supplied and it's a file (not directory), the output
+    will be saved there and the `filename` is ignored.
 
     Args:
-        xml: string with XML document
+        xml_str: string with XML document
         output_loc: file or directory for saving the file
-        filename: file name that will be used if output_loc is directory
+        filename: file name that will be used if `output_loc` is directory
             If it is needed and is not supplied, it will be generated
     """
-    if not xml:
+    if not xml_str:
         raise Dump2PolarionException("No data to write.")
     filename_fin = _get_filename(output_loc=output_loc, filename=filename)
 
     with io.open(filename_fin, 'w', encoding='utf-8') as xml_file:
-        xml_file.write(get_unicode_str(xml))
+        xml_file.write(get_unicode_str(xml_str))
     logger.info("Data written to '%s'", filename_fin)
 
 
 def write_xml_root(xml_root, output_loc=None, filename=None):
-    """Outputs the XML content into a file.
+    """Outputs the XML content (from XML element) into a file.
+
+    If `output_loc` is supplied and it's a file (not directory), the output
+    will be saved there and the `filename` is ignored.
 
     Args:
         xml_root: root element ot the XML document
         output_loc: file or directory for saving the file
-        filename: file name that will be used if output_loc is directory
+        filename: file name that will be used if `output_loc` is directory
             If it is needed and is not supplied, it will be generated
     """
     if xml_root is None:
@@ -123,10 +129,10 @@ def get_xml_root(xml_file):
     return xml_root
 
 
-def get_xml_root_from_str(xml):
+def get_xml_root_from_str(xml_str):
     """Returns XML root from string."""
     try:
-        xml_root = etree.fromstring(xml.encode('utf-8'))
+        xml_root = etree.fromstring(xml_str.encode('utf-8'))
     # pylint: disable=broad-except
     except Exception as err:
         raise Dump2PolarionException("Failed to parse XML string: {}".format(err))

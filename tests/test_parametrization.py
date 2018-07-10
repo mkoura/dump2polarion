@@ -21,7 +21,7 @@ def records_names():
 
 @pytest.fixture(scope='module')
 def config_cloudtp(config_prop):
-    config_prop['xunit_import_properties']['polarion-project-id'] = 'CLOUDTP'
+    config_prop['polarion-project-id'] = 'CLOUDTP'
     config_prop['cfme_parametrize'] = True
     return config_prop
 

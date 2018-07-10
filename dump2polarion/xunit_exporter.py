@@ -29,7 +29,7 @@ class XunitExport(object):
         self.tests_records = tests_records
         self.config = config
         self._lookup_prop = ''
-        self._transform_func = transform_func or transform.get_results_transform(config)
+        self._transform_func = transform_func or transform.get_xunit_transform(config)
 
     def _top_element(self):
         """Returns top XML element."""
@@ -42,8 +42,16 @@ class XunitExport(object):
         """Returns properties XML element."""
         testsuites_properties = etree.SubElement(parent_element, 'properties')
 
-        etree.SubElement(testsuites_properties, 'property',
-                         {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)})
+        etree.SubElement(
+            testsuites_properties,
+            'property',
+            {'name': 'polarion-testrun-id', 'value': str(self.testrun_id)}
+        )
+        etree.SubElement(
+            testsuites_properties,
+            'property',
+            {'name': 'polarion-project-id', 'value': str(self.config['polarion-project-id'])}
+        )
 
         for name, value in sorted(self.config['xunit_import_properties'].items()):
             if name == 'polarion-lookup-method':
@@ -53,6 +61,9 @@ class XunitExport(object):
                         "Invalid value '{}' for the 'polarion-lookup-method' property".format(
                             str(value)))
                 self._lookup_prop = lookup_prop
+            elif name in ('polarion-testrun-id', 'polarion-project-id'):
+                # this was already set
+                continue
             else:
                 etree.SubElement(
                     testsuites_properties, 'property', {'name': name, 'value': str(value)})
@@ -74,7 +85,7 @@ class XunitExport(object):
             parent_element,
             'testsuite',
             {'name': 'Import for {} - {} testrun'.format(
-                self.config['xunit_import_properties']['polarion-project-id'], self.testrun_id)})
+                self.config['polarion-project-id'], self.testrun_id)})
         return testsuite
 
     @staticmethod

@@ -144,7 +144,7 @@ class TestProperties(object):
         xml_root = utils.get_xml_root(os.path.join(conf.DATA_PATH, fname))
         filled = utils.etree_to_string(xml_root)
         assert 'polarion-dry-run' not in filled
-        properties.set_dry_run(xml_root)
+        properties.set_dry_run(xml_root, True)
         filled = utils.etree_to_string(xml_root)
         assert 'property name="polarion-dry-run" value="true"' in filled
 
@@ -153,6 +153,6 @@ class TestProperties(object):
         xml_root = utils.get_xml_root(os.path.join(conf.DATA_PATH, fname))
         filled = utils.etree_to_string(xml_root)
         assert 'dry-run' not in filled
-        properties.set_dry_run(xml_root)
+        properties.set_dry_run(xml_root, True)
         filled = utils.etree_to_string(xml_root)
         assert 'property name="dry-run" value="true"' in filled

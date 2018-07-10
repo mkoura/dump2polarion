@@ -8,6 +8,8 @@ import io
 import os
 import logging
 
+from collections import OrderedDict
+
 import pytest
 
 from tests import conf
@@ -22,19 +24,23 @@ GENERIC_CONF = {
     'requirement_queue': 'https://polarion.example.com/import/requirement-queue',
 }
 
-RHCF3_PROPS = {
-    'polarion-dry-run': False,
-    'polarion-project-id': 'RHCF3',
-    'polarion-testrun-status-id': 'inprogress',
-    'polarion-response-test': 'test'
-}
+RHCF3_XUNIT_PROPS = OrderedDict((
+    ('polarion-dry-run', False),
+    ('polarion-testrun-status-id', 'inprogress'),
+    ('polarion-response-test', 'test'),
+))
+RHCF3_TESTCASE_PROPS = OrderedDict((
+    ('lookup-method', 'name'),
+))
 
 RHCF3_CONF = GENERIC_CONF.copy()
-RHCF3_CONF['xunit_import_properties'] = RHCF3_PROPS
+RHCF3_CONF['polarion-project-id'] = 'RHCF3'
+RHCF3_CONF['xunit_import_properties'] = RHCF3_XUNIT_PROPS
+RHCF3_CONF['testcase_import_properties'] = RHCF3_TESTCASE_PROPS
 
 CMP_CONF = GENERIC_CONF.copy()
-CMP_CONF['xunit_import_properties'] = RHCF3_PROPS.copy()
-CMP_CONF['xunit_import_properties']['polarion-project-id'] = 'CMP'
+CMP_CONF['polarion-project-id'] = 'CMP'
+CMP_CONF['xunit_import_properties'] = RHCF3_XUNIT_PROPS.copy()
 
 
 @pytest.fixture(scope='module')
