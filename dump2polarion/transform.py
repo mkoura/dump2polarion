@@ -8,6 +8,7 @@ set the 'id' of the testcase to desired value.
 
 from __future__ import absolute_import, unicode_literals
 
+import copy
 import re
 
 from dump2polarion.verdicts import Verdicts
@@ -95,7 +96,7 @@ def get_xunit_transform_cfme(config):
         if not verdict:
             return None
 
-        result = result.copy()
+        result = copy.deepcopy(result)
 
         _setup_parametrization(result, parametrize)
         _include_class_in_title(result)
@@ -138,7 +139,7 @@ def get_xunit_transform_cmp(config):
         if not verdict:
             return None
 
-        result = result.copy()
+        result = copy.deepcopy(result)
 
         # don't parametrize if not specifically configured
         if result.get('params'):
@@ -180,6 +181,8 @@ def get_testcases_transform_cfme(config):
 
     def testcase_transform(testcase):
         """Testcases transform for CFME."""
+        testcase = copy.deepcopy(testcase)
+
         _setup_parametrization(testcase, parametrize)
 
         return testcase
@@ -192,6 +195,8 @@ def get_requirements_transform_cfme(config):
 
     def requirement_transform(requirement):
         """Requirements transform for CFME."""
+        requirement = copy.deepcopy(requirement)
+
         if 'id' in requirement:
             del requirement['id']
         # TODO: testing purposes, remove once ready
