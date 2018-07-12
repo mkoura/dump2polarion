@@ -52,12 +52,13 @@ REQ_DATA = [
 
 @pytest.fixture(scope='module')
 def config_cloudtp(config_prop):
-    config_prop['polarion-project-id'] = 'CLOUDTP'
-    config_prop['testcase_import_properties'] = {
+    cloudtp = copy.deepcopy(config_prop)
+    cloudtp['polarion-project-id'] = 'CLOUDTP'
+    cloudtp['testcase_import_properties'] = {
         'prop1': 'val1',
         'prop2': 'val2',
     }
-    return config_prop
+    return cloudtp
 
 
 class TestTestcase(object):
@@ -73,6 +74,16 @@ class TestTestcase(object):
         testcase_exp = TestcaseExport(REQ_DATA, config_prop)
         complete = testcase_exp.export()
         fname = 'testcase_complete_cfme.xml'
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
+            parsed = input_xml.read()
+        assert complete == parsed
+
+    def test_export_cfme_params(self, config_prop):
+        new_config = copy.deepcopy(config_prop)
+        new_config['cfme_parametrize'] = True
+        testcase_exp = TestcaseExport(REQ_DATA, new_config)
+        complete = testcase_exp.export()
+        fname = 'testcase_complete_cfme_param.xml'
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding='utf-8') as input_xml:
             parsed = input_xml.read()
         assert complete == parsed

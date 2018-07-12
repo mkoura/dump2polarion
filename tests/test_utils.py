@@ -7,6 +7,8 @@ import os
 
 import pytest
 
+from tests import conf
+
 from mock import patch
 
 from dump2polarion import utils
@@ -40,6 +42,19 @@ class TestUtils(object):
     def test_write_xml_file(self, tmpdir):
         dirname = str(tmpdir)
         utils.write_xml('<xml />', filename=os.path.join(dirname, 'output123.xml'))
+        assert 'output123.xml' in os.listdir(dirname)[0]
+
+    def test_write_xml_root_none(self, tmpdir):
+        dirname = str(tmpdir)
+        with pytest.raises(Dump2PolarionException) as excinfo:
+            utils.write_xml_root(None, filename=os.path.join(dirname, 'output123.xml'))
+        assert 'No data to write' in str(excinfo.value)
+
+    def test_write_xml_root_file(self, tmpdir):
+        fname = 'complete_transform_noresponse.xml'
+        xml_root = utils.get_xml_root(os.path.join(conf.DATA_PATH, fname))
+        dirname = str(tmpdir)
+        utils.write_xml_root(xml_root, filename=os.path.join(dirname, 'output123.xml'))
         assert 'output123.xml' in os.listdir(dirname)[0]
 
     def test_write_xml_no_data(self, tmpdir):

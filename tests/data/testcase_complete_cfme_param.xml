@@ -38,7 +38,10 @@
     <title>test_minimal_param</title>
     <test-steps>
       <test-step>
-        <test-step-column id="step"/>
+        <test-step-column id="step">
+          <parameter name="param1" scope="local"/>
+          <parameter name="param2" scope="local"/>
+        </test-step-column>
       </test-step>
     </test-steps>
     <custom-fields>
