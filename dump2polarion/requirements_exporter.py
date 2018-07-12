@@ -42,25 +42,25 @@ from dump2polarion.exceptions import Dump2PolarionException, NothingToDoExceptio
 class RequirementExport(object):
     """Exports requirements data into XML representation."""
 
-    REQ_DATA = OrderedDict((
-        ('approver-ids', None),
-        ('assignee-id', None),
-        ('category-ids', None),
-        ('due-date', None),
-        ('initial-estimate', None),
-        ('planned-in-ids', None),
-        ('priority-id', 'high'),
-        ('severity-id', 'should_have'),
-        ('status-id', None),
-    ))
-    CUSTOM_FIELDS = OrderedDict((
-        ('reqtype', 'functional'),
-    ))
+    REQ_DATA = OrderedDict(
+        (
+            ("approver-ids", None),
+            ("assignee-id", None),
+            ("category-ids", None),
+            ("due-date", None),
+            ("initial-estimate", None),
+            ("planned-in-ids", None),
+            ("priority-id", "high"),
+            ("severity-id", "should_have"),
+            ("status-id", None),
+        )
+    )
+    CUSTOM_FIELDS = OrderedDict((("reqtype", "functional"),))
 
     def __init__(self, requirements_data, config, transform_func=None):
         self.requirements_data = requirements_data
         self.config = config
-        self._lookup_prop = ''
+        self._lookup_prop = ""
         self._transform_func = transform_func or transform.get_requirements_transform(config)
 
     def _transform_result(self, result):
@@ -71,55 +71,56 @@ class RequirementExport(object):
 
     def _top_element(self):
         """Returns top XML element."""
-        attrs = {'project-id': self.config['polarion-project-id']}
-        document_relative_path = self.config.get('requirements-document-relative-path')
+        attrs = {"project-id": self.config["polarion-project-id"]}
+        document_relative_path = self.config.get("requirements-document-relative-path")
         if document_relative_path:
-            attrs['document-relative-path'] = document_relative_path
-        top = etree.Element(
-            'requirements',
-            attrs,
-        )
+            attrs["document-relative-path"] = document_relative_path
+        top = etree.Element("requirements", attrs)
         return top
 
     def _properties_element(self, parent_element):
         """Returns properties XML element."""
-        requirements_properties = etree.SubElement(parent_element, 'properties')
+        requirements_properties = etree.SubElement(parent_element, "properties")
 
-        req_properties_conf = self.config.get('requirements_import_properties') or {}
+        req_properties_conf = self.config.get("requirements_import_properties") or {}
         for name, value in sorted(six.iteritems(req_properties_conf)):
-            if name == 'lookup-method':
+            if name == "lookup-method":
                 lookup_prop = str(value).lower()
-                if lookup_prop not in ('id', 'name'):
+                if lookup_prop not in ("id", "name"):
                     raise Dump2PolarionException(
-                        "Invalid value '{}' for the 'lookup-method' property".format(str(value)))
+                        "Invalid value '{}' for the 'lookup-method' property".format(str(value))
+                    )
                 self._lookup_prop = lookup_prop
             else:
                 etree.SubElement(
-                    requirements_properties, 'property', {'name': name, 'value': str(value)})
+                    requirements_properties, "property", {"name": name, "value": str(value)}
+                )
 
         return requirements_properties
 
     def _fill_lookup_prop(self, requirements_properties):
         """Fills the polarion-lookup-method property."""
         if not self._lookup_prop:
-            raise Dump2PolarionException(
-                "Failed to set the 'polarion-lookup-method' property")
+            raise Dump2PolarionException("Failed to set the 'polarion-lookup-method' property")
 
-        etree.SubElement(requirements_properties, 'property',
-                         {'name': 'lookup-method', 'value': self._lookup_prop})
+        etree.SubElement(
+            requirements_properties,
+            "property",
+            {"name": "lookup-method", "value": self._lookup_prop},
+        )
 
     def _check_lookup_prop(self, req_id, req_title):
         """Checks that selected lookup property can be used for this testcase."""
         if self._lookup_prop:
-            if not req_id and self._lookup_prop != 'name':
+            if not req_id and self._lookup_prop != "name":
                 return None
-            if not req_title and self._lookup_prop == 'name':
+            if not req_title and self._lookup_prop == "name":
                 return None
         else:
             if req_id:
-                self._lookup_prop = 'id'
+                self._lookup_prop = "id"
             elif req_title:
-                self._lookup_prop = 'name'
+                self._lookup_prop = "name"
         return True
 
     def _classify_data(self, req_data):
@@ -150,13 +151,9 @@ class RequirementExport(object):
         if not custom_fields:
             return
 
-        custom_fields_el = etree.SubElement(parent, 'custom-fields')
+        custom_fields_el = etree.SubElement(parent, "custom-fields")
         for field, content in six.iteritems(custom_fields):
-            etree.SubElement(
-                custom_fields_el,
-                'custom-field',
-                {'id': field, 'content': content}
-            )
+            etree.SubElement(custom_fields_el, "custom-field", {"id": field, "content": content})
 
     def _requirement_element(self, parent_element, req_data):
         """Adds requirement XML element."""
@@ -164,8 +161,8 @@ class RequirementExport(object):
         if not req_data:
             return
 
-        title = req_data.get('title')
-        req_id = req_data.get('id')
+        title = req_data.get("title")
+        req_id = req_data.get("id")
         if not (title or req_id):
             return
 
@@ -175,25 +172,21 @@ class RequirementExport(object):
         attrs, custom_fields = self._classify_data(req_data)
         attrs, custom_fields = self._fill_defaults(attrs, custom_fields)
 
-        requirement = etree.SubElement(
-            parent_element,
-            'requirement',
-            attrs,
-        )
+        requirement = etree.SubElement(parent_element, "requirement", attrs)
 
-        title_el = etree.SubElement(requirement, 'title')
+        title_el = etree.SubElement(requirement, "title")
         title_el.text = title
 
-        description = req_data.get('description')
+        description = req_data.get("description")
         if description:
-            description_el = etree.SubElement(requirement, 'description')
+            description_el = etree.SubElement(requirement, "description")
             description_el.text = description
 
         self._fill_custom_fields(requirement, custom_fields)
 
     def _fill_requirements(self, parent_element):
         if not self.requirements_data:
-            raise NothingToDoException('Nothing to export')
+            raise NothingToDoException("Nothing to export")
         for req_data in self.requirements_data:
             self._requirement_element(parent_element, req_data)
 
@@ -208,5 +201,5 @@ class RequirementExport(object):
     @staticmethod
     def write_xml(xml, output_file=None):
         """Outputs the XML content into a file."""
-        gen_filename = 'requirements-{:%Y%m%d%H%M%S}.xml'.format(datetime.datetime.now())
+        gen_filename = "requirements-{:%Y%m%d%H%M%S}.xml".format(datetime.datetime.now())
         utils.write_xml(xml, output_loc=output_file, filename=gen_filename)

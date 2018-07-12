@@ -20,15 +20,16 @@ def _get_csv_fieldnames(csv_reader):
     fieldnames = []
     for row in csv_reader:
         for col in row:
-            field = (col.
-                     strip().
-                     replace('"', '').
-                     replace(' ', '').
-                     replace('(', '').
-                     replace(')', '').
-                     lower())
+            field = (
+                col.strip()
+                .replace('"', "")
+                .replace(" ", "")
+                .replace("(", "")
+                .replace(")", "")
+                .lower()
+            )
             fieldnames.append(field)
-        if 'id' in fieldnames:
+        if "id" in fieldnames:
             break
         else:
             # this is not a row with fieldnames
@@ -45,7 +46,7 @@ def _get_csv_fieldnames(csv_reader):
     suffix = 1
     for index, field in enumerate(fieldnames):
         if not field:
-            fieldnames[index] = 'field{}'.format(suffix)
+            fieldnames[index] = "field{}".format(suffix)
             suffix += 1
 
     return fieldnames
@@ -61,12 +62,8 @@ def _get_testrun_from_csv(file_obj, csv_reader):
         for col in row:
             if not col:
                 continue
-            field = (col.
-                     strip().
-                     replace('"', '').
-                     replace(' ', '').
-                     lower())
-            if field == 'id':
+            field = col.strip().replace('"', "").replace(" ", "").lower()
+            if field == "id":
                 # we are too far, tests results start here
                 too_far = True
                 break
@@ -99,7 +96,7 @@ def _get_results(csv_reader, fieldnames):
             continue
         record = OrderedDict(list(zip(fieldnames, row)))
         # skip rows that were already exported
-        if record.get('exported') == 'yes':
+        if record.get("exported") == "yes":
             continue
         row_len = len(row)
         if fieldnames_count > row_len:
@@ -125,21 +122,21 @@ def get_imported_data(csv_file, **kwargs):
     try:
         # pylint: disable=pointless-statement
         unicode
-        open_args.append('rb')
+        open_args.append("rb")
     except NameError:
-        open_kwargs['encoding'] = 'utf-8'
+        open_kwargs["encoding"] = "utf-8"
     with open(os.path.expanduser(csv_file), *open_args, **open_kwargs) as input_file:
         reader = _get_csv_reader(input_file)
 
         fieldnames = _get_csv_fieldnames(reader)
         if not fieldnames:
             raise Dump2PolarionException(
-                "Cannot find field names in CSV file '{}'".format(csv_file))
+                "Cannot find field names in CSV file '{}'".format(csv_file)
+            )
 
         results = _get_results(reader, fieldnames)
         if not results:
-            raise Dump2PolarionException(
-                "No results read from CSV file '{}'".format(csv_file))
+            raise Dump2PolarionException("No results read from CSV file '{}'".format(csv_file))
 
         testrun = _get_testrun_from_csv(input_file, reader)
 
@@ -147,12 +144,14 @@ def get_imported_data(csv_file, **kwargs):
 
 
 def _check_required_columns(csv_file, results):
-    required_columns = {'verdict': 'Verdict'}
+    required_columns = {"verdict": "Verdict"}
     missing_columns = [required_columns[k] for k in required_columns if k not in results[0]]
     if missing_columns:
         raise Dump2PolarionException(
             "The input file '{}' is missing following columns: {}".format(
-                csv_file, ', '.join(missing_columns)))
+                csv_file, ", ".join(missing_columns)
+            )
+        )
 
 
 def import_csv(csv_file, **kwargs):

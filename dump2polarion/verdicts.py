@@ -9,7 +9,8 @@ from __future__ import unicode_literals
 # pylint: disable=too-few-public-methods
 class Verdicts(object):
     """Valid verdicts."""
-    PASS = ('passed', 'pass')
-    FAIL = ('failed', 'fail')
-    SKIP = ('skipped', 'skip', 'blocked')
-    WAIT = ('null', 'wait', 'waiting')
+
+    PASS = ("passed", "pass")
+    FAIL = ("failed", "fail")
+    SKIP = ("skipped", "skip", "blocked")
+    WAIT = ("null", "wait", "waiting")

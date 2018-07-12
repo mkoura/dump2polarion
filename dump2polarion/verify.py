@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 _DEFAULT_TIMEOUT = 600
 _DEFAULT_DELAY = 10
 
-_NOT_FINISHED_STATUSES = ('ready', 'running')
+_NOT_FINISHED_STATUSES = ("ready", "running")
 
 
 class QueueSearch(object):
@@ -33,13 +33,12 @@ class QueueSearch(object):
     def _check_setup(self):
         """Checks that all the data that is needed for submit verification is available."""
         if not self.queue_url:
-            logger.error(
-                'The queue url is not configured, skipping submit verification')
+            logger.error("The queue url is not configured, skipping submit verification")
             self.skip = True
             return
 
         if not self.session:
-            logger.error('Missing requests session, skipping submit verification')
+            logger.error("Missing requests session, skipping submit verification")
             self.skip = True
             return
 
@@ -48,13 +47,11 @@ class QueueSearch(object):
         if self.skip:
             return None
 
-        url = '{0}?jobtype=completed&jobIds={1}'.format(
-            self.queue_url, ','.join(str(x) for x in job_ids))
+        url = "{}?jobtype=completed&jobIds={}".format(
+            self.queue_url, ",".join(str(x) for x in job_ids)
+        )
         try:
-            response = self.session.get(
-                url,
-                headers={'Accept': 'application/json'}
-            )
+            response = self.session.get(url, headers={"Accept": "application/json"})
             if response:
                 response = response.json()
             else:
@@ -76,11 +73,13 @@ class QueueSearch(object):
         if not json_data:
             return None
 
-        jobs = json_data['jobs']
+        jobs = json_data["jobs"]
         matched_jobs = []
         for job in jobs:
-            if (job.get('id') in job_ids and
-                    job.get('status', '').lower() not in _NOT_FINISHED_STATUSES):
+            if (
+                job.get("id") in job_ids
+                and job.get("status", "").lower() not in _NOT_FINISHED_STATUSES
+            ):
                 matched_jobs.append(job)
 
         return matched_jobs
@@ -90,8 +89,7 @@ class QueueSearch(object):
         if self.skip:
             return
 
-        logger.debug(
-            'Waiting up to %d sec for completion of the job IDs %s', timeout, job_ids)
+        logger.debug("Waiting up to %d sec for completion of the job IDs %s", timeout, job_ids)
 
         remaining_job_ids = set(job_ids)
         found_jobs = []
@@ -100,7 +98,7 @@ class QueueSearch(object):
         while countdown > 0:
             matched_jobs = self.find_jobs(remaining_job_ids)
             if matched_jobs:
-                remaining_job_ids.difference_update({job['id'] for job in matched_jobs})
+                remaining_job_ids.difference_update({job["id"] for job in matched_jobs})
                 found_jobs.extend(matched_jobs)
             if not remaining_job_ids:
                 return found_jobs
@@ -108,8 +106,8 @@ class QueueSearch(object):
             countdown -= delay
 
         logger.error(
-            'Timed out while waiting for completion of the job IDs %s. Results not updated.',
-            list(remaining_job_ids)
+            "Timed out while waiting for completion of the job IDs %s. Results not updated.",
+            list(remaining_job_ids),
         )
 
     def _check_outcome(self, jobs):
@@ -118,27 +116,27 @@ class QueueSearch(object):
             return False
 
         if not jobs:
-            logger.error('Import failed!')
+            logger.error("Import failed!")
             return False
 
         failed_jobs = []
         for job in jobs:
-            status = job.get('status')
+            status = job.get("status")
             if not status:
                 failed_jobs.append(job)
                 continue
 
-            if status.lower() != 'success':
+            if status.lower() != "success":
                 failed_jobs.append(job)
 
         for job in failed_jobs:
-            logger.error('job: %s; status: %s', job.get('id'), job.get('status'))
+            logger.error("job: %s; status: %s", job.get("id"), job.get("status"))
         if len(failed_jobs) == len(jobs):
-            logger.error('Import failed!')
+            logger.error("Import failed!")
         elif failed_jobs:
-            logger.error('Some import jobs failed!')
+            logger.error("Some import jobs failed!")
         else:
-            logger.info('Results successfully updated!')
+            logger.info("Results successfully updated!")
 
         return not failed_jobs
 
@@ -161,9 +159,9 @@ class QueueSearch(object):
             time.sleep(2)
 
         if not (log_data and log_data.content):
-            logger.error('Failed to download log file %s.', url)
+            logger.error("Failed to download log file %s.", url)
             return
-        with open(os.path.expanduser(output_file), 'ab') as out:
+        with open(os.path.expanduser(output_file), "ab") as out:
             out.write(log_data.content)
 
     def get_logs(self, jobs, log_file=None):
@@ -172,11 +170,11 @@ class QueueSearch(object):
             return
 
         for job in jobs:
-            url = '{}?jobId={}&download'.format(self.log_url, job.get('id'))
+            url = "{}?jobId={}&download".format(self.log_url, job.get("id"))
             if log_file:
                 self._download_log(url, log_file)
             else:
-                logger.info('Submit log for job %s: %s', job.get('id'), url)
+                logger.info("Submit log for job %s: %s", job.get("id"), url)
 
     def verify_submit(self, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
         """Verifies that the results were successfully submitted."""
@@ -184,14 +182,15 @@ class QueueSearch(object):
             return False
 
         jobs = self.wait_for_jobs(job_ids, timeout, delay)
-        self.get_logs(jobs, log_file=kwargs.get('log_file'))
+        self.get_logs(jobs, log_file=kwargs.get("log_file"))
 
         return self._check_outcome(jobs)
 
 
 # pylint: disable=too-many-arguments
-def verify_submit(session, queue_url, log_url, job_ids,
-                  timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
+def verify_submit(
+    session, queue_url, log_url, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs
+):
     """Verifies that the results were successfully submitted."""
     verification_queue = QueueSearch(session=session, queue_url=queue_url, log_url=log_url)
     return verification_queue.verify_submit(job_ids, timeout=timeout, delay=delay, **kwargs)

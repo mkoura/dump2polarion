@@ -29,27 +29,27 @@ def _parse_testcase_record(testcase_record):
     """Parses testcase record and returns it's info."""
     verdict = None
     verdict_found = False
-    comment = ''
+    comment = ""
     properties = {}
     for element in testcase_record:
         if not verdict_found:
-            if element.tag == 'error':
-                verdict = 'failed'
-                comment = element.get('message')
+            if element.tag == "error":
+                verdict = "failed"
+                comment = element.get("message")
                 # continue to see if there's more telling verdict for this record
-            elif element.tag == 'failure':
-                verdict = 'failed'
-                comment = element.get('message')
+            elif element.tag == "failure":
+                verdict = "failed"
+                comment = element.get("message")
                 verdict_found = True
-            elif element.tag == 'skipped':
-                verdict = 'skipped'
-                comment = element.get('message')
+            elif element.tag == "skipped":
+                verdict = "skipped"
+                comment = element.get("message")
                 verdict_found = True
-        if element.tag == 'properties':
+        if element.tag == "properties":
             for prop in element:
-                properties[prop.get('name')] = prop.get('value')
+                properties[prop.get("name")] = prop.get("value")
     if not verdict:
-        verdict = 'passed'
+        verdict = "passed"
 
     return verdict, comment, properties
 
@@ -61,23 +61,23 @@ def import_junit(junit_file, **kwargs):
 
     results = []
     for test_data in xml_root:
-        if test_data.tag != 'testcase':
+        if test_data.tag != "testcase":
             continue
 
         verdict, comment, properties = _parse_testcase_record(test_data)
 
-        title = test_data.get('name')
-        classname = test_data.get('classname')
-        time = test_data.get('time', 0)
-        filepath = test_data.get('file')
+        title = test_data.get("name")
+        classname = test_data.get("classname")
+        time = test_data.get("time", 0)
+        filepath = test_data.get("file")
 
         data = [
-            ('title', title),
-            ('classname', classname),
-            ('verdict', verdict),
-            ('comment', comment),
-            ('time', time),
-            ('file', filepath),
+            ("title", title),
+            ("classname", classname),
+            ("verdict", verdict),
+            ("comment", comment),
+            ("time", time),
+            ("file", filepath),
         ]
         for key in properties:
             data.append((key, properties[key]))

@@ -19,14 +19,14 @@ from dump2polarion.exceptions import Dump2PolarionException
 logger = logging.getLogger(__name__)
 
 
-SQLITE_EXT = ('.sqlite', '.sqlite3', '.db', '.db3')
+SQLITE_EXT = (".sqlite", ".sqlite3", ".db", ".db3")
 
 
 def _get_testrun_from_sqlite(conn):
     """Returns testrun id saved from original csv file."""
     cur = conn.cursor()
     try:
-        cur.execute('SELECT testrun FROM testrun')
+        cur.execute("SELECT testrun FROM testrun")
         return cur.fetchone()[0]
     except (IndexError, sqlite3.Error):
         return None
@@ -41,7 +41,7 @@ def _open_sqlite(db_file):
             pass
         return sqlite3.connect(db_file, detect_types=sqlite3.PARSE_DECLTYPES)
     except (IOError, sqlite3.Error) as err:
-        raise Dump2PolarionException('{}'.format(err))
+        raise Dump2PolarionException("{}".format(err))
 
 
 # pylint: disable=unused-argument
@@ -52,7 +52,7 @@ def import_sqlite(db_file, older_than=None, **kwargs):
     # get rows that were not exported yet
     select = "SELECT * FROM testcases WHERE exported != 'yes'"
     if older_than:
-        cur.execute(' '.join((select, "AND sqltime < ?")), (older_than, ))
+        cur.execute(" ".join((select, "AND sqltime < ?")), (older_than,))
     else:
         cur.execute(select)
     columns = [description[0] for description in cur.description]
@@ -78,7 +78,7 @@ def mark_exported_sqlite(db_file, older_than=None):
     cur = conn.cursor()
     update = "UPDATE testcases SET exported = 'yes' WHERE verdict IS NOT null AND verdict != ''"
     if older_than:
-        cur.execute(' '.join((update, "AND sqltime < ?")), (older_than, ))
+        cur.execute(" ".join((update, "AND sqltime < ?")), (older_than,))
     else:
         cur.execute(update)
     conn.commit()
