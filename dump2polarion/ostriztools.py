@@ -7,10 +7,9 @@ from __future__ import absolute_import, unicode_literals
 
 import datetime
 import io
-import logging
 import json
+import logging
 import os
-
 from collections import OrderedDict
 
 import requests
@@ -18,7 +17,6 @@ import six
 
 from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)

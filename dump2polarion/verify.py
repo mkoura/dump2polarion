@@ -9,7 +9,6 @@ import logging
 import os
 import time
 
-
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
 

@@ -3,17 +3,17 @@
 
 from __future__ import unicode_literals
 
-import os
-import io
 import datetime
+import io
+import os
 import shutil
 
 import pytest
-from tests import conf
 
-from dump2polarion.xunit_exporter import XunitExport
-from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion import dbtools
+from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.xunit_exporter import XunitExport
+from tests import conf
 
 
 @pytest.fixture(scope="module")

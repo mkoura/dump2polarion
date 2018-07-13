@@ -5,10 +5,8 @@ from __future__ import unicode_literals
 
 import os
 
-from tests import conf
-
 from dump2polarion.svn_polarion import WorkItemCache
-
+from tests import conf
 
 REPO_DIR = os.path.join(conf.DATA_PATH, "polarion_repo")
 WORKITEMS_NUM = 3

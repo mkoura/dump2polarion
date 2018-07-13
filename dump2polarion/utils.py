@@ -13,15 +13,14 @@ import os
 import random
 import string
 
+import requests
 from lxml import etree
 
-import requests
+# requests package backwards compatibility mess
+# pylint: disable=import-error,ungrouped-imports
+from requests.packages.urllib3.exceptions import InsecureRequestWarning as IRWrequests
 
 from dump2polarion.exceptions import Dump2PolarionException
-
-# requests package backwards compatibility mess
-# pylint: disable=import-error,ungrouped-imports,wrong-import-order
-from requests.packages.urllib3.exceptions import InsecureRequestWarning as IRWrequests
 
 # pylint: disable=no-member
 requests.packages.urllib3.disable_warnings(IRWrequests)

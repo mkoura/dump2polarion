@@ -8,12 +8,11 @@ from __future__ import absolute_import, unicode_literals
 import io
 import logging
 import os
-import yaml
 
 import six
+import yaml
 
 from dump2polarion.exceptions import Dump2PolarionException
-
 
 DEFAULT_USER_CONF = "~/.config/dump2polarion.yaml"
 URLS = {

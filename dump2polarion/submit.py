@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Submit data to the Polarion XUnit/TestCase Importer.
+Submit data to the Polarion Importer.
 """
 
 from __future__ import absolute_import, unicode_literals
@@ -11,7 +11,6 @@ import os
 from dump2polarion import configuration, properties, utils
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.verify import verify_submit
-
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)

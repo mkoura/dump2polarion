@@ -1,12 +1,11 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,unused-argument,invalid-name
+# pylint: disable=missing-docstring,no-self-use,unused-argument,invalid-name
 
 from __future__ import unicode_literals
 
 import os
 
 from dump2polarion import verify
-
 
 SEARCH_QUEUE = {
     "jobsPerPage": 50,

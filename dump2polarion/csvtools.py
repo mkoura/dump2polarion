@@ -8,7 +8,6 @@ from __future__ import absolute_import, unicode_literals
 import csv
 import os
 import re
-
 from collections import OrderedDict
 
 from dump2polarion import csv_unicode, xunit_exporter

@@ -13,7 +13,6 @@ from lxml import etree
 
 from dump2polarion.exceptions import Dump2PolarionException
 
-
 _VERSION_ID = "23"
 _NOT_EXPECTED_FORMAT_MSG = "XML file is not in expected format"
 

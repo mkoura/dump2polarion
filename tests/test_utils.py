@@ -1,18 +1,16 @@
 # encoding: utf-8
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,invalid-name
+# pylint: disable=missing-docstring,redefined-outer-name,no-self-use
 
 from __future__ import unicode_literals
 
 import os
 
 import pytest
-
-from tests import conf
-
 from mock import patch
 
 from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException
+from tests import conf
 
 
 # pylint: disable=too-many-public-methods

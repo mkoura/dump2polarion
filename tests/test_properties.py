@@ -7,10 +7,9 @@ import os
 
 import pytest
 
-from tests import conf
-
 from dump2polarion import properties, utils
 from dump2polarion.exceptions import Dump2PolarionException
+from tests import conf
 
 
 # pylint: disable=too-many-public-methods

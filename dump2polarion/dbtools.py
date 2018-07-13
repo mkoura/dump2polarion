@@ -8,12 +8,10 @@ from __future__ import absolute_import, unicode_literals
 import logging
 import os
 import sqlite3
-
 from collections import OrderedDict
 
 from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException
-
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)

@@ -4,19 +4,18 @@
 
 from __future__ import unicode_literals
 
-import os
 import copy
 import io
-
-from lxml import etree
+import os
 
 import pytest
-from tests import conf
+from lxml import etree
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.xunit_exporter import ImportedData, XunitExport
 from dump2polarion.importer import do_import
 from dump2polarion.utils import get_unicode_str
+from dump2polarion.xunit_exporter import ImportedData, XunitExport
+from tests import conf
 
 
 @pytest.fixture(scope="module")

@@ -1,19 +1,17 @@
 # encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use
 
-import os
 import io
+import os
 import shutil
-import pytest
 
+import pytest
 from mock import patch
 
-from tests import conf
-
-from dump2polarion import dbtools
-from dump2polarion import dumper_cli
+from dump2polarion import dbtools, dumper_cli
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.transform import only_passed_and_wait
+from tests import conf
 
 
 class TestDumperCLIUnits(object):

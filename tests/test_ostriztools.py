@@ -3,17 +3,16 @@
 
 from __future__ import unicode_literals
 
-import os
 import io
+import os
 
 import pytest
-
 from mock import Mock, patch
-from tests import conf
 
 from dump2polarion import ostriztools
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.xunit_exporter import XunitExport
+from tests import conf
 
 
 @pytest.fixture(scope="module")

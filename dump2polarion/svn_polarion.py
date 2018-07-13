@@ -6,11 +6,9 @@ Access work items data in the Polarion SVN repository.
 
 import logging
 import os
-
 from collections import defaultdict
 
 from lxml import etree
-
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)

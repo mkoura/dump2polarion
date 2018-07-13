@@ -1,19 +1,17 @@
 # encoding: utf-8
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use,too-few-public-methods
+# pylint: disable=missing-docstring,no-self-use
 
 from __future__ import unicode_literals
 
 import copy
 import io
-import os
 import logging
-
+import os
 from collections import OrderedDict
 
 import pytest
 
 from tests import conf
-
 
 GENERIC_CONF = {
     "xunit_target": "https://polarion.example.com/import/xunit",

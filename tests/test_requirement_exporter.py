@@ -7,15 +7,13 @@ from __future__ import unicode_literals
 import copy
 import io
 import os
-
 from collections import OrderedDict
 
 import pytest
-from tests import conf
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 from dump2polarion.requirements_exporter import RequirementExport
-
+from tests import conf
 
 REQ_DATA = [
     OrderedDict(

@@ -6,21 +6,21 @@ Creates a Requirement XML file for submitting to the Polarion Importer.
 Example of input requirements_data:
 requirements_data = [
     {
-        'title': 'requirement_complete',
-        'description': 'Complete Requirement',
-        'approver-ids': 'mkourim:approved',
-        'assignee-id': 'mkourim',
-        'category-ids': 'category_id1, category_id2',
-        'due-date': '2018-09-30',
-        'planned-in-ids': 'planned_id1, planned_id2',
-        'initial-estimate': '1/4h',
-        'priority-id': 'high',
-        'severity-id': 'should_have',
-        'status-id': 'status_id',
-        'reqtype': 'functional',
+        "title": "requirement_complete",
+        "description": "Complete Requirement",
+        "approver-ids": "mkourim:approved",
+        "assignee-id": "mkourim",
+        "category-ids": "category_id1, category_id2",
+        "due-date": "2018-09-30",
+        "planned-in-ids": "planned_id1, planned_id2",
+        "initial-estimate": "1/4h",
+        "priority-id": "high",
+        "severity-id": "should_have",
+        "status-id": "status_id",
+        "reqtype": "functional",
     },
     {
-        'title': 'requirement_minimal',
+        "title": "requirement_minimal",
     },
 ]
 """
@@ -28,11 +28,9 @@ requirements_data = [
 from __future__ import absolute_import, unicode_literals
 
 import datetime
-
 from collections import OrderedDict
 
 import six
-
 from lxml import etree
 
 from dump2polarion import transform, utils

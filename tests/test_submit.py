@@ -7,9 +7,9 @@ from __future__ import unicode_literals
 import os
 
 from mock import patch
-from tests import conf
 
-from dump2polarion import utils, submit
+from dump2polarion import submit, utils
+from tests import conf
 
 
 # pylint: disable=unused-argument

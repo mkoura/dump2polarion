@@ -5,16 +5,16 @@ from __future__ import unicode_literals
 
 import os
 
+import pytest
+
+from dump2polarion import csvtools
+from dump2polarion.exceptions import Dump2PolarionException
+from tests import conf
+
 try:
     from StringIO import StringIO
 except ImportError:
     from io import StringIO
-
-import pytest
-from tests import conf
-
-from dump2polarion import csvtools
-from dump2polarion.exceptions import Dump2PolarionException
 
 
 class TestCSVFileldNames(object):

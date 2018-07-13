@@ -1,16 +1,14 @@
 # encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use
 
-import os
 import io
+import os
 
 from mock import patch
 
-from tests import conf
-
-from dump2polarion import csv2sqlite_cli
-from dump2polarion import dbtools
+from dump2polarion import csv2sqlite_cli, dbtools
 from dump2polarion.xunit_exporter import XunitExport
+from tests import conf
 
 
 class TestCSV2sqliteCLI(object):

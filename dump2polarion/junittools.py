@@ -7,7 +7,6 @@ Helper functions for handling data in pytest junit format.
 from __future__ import absolute_import, unicode_literals
 
 import os
-
 from collections import OrderedDict
 
 from lxml import etree

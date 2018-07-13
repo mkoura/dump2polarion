@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Dump testcases results from a CSV, SQLite, junit or Ostriz input file to XUnit file.
-Submit XUnit, testcases or requirements XML to the Polarion Importers.
+Submit XUnit, Testcases or Requirements XML to the Polarion Importers.
 """
 
 from __future__ import absolute_import, unicode_literals
@@ -15,7 +15,6 @@ import os
 import dump2polarion
 from dump2polarion import dbtools, utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)

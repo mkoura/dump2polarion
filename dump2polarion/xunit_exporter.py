@@ -1,29 +1,26 @@
 # -*- coding: utf-8 -*-
 # pylint: disable=c-extension-no-member
 """
-Dump testcases results to xunit file for submitting to the Polarion XUnit Importer.
+Dump testcases results to XUnit file for submitting to the Polarion XUnit Importer.
 """
 
 from __future__ import absolute_import, unicode_literals
 
 import datetime
-
 from collections import namedtuple
 
 import six
-
 from lxml import etree
 
 from dump2polarion import transform, utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 from dump2polarion.verdicts import Verdicts
 
-
 ImportedData = namedtuple("ImportedData", "results testrun")
 
 
 class XunitExport(object):
-    """Exports testcases results into Polarion xunit."""
+    """Exports testcases results into Polarion XUnit."""
 
     def __init__(self, testrun_id, tests_records, config, transform_func=None):
         self.testrun_id = testrun_id
@@ -100,24 +97,24 @@ class XunitExport(object):
 
     @staticmethod
     def _fill_verdict(verdict, result, testcase, records):
-        # xunit Pass maps to Passed in Polarion
+        # XUnit Pass maps to Passed in Polarion
         if verdict in Verdicts.PASS:
             records["passed"] += 1
-        # xunit Failure maps to Failed in Polarion
+        # XUnit Failure maps to Failed in Polarion
         elif verdict in Verdicts.FAIL:
             records["failures"] += 1
             verdict_data = {"type": "failure"}
             if result.get("comment"):
                 verdict_data["message"] = utils.get_unicode_str(result["comment"])
             etree.SubElement(testcase, "failure", verdict_data)
-        # xunit Error maps to Blocked in Polarion
+        # XUnit Error maps to Blocked in Polarion
         elif verdict in Verdicts.SKIP:
             records["skipped"] += 1
             verdict_data = {"type": "error"}
             if result.get("comment"):
                 verdict_data["message"] = utils.get_unicode_str(result["comment"])
             etree.SubElement(testcase, "error", verdict_data)
-        # xunit Skipped maps to Waiting in Polarion
+        # XUnit Skipped maps to Waiting in Polarion
         elif verdict in Verdicts.WAIT:
             records["waiting"] += 1
             verdict_data = {"type": "skipped"}
@@ -255,7 +252,7 @@ class XunitExport(object):
         testsuite_element.set("tests", str(tests_num))
 
     def export(self):
-        """Returns xunit XML."""
+        """Returns XUnit XML."""
         top = self._top_element()
         properties = self._properties_element(top)
         testsuite = self._testsuite_element(top)

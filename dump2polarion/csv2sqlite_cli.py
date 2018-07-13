@@ -83,7 +83,7 @@ def main(args=None):
     utils.init_log(args.log_level)
 
     if ".csv" not in args.input_file.lower():
-        logger.warn("Make sure the input file '%s' is in CSV format", args.input_file)
+        logger.warning("Make sure the input file '%s' is in CSV format", args.input_file)
 
     try:
         records = csvtools.get_imported_data(args.input_file)
