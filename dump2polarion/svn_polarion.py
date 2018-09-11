@@ -4,6 +4,8 @@
 Access work items data in the Polarion SVN repository.
 """
 
+from __future__ import absolute_import, unicode_literals
+
 import logging
 import os
 from collections import defaultdict

@@ -14,24 +14,13 @@ import random
 import string
 
 import requests
+import six
+import urllib3
 from lxml import etree
-
-# requests package backwards compatibility mess
-# pylint: disable=import-error,ungrouped-imports
-from requests.packages.urllib3.exceptions import InsecureRequestWarning as IRWrequests
 
 from dump2polarion.exceptions import Dump2PolarionException
 
-# pylint: disable=no-member
-requests.packages.urllib3.disable_warnings(IRWrequests)
-try:
-    import urllib3
-    from urllib3.exceptions import InsecureRequestWarning as IRWurllib3
-
-    urllib3.disable_warnings(IRWurllib3)
-except ImportError:
-    pass
-
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
@@ -39,20 +28,11 @@ logger = logging.getLogger(__name__)
 
 def get_unicode_str(obj):
     """Makes sure obj is a unicode string."""
-    try:
-        # Python 2.x
-        if isinstance(obj, unicode):
-            return obj
-        if isinstance(obj, str):
-            return obj.decode("utf-8", errors="ignore")
-        return unicode(obj)
-    except NameError:
-        # Python 3.x
-        if isinstance(obj, str):
-            return obj
-        if isinstance(obj, bytes):
-            return obj.decode("utf-8", errors="ignore")
-        return str(obj)
+    if isinstance(obj, six.text_type):
+        return obj
+    if isinstance(obj, six.binary_type):
+        return obj.decode("utf-8", errors="ignore")
+    return six.text_type(obj)
 
 
 def init_log(log_level):
