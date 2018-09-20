@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=c-extension-no-member
 """
 Creates a Requirement XML file for submitting to the Polarion Importer.
 
@@ -107,17 +106,15 @@ class RequirementExport(object):
             {"name": "lookup-method", "value": self._lookup_prop},
         )
 
-    def _check_lookup_prop(self, req_id, req_title):
+    def _check_lookup_prop(self, req_id):
         """Checks that selected lookup property can be used for this testcase."""
         if self._lookup_prop:
-            if not req_id and self._lookup_prop != "name":
-                return None
-            if not req_title and self._lookup_prop == "name":
-                return None
+            if not req_id and self._lookup_prop == "id":
+                return False
         else:
             if req_id:
                 self._lookup_prop = "id"
-            elif req_title:
+            else:
                 self._lookup_prop = "name"
         return True
 
@@ -160,11 +157,11 @@ class RequirementExport(object):
             return
 
         title = req_data.get("title")
-        req_id = req_data.get("id")
-        if not (title or req_id):
+        if not title:
             return
+        req_id = req_data.get("id")
 
-        if not self._check_lookup_prop(req_id, title):
+        if not self._check_lookup_prop(req_id):
             return
 
         attrs, custom_fields = self._classify_data(req_data)
