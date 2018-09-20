@@ -31,6 +31,10 @@ def _get_importer(input_file):
         importer = csvtools.import_csv
     elif ext in dbtools.SQLITE_EXT:
         importer = dbtools.import_sqlite
+    elif ext == ".json":
+        from dump2polarion import jsontools
+
+        importer = jsontools.import_json
     else:
         raise Dump2PolarionException("Cannot recognize type of input data, add file extension.")
 
