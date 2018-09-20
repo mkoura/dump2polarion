@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=c-extension-no-member
 """
 Helper functions for handling data in pytest junit format.
 """
@@ -9,10 +8,13 @@ from __future__ import absolute_import, unicode_literals
 import os
 from collections import OrderedDict
 
+import six
 from lxml import etree
 
 from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException
+
+_PARAMETER_PREFIX = "polarion-parameter-"
 
 
 def _get_xml_root(junit_file):
@@ -53,6 +55,19 @@ def _parse_testcase_record(testcase_record):
     return verdict, comment, properties
 
 
+def _extract_parameters_from_properties(properties):
+    """Extracts parameters from properties."""
+    new_properties = {}
+    parameters = []
+    for key, value in six.iteritems(properties):
+        if key.startswith(_PARAMETER_PREFIX):
+            parameters.append((key.replace(_PARAMETER_PREFIX, ""), value))
+        else:
+            new_properties[key] = value
+
+    return new_properties, sorted(parameters)
+
+
 # pylint: disable=unused-argument
 def import_junit(junit_file, **kwargs):
     """Reads the content of the junit-results file produced by pytest and returns imported data."""
@@ -64,6 +79,7 @@ def import_junit(junit_file, **kwargs):
             continue
 
         verdict, comment, properties = _parse_testcase_record(test_data)
+        properties, parameters = _extract_parameters_from_properties(properties)
 
         title = test_data.get("name")
         classname = test_data.get("classname")
@@ -78,8 +94,10 @@ def import_junit(junit_file, **kwargs):
             ("time", time),
             ("file", filepath),
         ]
-        for key in properties:
+        for key in sorted(properties):
             data.append((key, properties[key]))
+        if parameters:
+            data.append(("params", OrderedDict(parameters)))
 
         results.append(OrderedDict(data))
 
