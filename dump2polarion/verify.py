@@ -62,7 +62,6 @@ class QueueSearch(object):
 
         return response
 
-    # pylint:disable=inconsistent-return-statements
     def find_jobs(self, job_ids):
         """Finds the jobs in the completed job queue."""
         if self.skip:
@@ -83,6 +82,7 @@ class QueueSearch(object):
 
         return matched_jobs
 
+    # pylint:disable=inconsistent-return-statements
     def wait_for_jobs(self, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY):
         """Waits until the jobs appears in the completed job queue."""
         if self.skip:
@@ -169,9 +169,9 @@ class QueueSearch(object):
             return
 
         for job in jobs:
-            url = "{}?jobId={}&download".format(self.log_url, job.get("id"))
+            url = "{}?jobId={}".format(self.log_url, job.get("id"))
             if log_file:
-                self._download_log(url, log_file)
+                self._download_log("{}&download".format(url), log_file)
             else:
                 logger.info("Submit log for job %s: %s", job.get("id"), url)
 
