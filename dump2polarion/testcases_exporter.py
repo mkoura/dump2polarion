@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=c-extension-no-member
 """
 Creates a Testcase XML file for submitting to the Polarion Importer.
 
@@ -212,6 +211,10 @@ class TestcaseExport(object):
             work_item_el = etree.SubElement(linked_work_items, "linked-work-item")
             work_item_el.attrib["workitem-id"] = work_item_id
             work_item_el.attrib["role-id"] = work_item_role
+
+            lookup_method = testcase_data.get("linked-items-lookup-method")
+            if lookup_method in ("name", "id"):
+                work_item_el.attrib["lookup-method"] = lookup_method
 
     @staticmethod
     def _fill_custom_fields(parent, custom_fields):
