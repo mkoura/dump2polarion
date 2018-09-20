@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=c-extension-no-member
 """
 Tools for manipulation of XML properties.
 """

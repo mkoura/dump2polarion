@@ -1,5 +1,4 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=c-extension-no-member
 """
 Utils for dump2polarion.
 """
