@@ -1,7 +1,21 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=c-extension-no-member
 """
 Dump testcases results to XUnit file for submitting to the Polarion XUnit Importer.
+
+Example of input tests_records:
+tests_records = ImportedData(
+    results=[
+        {
+            "title": "test_post_single[vim-common-2:7.4.160-1.el7.x86_64.rpm]",
+            "classname": "vmaas.tests.test_packages.TestPackagesQuery",
+            "verdict": "passed",
+            "time": "0.00890207290649414",
+            "file": "vmaas/tests/test_packages.py",
+            "params": {"pkg": "some_package"},
+        }
+    ],
+    testrun=None,
+)
 """
 
 from __future__ import absolute_import, unicode_literals
