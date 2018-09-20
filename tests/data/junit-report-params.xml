@@ -1,0 +1,14 @@
+<?xml version="1.0" ?>
+<testsuite name="pytest" time="28.491">
+	<testcase classname="vmaas.tests.test_packages.TestPackagesQuery" file="vmaas/tests/test_packages.py" line="20" name="test_post_single[vim-common-2:7.4.160-1.el7.x86_64.rpm]" time="0.00890207290649414">
+		<properties>
+			<property name="polarion-parameter-pkg" value="('vim-common-2:7.4.160-1.el7.x86_64.rpm', [{'basearch': 'x86_64', 'erratum': 'RHSA-2016:2972', 'package': 'vim-common-2:7.4.160-1.el7_3.1.x86_64', 'releasever': '7Server', 'repository': 'rhel-7-server-rpms'}, {'basearch': 'x86_64', 'erratum': 'RHSA-2016:2972', 'package': 'vim-common-2:7.4.160-1.el7_3.1.x86_64', 'releasever': '7Workstation', 'repository': 'rhel-7-workstation-rpms'}])"/>
+		</properties>
+	</testcase>
+	<testcase classname="vmaas.tests.test_tier2_udpates.TestUpdatesBasic" file="vmaas/tests/test_tier2_udpates.py" line="46" name="test_post_single[v1-vim-enhanced-2:7.4.160-2.el7.x86_64]" time="0.006475687026977539">
+		<properties>
+			<property name="polarion-parameter-api_ver" value="v1"/>
+			<property name="polarion-parameter-package" value="('vim-enhanced-2:7.4.160-2.el7.x86_64', None)"/>
+		</properties>
+	</testcase>
+</testsuite>

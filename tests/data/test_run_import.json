@@ -1,0 +1,134 @@
+{
+    "results": [
+        {
+            "title": "TestCVEsQuery.test_post_multi",
+            "verdict": "passed"
+        },
+        {
+            "title": "TestCVEsQuery.test_post_single[CVE-2016-0634]",
+            "verdict": "failed",
+            "comment": "Failed",
+            "params": {
+                "cve_in": "('CVE-2016-0634', 'CVE-2016-0634', [{'cvss3_score': '4.9', 'impact': 'Moderate', 'redhat_url': 'https://access.redhat.com/security/cve/cve-2016-0634', 'synopsis': 'CVE-2016-0634', 'package_list': ['bash-4.2.46-28.el7.x86_64'], 'errata_list': ['RHSA-2017:1931']}])"
+            }
+        },
+        {
+            "title": "TestCVEsQuery.test_post_single[CVE-2014-7970]",
+            "verdict": "passed",
+            "params": {
+                "cve_in": "('CVE-2014-7970', 'CVE-2014-7970', [{'cvss3_score': '', 'cwe_list': ['CWE-399'], 'impact': 'Low', 'redhat_url': 'https://access.redhat.com/security/cve/cve-2014-7970', 'secondary_url': 'http://lists.opensuse.org/opensuse-security-announce/2015-04/msg00015.html', 'synopsis': 'CVE-2014-7970', 'errata_list': ['RHSA-2017:1842'], 'package_list': ['kernel-3.10.0-693.el7.x86_64', 'kernel-abi-whitelists-3.10.0-693.el7.noarch', 'kernel-debug-3.10.0-693.el7.x86_64', 'kernel-debug-devel-3.10.0-693.el7.x86_64', 'kernel-devel-3.10.0-693.el7.x86_64', 'kernel-doc-3.10.0-693.el7.noarch', 'kernel-headers-3.10.0-693.el7.x86_64', 'kernel-tools-3.10.0-693.el7.x86_64', 'kernel-tools-libs-3.10.0-693.el7.x86_64', 'perf-3.10.0-693.el7.x86_64', 'python-perf-3.10.0-693.el7.x86_64']}])"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[openssh]",
+            "verdict": "skipped",
+            "comment": "Skipped",
+            "params": {
+                "package_name": "openssh"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[patch]",
+            "verdict": "failed",
+            "comment": "Failed",
+            "params": {
+                "package_name": "patch"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[perl-core]",
+            "verdict": "passed",
+            "params": {
+                "package_name": "perl-core"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[php]",
+            "verdict": "waiting",
+            "params": {
+                "package_name": "php"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[postgresql]",
+            "verdict": "failed",
+            "comment": "Failed",
+            "params": {
+                "package_name": "postgresql"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[procmail]",
+            "verdict": "passed",
+            "params": {
+                "package_name": "procmail"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[python]",
+            "verdict": "skipped",
+            "comment": "Skipped",
+            "params": {
+                "package_name": "python"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[qemu-kvm]",
+            "verdict": "passed",
+            "params": {
+                "package_name": "qemu-kvm"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[quagga]",
+            "verdict": "passed",
+            "params": {
+                "package_name": "quagga"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[ruby]",
+            "verdict": "failed",
+            "comment": "Failed",
+            "params": {
+                "package_name": "ruby"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[samba]",
+            "verdict": "passed",
+            "params": {
+                "package_name": "samba"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[squid]",
+            "verdict": "passed",
+            "params": {
+                "package_name": "squid"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[sssd]",
+            "verdict": "skipped",
+            "comment": "Skipped due to BZ123",
+            "params": {
+                "package_name": "sssd"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[systemd]",
+            "verdict": "passed",
+            "params": {
+                "package_name": "systemd"
+            }
+        },
+        {
+            "title": "test_with_errata_tool[zsh]",
+            "verdict": "waiting",
+            "params": {
+                "package_name": "zsh"
+            }
+        }
+    ]
+}

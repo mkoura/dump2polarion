@@ -131,10 +131,7 @@ class TestQueueSearch(object):
             DummySession(lambda: DummyResponse(None)), "bar", "http://example.com"
         )
         vq.get_logs(jobs)
-        assert (
-            "Submit log for job 111: http://example.com?jobId=111&download"
-            in captured_log.getvalue()
-        )
+        assert "Submit log for job 111: http://example.com?jobId=111" in captured_log.getvalue()
 
     def test_get_log_exception(self, tmpdir, captured_log):
         def _raise():

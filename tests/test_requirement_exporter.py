@@ -1,6 +1,5 @@
 # encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
-# pylint: disable=c-extension-no-member
 
 from __future__ import unicode_literals
 

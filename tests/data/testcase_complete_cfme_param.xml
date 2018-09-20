@@ -54,7 +54,7 @@
       <custom-field content="functional" id="testtype"/>
     </custom-fields>
     <linked-work-items>
-      <linked-work-item workitem-id="ITEM01" role-id="derived_from"/>
+      <linked-work-item workitem-id="ITEM01" role-id="derived_from" lookup-method="name"/>
     </linked-work-items>
   </testcase>
 </testcases>

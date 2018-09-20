@@ -1,6 +1,5 @@
 # encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
-# pylint: disable=c-extension-no-member
 
 from __future__ import unicode_literals
 
@@ -46,6 +45,7 @@ REQ_DATA = [
         (
             ("title", "test_minimal_param"),
             ("params", ["param1", "param2"]),
+            ("linked-items-lookup-method", "name"),
             ("linked-items", [{"id": "ITEM01", "role": "derived_from"}]),
         )
     ),
