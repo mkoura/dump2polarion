@@ -12,7 +12,6 @@ from lxml import etree
 
 from dump2polarion.exceptions import Dump2PolarionException
 
-_VERSION_ID = "23"
 _NOT_EXPECTED_FORMAT_MSG = "XML file is not in expected format"
 
 
@@ -43,7 +42,7 @@ def xunit_fill_testrun_id(xml_root, testrun_id):
 def generate_response_property(name=None, value=None):
     """Generates response property."""
     name = name or "dump2polarion"
-    value = value or "".join(random.sample(string.ascii_lowercase, 9)) + _VERSION_ID
+    value = value or "".join(random.sample(string.ascii_lowercase, 12))
     return (name, value)
 
 

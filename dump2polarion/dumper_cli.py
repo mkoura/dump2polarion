@@ -39,6 +39,7 @@ def get_args(args=None):
     )
     parser.add_argument("--user", help="Username to use to submit results to Polarion")
     parser.add_argument("--password", help="Password to use to submit results to Polarion")
+    parser.add_argument("--polarion-url", help="Base Polarion URL")
     parser.add_argument("-f", "--force", action="store_true", help="Don't validate test run id")
     parser.add_argument("--dry-run", action="store_true", help="Dry run, don't update anything")
     parser.add_argument("--no-verify", action="store_true", help="Don't verify results submission")
@@ -112,6 +113,14 @@ def submit_if_ready(args, submit_args, config):
     return 0 if response else 2
 
 
+def _get_config(args):
+    args_config = {}
+    if args.polarion_url:
+        args_config["polarion_url"] = args.polarion_url
+
+    return dump2polarion.get_config(args.config_file, args_config)
+
+
 def main(args=None, transform_func=None):
     """Main function for cli."""
     args = get_args(args)
@@ -120,7 +129,7 @@ def main(args=None, transform_func=None):
     utils.init_log(args.log_level)
 
     try:
-        config = dump2polarion.get_config(args.config_file)
+        config = _get_config(args)
     except Dump2PolarionException as err:
         logger.fatal(err)
         return 1

@@ -29,7 +29,7 @@ class TestConfiguration(object):
         assert cfg["username"] == "user1"
         assert cfg["polarion-project-id"] == "RHCF3"
 
-    @pytest.mark.parametrize("config", ["dump2polarion_legacy.yaml", "dump2polarion.yaml"])
+    @pytest.mark.parametrize("config", ["polarion_tools_legacy.yaml", "polarion_tools.yaml"])
     def test_populate(self, config):
         conf_file = os.path.join(conf.DATA_PATH, config)
         cfg = configuration.get_config(conf_file)

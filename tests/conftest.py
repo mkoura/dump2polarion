@@ -53,7 +53,7 @@ def config_prop_cmp():
 
 @pytest.fixture(scope="function")
 def config_e2e():
-    conf_file = os.path.join(conf.DATA_PATH, "dump2polarion.yaml")
+    conf_file = os.path.join(conf.DATA_PATH, "polarion_tools.yaml")
     return str(conf_file)
 
 
@@ -78,8 +78,3 @@ def captured_log():
     yield buff
 
     logger.handlers.remove(handler)
-
-
-@pytest.fixture(autouse=True)
-def no_user_conf(monkeypatch):
-    monkeypatch.setattr("dump2polarion.configuration.DEFAULT_USER_CONF", "")

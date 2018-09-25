@@ -5,6 +5,7 @@ Configuration loading.
 
 from __future__ import absolute_import, unicode_literals
 
+import glob
 import io
 import logging
 import os
@@ -13,8 +14,12 @@ import six
 import yaml
 
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.utils import find_vcs_root
 
-DEFAULT_USER_CONF = "~/.config/dump2polarion.yaml"
+DEFAULT_CONF = os.path.join(os.path.dirname(os.path.abspath(__file__)), "polarion_tools.yaml")
+PROJECT_CONF_DIRS = ("conf", ".")
+PROJECT_CONF = "polarion_tools*.yaml"
+
 URLS = {
     "testcase_taget": "import/testcase",
     "xunit_target": "import/xunit",
@@ -73,47 +78,87 @@ def _populate_urls(config):
 def _set_project_id(config):
     if config.get("polarion-project-id"):
         return
+
     # use legacy configuration if available
-    xunit_project = config.get("xunit_import_properties", {}).get("polarion-project-id")
-    if xunit_project:
-        config["polarion-project-id"] = xunit_project
-        logger.warning(
-            'Loading the "polarion-project-id" from legacy configuration "xunit_import_properties"'
-            " instead of from top level"
-        )
-    else:
+    xunit_project = config.get("xunit_import_properties") or {}
+    xunit_project = xunit_project.get("polarion-project-id")
+    if not xunit_project:
         raise Dump2PolarionException('The "polarion-project-id" key is missing in the config file')
 
+    config["polarion-project-id"] = xunit_project
+    logger.warning(
+        'Loading the "polarion-project-id" from legacy configuration "xunit_import_properties"'
+        " instead of from top level"
+    )
 
-def get_config(config_file=None):
-    """Loads config file and returns its content."""
-    default_conf = os.path.join(os.path.dirname(os.path.abspath(__file__)), "dump2polarion.yaml")
-    user_conf = os.path.expanduser(config_file or DEFAULT_USER_CONF)
 
-    try:
-        with open(user_conf):
-            pass
-    except EnvironmentError:
-        user_conf = None
-        if config_file:
-            raise Dump2PolarionException("Cannot open config file {}".format(config_file))
-
-    with io.open(default_conf, encoding="utf-8") as input_file:
+def _get_default_conf():
+    with io.open(DEFAULT_CONF, encoding="utf-8") as input_file:
         config_settings = yaml.load(input_file)
-    logger.debug("Default config loaded from %s", default_conf)
 
-    if user_conf:
-        with io.open(user_conf, encoding="utf-8") as input_file:
-            config_settings_user = yaml.load(input_file)
-        logger.info("Config loaded from %s", user_conf)
+    logger.debug("Default config loaded from %s", DEFAULT_CONF)
 
-        # merge default and user configuration
+    return config_settings
+
+
+def _get_user_conf(config_file):
+    try:
+        with io.open(os.path.expanduser(config_file), encoding="utf-8") as input_file:
+            config_settings = yaml.load(input_file)
+    except EnvironmentError:
+        raise Dump2PolarionException("Cannot open config file {}".format(config_file))
+
+    logger.info("Config loaded from %s", config_file)
+
+    return config_settings
+
+
+def _get_project_conf():
+    """Loads configuration from project config file."""
+    config_settings = {}
+
+    project_root = find_vcs_root(".")
+    if project_root is None:
+        return config_settings
+
+    for conf_dir in PROJECT_CONF_DIRS:
+        conf_dir = conf_dir.lstrip("./")
+        joined_dir = os.path.join(project_root, conf_dir) if conf_dir else project_root
+        joined_glob = os.path.join(joined_dir, PROJECT_CONF)
+        conf_files = glob.glob(joined_glob)
+        if conf_files:
+            break
+    else:
+        conf_files = []
+
+    for conf_file in conf_files:
         try:
-            config_settings.update(config_settings_user)
-        except ValueError as err:
-            raise Dump2PolarionException(
-                "Failed to load the '{}' config file: {}".format(user_conf, err)
-            )
+            with io.open(conf_file, encoding="utf-8") as input_file:
+                loaded_settings = yaml.load(input_file)
+        except EnvironmentError:
+            pass
+        else:
+            logger.info("Config loaded from %s", conf_file)
+            config_settings.update(loaded_settings)
+
+    return config_settings
+
+
+def get_config(config_file=None, config_values=None):
+    """Loads config file and returns its content."""
+    config_values = config_values or {}
+    config_settings = {}
+
+    default_conf = _get_default_conf()
+    user_conf = _get_user_conf(config_file) if config_file else {}
+    # load project configuration only when user configuration was not specified
+    project_conf = {} if user_conf else _get_project_conf()
+
+    # merge configuration
+    config_settings.update(default_conf)
+    config_settings.update(user_conf)
+    config_settings.update(project_conf)
+    config_settings.update(config_values)
 
     _populate_urls(config_settings)
     _set_project_id(config_settings)

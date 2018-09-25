@@ -155,3 +155,13 @@ def get_session(credentials, config):
         session.auth = credentials
 
     return session
+
+
+def find_vcs_root(path, dirs=(".git",)):
+    """Searches up from a given path to find the project root."""
+    prev, path = None, os.path.abspath(path)
+    while prev != path:
+        if any(os.path.exists(os.path.join(path, d)) for d in dirs):
+            return path
+        prev, path = path, os.path.abspath(os.path.join(path, os.pardir))
+    return None
