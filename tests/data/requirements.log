@@ -1,0 +1,388 @@
+2018-09-24 13:22:19,352 INFO ImportRequirementThread_2598 - Red Hat Importers version 2.0.21.
+2018-09-24 13:22:19,352 INFO ImportRequirementThread_2598 - Processing job #251151.
+2018-09-24 13:22:19,353 INFO ImportRequirementThread_2598 - Running as 'Import User'.
+2018-09-24 13:22:19,356 INFO ImportRequirementThread_2598 - Starting import of requirements to Polarion.
+2018-09-24 13:22:19,356 INFO ImportRequirementThread_2598 - Deserializing Requirements input file.
+2018-09-24 13:22:23,004 INFO ImportRequirementThread_2598 - Using Polarion lookup method: name
+2018-09-24 13:22:23,079 INFO ImportRequirementThread_2598 - Creating requirement 'ansible'.
+2018-09-24 13:22:23,083 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,135 INFO ImportRequirementThread_2598 - Created requirement 'ansible' (INSI-1673).
+2018-09-24 13:22:23,167 INFO ImportRequirementThread_2598 - Updating requirement 'Client tool must provide a way to automatically update the collection rules at least weekly'.
+2018-09-24 13:22:23,167 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,177 INFO ImportRequirementThread_2598 - Updated requirement 'Client tool must provide a way to automatically update the collection rules at least weekly' (INSI-102).
+2018-09-24 13:22:23,197 ERROR ImportRequirementThread_2598 - Found multiple work items with the title 'test duplicates'.
+2018-09-24 13:22:23,206 INFO ImportRequirementThread_2598 - Creating requirement 'auth'.
+2018-09-24 13:22:23,207 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,226 INFO ImportRequirementThread_2598 - Created requirement 'auth' (INSI-1674).
+2018-09-24 13:22:23,237 INFO ImportRequirementThread_2598 - Creating requirement 'automate'.
+2018-09-24 13:22:23,238 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,256 INFO ImportRequirementThread_2598 - Created requirement 'automate' (INSI-1675).
+2018-09-24 13:22:23,265 INFO ImportRequirementThread_2598 - Creating requirement 'black'.
+2018-09-24 13:22:23,266 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,285 INFO ImportRequirementThread_2598 - Created requirement 'black' (INSI-1676).
+2018-09-24 13:22:23,294 INFO ImportRequirementThread_2598 - Creating requirement 'bottleneck'.
+2018-09-24 13:22:23,295 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,314 INFO ImportRequirementThread_2598 - Created requirement 'bottleneck' (INSI-1677).
+2018-09-24 13:22:23,325 INFO ImportRequirementThread_2598 - Creating requirement 'c_and_u'.
+2018-09-24 13:22:23,326 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,345 INFO ImportRequirementThread_2598 - Created requirement 'c_and_u' (INSI-1678).
+2018-09-24 13:22:23,354 INFO ImportRequirementThread_2598 - Creating requirement 'cfme_tenancy'.
+2018-09-24 13:22:23,355 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,376 INFO ImportRequirementThread_2598 - Created requirement 'cfme_tenancy' (INSI-1679).
+2018-09-24 13:22:23,386 INFO ImportRequirementThread_2598 - Creating requirement 'chargeback'.
+2018-09-24 13:22:23,386 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,405 INFO ImportRequirementThread_2598 - Created requirement 'chargeback' (INSI-1680).
+2018-09-24 13:22:23,414 INFO ImportRequirementThread_2598 - Creating requirement 'cloud_init'.
+2018-09-24 13:22:23,415 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,433 INFO ImportRequirementThread_2598 - Created requirement 'cloud_init' (INSI-1681).
+2018-09-24 13:22:23,442 INFO ImportRequirementThread_2598 - Creating requirement 'config_management'.
+2018-09-24 13:22:23,443 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,461 INFO ImportRequirementThread_2598 - Created requirement 'config_management' (INSI-1682).
+2018-09-24 13:22:23,519 INFO ImportRequirementThread_2598 - Creating requirement 'configuration'.
+2018-09-24 13:22:23,520 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,540 INFO ImportRequirementThread_2598 - Created requirement 'configuration' (INSI-1683).
+2018-09-24 13:22:23,549 INFO ImportRequirementThread_2598 - Creating requirement 'control'.
+2018-09-24 13:22:23,549 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,569 INFO ImportRequirementThread_2598 - Created requirement 'control' (INSI-1684).
+2018-09-24 13:22:23,579 INFO ImportRequirementThread_2598 - Creating requirement 'dashboard'.
+2018-09-24 13:22:23,579 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,599 INFO ImportRequirementThread_2598 - Created requirement 'dashboard' (INSI-1685).
+2018-09-24 13:22:23,609 INFO ImportRequirementThread_2598 - Creating requirement 'discovery'.
+2018-09-24 13:22:23,610 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,629 INFO ImportRequirementThread_2598 - Created requirement 'discovery' (INSI-1686).
+2018-09-24 13:22:23,638 INFO ImportRequirementThread_2598 - Creating requirement 'distributed'.
+2018-09-24 13:22:23,639 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,657 INFO ImportRequirementThread_2598 - Created requirement 'distributed' (INSI-1687).
+2018-09-24 13:22:23,668 INFO ImportRequirementThread_2598 - Creating requirement 'drift'.
+2018-09-24 13:22:23,669 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,688 INFO ImportRequirementThread_2598 - Created requirement 'drift' (INSI-1688).
+2018-09-24 13:22:23,699 INFO ImportRequirementThread_2598 - Creating requirement 'filter'.
+2018-09-24 13:22:23,699 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,718 INFO ImportRequirementThread_2598 - Created requirement 'filter' (INSI-1689).
+2018-09-24 13:22:23,728 INFO ImportRequirementThread_2598 - Creating requirement 'genealogy'.
+2018-09-24 13:22:23,729 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,748 INFO ImportRequirementThread_2598 - Created requirement 'genealogy' (INSI-1690).
+2018-09-24 13:22:23,758 INFO ImportRequirementThread_2598 - Creating requirement 'general_ui'.
+2018-09-24 13:22:23,758 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,778 INFO ImportRequirementThread_2598 - Created requirement 'general_ui' (INSI-1691).
+2018-09-24 13:22:23,787 INFO ImportRequirementThread_2598 - Creating requirement 'generic_objects'.
+2018-09-24 13:22:23,788 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,808 INFO ImportRequirementThread_2598 - Created requirement 'generic_objects' (INSI-1692).
+2018-09-24 13:22:23,818 INFO ImportRequirementThread_2598 - Creating requirement 'html5'.
+2018-09-24 13:22:23,818 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,837 INFO ImportRequirementThread_2598 - Created requirement 'html5' (INSI-1693).
+2018-09-24 13:22:23,847 INFO ImportRequirementThread_2598 - Creating requirement 'ipv6'.
+2018-09-24 13:22:23,847 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,866 INFO ImportRequirementThread_2598 - Created requirement 'ipv6' (INSI-1694).
+2018-09-24 13:22:23,875 INFO ImportRequirementThread_2598 - Creating requirement 'log_depot'.
+2018-09-24 13:22:23,876 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,895 INFO ImportRequirementThread_2598 - Created requirement 'log_depot' (INSI-1695).
+2018-09-24 13:22:23,904 INFO ImportRequirementThread_2598 - Creating requirement 'ownership'.
+2018-09-24 13:22:23,904 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,923 INFO ImportRequirementThread_2598 - Created requirement 'ownership' (INSI-1696).
+2018-09-24 13:22:23,932 INFO ImportRequirementThread_2598 - Creating requirement 'power'.
+2018-09-24 13:22:23,933 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:23,972 INFO ImportRequirementThread_2598 - Created requirement 'power' (INSI-1697).
+2018-09-24 13:22:23,982 INFO ImportRequirementThread_2598 - Creating requirement 'provision'.
+2018-09-24 13:22:23,982 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,002 INFO ImportRequirementThread_2598 - Created requirement 'provision' (INSI-1698).
+2018-09-24 13:22:24,021 INFO ImportRequirementThread_2598 - Creating requirement 'quota'.
+2018-09-24 13:22:24,021 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,041 INFO ImportRequirementThread_2598 - Created requirement 'quota' (INSI-1699).
+2018-09-24 13:22:24,051 INFO ImportRequirementThread_2598 - Creating requirement 'rbac'.
+2018-09-24 13:22:24,051 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,070 INFO ImportRequirementThread_2598 - Created requirement 'rbac' (INSI-1700).
+2018-09-24 13:22:24,080 INFO ImportRequirementThread_2598 - Creating requirement 'reconfigure'.
+2018-09-24 13:22:24,080 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,100 INFO ImportRequirementThread_2598 - Created requirement 'reconfigure' (INSI-1701).
+2018-09-24 13:22:24,110 INFO ImportRequirementThread_2598 - Creating requirement 'rep'.
+2018-09-24 13:22:24,111 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,130 INFO ImportRequirementThread_2598 - Created requirement 'rep' (INSI-1702).
+2018-09-24 13:22:24,171 INFO ImportRequirementThread_2598 - Creating requirement 'report'.
+2018-09-24 13:22:24,171 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,190 INFO ImportRequirementThread_2598 - Created requirement 'report' (INSI-1703).
+2018-09-24 13:22:24,200 INFO ImportRequirementThread_2598 - Creating requirement 'rest'.
+2018-09-24 13:22:24,201 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,221 INFO ImportRequirementThread_2598 - Created requirement 'rest' (INSI-1704).
+2018-09-24 13:22:24,246 INFO ImportRequirementThread_2598 - Creating requirement 'retirement'.
+2018-09-24 13:22:24,247 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,266 INFO ImportRequirementThread_2598 - Created requirement 'retirement' (INSI-1705).
+2018-09-24 13:22:24,277 INFO ImportRequirementThread_2598 - Creating requirement 'right_size'.
+2018-09-24 13:22:24,277 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,296 INFO ImportRequirementThread_2598 - Created requirement 'right_size' (INSI-1706).
+2018-09-24 13:22:24,306 INFO ImportRequirementThread_2598 - Creating requirement 'run_process'.
+2018-09-24 13:22:24,306 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,329 INFO ImportRequirementThread_2598 - Created requirement 'run_process' (INSI-1707).
+2018-09-24 13:22:24,339 INFO ImportRequirementThread_2598 - Creating requirement 'sdn'.
+2018-09-24 13:22:24,340 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,358 INFO ImportRequirementThread_2598 - Created requirement 'sdn' (INSI-1708).
+2018-09-24 13:22:24,401 INFO ImportRequirementThread_2598 - Creating requirement 'service'.
+2018-09-24 13:22:24,401 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,420 INFO ImportRequirementThread_2598 - Created requirement 'service' (INSI-1709).
+2018-09-24 13:22:24,430 INFO ImportRequirementThread_2598 - Creating requirement 'settings'.
+2018-09-24 13:22:24,430 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,449 INFO ImportRequirementThread_2598 - Created requirement 'settings' (INSI-1710).
+2018-09-24 13:22:24,460 INFO ImportRequirementThread_2598 - Creating requirement 'smartstate'.
+2018-09-24 13:22:24,460 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,479 INFO ImportRequirementThread_2598 - Created requirement 'smartstate' (INSI-1711).
+2018-09-24 13:22:24,488 INFO ImportRequirementThread_2598 - Creating requirement 'snapshot'.
+2018-09-24 13:22:24,488 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,507 INFO ImportRequirementThread_2598 - Created requirement 'snapshot' (INSI-1712).
+2018-09-24 13:22:24,517 INFO ImportRequirementThread_2598 - Creating requirement 'ssui'.
+2018-09-24 13:22:24,517 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,536 INFO ImportRequirementThread_2598 - Created requirement 'ssui' (INSI-1713).
+2018-09-24 13:22:24,546 INFO ImportRequirementThread_2598 - Creating requirement 'stack'.
+2018-09-24 13:22:24,546 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,565 INFO ImportRequirementThread_2598 - Created requirement 'stack' (INSI-1714).
+2018-09-24 13:22:24,575 INFO ImportRequirementThread_2598 - Creating requirement 'storage'.
+2018-09-24 13:22:24,575 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,594 INFO ImportRequirementThread_2598 - Created requirement 'storage' (INSI-1715).
+2018-09-24 13:22:24,604 INFO ImportRequirementThread_2598 - Creating requirement 'sysprep'.
+2018-09-24 13:22:24,604 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,624 INFO ImportRequirementThread_2598 - Created requirement 'sysprep' (INSI-1716).
+2018-09-24 13:22:24,633 INFO ImportRequirementThread_2598 - Creating requirement 'tag'.
+2018-09-24 13:22:24,634 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,652 INFO ImportRequirementThread_2598 - Created requirement 'tag' (INSI-1717).
+2018-09-24 13:22:24,661 INFO ImportRequirementThread_2598 - Creating requirement 'timelines'.
+2018-09-24 13:22:24,662 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,680 INFO ImportRequirementThread_2598 - Created requirement 'timelines' (INSI-1718).
+2018-09-24 13:22:24,690 INFO ImportRequirementThread_2598 - Creating requirement 'upgrade'.
+2018-09-24 13:22:24,690 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,709 INFO ImportRequirementThread_2598 - Created requirement 'upgrade' (INSI-1719).
+2018-09-24 13:22:24,718 INFO ImportRequirementThread_2598 - Creating requirement 'vm_migrate'.
+2018-09-24 13:22:24,719 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,738 INFO ImportRequirementThread_2598 - Created requirement 'vm_migrate' (INSI-1720).
+2018-09-24 13:22:24,748 INFO ImportRequirementThread_2598 - Creating requirement 'vmrc'.
+2018-09-24 13:22:24,748 INFO ImportRequirementThread_2598 - Setting custom field with id 'reqtype' to 'functional'.
+2018-09-24 13:22:24,768 INFO ImportRequirementThread_2598 - Created requirement 'vmrc' (INSI-1721).
+2018-09-24 13:22:24,768 INFO ImportRequirementThread_2598 - No Polarion requirements created or updated - dry run.
+2018-09-24 13:22:24,768 INFO ImportRequirementThread_2598 - Ending import of requirements to Polarion.
+2018-09-24 13:22:24,772 INFO ImportRequirementThread_2598 - Sending message to the UMB.
+2018-09-24 13:22:25,700 INFO ImportRequirementThread_2598 - Sending import message:
+Message Headers:
+  JMSDestination: null
+  JMSDeliveryMode: non-persistent
+  JMSExpiration: 0
+  JMSPriority: 0
+  JMSMessageID: null
+  JMSTimestamp: 0
+  JMSCorrelationID: null
+  JMSReplyTo: null
+  JMSRedelivered: false
+  JMSType: application/json
+Message Properties:
+  job-id: 251151
+  type: import-requirements
+Message Content:
+{
+  "import-requirements" : [ {
+    "status" : "passed",
+    "name" : "ansible",
+    "id" : "INSI-1673"
+  }, {
+    "status" : "passed",
+    "name" : "Client tool must provide a way to automatically update the collection rules at least weekly",
+    "id" : "INSI-102"
+  }, {
+    "status" : "failed",
+    "name" : "test duplicates",
+    "message" : "Found multiple work items with the title 'test duplicates'."
+  }, {
+    "status" : "passed",
+    "name" : "auth",
+    "id" : "INSI-1674"
+  }, {
+    "status" : "passed",
+    "name" : "automate",
+    "id" : "INSI-1675"
+  }, {
+    "status" : "passed",
+    "name" : "black",
+    "id" : "INSI-1676"
+  }, {
+    "status" : "passed",
+    "name" : "bottleneck",
+    "id" : "INSI-1677"
+  }, {
+    "status" : "passed",
+    "name" : "c_and_u",
+    "id" : "INSI-1678"
+  }, {
+    "status" : "passed",
+    "name" : "cfme_tenancy",
+    "id" : "INSI-1679"
+  }, {
+    "status" : "passed",
+    "name" : "chargeback",
+    "id" : "INSI-1680"
+  }, {
+    "status" : "passed",
+    "name" : "cloud_init",
+    "id" : "INSI-1681"
+  }, {
+    "status" : "passed",
+    "name" : "config_management",
+    "id" : "INSI-1682"
+  }, {
+    "status" : "passed",
+    "name" : "configuration",
+    "id" : "INSI-1683"
+  }, {
+    "status" : "passed",
+    "name" : "control",
+    "id" : "INSI-1684"
+  }, {
+    "status" : "passed",
+    "name" : "dashboard",
+    "id" : "INSI-1685"
+  }, {
+    "status" : "passed",
+    "name" : "discovery",
+    "id" : "INSI-1686"
+  }, {
+    "status" : "passed",
+    "name" : "distributed",
+    "id" : "INSI-1687"
+  }, {
+    "status" : "passed",
+    "name" : "drift",
+    "id" : "INSI-1688"
+  }, {
+    "status" : "passed",
+    "name" : "filter",
+    "id" : "INSI-1689"
+  }, {
+    "status" : "passed",
+    "name" : "genealogy",
+    "id" : "INSI-1690"
+  }, {
+    "status" : "passed",
+    "name" : "general_ui",
+    "id" : "INSI-1691"
+  }, {
+    "status" : "passed",
+    "name" : "generic_objects",
+    "id" : "INSI-1692"
+  }, {
+    "status" : "passed",
+    "name" : "html5",
+    "id" : "INSI-1693"
+  }, {
+    "status" : "passed",
+    "name" : "ipv6",
+    "id" : "INSI-1694"
+  }, {
+    "status" : "passed",
+    "name" : "log_depot",
+    "id" : "INSI-1695"
+  }, {
+    "status" : "passed",
+    "name" : "ownership",
+    "id" : "INSI-1696"
+  }, {
+    "status" : "passed",
+    "name" : "power",
+    "id" : "INSI-1697"
+  }, {
+    "status" : "passed",
+    "name" : "provision",
+    "id" : "INSI-1698"
+  }, {
+    "status" : "passed",
+    "name" : "quota",
+    "id" : "INSI-1699"
+  }, {
+    "status" : "passed",
+    "name" : "rbac",
+    "id" : "INSI-1700"
+  }, {
+    "status" : "passed",
+    "name" : "reconfigure",
+    "id" : "INSI-1701"
+  }, {
+    "status" : "passed",
+    "name" : "rep",
+    "id" : "INSI-1702"
+  }, {
+    "status" : "passed",
+    "name" : "report",
+    "id" : "INSI-1703"
+  }, {
+    "status" : "passed",
+    "name" : "rest",
+    "id" : "INSI-1704"
+  }, {
+    "status" : "passed",
+    "name" : "retirement",
+    "id" : "INSI-1705"
+  }, {
+    "status" : "passed",
+    "name" : "right_size",
+    "id" : "INSI-1706"
+  }, {
+    "status" : "passed",
+    "name" : "run_process",
+    "id" : "INSI-1707"
+  }, {
+    "status" : "passed",
+    "name" : "sdn",
+    "id" : "INSI-1708"
+  }, {
+    "status" : "passed",
+    "name" : "service",
+    "id" : "INSI-1709"
+  }, {
+    "status" : "passed",
+    "name" : "settings",
+    "id" : "INSI-1710"
+  }, {
+    "status" : "passed",
+    "name" : "smartstate",
+    "id" : "INSI-1711"
+  }, {
+    "status" : "passed",
+    "name" : "snapshot",
+    "id" : "INSI-1712"
+  }, {
+    "status" : "passed",
+    "name" : "ssui",
+    "id" : "INSI-1713"
+  }, {
+    "status" : "passed",
+    "name" : "stack",
+    "id" : "INSI-1714"
+  }, {
+    "status" : "passed",
+    "name" : "storage",
+    "id" : "INSI-1715"
+  }, {
+    "status" : "passed",
+    "name" : "sysprep",
+    "id" : "INSI-1716"
+  }, {
+    "status" : "passed",
+    "name" : "tag",
+    "id" : "INSI-1717"
+  }, {
+    "status" : "passed",
+    "name" : "timelines",
+    "id" : "INSI-1718"
+  }, {
+    "status" : "passed",
+    "name" : "upgrade",
+    "id" : "INSI-1719"
+  }, {
+    "status" : "passed",
+    "name" : "vm_migrate",
+    "id" : "INSI-1720"
+  }, {
+    "status" : "passed",
+    "name" : "vmrc",
+    "id" : "INSI-1721"
+  } ],
+  "status" : "partial",
+  "message" : "No Polarion requirements created or updated - dry run.",
+  "log-url" : "https://polarion.engineering.redhat.com/polarion/rh-import/requirement-log?jobId=251151",
+  "dry-run" : true
+}
+2018-09-24 13:22:25,809 INFO ImportRequirementThread_2598 - Message sent.

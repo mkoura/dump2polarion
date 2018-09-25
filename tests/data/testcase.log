@@ -1,0 +1,1264 @@
+2018-09-21 14:54:41,955 INFO ImportTestcaseThread_1985 - Red Hat Importers version 2.0.21.
+2018-09-21 14:54:41,955 INFO ImportTestcaseThread_1985 - Processing job #249288.
+2018-09-21 14:54:41,956 INFO ImportTestcaseThread_1985 - Running as 'Import User'.
+2018-09-21 14:54:41,956 INFO ImportTestcaseThread_1985 - Starting import of test cases to Polarion.
+2018-09-21 14:54:41,956 INFO ImportTestcaseThread_1985 - Deserializing Testcases input file.
+2018-09-21 14:54:45,933 INFO ImportTestcaseThread_1985 - Using Polarion lookup method: custom
+2018-09-21 14:54:45,963 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsQuery.test_post_multi' (INSI-1488/3182d6f37fd78a4c860e033ff954ce9f).
+2018-09-21 14:54:45,964 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:45,964 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:45,965 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:45,965 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:45,965 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:45,965 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:45,965 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:45,965 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L193'.
+2018-09-21 14:54:45,997 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsQuery.test_post_multi' (INSI-1488/3182d6f37fd78a4c860e033ff954ce9f).
+2018-09-21 14:54:45,998 ERROR ImportTestcaseThread_1985 - Found multiple work items with the title 'test_duplicates'.
+2018-09-21 14:54:46,021 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsQuery.test_post_single' (INSI-1489/b66af1126320e5a1f68d16d7838e7c22).
+2018-09-21 14:54:46,022 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,022 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,022 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,022 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,022 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,022 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,023 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,023 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L207'.
+2018-09-21 14:54:46,031 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsQuery.test_post_single' (INSI-1489/b66af1126320e5a1f68d16d7838e7c22).
+2018-09-21 14:54:46,053 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsQuery.test_get' (INSI-1490/1fec97d06c1d8084245a396c884507e2).
+2018-09-21 14:54:46,054 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,054 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,055 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,055 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,055 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,055 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,055 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,055 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L231'.
+2018-09-21 14:54:46,063 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsQuery.test_get' (INSI-1490/1fec97d06c1d8084245a396c884507e2).
+2018-09-21 14:54:46,087 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsModifiedSince.test_post_multi' (INSI-1491/1815e371cb1c57174291b0a66fc54ba6).
+2018-09-21 14:54:46,088 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,088 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,088 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,088 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,088 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,088 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,088 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,088 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L255'.
+2018-09-21 14:54:46,097 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsModifiedSince.test_post_multi' (INSI-1491/1815e371cb1c57174291b0a66fc54ba6).
+2018-09-21 14:54:46,122 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsModifiedSince.test_post_single' (INSI-1492/db9f099cac65152bc1ec92ef4405fc3e).
+2018-09-21 14:54:46,124 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,124 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,124 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,124 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,124 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,124 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,124 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,124 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L270'.
+2018-09-21 14:54:46,132 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsModifiedSince.test_post_single' (INSI-1492/db9f099cac65152bc1ec92ef4405fc3e).
+2018-09-21 14:54:46,159 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsModifiedSince.test_modified_no_tz' (INSI-1493/04a5e216100114ffc233fdfeeea59979).
+2018-09-21 14:54:46,160 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,160 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,160 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,160 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,161 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,161 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,161 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,161 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L290'.
+2018-09-21 14:54:46,169 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsModifiedSince.test_modified_no_tz' (INSI-1493/04a5e216100114ffc233fdfeeea59979).
+2018-09-21 14:54:46,194 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsCorrect.test_post_multi' (INSI-1494/7b9c843ab11f75dea01cf5fcac41bed5).
+2018-09-21 14:54:46,195 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,195 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,195 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,195 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,195 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,195 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,195 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,195 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L348'.
+2018-09-21 14:54:46,203 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsCorrect.test_post_multi' (INSI-1494/7b9c843ab11f75dea01cf5fcac41bed5).
+2018-09-21 14:54:46,229 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsCorrect.test_post_single' (INSI-1495/dc7b1c46113b0b55ec5a63959206dae5).
+2018-09-21 14:54:46,231 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,231 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,231 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,231 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,231 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,231 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,231 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,231 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L356'.
+2018-09-21 14:54:46,239 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsCorrect.test_post_single' (INSI-1495/dc7b1c46113b0b55ec5a63959206dae5).
+2018-09-21 14:54:46,262 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsCorrect.test_get' (INSI-1496/6199ca7e0a60506cb70a6d274c56e5fd).
+2018-09-21 14:54:46,263 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,263 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,263 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,264 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,264 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,264 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,264 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,264 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L365'.
+2018-09-21 14:54:46,272 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsCorrect.test_get' (INSI-1496/6199ca7e0a60506cb70a6d274c56e5fd).
+2018-09-21 14:54:46,297 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsCorrect.test_post_multi_smoke' (INSI-1497/27966293954e6830931576a48829d097).
+2018-09-21 14:54:46,298 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,298 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,298 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,298 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,298 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,298 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,298 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,299 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L374'.
+2018-09-21 14:54:46,307 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsCorrect.test_post_multi_smoke' (INSI-1497/27966293954e6830931576a48829d097).
+2018-09-21 14:54:46,330 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsCorrect.test_post_single_smoke' (INSI-1498/0422b43ddc9ccc44f2cc5358ac25ba58).
+2018-09-21 14:54:46,331 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,331 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,331 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,332 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,332 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,332 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,332 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,332 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L383'.
+2018-09-21 14:54:46,339 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsCorrect.test_post_single_smoke' (INSI-1498/0422b43ddc9ccc44f2cc5358ac25ba58).
+2018-09-21 14:54:46,365 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsCorrect.test_get_smoke' (INSI-1499/a7636b75af47823f8be3c3c7b1ef44d2).
+2018-09-21 14:54:46,367 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,367 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,367 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,367 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,367 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,367 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,367 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,367 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L393'.
+2018-09-21 14:54:46,375 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsCorrect.test_get_smoke' (INSI-1499/a7636b75af47823f8be3c3c7b1ef44d2).
+2018-09-21 14:54:46,399 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsRegex.test_post_single' (INSI-1500/1e6d2b66365fbab6cfbfbea51d4f48f8).
+2018-09-21 14:54:46,400 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,400 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,400 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,400 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,400 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,400 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,400 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,400 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L407'.
+2018-09-21 14:54:46,409 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsRegex.test_post_single' (INSI-1500/1e6d2b66365fbab6cfbfbea51d4f48f8).
+2018-09-21 14:54:46,433 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsRegex.test_get' (INSI-1501/47997106004db6db2f572612bf1d0534).
+2018-09-21 14:54:46,434 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,434 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,434 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,434 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,434 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,435 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,435 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,435 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L432'.
+2018-09-21 14:54:46,443 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsRegex.test_get' (INSI-1501/47997106004db6db2f572612bf1d0534).
+2018-09-21 14:54:46,467 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsPagination.test_pagination' (INSI-1502/bd0e8f5ee8d6c0a55ec02853bf5d6fdf).
+2018-09-21 14:54:46,468 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,468 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,468 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,468 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,469 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,469 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,469 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,469 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L458'.
+2018-09-21 14:54:46,477 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsPagination.test_pagination' (INSI-1502/bd0e8f5ee8d6c0a55ec02853bf5d6fdf).
+2018-09-21 14:54:46,502 INFO ImportTestcaseThread_1985 - Updating test case 'TestCVEsPagination.test_pagination_neg' (INSI-1503/6a137166c4e1e59e7227c547b79e95b4).
+2018-09-21 14:54:46,503 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,503 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,503 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,503 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,503 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,503 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,503 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,503 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_cves.py#L489'.
+2018-09-21 14:54:46,511 INFO ImportTestcaseThread_1985 - Updated test case 'TestCVEsPagination.test_pagination_neg' (INSI-1503/6a137166c4e1e59e7227c547b79e95b4).
+2018-09-21 14:54:46,535 INFO ImportTestcaseThread_1985 - Updating test case 'TestDBChange.test_dbchange' (INSI-1504/0d44926fc205733b07fa0e2aca05b0d9).
+2018-09-21 14:54:46,536 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,536 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,536 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,536 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,536 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,536 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,536 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,536 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_dbchange.py#L11'.
+2018-09-21 14:54:46,545 INFO ImportTestcaseThread_1985 - Updated test case 'TestDBChange.test_dbchange' (INSI-1504/0d44926fc205733b07fa0e2aca05b0d9).
+2018-09-21 14:54:46,570 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataQuery.test_post_multi' (INSI-1505/d59e05baca484f217f6af6a4813bac2e).
+2018-09-21 14:54:46,571 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,571 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,571 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,571 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,571 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,571 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,571 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,571 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L102'.
+2018-09-21 14:54:46,580 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataQuery.test_post_multi' (INSI-1505/d59e05baca484f217f6af6a4813bac2e).
+2018-09-21 14:54:46,603 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataQuery.test_post_multi_smoke' (INSI-1506/f39f22bb9a64d9cd7de641439a102110).
+2018-09-21 14:54:46,605 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,605 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,605 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,605 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,605 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,605 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,605 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,605 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L110'.
+2018-09-21 14:54:46,613 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataQuery.test_post_multi_smoke' (INSI-1506/f39f22bb9a64d9cd7de641439a102110).
+2018-09-21 14:54:46,638 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataQuery.test_post_single' (INSI-1507/d6e7526da1da3ec0a02ffccda589e8aa).
+2018-09-21 14:54:46,639 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,639 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,639 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,639 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,639 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,639 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,639 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,639 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L120'.
+2018-09-21 14:54:46,648 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataQuery.test_post_single' (INSI-1507/d6e7526da1da3ec0a02ffccda589e8aa).
+2018-09-21 14:54:46,673 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataQuery.test_post_single_smoke' (INSI-1508/d6cd402cf9f6eaa0a8c81cd58a591293).
+2018-09-21 14:54:46,674 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,674 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,674 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,674 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,675 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,675 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,675 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,675 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L129'.
+2018-09-21 14:54:46,683 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataQuery.test_post_single_smoke' (INSI-1508/d6cd402cf9f6eaa0a8c81cd58a591293).
+2018-09-21 14:54:46,707 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataQuery.test_get' (INSI-1509/7ddf4d796642456ca3f70bc8d3f09fc3).
+2018-09-21 14:54:46,709 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,709 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,709 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,709 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,709 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,709 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,709 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,709 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L141'.
+2018-09-21 14:54:46,717 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataQuery.test_get' (INSI-1509/7ddf4d796642456ca3f70bc8d3f09fc3).
+2018-09-21 14:54:46,742 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataModifiedSince.test_post_multi' (INSI-1510/a3bfae5fdfdc37dad8832d5bdae14e1a).
+2018-09-21 14:54:46,743 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,743 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,743 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,743 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,743 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,743 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,743 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,743 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L203'.
+2018-09-21 14:54:46,751 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataModifiedSince.test_post_multi' (INSI-1510/a3bfae5fdfdc37dad8832d5bdae14e1a).
+2018-09-21 14:54:46,775 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataModifiedSince.test_post_multi_smoke' (INSI-1511/092d04620f0c1603467e149fc5872bc1).
+2018-09-21 14:54:46,776 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,776 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,776 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,777 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,777 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,777 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,777 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,777 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L211'.
+2018-09-21 14:54:46,785 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataModifiedSince.test_post_multi_smoke' (INSI-1511/092d04620f0c1603467e149fc5872bc1).
+2018-09-21 14:54:46,809 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataModifiedSince.test_post_single' (INSI-1512/d8d6982398f89aaeca5e90ba7347f52b).
+2018-09-21 14:54:46,810 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,810 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,810 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,810 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,810 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,810 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,810 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,810 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L220'.
+2018-09-21 14:54:46,819 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataModifiedSince.test_post_single' (INSI-1512/d8d6982398f89aaeca5e90ba7347f52b).
+2018-09-21 14:54:46,843 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataModifiedSince.test_post_single_smoke' (INSI-1513/37fad422ec214bdb32ad22c9c0e5ec5f).
+2018-09-21 14:54:46,844 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,844 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,844 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,844 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,844 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,844 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,844 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,844 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L229'.
+2018-09-21 14:54:46,853 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataModifiedSince.test_post_single_smoke' (INSI-1513/37fad422ec214bdb32ad22c9c0e5ec5f).
+2018-09-21 14:54:46,877 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataModifiedSince.test_modified_no_tz' (INSI-1514/1e5a0378be12915e8d16a7feeed41cda).
+2018-09-21 14:54:46,878 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,878 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,878 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,878 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,878 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,878 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,878 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,878 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L239'.
+2018-09-21 14:54:46,886 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataModifiedSince.test_modified_no_tz' (INSI-1514/1e5a0378be12915e8d16a7feeed41cda).
+2018-09-21 14:54:46,910 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataRegex.test_post_single' (INSI-1515/b772deda3b025bc3c91e157512096611).
+2018-09-21 14:54:46,911 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,911 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,911 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,912 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,912 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,912 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,912 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,912 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L253'.
+2018-09-21 14:54:46,920 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataRegex.test_post_single' (INSI-1515/b772deda3b025bc3c91e157512096611).
+2018-09-21 14:54:46,944 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataRegex.test_get' (INSI-1516/04b6081daecf46553be015158fa7ceb5).
+2018-09-21 14:54:46,946 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,946 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,946 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,946 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,946 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,946 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,946 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,946 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L273'.
+2018-09-21 14:54:46,954 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataRegex.test_get' (INSI-1516/04b6081daecf46553be015158fa7ceb5).
+2018-09-21 14:54:46,978 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataPagination.test_pagination' (INSI-1517/3fa8e54691929deedb1f83045e4a3b54).
+2018-09-21 14:54:46,979 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:46,979 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:46,979 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:46,979 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:46,979 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:46,979 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:46,980 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:46,980 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L294'.
+2018-09-21 14:54:46,987 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataPagination.test_pagination' (INSI-1517/3fa8e54691929deedb1f83045e4a3b54).
+2018-09-21 14:54:47,010 INFO ImportTestcaseThread_1985 - Updating test case 'TestErrataPagination.test_pagination_neg' (INSI-1518/8d435192e2ee7f5ecbf542bf8f0ae677).
+2018-09-21 14:54:47,012 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,012 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,012 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,012 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,012 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,012 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,012 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,012 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_errata.py#L325'.
+2018-09-21 14:54:47,020 INFO ImportTestcaseThread_1985 - Updated test case 'TestErrataPagination.test_pagination_neg' (INSI-1518/8d435192e2ee7f5ecbf542bf8f0ae677).
+2018-09-21 14:54:47,047 INFO ImportTestcaseThread_1985 - Updating test case 'TestJSON.test_json_updates' (INSI-1519/26ce6e49806f42a7c134b84817cc17b0).
+2018-09-21 14:54:47,048 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,048 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,048 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,048 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,049 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,049 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,049 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,049 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_json.py#L87'.
+2018-09-21 14:54:47,057 INFO ImportTestcaseThread_1985 - Updated test case 'TestJSON.test_json_updates' (INSI-1519/26ce6e49806f42a7c134b84817cc17b0).
+2018-09-21 14:54:47,081 INFO ImportTestcaseThread_1985 - Updating test case 'TestJSON.test_json_cves' (INSI-1520/d50b148ae13eb4007e2c0f6e94cc75c4).
+2018-09-21 14:54:47,082 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,082 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,082 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,082 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,082 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,082 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,082 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,082 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_json.py#L98'.
+2018-09-21 14:54:47,091 INFO ImportTestcaseThread_1985 - Updated test case 'TestJSON.test_json_cves' (INSI-1520/d50b148ae13eb4007e2c0f6e94cc75c4).
+2018-09-21 14:54:47,115 INFO ImportTestcaseThread_1985 - Updating test case 'TestJSON.test_json_errata' (INSI-1521/0c0a0c61b27b6cd421550dc6e41dd830).
+2018-09-21 14:54:47,116 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,116 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,116 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,116 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,116 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,117 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,117 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,117 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_json.py#L123'.
+2018-09-21 14:54:47,125 INFO ImportTestcaseThread_1985 - Updated test case 'TestJSON.test_json_errata' (INSI-1521/0c0a0c61b27b6cd421550dc6e41dd830).
+2018-09-21 14:54:47,151 INFO ImportTestcaseThread_1985 - Updating test case 'TestJSON.test_json_repos' (INSI-1522/6341a93117a0719f855ac4be438a0be8).
+2018-09-21 14:54:47,152 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,152 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,153 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,153 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,153 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,153 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,153 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,153 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_json.py#L148'.
+2018-09-21 14:54:47,161 INFO ImportTestcaseThread_1985 - Updated test case 'TestJSON.test_json_repos' (INSI-1522/6341a93117a0719f855ac4be438a0be8).
+2018-09-21 14:54:47,184 INFO ImportTestcaseThread_1985 - Updating test case 'TestJSON.test_json_packages' (INSI-1523/5ae3ed4378335bbd97f5bd8971826cfc).
+2018-09-21 14:54:47,185 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,185 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,186 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,186 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,186 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,186 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,186 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,186 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_json.py#L173'.
+2018-09-21 14:54:47,194 INFO ImportTestcaseThread_1985 - Updated test case 'TestJSON.test_json_packages' (INSI-1523/5ae3ed4378335bbd97f5bd8971826cfc).
+2018-09-21 14:54:47,218 INFO ImportTestcaseThread_1985 - Updating test case 'TestPackagesQuery.test_post_multi' (INSI-1524/f4728ca28ff612176d1052c3a7177c95).
+2018-09-21 14:54:47,220 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,220 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,220 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,220 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,220 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,220 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,220 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,220 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_packages.py#L11'.
+2018-09-21 14:54:47,228 INFO ImportTestcaseThread_1985 - Updated test case 'TestPackagesQuery.test_post_multi' (INSI-1524/f4728ca28ff612176d1052c3a7177c95).
+2018-09-21 14:54:47,252 INFO ImportTestcaseThread_1985 - Updating test case 'TestPackagesQuery.test_post_single' (INSI-1525/ca04ea340502a043881b1f236907ced1).
+2018-09-21 14:54:47,253 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'medium'.
+2018-09-21 14:54:47,253 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,253 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,253 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,253 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,253 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,253 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,253 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_packages.py#L25'.
+2018-09-21 14:54:47,262 INFO ImportTestcaseThread_1985 - Updated test case 'TestPackagesQuery.test_post_single' (INSI-1525/ca04ea340502a043881b1f236907ced1).
+2018-09-21 14:54:47,285 INFO ImportTestcaseThread_1985 - Updating test case 'TestPackagesQuery.test_get' (INSI-1526/c383ef982a19f401b6a22c0c3793d48c).
+2018-09-21 14:54:47,286 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,286 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,286 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,286 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,286 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,286 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,286 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,286 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_packages.py#L41'.
+2018-09-21 14:54:47,294 INFO ImportTestcaseThread_1985 - Updated test case 'TestPackagesQuery.test_get' (INSI-1526/c383ef982a19f401b6a22c0c3793d48c).
+2018-09-21 14:54:47,318 INFO ImportTestcaseThread_1985 - Updating test case 'TestContainerReconnect.test_reconnect' (INSI-1527/4fb87ad144be9af87378e51c252da09d).
+2018-09-21 14:54:47,319 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,319 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,319 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,319 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,319 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,319 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,319 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,319 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_reconnect.py#L9'.
+2018-09-21 14:54:47,327 INFO ImportTestcaseThread_1985 - Updated test case 'TestContainerReconnect.test_reconnect' (INSI-1527/4fb87ad144be9af87378e51c252da09d).
+2018-09-21 14:54:47,351 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposQuery.test_post_multi' (INSI-1528/7215017cb4de07a5bb2db8651adfc66a).
+2018-09-21 14:54:47,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,353 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,353 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,353 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,353 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L85'.
+2018-09-21 14:54:47,361 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposQuery.test_post_multi' (INSI-1528/7215017cb4de07a5bb2db8651adfc66a).
+2018-09-21 14:54:47,385 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposQuery.test_post_multi_smoke' (INSI-1529/a421caae932fe89fc67dc35b57622664).
+2018-09-21 14:54:47,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,387 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,387 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,387 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,387 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,387 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,387 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L93'.
+2018-09-21 14:54:47,395 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposQuery.test_post_multi_smoke' (INSI-1529/a421caae932fe89fc67dc35b57622664).
+2018-09-21 14:54:47,419 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposQuery.test_post_single' (INSI-1530/90966814ccf533f2b8e013f9eacc0ba3).
+2018-09-21 14:54:47,420 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L102'.
+2018-09-21 14:54:47,429 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposQuery.test_post_single' (INSI-1530/90966814ccf533f2b8e013f9eacc0ba3).
+2018-09-21 14:54:47,453 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposQuery.test_post_single_smoke' (INSI-1531/8ad1c710582a84794daa8a516272712d).
+2018-09-21 14:54:47,454 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,454 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,455 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,455 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,455 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,455 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,455 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,455 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L111'.
+2018-09-21 14:54:47,463 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposQuery.test_post_single_smoke' (INSI-1531/8ad1c710582a84794daa8a516272712d).
+2018-09-21 14:54:47,487 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposQuery.test_get' (INSI-1532/dfd0c52130be9cb670c507f4647dcf7b).
+2018-09-21 14:54:47,488 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L121'.
+2018-09-21 14:54:47,497 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposQuery.test_get' (INSI-1532/dfd0c52130be9cb670c507f4647dcf7b).
+2018-09-21 14:54:47,521 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposQuery.test_get_smoke' (INSI-1533/a31561e6788d09893a89f5a5c6ae91ec).
+2018-09-21 14:54:47,522 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,523 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,523 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,523 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,523 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,523 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,523 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,523 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L130'.
+2018-09-21 14:54:47,531 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposQuery.test_get_smoke' (INSI-1533/a31561e6788d09893a89f5a5c6ae91ec).
+2018-09-21 14:54:47,556 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposNonexistent.test_post_multi' (INSI-1534/3e6b51821909faaf2b580982a8c7ea3e).
+2018-09-21 14:54:47,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L143'.
+2018-09-21 14:54:47,566 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposNonexistent.test_post_multi' (INSI-1534/3e6b51821909faaf2b580982a8c7ea3e).
+2018-09-21 14:54:47,592 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposNonexistent.test_post_single' (INSI-1535/b2c305aa6daa0f634b32918ef4b17c0a).
+2018-09-21 14:54:47,593 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,593 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,593 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,593 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,593 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,593 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,593 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,593 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L155'.
+2018-09-21 14:54:47,601 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposNonexistent.test_post_single' (INSI-1535/b2c305aa6daa0f634b32918ef4b17c0a).
+2018-09-21 14:54:47,627 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposNonexistent.test_get' (INSI-1536/b6f5dd4969089ccb594e016512bd6e63).
+2018-09-21 14:54:47,628 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,628 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,629 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,629 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,629 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,629 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,629 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,629 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L170'.
+2018-09-21 14:54:47,638 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposNonexistent.test_get' (INSI-1536/b6f5dd4969089ccb594e016512bd6e63).
+2018-09-21 14:54:47,662 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposPagination.test_pagination' (INSI-1537/d040944a6f4f30e5ad37fe8ed2633063).
+2018-09-21 14:54:47,664 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,664 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,664 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,664 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,664 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,664 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,664 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,664 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L185'.
+2018-09-21 14:54:47,673 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposPagination.test_pagination' (INSI-1537/d040944a6f4f30e5ad37fe8ed2633063).
+2018-09-21 14:54:47,699 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposPagination.test_pagination_neg' (INSI-1538/2749270fc5aadffc74c5ee6f5713c552).
+2018-09-21 14:54:47,700 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,701 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,701 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,701 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,701 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,701 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,701 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,701 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L216'.
+2018-09-21 14:54:47,732 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposPagination.test_pagination_neg' (INSI-1538/2749270fc5aadffc74c5ee6f5713c552).
+2018-09-21 14:54:47,758 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposRegex.test_post_single' (INSI-1539/d6e3b5b4ece2275674758214eba9c7f6).
+2018-09-21 14:54:47,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L242'.
+2018-09-21 14:54:47,769 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposRegex.test_post_single' (INSI-1539/d6e3b5b4ece2275674758214eba9c7f6).
+2018-09-21 14:54:47,796 INFO ImportTestcaseThread_1985 - Updating test case 'TestReposRegex.test_get' (INSI-1540/dd976ddeb1495f55dead28f4dae309ba).
+2018-09-21 14:54:47,797 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,797 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,797 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,798 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,798 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,798 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,798 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,798 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_repos.py#L260'.
+2018-09-21 14:54:47,807 INFO ImportTestcaseThread_1985 - Updated test case 'TestReposRegex.test_get' (INSI-1540/dd976ddeb1495f55dead28f4dae309ba).
+2018-09-21 14:54:47,833 INFO ImportTestcaseThread_1985 - Updating test case 'test_sync_cves' (INSI-1541/39b593941399a95d8e465c2d7af5730f).
+2018-09-21 14:54:47,834 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,834 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,834 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,835 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,835 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,835 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,835 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,835 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_sync_cves.py#L10'.
+2018-09-21 14:54:47,843 INFO ImportTestcaseThread_1985 - Updated test case 'test_sync_cves' (INSI-1541/39b593941399a95d8e465c2d7af5730f).
+2018-09-21 14:54:47,868 INFO ImportTestcaseThread_1985 - Updating test case 'test_repo_refresh' (INSI-1542/d070b210706f45695691765e9363d6c1).
+2018-09-21 14:54:47,869 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,870 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,870 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,870 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,870 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,870 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,870 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,870 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_sync_repos.py#L10'.
+2018-09-21 14:54:47,878 INFO ImportTestcaseThread_1985 - Updated test case 'test_repo_refresh' (INSI-1542/d070b210706f45695691765e9363d6c1).
+2018-09-21 14:54:47,902 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesBasic.test_post_multi' (INSI-1543/f74d4a606dfa167391377be5a477ca8f).
+2018-09-21 14:54:47,903 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,903 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,903 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,903 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,904 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,904 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,904 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,904 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L41'.
+2018-09-21 14:54:47,912 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesBasic.test_post_multi' (INSI-1543/f74d4a606dfa167391377be5a477ca8f).
+2018-09-21 14:54:47,936 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesBasic.test_post_single' (INSI-1544/0a63666b2981fc4d8709da5459525f87).
+2018-09-21 14:54:47,938 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,938 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,938 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,938 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,938 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,938 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,938 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,938 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L51'.
+2018-09-21 14:54:47,947 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesBasic.test_post_single' (INSI-1544/0a63666b2981fc4d8709da5459525f87).
+2018-09-21 14:54:47,973 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesBasic.test_get_single' (INSI-1545/342139e97c062e5a9fb6214a705e2ae3).
+2018-09-21 14:54:47,974 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:47,975 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:47,975 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:47,975 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:47,975 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:47,975 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:47,975 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:47,975 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L63'.
+2018-09-21 14:54:47,983 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesBasic.test_get_single' (INSI-1545/342139e97c062e5a9fb6214a705e2ae3).
+2018-09-21 14:54:48,007 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateInOtherRepo.test_post_multi' (INSI-1546/f63bacad939dd79b628a6191635ee9f1).
+2018-09-21 14:54:48,009 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,009 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,009 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,009 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,009 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,009 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,009 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,009 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L111'.
+2018-09-21 14:54:48,017 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateInOtherRepo.test_post_multi' (INSI-1546/f63bacad939dd79b628a6191635ee9f1).
+2018-09-21 14:54:48,042 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e).
+2018-09-21 14:54:48,043 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,044 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,044 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,044 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,044 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,044 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,044 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,044 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L121'.
+2018-09-21 14:54:48,052 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e).
+2018-09-21 14:54:48,077 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001).
+2018-09-21 14:54:48,078 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,078 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,078 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,078 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,078 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,078 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,078 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,078 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L133'.
+2018-09-21 14:54:48,086 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001).
+2018-09-21 14:54:48,110 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateToNoarch.test_post_multi' (INSI-1549/4ddb37bd6f7b3dd1d0acefe6dd2f7479).
+2018-09-21 14:54:48,111 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,111 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,111 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,111 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,111 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,111 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,111 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,112 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L181'.
+2018-09-21 14:54:48,120 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateToNoarch.test_post_multi' (INSI-1549/4ddb37bd6f7b3dd1d0acefe6dd2f7479).
+2018-09-21 14:54:48,144 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateToNoarch.test_post_single' (INSI-1550/d5b6da9b75fceaa142fb1bbc341616b5).
+2018-09-21 14:54:48,145 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,145 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,145 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,145 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,145 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,145 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,145 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,145 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L191'.
+2018-09-21 14:54:48,153 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateToNoarch.test_post_single' (INSI-1550/d5b6da9b75fceaa142fb1bbc341616b5).
+2018-09-21 14:54:48,179 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateToNoarch.test_get_single' (INSI-1551/444585c73e837dc80441abdb6fa6f79d).
+2018-09-21 14:54:48,180 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,180 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,180 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,180 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,181 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,181 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,181 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,181 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L203'.
+2018-09-21 14:54:48,189 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateToNoarch.test_get_single' (INSI-1551/444585c73e837dc80441abdb6fa6f79d).
+2018-09-21 14:54:48,213 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateFromNoarch.test_post_multi' (INSI-1552/33201cbfb0388eb50551ab5c06a30a4d).
+2018-09-21 14:54:48,214 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,214 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,215 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,215 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,215 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,215 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,215 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,215 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L247'.
+2018-09-21 14:54:48,223 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateFromNoarch.test_post_multi' (INSI-1552/33201cbfb0388eb50551ab5c06a30a4d).
+2018-09-21 14:54:48,247 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateFromNoarch.test_post_single' (INSI-1553/b3e6973d6431da5579e8ba1775f98bd0).
+2018-09-21 14:54:48,248 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,248 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,248 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,248 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,248 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,248 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,248 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,248 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L257'.
+2018-09-21 14:54:48,256 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateFromNoarch.test_post_single' (INSI-1553/b3e6973d6431da5579e8ba1775f98bd0).
+2018-09-21 14:54:48,281 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateFromNoarch.test_get_single' (INSI-1554/a96901d02f797e862732843ab448aa66).
+2018-09-21 14:54:48,282 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,283 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,283 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,283 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,283 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,283 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,283 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,283 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L269'.
+2018-09-21 14:54:48,291 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateFromNoarch.test_get_single' (INSI-1554/a96901d02f797e862732843ab448aa66).
+2018-09-21 14:54:48,316 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateI386Filter.test_post_multi' (INSI-1555/6264b3b75077fba267f77b8400ae74a0).
+2018-09-21 14:54:48,318 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,318 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,318 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,318 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,318 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,318 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,318 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,318 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L318'.
+2018-09-21 14:54:48,327 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateI386Filter.test_post_multi' (INSI-1555/6264b3b75077fba267f77b8400ae74a0).
+2018-09-21 14:54:48,351 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdateI386Filter.test_post_single' (INSI-1556/2550e6723ef0cf309e2fc2ee0abab5c6).
+2018-09-21 14:54:48,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,352 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_tier2_udpates.py#L329'.
+2018-09-21 14:54:48,360 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdateI386Filter.test_post_single' (INSI-1556/2550e6723ef0cf309e2fc2ee0abab5c6).
+2018-09-21 14:54:48,384 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesAll.test_post_multi' (INSI-1557/717fca146679ac897c8c29cc9a563489).
+2018-09-21 14:54:48,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,386 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L42'.
+2018-09-21 14:54:48,395 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesAll.test_post_multi' (INSI-1557/717fca146679ac897c8c29cc9a563489).
+2018-09-21 14:54:48,420 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d).
+2018-09-21 14:54:48,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,421 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,422 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,422 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,422 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,422 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L52'.
+2018-09-21 14:54:48,430 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d).
+2018-09-21 14:54:48,455 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb).
+2018-09-21 14:54:48,456 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,456 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,456 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,456 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,456 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,456 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,456 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,456 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L64'.
+2018-09-21 14:54:48,464 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb).
+2018-09-21 14:54:48,488 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesInRepos.test_post_multi' (INSI-1560/e7330e10eb5f21ec95ee16a01c4eaec6).
+2018-09-21 14:54:48,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,489 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,490 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,490 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,490 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,490 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L114'.
+2018-09-21 14:54:48,498 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesInRepos.test_post_multi' (INSI-1560/e7330e10eb5f21ec95ee16a01c4eaec6).
+2018-09-21 14:54:48,523 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesInRepos.test_post_single' (INSI-1561/bc1acdad9cfb949fba9456b9a4f2df97).
+2018-09-21 14:54:48,524 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,524 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,524 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,524 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,524 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,524 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,525 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,525 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L124'.
+2018-09-21 14:54:48,533 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesInRepos.test_post_single' (INSI-1561/bc1acdad9cfb949fba9456b9a4f2df97).
+2018-09-21 14:54:48,556 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesInRepos.test_post_nonexistent_repo' (INSI-1562/7b899ef1d0a67ffd0be17ddd3bab35fa).
+2018-09-21 14:54:48,557 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,557 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,557 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,558 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L136'.
+2018-09-21 14:54:48,566 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesInRepos.test_post_nonexistent_repo' (INSI-1562/7b899ef1d0a67ffd0be17ddd3bab35fa).
+2018-09-21 14:54:48,590 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesFilterRelease.test_post_multi' (INSI-1563/e26751523bfd869086a2e576b86b5d63).
+2018-09-21 14:54:48,591 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,592 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,592 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,592 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,592 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,592 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,592 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,592 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L175'.
+2018-09-21 14:54:48,600 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesFilterRelease.test_post_multi' (INSI-1563/e26751523bfd869086a2e576b86b5d63).
+2018-09-21 14:54:48,624 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesFilterRelease.test_post_single' (INSI-1564/92041415c1da5838127ee9739eab9f86).
+2018-09-21 14:54:48,625 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,626 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,626 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,626 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,626 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,626 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,626 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,626 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L185'.
+2018-09-21 14:54:48,634 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesFilterRelease.test_post_single' (INSI-1564/92041415c1da5838127ee9739eab9f86).
+2018-09-21 14:54:48,658 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesFilterBasearch.test_post_multi' (INSI-1565/d93fd40b92a1f2f08bcb85e618b6e6cd).
+2018-09-21 14:54:48,659 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,659 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,659 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,660 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,660 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,660 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,660 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,660 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L233'.
+2018-09-21 14:54:48,668 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesFilterBasearch.test_post_multi' (INSI-1565/d93fd40b92a1f2f08bcb85e618b6e6cd).
+2018-09-21 14:54:48,692 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesFilterBasearch.test_post_single' (INSI-1566/36ab98668e44b8dfe0462e80f3a46e06).
+2018-09-21 14:54:48,693 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,693 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,693 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,693 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,693 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,693 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,693 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,693 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L243'.
+2018-09-21 14:54:48,701 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesFilterBasearch.test_post_single' (INSI-1566/36ab98668e44b8dfe0462e80f3a46e06).
+2018-09-21 14:54:48,725 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesDiff.test_post_diff' (INSI-1567/cc7182668f69b6f05efd218f728863ff).
+2018-09-21 14:54:48,726 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,726 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,726 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,726 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,726 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,726 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,727 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,727 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L260'.
+2018-09-21 14:54:48,735 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesDiff.test_post_diff' (INSI-1567/cc7182668f69b6f05efd218f728863ff).
+2018-09-21 14:54:48,759 INFO ImportTestcaseThread_1985 - Updating test case 'TestUpdatesDiff.test_get_diff' (INSI-1568/08d8e241767f1bc52346762eeb9fc229).
+2018-09-21 14:54:48,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,760 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_updates.py#L276'.
+2018-09-21 14:54:48,769 INFO ImportTestcaseThread_1985 - Updated test case 'TestUpdatesDiff.test_get_diff' (INSI-1568/08d8e241767f1bc52346762eeb9fc229).
+2018-09-21 14:54:48,793 INFO ImportTestcaseThread_1985 - Updating test case 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02).
+2018-09-21 14:54:48,794 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseimportance' to 'high'.
+2018-09-21 14:54:48,794 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caselevel' to 'component'.
+2018-09-21 14:54:48,794 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseposneg' to 'positive'.
+2018-09-21 14:54:48,794 INFO ImportTestcaseThread_1985 - Setting custom field with id 'caseautomation' to 'automated'.
+2018-09-21 14:54:48,795 INFO ImportTestcaseThread_1985 - Setting custom field with id 'testtype' to 'functional'.
+2018-09-21 14:54:48,795 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype1' to '-'.
+2018-09-21 14:54:48,795 INFO ImportTestcaseThread_1985 - Setting custom field with id 'subtype2' to '-'.
+2018-09-21 14:54:48,795 INFO ImportTestcaseThread_1985 - Setting custom field with id 'automation_script' to 'http://github.com/RedHatInsights/vmaas_tests/blob/master/vmaas/tests/test_with_errata_tool.py#L89'.
+2018-09-21 14:54:48,803 INFO ImportTestcaseThread_1985 - Updated test case 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02).
+2018-09-21 14:54:48,804 INFO ImportTestcaseThread_1985 - No Polarion tests created or updated - dry run.
+2018-09-21 14:54:48,804 INFO ImportTestcaseThread_1985 - Ending import of test cases to Polarion.
+2018-09-21 14:54:48,807 INFO ImportTestcaseThread_1985 - Sending message to the UMB.
+2018-09-21 14:54:49,401 INFO ImportTestcaseThread_1985 - Sending import message:
+Message Headers:
+  JMSDestination: null
+  JMSDeliveryMode: non-persistent
+  JMSExpiration: 0
+  JMSPriority: 0
+  JMSMessageID: null
+  JMSTimestamp: 0
+  JMSCorrelationID: null
+  JMSReplyTo: null
+  JMSRedelivered: false
+  JMSType: application/json
+Message Properties:
+  job-id: 249288
+  type: import-testcases
+Message Content:
+{
+  "import-testcases" : [ {
+    "status" : "passed",
+    "name" : "TestCVEsQuery.test_post_multi",
+    "id" : "INSI-1488",
+    "custom_id" : "3182d6f37fd78a4c860e033ff954ce9f"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsQuery.test_post_single",
+    "id" : "INSI-1489",
+    "custom_id" : "b66af1126320e5a1f68d16d7838e7c22"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsQuery.test_get",
+    "id" : "INSI-1490",
+    "custom_id" : "1fec97d06c1d8084245a396c884507e2"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsModifiedSince.test_post_multi",
+    "id" : "INSI-1491",
+    "custom_id" : "1815e371cb1c57174291b0a66fc54ba6"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsModifiedSince.test_post_single",
+    "id" : "INSI-1492",
+    "custom_id" : "db9f099cac65152bc1ec92ef4405fc3e"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsModifiedSince.test_modified_no_tz",
+    "id" : "INSI-1493",
+    "custom_id" : "04a5e216100114ffc233fdfeeea59979"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsCorrect.test_post_multi",
+    "id" : "INSI-1494",
+    "custom_id" : "7b9c843ab11f75dea01cf5fcac41bed5"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsCorrect.test_post_single",
+    "id" : "INSI-1495",
+    "custom_id" : "dc7b1c46113b0b55ec5a63959206dae5"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsCorrect.test_get",
+    "id" : "INSI-1496",
+    "custom_id" : "6199ca7e0a60506cb70a6d274c56e5fd"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsCorrect.test_post_multi_smoke",
+    "id" : "INSI-1497",
+    "custom_id" : "27966293954e6830931576a48829d097"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsCorrect.test_post_single_smoke",
+    "id" : "INSI-1498",
+    "custom_id" : "0422b43ddc9ccc44f2cc5358ac25ba58"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsCorrect.test_get_smoke",
+    "id" : "INSI-1499",
+    "custom_id" : "a7636b75af47823f8be3c3c7b1ef44d2"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsRegex.test_post_single",
+    "id" : "INSI-1500",
+    "custom_id" : "1e6d2b66365fbab6cfbfbea51d4f48f8"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsRegex.test_get",
+    "id" : "INSI-1501",
+    "custom_id" : "47997106004db6db2f572612bf1d0534"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsPagination.test_pagination",
+    "id" : "INSI-1502",
+    "custom_id" : "bd0e8f5ee8d6c0a55ec02853bf5d6fdf"
+  }, {
+    "status" : "passed",
+    "name" : "TestCVEsPagination.test_pagination_neg",
+    "id" : "INSI-1503",
+    "custom_id" : "6a137166c4e1e59e7227c547b79e95b4"
+  }, {
+    "status" : "passed",
+    "name" : "TestDBChange.test_dbchange",
+    "id" : "INSI-1504",
+    "custom_id" : "0d44926fc205733b07fa0e2aca05b0d9"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataQuery.test_post_multi",
+    "id" : "INSI-1505",
+    "custom_id" : "d59e05baca484f217f6af6a4813bac2e"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataQuery.test_post_multi_smoke",
+    "id" : "INSI-1506",
+    "custom_id" : "f39f22bb9a64d9cd7de641439a102110"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataQuery.test_post_single",
+    "id" : "INSI-1507",
+    "custom_id" : "d6e7526da1da3ec0a02ffccda589e8aa"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataQuery.test_post_single_smoke",
+    "id" : "INSI-1508",
+    "custom_id" : "d6cd402cf9f6eaa0a8c81cd58a591293"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataQuery.test_get",
+    "id" : "INSI-1509",
+    "custom_id" : "7ddf4d796642456ca3f70bc8d3f09fc3"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataModifiedSince.test_post_multi",
+    "id" : "INSI-1510",
+    "custom_id" : "a3bfae5fdfdc37dad8832d5bdae14e1a"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataModifiedSince.test_post_multi_smoke",
+    "id" : "INSI-1511",
+    "custom_id" : "092d04620f0c1603467e149fc5872bc1"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataModifiedSince.test_post_single",
+    "id" : "INSI-1512",
+    "custom_id" : "d8d6982398f89aaeca5e90ba7347f52b"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataModifiedSince.test_post_single_smoke",
+    "id" : "INSI-1513",
+    "custom_id" : "37fad422ec214bdb32ad22c9c0e5ec5f"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataModifiedSince.test_modified_no_tz",
+    "id" : "INSI-1514",
+    "custom_id" : "1e5a0378be12915e8d16a7feeed41cda"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataRegex.test_post_single",
+    "id" : "INSI-1515",
+    "custom_id" : "b772deda3b025bc3c91e157512096611"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataRegex.test_get",
+    "id" : "INSI-1516",
+    "custom_id" : "04b6081daecf46553be015158fa7ceb5"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataPagination.test_pagination",
+    "id" : "INSI-1517",
+    "custom_id" : "3fa8e54691929deedb1f83045e4a3b54"
+  }, {
+    "status" : "passed",
+    "name" : "TestErrataPagination.test_pagination_neg",
+    "id" : "INSI-1518",
+    "custom_id" : "8d435192e2ee7f5ecbf542bf8f0ae677"
+  }, {
+    "status" : "passed",
+    "name" : "TestJSON.test_json_updates",
+    "id" : "INSI-1519",
+    "custom_id" : "26ce6e49806f42a7c134b84817cc17b0"
+  }, {
+    "status" : "passed",
+    "name" : "TestJSON.test_json_cves",
+    "id" : "INSI-1520",
+    "custom_id" : "d50b148ae13eb4007e2c0f6e94cc75c4"
+  }, {
+    "status" : "passed",
+    "name" : "TestJSON.test_json_errata",
+    "id" : "INSI-1521",
+    "custom_id" : "0c0a0c61b27b6cd421550dc6e41dd830"
+  }, {
+    "status" : "passed",
+    "name" : "TestJSON.test_json_repos",
+    "id" : "INSI-1522",
+    "custom_id" : "6341a93117a0719f855ac4be438a0be8"
+  }, {
+    "status" : "passed",
+    "name" : "TestJSON.test_json_packages",
+    "id" : "INSI-1523",
+    "custom_id" : "5ae3ed4378335bbd97f5bd8971826cfc"
+  }, {
+    "status" : "passed",
+    "name" : "TestPackagesQuery.test_post_multi",
+    "id" : "INSI-1524",
+    "custom_id" : "f4728ca28ff612176d1052c3a7177c95"
+  }, {
+    "status" : "passed",
+    "name" : "TestPackagesQuery.test_post_single",
+    "id" : "INSI-1525",
+    "custom_id" : "ca04ea340502a043881b1f236907ced1"
+  }, {
+    "status" : "passed",
+    "name" : "TestPackagesQuery.test_get",
+    "id" : "INSI-1526",
+    "custom_id" : "c383ef982a19f401b6a22c0c3793d48c"
+  }, {
+    "status" : "passed",
+    "name" : "TestContainerReconnect.test_reconnect",
+    "id" : "INSI-1527",
+    "custom_id" : "4fb87ad144be9af87378e51c252da09d"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposQuery.test_post_multi",
+    "id" : "INSI-1528",
+    "custom_id" : "7215017cb4de07a5bb2db8651adfc66a"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposQuery.test_post_multi_smoke",
+    "id" : "INSI-1529",
+    "custom_id" : "a421caae932fe89fc67dc35b57622664"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposQuery.test_post_single",
+    "id" : "INSI-1530",
+    "custom_id" : "90966814ccf533f2b8e013f9eacc0ba3"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposQuery.test_post_single_smoke",
+    "id" : "INSI-1531",
+    "custom_id" : "8ad1c710582a84794daa8a516272712d"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposQuery.test_get",
+    "id" : "INSI-1532",
+    "custom_id" : "dfd0c52130be9cb670c507f4647dcf7b"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposQuery.test_get_smoke",
+    "id" : "INSI-1533",
+    "custom_id" : "a31561e6788d09893a89f5a5c6ae91ec"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposNonexistent.test_post_multi",
+    "id" : "INSI-1534",
+    "custom_id" : "3e6b51821909faaf2b580982a8c7ea3e"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposNonexistent.test_post_single",
+    "id" : "INSI-1535",
+    "custom_id" : "b2c305aa6daa0f634b32918ef4b17c0a"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposNonexistent.test_get",
+    "id" : "INSI-1536",
+    "custom_id" : "b6f5dd4969089ccb594e016512bd6e63"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposPagination.test_pagination",
+    "id" : "INSI-1537",
+    "custom_id" : "d040944a6f4f30e5ad37fe8ed2633063"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposPagination.test_pagination_neg",
+    "id" : "INSI-1538",
+    "custom_id" : "2749270fc5aadffc74c5ee6f5713c552"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposRegex.test_post_single",
+    "id" : "INSI-1539",
+    "custom_id" : "d6e3b5b4ece2275674758214eba9c7f6"
+  }, {
+    "status" : "passed",
+    "name" : "TestReposRegex.test_get",
+    "id" : "INSI-1540",
+    "custom_id" : "dd976ddeb1495f55dead28f4dae309ba"
+  }, {
+    "status" : "passed",
+    "name" : "test_sync_cves",
+    "id" : "INSI-1541",
+    "custom_id" : "39b593941399a95d8e465c2d7af5730f"
+  }, {
+    "status" : "passed",
+    "name" : "test_repo_refresh",
+    "id" : "INSI-1542",
+    "custom_id" : "d070b210706f45695691765e9363d6c1"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesBasic.test_post_multi",
+    "id" : "INSI-1543",
+    "custom_id" : "f74d4a606dfa167391377be5a477ca8f"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesBasic.test_post_single",
+    "id" : "INSI-1544",
+    "custom_id" : "0a63666b2981fc4d8709da5459525f87"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesBasic.test_get_single",
+    "id" : "INSI-1545",
+    "custom_id" : "342139e97c062e5a9fb6214a705e2ae3"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateInOtherRepo.test_post_multi",
+    "id" : "INSI-1546",
+    "custom_id" : "f63bacad939dd79b628a6191635ee9f1"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateInOtherRepo.test_post_single",
+    "id" : "INSI-1547",
+    "custom_id" : "4267c8b00cf1f4d48c9565aa166c318e"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateInOtherRepo.test_get_single",
+    "id" : "INSI-1548",
+    "custom_id" : "3145b995b36998b88abc8bcbb4b6d001"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateToNoarch.test_post_multi",
+    "id" : "INSI-1549",
+    "custom_id" : "4ddb37bd6f7b3dd1d0acefe6dd2f7479"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateToNoarch.test_post_single",
+    "id" : "INSI-1550",
+    "custom_id" : "d5b6da9b75fceaa142fb1bbc341616b5"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateToNoarch.test_get_single",
+    "id" : "INSI-1551",
+    "custom_id" : "444585c73e837dc80441abdb6fa6f79d"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateFromNoarch.test_post_multi",
+    "id" : "INSI-1552",
+    "custom_id" : "33201cbfb0388eb50551ab5c06a30a4d"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateFromNoarch.test_post_single",
+    "id" : "INSI-1553",
+    "custom_id" : "b3e6973d6431da5579e8ba1775f98bd0"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateFromNoarch.test_get_single",
+    "id" : "INSI-1554",
+    "custom_id" : "a96901d02f797e862732843ab448aa66"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateI386Filter.test_post_multi",
+    "id" : "INSI-1555",
+    "custom_id" : "6264b3b75077fba267f77b8400ae74a0"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdateI386Filter.test_post_single",
+    "id" : "INSI-1556",
+    "custom_id" : "2550e6723ef0cf309e2fc2ee0abab5c6"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesAll.test_post_multi",
+    "id" : "INSI-1557",
+    "custom_id" : "717fca146679ac897c8c29cc9a563489"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesAll.test_post_single",
+    "id" : "INSI-1558",
+    "custom_id" : "6da0b936f25ea9f830da999c826dda6d"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesAll.test_get",
+    "id" : "INSI-1559",
+    "custom_id" : "0a17d079f5badc5b325d791fbc18c9cb"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesInRepos.test_post_multi",
+    "id" : "INSI-1560",
+    "custom_id" : "e7330e10eb5f21ec95ee16a01c4eaec6"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesInRepos.test_post_single",
+    "id" : "INSI-1561",
+    "custom_id" : "bc1acdad9cfb949fba9456b9a4f2df97"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesInRepos.test_post_nonexistent_repo",
+    "id" : "INSI-1562",
+    "custom_id" : "7b899ef1d0a67ffd0be17ddd3bab35fa"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesFilterRelease.test_post_multi",
+    "id" : "INSI-1563",
+    "custom_id" : "e26751523bfd869086a2e576b86b5d63"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesFilterRelease.test_post_single",
+    "id" : "INSI-1564",
+    "custom_id" : "92041415c1da5838127ee9739eab9f86"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesFilterBasearch.test_post_multi",
+    "id" : "INSI-1565",
+    "custom_id" : "d93fd40b92a1f2f08bcb85e618b6e6cd"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesFilterBasearch.test_post_single",
+    "id" : "INSI-1566",
+    "custom_id" : "36ab98668e44b8dfe0462e80f3a46e06"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesDiff.test_post_diff",
+    "id" : "INSI-1567",
+    "custom_id" : "cc7182668f69b6f05efd218f728863ff"
+  }, {
+    "status" : "passed",
+    "name" : "TestUpdatesDiff.test_get_diff",
+    "id" : "INSI-1568",
+    "custom_id" : "08d8e241767f1bc52346762eeb9fc229"
+  }, {
+    "status" : "passed",
+    "name" : "test_with_errata_tool",
+    "id" : "INSI-1569",
+    "custom_id" : "97c9d07208301c1b76bd1063ea20ae02"
+  } ],
+  "status" : "passed",
+  "message" : "No Polarion tests created or updated - dry run.",
+  "log-url" : "https://polarion.engineering.redhat.com/polarion/rh-import/testcase-log?jobId=249288",
+  "dry-run" : true
+}
+2018-09-21 14:54:49,549 INFO ImportTestcaseThread_1985 - Message sent.

@@ -1,0 +1,375 @@
+2018-09-21 14:54:55,356 INFO ImportXUnitThread_1986 - Red Hat Importers version 2.0.21.
+2018-09-21 14:54:55,356 INFO ImportXUnitThread_1986 - Processing job #249289.
+2018-09-21 14:54:55,356 INFO ImportXUnitThread_1986 - Running as 'Import User'.
+2018-09-21 14:54:55,356 INFO ImportXUnitThread_1986 - Starting import of XUnit results to Polarion.
+2018-09-21 14:54:55,356 INFO ImportXUnitThread_1986 - Deserializing XUnit results.
+2018-09-21 14:54:55,367 INFO ImportXUnitThread_1986 - Using Polarion lookup method: custom
+2018-09-21 14:54:55,418 INFO ImportXUnitThread_1986 - Importing results to test run 'master0913'.
+2018-09-21 14:54:55,418 INFO ImportXUnitThread_1986 - Processing test suite 'Import for Insights - master0913 testrun'.
+2018-09-21 14:54:56,975 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_multi'.
+2018-09-21 14:54:57,009 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_multi' (INSI-1546/f63bacad939dd79b628a6191635ee9f1)
+2018-09-21 14:54:57,010 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_multi'.
+2018-09-21 14:54:57,012 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_multi' (INSI-1546/f63bacad939dd79b628a6191635ee9f1)
+2018-09-21 14:54:57,013 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,044 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,045 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,045 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,045 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,046 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,046 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,046 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,046 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,046 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,047 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,047 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,047 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,047 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,047 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,048 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,048 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,048 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,048 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,049 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,049 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,049 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,049 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_post_single'.
+2018-09-21 14:54:57,049 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_post_single' (INSI-1547/4267c8b00cf1f4d48c9565aa166c318e)
+2018-09-21 14:54:57,050 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,073 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,073 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,073 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,074 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,074 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,074 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,074 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,075 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,075 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,075 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,075 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,075 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,076 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,076 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,076 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,076 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,077 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,077 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,077 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,077 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,077 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,078 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateInOtherRepo.test_get_single'.
+2018-09-21 14:54:57,078 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateInOtherRepo.test_get_single' (INSI-1548/3145b995b36998b88abc8bcbb4b6d001)
+2018-09-21 14:54:57,078 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_post_multi'.
+2018-09-21 14:54:57,101 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_post_multi' (INSI-1549/4ddb37bd6f7b3dd1d0acefe6dd2f7479)
+2018-09-21 14:54:57,101 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_post_multi'.
+2018-09-21 14:54:57,102 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_post_multi' (INSI-1549/4ddb37bd6f7b3dd1d0acefe6dd2f7479)
+2018-09-21 14:54:57,102 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_post_single'.
+2018-09-21 14:54:57,126 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_post_single' (INSI-1550/d5b6da9b75fceaa142fb1bbc341616b5)
+2018-09-21 14:54:57,127 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_post_single'.
+2018-09-21 14:54:57,127 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_post_single' (INSI-1550/d5b6da9b75fceaa142fb1bbc341616b5)
+2018-09-21 14:54:57,127 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_post_single'.
+2018-09-21 14:54:57,128 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_post_single' (INSI-1550/d5b6da9b75fceaa142fb1bbc341616b5)
+2018-09-21 14:54:57,128 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_post_single'.
+2018-09-21 14:54:57,128 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_post_single' (INSI-1550/d5b6da9b75fceaa142fb1bbc341616b5)
+2018-09-21 14:54:57,128 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_post_single'.
+2018-09-21 14:54:57,128 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_post_single' (INSI-1550/d5b6da9b75fceaa142fb1bbc341616b5)
+2018-09-21 14:54:57,129 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_post_single'.
+2018-09-21 14:54:57,129 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_post_single' (INSI-1550/d5b6da9b75fceaa142fb1bbc341616b5)
+2018-09-21 14:54:57,129 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_get_single'.
+2018-09-21 14:54:57,153 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_get_single' (INSI-1551/444585c73e837dc80441abdb6fa6f79d)
+2018-09-21 14:54:57,154 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_get_single'.
+2018-09-21 14:54:57,155 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_get_single' (INSI-1551/444585c73e837dc80441abdb6fa6f79d)
+2018-09-21 14:54:57,155 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_get_single'.
+2018-09-21 14:54:57,155 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_get_single' (INSI-1551/444585c73e837dc80441abdb6fa6f79d)
+2018-09-21 14:54:57,155 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_get_single'.
+2018-09-21 14:54:57,156 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_get_single' (INSI-1551/444585c73e837dc80441abdb6fa6f79d)
+2018-09-21 14:54:57,156 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_get_single'.
+2018-09-21 14:54:57,156 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_get_single' (INSI-1551/444585c73e837dc80441abdb6fa6f79d)
+2018-09-21 14:54:57,156 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateToNoarch.test_get_single'.
+2018-09-21 14:54:57,157 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateToNoarch.test_get_single' (INSI-1551/444585c73e837dc80441abdb6fa6f79d)
+2018-09-21 14:54:57,157 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_post_multi'.
+2018-09-21 14:54:57,182 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_post_multi' (INSI-1552/33201cbfb0388eb50551ab5c06a30a4d)
+2018-09-21 14:54:57,183 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_post_multi'.
+2018-09-21 14:54:57,183 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_post_multi' (INSI-1552/33201cbfb0388eb50551ab5c06a30a4d)
+2018-09-21 14:54:57,183 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_post_single'.
+2018-09-21 14:54:57,208 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_post_single' (INSI-1553/b3e6973d6431da5579e8ba1775f98bd0)
+2018-09-21 14:54:57,208 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_post_single'.
+2018-09-21 14:54:57,209 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_post_single' (INSI-1553/b3e6973d6431da5579e8ba1775f98bd0)
+2018-09-21 14:54:57,209 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_post_single'.
+2018-09-21 14:54:57,209 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_post_single' (INSI-1553/b3e6973d6431da5579e8ba1775f98bd0)
+2018-09-21 14:54:57,210 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_post_single'.
+2018-09-21 14:54:57,210 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_post_single' (INSI-1553/b3e6973d6431da5579e8ba1775f98bd0)
+2018-09-21 14:54:57,210 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_get_single'.
+2018-09-21 14:54:57,234 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_get_single' (INSI-1554/a96901d02f797e862732843ab448aa66)
+2018-09-21 14:54:57,234 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_get_single'.
+2018-09-21 14:54:57,235 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_get_single' (INSI-1554/a96901d02f797e862732843ab448aa66)
+2018-09-21 14:54:57,235 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_get_single'.
+2018-09-21 14:54:57,235 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_get_single' (INSI-1554/a96901d02f797e862732843ab448aa66)
+2018-09-21 14:54:57,236 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateFromNoarch.test_get_single'.
+2018-09-21 14:54:57,236 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateFromNoarch.test_get_single' (INSI-1554/a96901d02f797e862732843ab448aa66)
+2018-09-21 14:54:57,236 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateI386Filter.test_post_multi'.
+2018-09-21 14:54:57,260 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateI386Filter.test_post_multi' (INSI-1555/6264b3b75077fba267f77b8400ae74a0)
+2018-09-21 14:54:57,261 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateI386Filter.test_post_multi'.
+2018-09-21 14:54:57,262 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateI386Filter.test_post_multi' (INSI-1555/6264b3b75077fba267f77b8400ae74a0)
+2018-09-21 14:54:57,262 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateI386Filter.test_post_single'.
+2018-09-21 14:54:57,284 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateI386Filter.test_post_single' (INSI-1556/2550e6723ef0cf309e2fc2ee0abab5c6)
+2018-09-21 14:54:57,285 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateI386Filter.test_post_single'.
+2018-09-21 14:54:57,286 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateI386Filter.test_post_single' (INSI-1556/2550e6723ef0cf309e2fc2ee0abab5c6)
+2018-09-21 14:54:57,286 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateI386Filter.test_post_single'.
+2018-09-21 14:54:57,286 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateI386Filter.test_post_single' (INSI-1556/2550e6723ef0cf309e2fc2ee0abab5c6)
+2018-09-21 14:54:57,286 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateI386Filter.test_post_single'.
+2018-09-21 14:54:57,287 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateI386Filter.test_post_single' (INSI-1556/2550e6723ef0cf309e2fc2ee0abab5c6)
+2018-09-21 14:54:57,287 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateI386Filter.test_post_single'.
+2018-09-21 14:54:57,287 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateI386Filter.test_post_single' (INSI-1556/2550e6723ef0cf309e2fc2ee0abab5c6)
+2018-09-21 14:54:57,287 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdateI386Filter.test_post_single'.
+2018-09-21 14:54:57,288 INFO ImportXUnitThread_1986 - Work item: 'TestUpdateI386Filter.test_post_single' (INSI-1556/2550e6723ef0cf309e2fc2ee0abab5c6)
+2018-09-21 14:54:57,288 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_multi'.
+2018-09-21 14:54:57,314 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_multi' (INSI-1557/717fca146679ac897c8c29cc9a563489)
+2018-09-21 14:54:57,314 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_multi'.
+2018-09-21 14:54:57,315 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_multi' (INSI-1557/717fca146679ac897c8c29cc9a563489)
+2018-09-21 14:54:57,315 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,340 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,341 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,341 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,342 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,342 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,342 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,343 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,343 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,343 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,343 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,343 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,344 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,344 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,344 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,344 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,345 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,345 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,345 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,345 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,345 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,346 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,346 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,346 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,346 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,346 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,347 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,347 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,347 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,347 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,348 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,348 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,348 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,348 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,348 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,349 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,349 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,349 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,349 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_post_single'.
+2018-09-21 14:54:57,350 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_post_single' (INSI-1558/6da0b936f25ea9f830da999c826dda6d)
+2018-09-21 14:54:57,350 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,373 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,375 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,375 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,375 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,376 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,376 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,376 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,376 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,376 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,377 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,377 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,377 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,377 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,378 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,378 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,378 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,378 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,379 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,379 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,379 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,379 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,379 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,380 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,380 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,380 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,380 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,381 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,381 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,381 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,381 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,381 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,382 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,382 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,382 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,382 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,383 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,383 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,383 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesAll.test_get'.
+2018-09-21 14:54:57,383 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesAll.test_get' (INSI-1559/0a17d079f5badc5b325d791fbc18c9cb)
+2018-09-21 14:54:57,384 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_multi'.
+2018-09-21 14:54:57,408 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_multi' (INSI-1560/e7330e10eb5f21ec95ee16a01c4eaec6)
+2018-09-21 14:54:57,409 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_multi'.
+2018-09-21 14:54:57,409 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_multi' (INSI-1560/e7330e10eb5f21ec95ee16a01c4eaec6)
+2018-09-21 14:54:57,409 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_single'.
+2018-09-21 14:54:57,433 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_single' (INSI-1561/bc1acdad9cfb949fba9456b9a4f2df97)
+2018-09-21 14:54:57,434 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_single'.
+2018-09-21 14:54:57,434 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_single' (INSI-1561/bc1acdad9cfb949fba9456b9a4f2df97)
+2018-09-21 14:54:57,435 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_single'.
+2018-09-21 14:54:57,435 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_single' (INSI-1561/bc1acdad9cfb949fba9456b9a4f2df97)
+2018-09-21 14:54:57,435 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_single'.
+2018-09-21 14:54:57,436 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_single' (INSI-1561/bc1acdad9cfb949fba9456b9a4f2df97)
+2018-09-21 14:54:57,436 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_single'.
+2018-09-21 14:54:57,436 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_single' (INSI-1561/bc1acdad9cfb949fba9456b9a4f2df97)
+2018-09-21 14:54:57,436 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_single'.
+2018-09-21 14:54:57,437 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_single' (INSI-1561/bc1acdad9cfb949fba9456b9a4f2df97)
+2018-09-21 14:54:57,437 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_nonexistent_repo'.
+2018-09-21 14:54:57,460 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_nonexistent_repo' (INSI-1562/7b899ef1d0a67ffd0be17ddd3bab35fa)
+2018-09-21 14:54:57,461 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesInRepos.test_post_nonexistent_repo'.
+2018-09-21 14:54:57,461 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesInRepos.test_post_nonexistent_repo' (INSI-1562/7b899ef1d0a67ffd0be17ddd3bab35fa)
+2018-09-21 14:54:57,462 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterRelease.test_post_multi'.
+2018-09-21 14:54:57,486 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterRelease.test_post_multi' (INSI-1563/e26751523bfd869086a2e576b86b5d63)
+2018-09-21 14:54:57,487 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterRelease.test_post_multi'.
+2018-09-21 14:54:57,487 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterRelease.test_post_multi' (INSI-1563/e26751523bfd869086a2e576b86b5d63)
+2018-09-21 14:54:57,487 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterRelease.test_post_single'.
+2018-09-21 14:54:57,512 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterRelease.test_post_single' (INSI-1564/92041415c1da5838127ee9739eab9f86)
+2018-09-21 14:54:57,512 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterRelease.test_post_single'.
+2018-09-21 14:54:57,513 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterRelease.test_post_single' (INSI-1564/92041415c1da5838127ee9739eab9f86)
+2018-09-21 14:54:57,513 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterRelease.test_post_single'.
+2018-09-21 14:54:57,513 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterRelease.test_post_single' (INSI-1564/92041415c1da5838127ee9739eab9f86)
+2018-09-21 14:54:57,514 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterRelease.test_post_single'.
+2018-09-21 14:54:57,514 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterRelease.test_post_single' (INSI-1564/92041415c1da5838127ee9739eab9f86)
+2018-09-21 14:54:57,514 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterRelease.test_post_single'.
+2018-09-21 14:54:57,514 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterRelease.test_post_single' (INSI-1564/92041415c1da5838127ee9739eab9f86)
+2018-09-21 14:54:57,515 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterRelease.test_post_single'.
+2018-09-21 14:54:57,515 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterRelease.test_post_single' (INSI-1564/92041415c1da5838127ee9739eab9f86)
+2018-09-21 14:54:57,515 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterBasearch.test_post_multi'.
+2018-09-21 14:54:57,539 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterBasearch.test_post_multi' (INSI-1565/d93fd40b92a1f2f08bcb85e618b6e6cd)
+2018-09-21 14:54:57,540 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterBasearch.test_post_multi'.
+2018-09-21 14:54:57,540 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterBasearch.test_post_multi' (INSI-1565/d93fd40b92a1f2f08bcb85e618b6e6cd)
+2018-09-21 14:54:57,541 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterBasearch.test_post_single'.
+2018-09-21 14:54:57,566 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterBasearch.test_post_single' (INSI-1566/36ab98668e44b8dfe0462e80f3a46e06)
+2018-09-21 14:54:57,567 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterBasearch.test_post_single'.
+2018-09-21 14:54:57,567 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterBasearch.test_post_single' (INSI-1566/36ab98668e44b8dfe0462e80f3a46e06)
+2018-09-21 14:54:57,567 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterBasearch.test_post_single'.
+2018-09-21 14:54:57,568 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterBasearch.test_post_single' (INSI-1566/36ab98668e44b8dfe0462e80f3a46e06)
+2018-09-21 14:54:57,568 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterBasearch.test_post_single'.
+2018-09-21 14:54:57,568 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterBasearch.test_post_single' (INSI-1566/36ab98668e44b8dfe0462e80f3a46e06)
+2018-09-21 14:54:57,568 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterBasearch.test_post_single'.
+2018-09-21 14:54:57,569 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterBasearch.test_post_single' (INSI-1566/36ab98668e44b8dfe0462e80f3a46e06)
+2018-09-21 14:54:57,569 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesFilterBasearch.test_post_single'.
+2018-09-21 14:54:57,569 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesFilterBasearch.test_post_single' (INSI-1566/36ab98668e44b8dfe0462e80f3a46e06)
+2018-09-21 14:54:57,569 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesDiff.test_post_diff'.
+2018-09-21 14:54:57,594 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesDiff.test_post_diff' (INSI-1567/cc7182668f69b6f05efd218f728863ff)
+2018-09-21 14:54:57,595 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesDiff.test_post_diff'.
+2018-09-21 14:54:57,595 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesDiff.test_post_diff' (INSI-1567/cc7182668f69b6f05efd218f728863ff)
+2018-09-21 14:54:57,595 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesDiff.test_get_diff'.
+2018-09-21 14:54:57,620 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesDiff.test_get_diff' (INSI-1568/08d8e241767f1bc52346762eeb9fc229)
+2018-09-21 14:54:57,621 INFO ImportXUnitThread_1986 - Processing test case 'TestUpdatesDiff.test_get_diff'.
+2018-09-21 14:54:57,621 INFO ImportXUnitThread_1986 - Work item: 'TestUpdatesDiff.test_get_diff' (INSI-1568/08d8e241767f1bc52346762eeb9fc229)
+2018-09-21 14:54:57,622 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,646 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,646 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,647 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,647 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,648 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,648 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,648 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,648 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,648 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,649 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,649 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,649 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,649 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,650 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,650 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,650 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,650 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,651 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,651 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,651 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,651 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,651 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,652 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,652 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,652 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,652 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,653 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,653 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,653 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,653 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,653 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,654 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,654 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,654 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,654 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,655 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,655 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,655 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,655 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,655 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,656 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,656 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,656 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,656 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,657 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,657 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,657 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,657 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,658 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,658 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,658 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,658 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,658 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,659 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,659 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,659 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,659 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,660 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,660 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,660 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,660 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,661 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,661 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,661 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,661 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,661 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,662 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,662 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,662 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,662 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,663 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,663 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,663 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,663 INFO ImportXUnitThread_1986 - Processing test case 'test_with_errata_tool'.
+2018-09-21 14:54:57,664 INFO ImportXUnitThread_1986 - Work item: 'test_with_errata_tool' (INSI-1569/97c9d07208301c1b76bd1063ea20ae02)
+2018-09-21 14:54:57,664 INFO ImportXUnitThread_1986 - Test suite 'Import for Insights - master0913 testrun' contains 463 test cases.
+2018-09-21 14:54:57,704 INFO ImportXUnitThread_1986 - Polarion results not published - dry run.
+2018-09-21 14:54:57,704 INFO ImportXUnitThread_1986 - Ending import of XUnit results to Polarion.
+2018-09-21 14:54:57,704 INFO ImportXUnitThread_1986 - Sending message to the UMB.
+2018-09-21 14:54:58,392 INFO ImportXUnitThread_1986 - Sending import message:
+Message Headers:
+  JMSDestination: null
+  JMSDeliveryMode: non-persistent
+  JMSExpiration: 0
+  JMSPriority: 0
+  JMSMessageID: null
+  JMSTimestamp: 0
+  JMSCorrelationID: null
+  JMSReplyTo: null
+  JMSRedelivered: false
+  JMSType: application/json
+Message Properties:
+  job-id: 249289
+  type: import-results
+Message Content:
+{
+  "import-results" : [ {
+    "suite-name" : "Import for Insights - master0913 testrun",
+    "status" : "passed"
+  } ],
+  "status" : "passed",
+  "message" : "Polarion results not published - dry run.",
+  "log-url" : "https://polarion.engineering.redhat.com/polarion/rh-import/xunit-log?jobId=249289",
+  "dry-run" : true
+}
+2018-09-21 14:54:58,504 INFO ImportXUnitThread_1986 - Message sent.

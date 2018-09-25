@@ -1,0 +1,692 @@
+2018-09-16 14:13:03,418 INFO ImportXUnitThread_181 - Red Hat Importers version 2.0.21.
+2018-09-16 14:13:03,418 INFO ImportXUnitThread_181 - Processing job #243422.
+2018-09-16 14:13:03,418 INFO ImportXUnitThread_181 - Running as 'Import User'.
+2018-09-16 14:13:03,418 INFO ImportXUnitThread_181 - Starting import of XUnit results to Polarion.
+2018-09-16 14:13:03,418 INFO ImportXUnitThread_181 - Deserializing XUnit results.
+2018-09-16 14:13:08,699 INFO ImportXUnitThread_181 - Using Polarion lookup method: name
+2018-09-16 14:13:08,790 INFO ImportXUnitThread_181 - Importing results to test run '5_10_0_15'.
+2018-09-16 14:13:08,790 INFO ImportXUnitThread_181 - Processing test suite 'Import for RHCF3 - 5_10_0_15 testrun'.
+2018-09-16 14:13:08,790 INFO ImportXUnitThread_181 - Processing test case 'test_tagwise[virtualcenter-6.5-host_disk-Hourly-vm_tag]'.
+2018-09-16 14:13:08,873 INFO ImportXUnitThread_181 - Work item: 'test_tagwise[virtualcenter-6.5-host_disk-Hourly-vm_tag]' (RHCF3-49131)
+2018-09-16 14:13:08,908 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-5.5-host_cpu_state-Hourly]'.
+2018-09-16 14:13:08,950 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-5.5-host_cpu_state-Hourly]' (RHCF3-48056)
+2018-09-16 14:13:08,958 INFO ImportXUnitThread_181 - Processing test case 'test_guest_os_reset[virtualcenter-5.5]'.
+2018-09-16 14:13:09,005 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'test_guest_os_reset[virtualcenter-5.5]'.
+2018-09-16 14:13:09,778 INFO ImportXUnitThread_181 - Processing test case 'TestControlOnQuadicons.test_power_on_cancel[virtualcenter-6.0]'.
+2018-09-16 14:13:09,813 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'TestControlOnQuadicons.test_power_on_cancel[virtualcenter-6.0]'.
+2018-09-16 14:13:11,100 INFO ImportXUnitThread_181 - Processing test case 'test_quota[group-rhevm-max_memory]'.
+2018-09-16 14:13:11,108 WARN ImportXUnitThread_181 - Unable to find work item for 'test_quota[group-rhevm-max_memory]'.
+2018-09-16 14:13:12,275 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_edit[rhevm-4.1-from_collection-vms]'.
+2018-09-16 14:13:12,284 WARN ImportXUnitThread_181 - Unable to find work item for 'TestCustomAttributesRESTAPI.test_bad_section_edit[rhevm-4.1-from_collection-vms]'.
+2018-09-16 14:14:00,428 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-5.5-vm_network-Hourly]'.
+2018-09-16 14:14:00,449 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-5.5-vm_network-Hourly]' (RHCF3-45131)
+2018-09-16 14:14:00,452 INFO ImportXUnitThread_181 - Processing test case 'test_guest_os_reset[virtualcenter-6.7]'.
+2018-09-16 14:14:00,473 INFO ImportXUnitThread_181 - Work item: 'test_guest_os_reset[virtualcenter-6.7]' (RHCF3-48492)
+2018-09-16 14:14:00,477 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-actions]'.
+2018-09-16 14:14:00,498 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-actions]' (RHCF3-47888)
+2018-09-16 14:14:00,503 INFO ImportXUnitThread_181 - Processing test case 'test_raw_metric_vm_network[virtualcenter-6.5]'.
+2018-09-16 14:14:00,524 INFO ImportXUnitThread_181 - Work item: 'test_raw_metric_vm_network[virtualcenter-6.5]' (RHCF3-45083)
+2018-09-16 14:14:00,529 INFO ImportXUnitThread_181 - Processing test case 'TestVmDetailsPowerControlPerProvider.test_power_on[rhevm-4.1]'.
+2018-09-16 14:14:00,537 WARN ImportXUnitThread_181 - Unable to find work item for 'TestVmDetailsPowerControlPerProvider.test_power_on[rhevm-4.1]'.
+2018-09-16 14:14:00,537 INFO ImportXUnitThread_181 - Processing test case 'test_create_snapshot_via_ae[virtualcenter-5.5]'.
+2018-09-16 14:14:00,559 INFO ImportXUnitThread_181 - Work item: 'test_create_snapshot_via_ae[virtualcenter-5.5]' (RHCF3-46571)
+2018-09-16 14:14:00,562 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_edit[virtualcenter-6.0-from_collection-services]'.
+2018-09-16 14:14:00,584 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_bad_section_edit[virtualcenter-6.0-from_collection-services]' (RHCF3-45424)
+2018-09-16 14:14:00,589 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_edit[rhevm-4.1-from_detail-vms]'.
+2018-09-16 14:14:00,597 WARN ImportXUnitThread_181 - Unable to find work item for 'TestCustomAttributesRESTAPI.test_edit[rhevm-4.1-from_detail-vms]'.
+2018-09-16 14:14:08,657 INFO ImportXUnitThread_181 - Processing test case 'test_shuffle_first_level[EvmGroup-super_administrator]'.
+2018-09-16 14:14:08,706 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'test_shuffle_first_level[EvmGroup-super_administrator]'.
+2018-09-16 14:14:08,706 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_edit[virtualcenter-5.5-from_detail-providers]'.
+2018-09-16 14:14:08,728 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_edit[virtualcenter-5.5-from_detail-providers]' (RHCF3-45343)
+2018-09-16 14:14:08,733 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_list_page_per_item[CloudProvider-20]'.
+2018-09-16 14:14:08,755 INFO ImportXUnitThread_181 - Work item: 'test_cloud_list_page_per_item[CloudProvider-20]' (RHCF3-33129)
+2018-09-16 14:14:08,761 INFO ImportXUnitThread_181 - Processing test case 'test_collections_actions[virtualcenter-users]'.
+2018-09-16 14:14:08,783 INFO ImportXUnitThread_181 - Work item: 'test_collections_actions[virtualcenter-users]' (RHCF3-47696)
+2018-09-16 14:14:08,788 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_tile_page_per_item[cloud_flavors-100]'.
+2018-09-16 14:14:08,813 INFO ImportXUnitThread_181 - Work item: 'test_cloud_tile_page_per_item[cloud_flavors-100]' (RHCF3-36810)
+2018-09-16 14:14:08,816 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_grid_page_per_item[cloud_tenants-50]'.
+2018-09-16 14:14:08,838 INFO ImportXUnitThread_181 - Work item: 'test_cloud_grid_page_per_item[cloud_tenants-50]' (RHCF3-33142)
+2018-09-16 14:14:08,843 INFO ImportXUnitThread_181 - Processing test case 'test_providers_discovery[virtualcenter-6.5]'.
+2018-09-16 14:14:08,867 INFO ImportXUnitThread_181 - Work item: 'test_providers_discovery[virtualcenter-6.5]' (RHCF3-46442)
+2018-09-16 14:14:08,871 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_add_duplicate[scvmm-20120-vms]'.
+2018-09-16 14:14:08,894 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_add_duplicate[scvmm-20120-vms]' (RHCF3-45442)
+2018-09-16 14:14:08,899 INFO ImportXUnitThread_181 - Processing test case 'test_advanced_search_button_displayed[container_builds-all]'.
+2018-09-16 14:14:08,920 INFO ImportXUnitThread_181 - Work item: 'test_advanced_search_button_displayed[container_builds-all]' (RHCF3-47477)
+2018-09-16 14:14:08,923 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_edit[virtualcenter-6.7-from_detail-vms]'.
+2018-09-16 14:14:08,953 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_edit[virtualcenter-6.7-from_detail-vms]' (RHCF3-48142)
+2018-09-16 14:14:08,958 INFO ImportXUnitThread_181 - Processing test case 'test_validate_custom_rate_storage_usage_cost[virtualcenter-5.5]'.
+2018-09-16 14:14:08,980 INFO ImportXUnitThread_181 - Work item: 'test_validate_custom_rate_storage_usage_cost[virtualcenter-5.5]' (RHCF3-46983)
+2018-09-16 14:14:08,985 INFO ImportXUnitThread_181 - Processing test case 'test_orphaned_vm_status[virtualcenter-6.0]'.
+2018-09-16 14:14:09,009 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'test_orphaned_vm_status[virtualcenter-6.0]'.
+2018-09-16 14:14:09,009 INFO ImportXUnitThread_181 - Processing test case 'test_query_with_api_version[virtualcenter-requests]'.
+2018-09-16 14:14:09,030 INFO ImportXUnitThread_181 - Work item: 'test_query_with_api_version[virtualcenter-requests]' (RHCF3-47786)
+2018-09-16 14:14:09,035 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_grid_page_per_item[cloud_flavors-1000]'.
+2018-09-16 14:14:09,057 INFO ImportXUnitThread_181 - Work item: 'test_cloud_grid_page_per_item[cloud_flavors-1000]' (RHCF3-36875)
+2018-09-16 14:14:09,061 INFO ImportXUnitThread_181 - Processing test case 'test_quota[user-rhevm-max_memory]'.
+2018-09-16 14:14:09,070 WARN ImportXUnitThread_181 - Unable to find work item for 'test_quota[user-rhevm-max_memory]'.
+2018-09-16 14:14:09,070 INFO ImportXUnitThread_181 - Processing test case 'test_storage_snapshot_create_cancelled_validation[openstack-11]'.
+2018-09-16 14:14:09,093 INFO ImportXUnitThread_181 - Work item: 'test_storage_snapshot_create_cancelled_validation[openstack-11]' (RHCF3-47442)
+2018-09-16 14:14:09,097 INFO ImportXUnitThread_181 - Processing test case 'test_query_with_api_version[virtualcenter-instances]'.
+2018-09-16 14:14:09,119 INFO ImportXUnitThread_181 - Work item: 'test_query_with_api_version[virtualcenter-instances]' (RHCF3-47721)
+2018-09-16 14:14:09,123 INFO ImportXUnitThread_181 - Processing test case 'test_vm_create[rhevm-4.1]'.
+2018-09-16 14:14:09,132 WARN ImportXUnitThread_181 - Unable to find work item for 'test_vm_create[rhevm-4.1]'.
+2018-09-16 14:14:09,132 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-vms]'.
+2018-09-16 14:14:09,155 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-vms]' (RHCF3-47894)
+2018-09-16 14:14:09,160 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-groups]'.
+2018-09-16 14:14:09,181 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-groups]' (RHCF3-47630)
+2018-09-16 14:14:09,186 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_single_from_collection[rhevm-4.1-vms]'.
+2018-09-16 14:14:09,196 WARN ImportXUnitThread_181 - Unable to find work item for 'TestCustomAttributesRESTAPI.test_delete_single_from_collection[rhevm-4.1-vms]'.
+2018-09-16 14:14:09,196 INFO ImportXUnitThread_181 - Processing test case 'test_order_catalog_item[virtualcenter-6.5]'.
+2018-09-16 14:14:09,217 INFO ImportXUnitThread_181 - Work item: 'test_order_catalog_item[virtualcenter-6.5]' (RHCF3-47316)
+2018-09-16 14:14:09,222 INFO ImportXUnitThread_181 - Processing test case 'test_collection_class_invalid[virtualcenter]'.
+2018-09-16 14:14:09,244 INFO ImportXUnitThread_181 - Work item: 'test_collection_class_invalid[virtualcenter]' (RHCF3-47962)
+2018-09-16 14:14:09,249 INFO ImportXUnitThread_181 - Processing test case 'test_reset_vm_rest[virtualcenter-5.5-from_collection]'.
+2018-09-16 14:14:09,270 INFO ImportXUnitThread_181 - Work item: 'test_reset_vm_rest[virtualcenter-5.5-from_collection]' (RHCF3-45741)
+2018-09-16 14:14:09,275 INFO ImportXUnitThread_181 - Processing test case 'test_provision_with_tag[virtualcenter-6.0]'.
+2018-09-16 14:14:09,297 INFO ImportXUnitThread_181 - Work item: 'test_provision_with_tag[virtualcenter-6.0]' (RHCF3-45892)
+2018-09-16 14:14:09,301 INFO ImportXUnitThread_181 - Processing test case 'test_query_provider_attributes[scvmm-20160]'.
+2018-09-16 14:14:09,324 INFO ImportXUnitThread_181 - Work item: 'test_query_provider_attributes[scvmm-20160]' (RHCF3-45969)
+2018-09-16 14:14:09,329 INFO ImportXUnitThread_181 - Processing test case 'TestPendingRequestsRESTAPI.test_order_manual_denial[infra]'.
+2018-09-16 14:14:09,352 INFO ImportXUnitThread_181 - Work item: 'TestPendingRequestsRESTAPI.test_order_manual_denial[infra]' (RHCF3-48800)
+2018-09-16 14:14:09,357 INFO ImportXUnitThread_181 - Processing test case 'test_provision_from_template[scvmm-20160-Auto]'.
+2018-09-16 14:14:09,379 INFO ImportXUnitThread_181 - Work item: 'test_provision_from_template[scvmm-20160-Auto]' (RHCF3-45830)
+2018-09-16 14:14:09,383 INFO ImportXUnitThread_181 - Processing test case 'test_infra_list_page_per_item[infra_providers-20]'.
+2018-09-16 14:14:09,407 INFO ImportXUnitThread_181 - Work item: 'test_infra_list_page_per_item[infra_providers-20]' (RHCF3-36907)
+2018-09-16 14:14:09,411 INFO ImportXUnitThread_181 - Processing test case 'test_query_with_api_version[virtualcenter-request_tasks]'.
+2018-09-16 14:14:09,432 INFO ImportXUnitThread_181 - Work item: 'test_query_with_api_version[virtualcenter-request_tasks]' (RHCF3-47736)
+2018-09-16 14:14:09,438 INFO ImportXUnitThread_181 - Processing test case 'test_guest_os_reset[virtualcenter-6.5]'.
+2018-09-16 14:14:09,464 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'test_guest_os_reset[virtualcenter-6.5]'.
+2018-09-16 14:14:09,464 INFO ImportXUnitThread_181 - Processing test case 'test_provider_delete_from_detail[virtualcenter-6.5-POST]'.
+2018-09-16 14:14:09,486 INFO ImportXUnitThread_181 - Work item: 'test_provider_delete_from_detail[virtualcenter-6.5-POST]' (RHCF3-46012)
+2018-09-16 14:14:09,491 INFO ImportXUnitThread_181 - Processing test case 'test_validate_alloc_storage_cost[scvmm]'.
+2018-09-16 14:14:09,516 INFO ImportXUnitThread_181 - Work item: 'test_validate_alloc_storage_cost[scvmm]' (RHCF3-37006)
+2018-09-16 14:14:09,520 INFO ImportXUnitThread_181 - Processing test case 'test_rest_paging[virtualcenter-0,0]'.
+2018-09-16 14:14:09,542 INFO ImportXUnitThread_181 - Work item: 'test_rest_paging[virtualcenter-0,0]' (RHCF3-47880)
+2018-09-16 14:14:09,547 INFO ImportXUnitThread_181 - Processing test case 'test_can_open_advanced_search[workloads_vms-all]'.
+2018-09-16 14:14:09,569 INFO ImportXUnitThread_181 - Work item: 'test_can_open_advanced_search[workloads_vms-all]' (RHCF3-47501)
+2018-09-16 14:14:09,572 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_add[virtualcenter-6.0-vms]'.
+2018-09-16 14:14:09,596 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_bad_section_add[virtualcenter-6.0-vms]' (RHCF3-45381)
+2018-09-16 14:14:09,601 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-5.5-host_memory-Daily]'.
+2018-09-16 14:14:09,624 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-5.5-host_memory-Daily]' (RHCF3-48051)
+2018-09-16 14:14:09,628 INFO ImportXUnitThread_181 - Processing test case 'test_raw_metric_host_memory[virtualcenter-6.7]'.
+2018-09-16 14:14:09,650 INFO ImportXUnitThread_181 - Work item: 'test_raw_metric_host_memory[virtualcenter-6.7]' (RHCF3-48093)
+2018-09-16 14:14:09,655 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-orchestration_templates]'.
+2018-09-16 14:14:09,676 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-orchestration_templates]' (RHCF3-47631)
+2018-09-16 14:14:09,681 INFO ImportXUnitThread_181 - Processing test case 'test_retirement_now[scvmm-20161]'.
+2018-09-16 14:14:09,703 INFO ImportXUnitThread_181 - Work item: 'test_retirement_now[scvmm-20161]' (RHCF3-46047)
+2018-09-16 14:14:09,707 INFO ImportXUnitThread_181 - Processing test case 'test_power_on_or_off_after_provision[virtualcenter-6.7-False]'.
+2018-09-16 14:14:09,730 INFO ImportXUnitThread_181 - Work item: 'test_power_on_or_off_after_provision[virtualcenter-6.7-False]' (RHCF3-48431)
+2018-09-16 14:14:09,734 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_compare_view[Expanded View]'.
+2018-09-16 14:14:09,757 INFO ImportXUnitThread_181 - Work item: 'test_cloud_compare_view[Expanded View]' (RHCF3-49162)
+2018-09-16 14:14:09,762 INFO ImportXUnitThread_181 - Processing test case 'test_provider_delete_from_detail[scvmm-20121-POST]'.
+2018-09-16 14:14:09,783 INFO ImportXUnitThread_181 - Work item: 'test_provider_delete_from_detail[scvmm-20121-POST]' (RHCF3-46016)
+2018-09-16 14:14:09,787 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_add_duplicate[scvmm-20120-services]'.
+2018-09-16 14:14:09,808 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_add_duplicate[scvmm-20120-services]' (RHCF3-45451)
+2018-09-16 14:14:09,813 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_edit[virtualcenter-5.5-from_detail-vms]'.
+2018-09-16 14:14:09,835 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_edit[virtualcenter-5.5-from_detail-vms]' (RHCF3-45352)
+2018-09-16 14:14:09,840 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-providers]'.
+2018-09-16 14:14:09,863 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-providers]' (RHCF3-47827)
+2018-09-16 14:14:09,868 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-results]'.
+2018-09-16 14:14:09,891 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-results]' (RHCF3-47887)
+2018-09-16 14:14:09,896 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-chargebacks]'.
+2018-09-16 14:14:09,918 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-chargebacks]' (RHCF3-47889)
+2018-09-16 14:14:09,923 INFO ImportXUnitThread_181 - Processing test case 'test_infra_grid_page_per_item[infra_providers-1000]'.
+2018-09-16 14:14:09,951 INFO ImportXUnitThread_181 - Work item: 'test_infra_grid_page_per_item[infra_providers-1000]' (RHCF3-36941)
+2018-09-16 14:14:09,955 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_tile_page_per_item[cloud_av_zones-50]'.
+2018-09-16 14:14:09,980 INFO ImportXUnitThread_181 - Work item: 'test_cloud_tile_page_per_item[cloud_av_zones-50]' (RHCF3-36804)
+2018-09-16 14:14:09,983 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-provision_dialogs]'.
+2018-09-16 14:14:10,006 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-provision_dialogs]' (RHCF3-47831)
+2018-09-16 14:14:10,011 INFO ImportXUnitThread_181 - Processing test case 'test_validate_custom_rate_cpu_usage_cost[virtualcenter-6.0]'.
+2018-09-16 14:14:10,034 INFO ImportXUnitThread_181 - Work item: 'test_validate_custom_rate_cpu_usage_cost[virtualcenter-6.0]' (RHCF3-46989)
+2018-09-16 14:14:10,038 INFO ImportXUnitThread_181 - Processing test case 'test_tagvis_tag_datacenter_combination[infra_templates-infra-not_visible]'.
+2018-09-16 14:14:10,061 INFO ImportXUnitThread_181 - Work item: 'test_tagvis_tag_datacenter_combination[infra_templates-infra-not_visible]' (RHCF3-48423)
+2018-09-16 14:14:10,066 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_list_page_per_item[cloud_av_zones-50]'.
+2018-09-16 14:14:10,087 INFO ImportXUnitThread_181 - Work item: 'test_cloud_list_page_per_item[cloud_av_zones-50]' (RHCF3-36805)
+2018-09-16 14:14:10,091 INFO ImportXUnitThread_181 - Processing test case 'test_can_open_advanced_search[orchestration_stacks-all]'.
+2018-09-16 14:14:10,114 INFO ImportXUnitThread_181 - Work item: 'test_can_open_advanced_search[orchestration_stacks-all]' (RHCF3-47510)
+2018-09-16 14:14:10,118 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-rates]'.
+2018-09-16 14:14:10,139 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-rates]' (RHCF3-47805)
+2018-09-16 14:14:10,144 INFO ImportXUnitThread_181 - Processing test case 'test_host_relationships[scvmm-Datastores]'.
+2018-09-16 14:14:10,166 INFO ImportXUnitThread_181 - Work item: 'test_host_relationships[scvmm-Datastores]' (RHCF3-35598)
+2018-09-16 14:14:10,170 INFO ImportXUnitThread_181 - Processing test case 'test_raw_metric_vm_cpu[virtualcenter-6.5]'.
+2018-09-16 14:14:10,191 INFO ImportXUnitThread_181 - Work item: 'test_raw_metric_vm_cpu[virtualcenter-6.5]' (RHCF3-45081)
+2018-09-16 14:14:10,196 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-5.5-host_network-Daily]'.
+2018-09-16 14:14:10,217 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-5.5-host_network-Daily]' (RHCF3-48055)
+2018-09-16 14:14:10,222 INFO ImportXUnitThread_181 - Processing test case 'test_sdn_port_net_prov[openstack-11]'.
+2018-09-16 14:14:10,245 INFO ImportXUnitThread_181 - Work item: 'test_sdn_port_net_prov[openstack-11]' (RHCF3-47204)
+2018-09-16 14:14:10,250 INFO ImportXUnitThread_181 - Processing test case 'test_reports_generate_report[virtualcenter-6.5-Relationships/Virtual Machines, Folders, Clusters]'.
+2018-09-16 14:14:10,272 INFO ImportXUnitThread_181 - Work item: 'test_reports_generate_report[virtualcenter-6.5-Relationships/Virtual Machines, Folders, Clusters]' (RHCF3-46941)
+2018-09-16 14:14:10,276 INFO ImportXUnitThread_181 - Processing test case 'test_infra_provider_crud[rhevm-4.1]'.
+2018-09-16 14:14:10,284 WARN ImportXUnitThread_181 - Unable to find work item for 'test_infra_provider_crud[rhevm-4.1]'.
+2018-09-16 14:14:10,284 INFO ImportXUnitThread_181 - Processing test case 'test_provider_filter_save_and_load'.
+2018-09-16 14:14:10,310 INFO ImportXUnitThread_181 - Work item: 'test_provider_filter_save_and_load' (RHCF3-35755)
+2018-09-16 14:14:10,314 INFO ImportXUnitThread_181 - Processing test case 'test_gap_collection[virtualcenter-6.0-host-daily]'.
+2018-09-16 14:14:10,335 INFO ImportXUnitThread_181 - Work item: 'test_gap_collection[virtualcenter-6.0-host-daily]' (RHCF3-45048)
+2018-09-16 14:14:10,339 INFO ImportXUnitThread_181 - Processing test case 'test_query_with_api_version[virtualcenter-alerts]'.
+2018-09-16 14:14:10,363 INFO ImportXUnitThread_181 - Work item: 'test_query_with_api_version[virtualcenter-alerts]' (RHCF3-47762)
+2018-09-16 14:14:10,368 INFO ImportXUnitThread_181 - Processing test case 'test_infra_tile_page_per_item[infra_vms-1000]'.
+2018-09-16 14:14:10,389 INFO ImportXUnitThread_181 - Work item: 'test_infra_tile_page_per_item[infra_vms-1000]' (RHCF3-36939)
+2018-09-16 14:14:10,393 INFO ImportXUnitThread_181 - Processing test case 'test_can_open_advanced_search[ansible_tower_explorer_system-all]'.
+2018-09-16 14:14:10,419 INFO ImportXUnitThread_181 - Work item: 'test_can_open_advanced_search[ansible_tower_explorer_system-all]' (RHCF3-47550)
+2018-09-16 14:14:10,423 INFO ImportXUnitThread_181 - Processing test case 'test_report_view[virtualcenter-5.5-Graph View]'.
+2018-09-16 14:14:10,445 INFO ImportXUnitThread_181 - Work item: 'test_report_view[virtualcenter-5.5-Graph View]' (RHCF3-47025)
+2018-09-16 14:14:10,449 INFO ImportXUnitThread_181 - Processing test case 'test_infra_grid_page_per_item[hosts-200]'.
+2018-09-16 14:14:10,471 INFO ImportXUnitThread_181 - Work item: 'test_infra_grid_page_per_item[hosts-200]' (RHCF3-33301)
+2018-09-16 14:14:10,477 INFO ImportXUnitThread_181 - Processing test case 'test_power_on_or_off_after_provision[scvmm-20160-False]'.
+2018-09-16 14:14:10,501 INFO ImportXUnitThread_181 - Work item: 'test_power_on_or_off_after_provision[scvmm-20160-False]' (RHCF3-46499)
+2018-09-16 14:14:10,506 INFO ImportXUnitThread_181 - Processing test case 'test_infra_tile_page_per_item[infra_vms-50]'.
+2018-09-16 14:14:10,528 INFO ImportXUnitThread_181 - Work item: 'test_infra_tile_page_per_item[infra_vms-50]' (RHCF3-36918)
+2018-09-16 14:14:10,532 INFO ImportXUnitThread_181 - Processing test case 'test_tagvis_infra_object[infra_templates-infra-visible]'.
+2018-09-16 14:14:10,554 INFO ImportXUnitThread_181 - Work item: 'test_tagvis_infra_object[infra_templates-infra-visible]' (RHCF3-46214)
+2018-09-16 14:14:10,559 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-5.5-cluster_cpu-Hourly]'.
+2018-09-16 14:14:10,580 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-5.5-cluster_cpu-Hourly]' (RHCF3-47998)
+2018-09-16 14:14:10,585 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_edit[virtualcenter-6.7-from_detail-vms]'.
+2018-09-16 14:14:10,607 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_bad_section_edit[virtualcenter-6.7-from_detail-vms]' (RHCF3-48143)
+2018-09-16 14:14:10,612 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_add_duplicate[virtualcenter-6.0-services]'.
+2018-09-16 14:14:10,645 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_add_duplicate[virtualcenter-6.0-services]' (RHCF3-45391)
+2018-09-16 14:14:10,650 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_tile_page_per_item[cloud_stacks-100]'.
+2018-09-16 14:14:10,672 INFO ImportXUnitThread_181 - Work item: 'test_cloud_tile_page_per_item[cloud_stacks-100]' (RHCF3-36858)
+2018-09-16 14:14:10,676 INFO ImportXUnitThread_181 - Processing test case 'test_quota_tagging_infra_via_lifecycle[group-rhevm-max_storage]'.
+2018-09-16 14:14:10,698 INFO ImportXUnitThread_181 - Work item: 'test_quota_tagging_infra_via_lifecycle[group-rhevm-max_storage]' (RHCF3-46530)
+2018-09-16 14:14:10,702 INFO ImportXUnitThread_181 - Processing test case 'test_collections_actions[virtualcenter-reports]'.
+2018-09-16 14:14:10,723 INFO ImportXUnitThread_181 - Work item: 'test_collections_actions[virtualcenter-reports]' (RHCF3-47682)
+2018-09-16 14:14:10,728 INFO ImportXUnitThread_181 - Processing test case 'test_query_with_api_version[virtualcenter-physical_servers]'.
+2018-09-16 14:14:10,752 INFO ImportXUnitThread_181 - Work item: 'test_query_with_api_version[virtualcenter-physical_servers]' (RHCF3-47723)
+2018-09-16 14:14:10,757 INFO ImportXUnitThread_181 - Processing test case 'test_object_add_remove_tag[openstack-11]'.
+2018-09-16 14:14:10,781 INFO ImportXUnitThread_181 - Work item: 'test_object_add_remove_tag[openstack-11]' (RHCF3-47434)
+2018-09-16 14:14:10,786 INFO ImportXUnitThread_181 - Processing test case 'TestOrchestrationTemplatesRESTAPI.test_copy_orchestration_templates[infra-from_detail]'.
+2018-09-16 14:14:10,809 INFO ImportXUnitThread_181 - Work item: 'TestOrchestrationTemplatesRESTAPI.test_copy_orchestration_templates[infra-from_detail]' (RHCF3-48809)
+2018-09-16 14:14:10,815 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.5-cluster_memory-Hourly]'.
+2018-09-16 14:14:10,843 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.5-cluster_memory-Hourly]' (RHCF3-48030)
+2018-09-16 14:14:10,847 INFO ImportXUnitThread_181 - Processing test case 'test_ssa_vddk[v6_5-virtualcenter-6.7]'.
+2018-09-16 14:14:10,873 INFO ImportXUnitThread_181 - Work item: 'test_ssa_vddk[v6_5-virtualcenter-6.7]' (RHCF3-48461)
+2018-09-16 14:14:10,878 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-provision_requests]'.
+2018-09-16 14:14:10,900 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-provision_requests]' (RHCF3-47586)
+2018-09-16 14:14:10,905 INFO ImportXUnitThread_181 - Processing test case 'test_raw_metric_vm_network[openstack-11]'.
+2018-09-16 14:14:10,927 INFO ImportXUnitThread_181 - Work item: 'test_raw_metric_vm_network[openstack-11]' (RHCF3-45091)
+2018-09-16 14:14:10,932 INFO ImportXUnitThread_181 - Processing test case 'test_operations_powered_off_vm[virtualcenter-6.0]'.
+2018-09-16 14:14:10,953 INFO ImportXUnitThread_181 - Work item: 'test_operations_powered_off_vm[virtualcenter-6.0]' (RHCF3-46579)
+2018-09-16 14:14:10,957 INFO ImportXUnitThread_181 - Processing test case 'test_collections_actions[virtualcenter-instances]'.
+2018-09-16 14:14:10,979 INFO ImportXUnitThread_181 - Work item: 'test_collections_actions[virtualcenter-instances]' (RHCF3-47647)
+2018-09-16 14:14:10,984 INFO ImportXUnitThread_181 - Processing test case 'TestInstanceRESTAPI.test_stop[openstack-11-from_collection]'.
+2018-09-16 14:14:11,006 INFO ImportXUnitThread_181 - Work item: 'TestInstanceRESTAPI.test_stop[openstack-11-from_collection]' (RHCF3-45215)
+2018-09-16 14:14:11,011 INFO ImportXUnitThread_181 - Processing test case 'test_delete_button_should_appear_after_save_provider'.
+2018-09-16 14:14:11,033 INFO ImportXUnitThread_181 - Work item: 'test_delete_button_should_appear_after_save_provider' (RHCF3-35761)
+2018-09-16 14:14:11,037 INFO ImportXUnitThread_181 - Processing test case 'test_tenant_quota_input_validate[virtualcenter]'.
+2018-09-16 14:14:11,062 INFO ImportXUnitThread_181 - Work item: 'test_tenant_quota_input_validate[virtualcenter]' (RHCF3-48312)
+2018-09-16 14:14:11,067 INFO ImportXUnitThread_181 - Processing test case 'test_provision_from_template[virtualcenter-6.7-Manual]'.
+2018-09-16 14:14:11,088 INFO ImportXUnitThread_181 - Work item: 'test_provision_from_template[virtualcenter-6.7-Manual]' (RHCF3-48165)
+2018-09-16 14:14:11,093 INFO ImportXUnitThread_181 - Processing test case 'test_provider_refresh[scvmm-20161]'.
+2018-09-16 14:14:11,202 INFO ImportXUnitThread_181 - Work item: 'test_provider_refresh[scvmm-20161]' (RHCF3-45992)
+2018-09-16 14:14:11,207 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_tile_page_per_item[cloud_tenants-100]'.
+2018-09-16 14:14:11,235 INFO ImportXUnitThread_181 - Work item: 'test_cloud_tile_page_per_item[cloud_tenants-100]' (RHCF3-33152)
+2018-09-16 14:14:11,241 INFO ImportXUnitThread_181 - Processing test case 'test_by_element_with_id_and_class'.
+2018-09-16 14:14:11,249 WARN ImportXUnitThread_181 - Unable to find work item for 'test_by_element_with_id_and_class'.
+2018-09-16 14:14:11,249 INFO ImportXUnitThread_181 - Processing test case 'TestRESTSnapshots.test_delete_snapshot_from_detail[rhevm-4.1-DELETE]'.
+2018-09-16 14:14:11,258 WARN ImportXUnitThread_181 - Unable to find work item for 'TestRESTSnapshots.test_delete_snapshot_from_detail[rhevm-4.1-DELETE]'.
+2018-09-16 14:14:11,258 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-configuration_script_payloads]'.
+2018-09-16 14:14:11,280 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-configuration_script_payloads]' (RHCF3-47596)
+2018-09-16 14:14:11,284 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_grid_page_per_item[cloud_instances-200]'.
+2018-09-16 14:14:11,307 INFO ImportXUnitThread_181 - Work item: 'test_cloud_grid_page_per_item[cloud_instances-200]' (RHCF3-36827)
+2018-09-16 14:14:11,311 INFO ImportXUnitThread_181 - Processing test case 'test_cluster_relationships[rhevm-4.1]'.
+2018-09-16 14:14:11,320 WARN ImportXUnitThread_181 - Unable to find work item for 'test_cluster_relationships[rhevm-4.1]'.
+2018-09-16 14:14:11,320 INFO ImportXUnitThread_181 - Processing test case 'test_http_options_subcollections[virtualcenter]'.
+2018-09-16 14:14:11,342 INFO ImportXUnitThread_181 - Work item: 'test_http_options_subcollections[virtualcenter]' (RHCF3-47868)
+2018-09-16 14:14:11,347 INFO ImportXUnitThread_181 - Processing test case 'test_conversion_host_tags[virtualcenter-5.5-rhevm-4.2]'.
+2018-09-16 14:14:11,356 WARN ImportXUnitThread_181 - Unable to find work item for 'test_conversion_host_tags[virtualcenter-5.5-rhevm-4.2]'.
+2018-09-16 14:14:11,356 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_collection[scvmm-20120-providers]'.
+2018-09-16 14:14:11,389 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_from_collection[scvmm-20120-providers]' (RHCF3-45428)
+2018-09-16 14:14:11,393 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_detail_post[virtualcenter-6.7-services]'.
+2018-09-16 14:14:11,414 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_from_detail_post[virtualcenter-6.7-services]' (RHCF3-48134)
+2018-09-16 14:14:11,419 INFO ImportXUnitThread_181 - Processing test case 'test_provision_with_tag[scvmm-20161]'.
+2018-09-16 14:14:11,442 INFO ImportXUnitThread_181 - Work item: 'test_provision_with_tag[scvmm-20161]' (RHCF3-45897)
+2018-09-16 14:14:11,446 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_tile_page_per_item[cloud_instances-50]'.
+2018-09-16 14:14:11,468 INFO ImportXUnitThread_181 - Work item: 'test_cloud_tile_page_per_item[cloud_instances-50]' (RHCF3-36834)
+2018-09-16 14:14:11,472 INFO ImportXUnitThread_181 - Processing test case 'test_quota_tagging_cloud_via_services[user-openstack-11-max_cpu-ViaSSUI]'.
+2018-09-16 14:14:11,494 INFO ImportXUnitThread_181 - Work item: 'test_quota_tagging_cloud_via_services[user-openstack-11-max_cpu-ViaSSUI]' (RHCF3-45289)
+2018-09-16 14:14:11,498 INFO ImportXUnitThread_181 - Processing test case 'test_infra_list_page_per_item[datastores-500]'.
+2018-09-16 14:14:11,523 INFO ImportXUnitThread_181 - Work item: 'test_infra_list_page_per_item[datastores-500]' (RHCF3-33312)
+2018-09-16 14:14:11,529 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_start_page[Compute / Clouds / Stacks]'.
+2018-09-16 14:14:11,552 INFO ImportXUnitThread_181 - Work item: 'test_cloud_start_page[Compute / Clouds / Stacks]' (RHCF3-33275)
+2018-09-16 14:14:11,558 INFO ImportXUnitThread_181 - Processing test case 'test_multiple_host_good_creds[scvmm-20120-web]'.
+2018-09-16 14:14:11,593 INFO ImportXUnitThread_181 - Work item: 'test_multiple_host_good_creds[scvmm-20120-web]' (RHCF3-48398)
+2018-09-16 14:14:11,598 INFO ImportXUnitThread_181 - Processing test case 'test_disk_format_select[virtualcenter-6.7-Thick]'.
+2018-09-16 14:14:11,620 INFO ImportXUnitThread_181 - Work item: 'test_disk_format_select[virtualcenter-6.7-Thick]' (RHCF3-48433)
+2018-09-16 14:14:11,624 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-provision_dialogs]'.
+2018-09-16 14:14:11,648 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-provision_dialogs]' (RHCF3-47607)
+2018-09-16 14:14:11,652 INFO ImportXUnitThread_181 - Processing test case 'test_alert_rtp[virtualcenter-6.0]'.
+2018-09-16 14:14:11,673 INFO ImportXUnitThread_181 - Work item: 'test_alert_rtp[virtualcenter-6.0]' (RHCF3-46350)
+2018-09-16 14:14:11,677 INFO ImportXUnitThread_181 - Processing test case 'test_provider_filter_save_and_cancel_load_with_user_input'.
+2018-09-16 14:14:11,699 INFO ImportXUnitThread_181 - Work item: 'test_provider_filter_save_and_cancel_load_with_user_input' (RHCF3-35757)
+2018-09-16 14:14:11,703 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_single_from_collection[scvmm-20161-providers]'.
+2018-09-16 14:14:11,725 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_single_from_collection[scvmm-20161-providers]' (RHCF3-45504)
+2018-09-16 14:14:11,729 INFO ImportXUnitThread_181 - Processing test case 'test_provider_edit[virtualcenter-6.0]'.
+2018-09-16 14:14:11,754 INFO ImportXUnitThread_181 - Work item: 'test_provider_edit[virtualcenter-6.0]' (RHCF3-45998)
+2018-09-16 14:14:11,759 INFO ImportXUnitThread_181 - Processing test case 'test_create_provider[openstack-11]'.
+2018-09-16 14:14:11,781 INFO ImportXUnitThread_181 - Work item: 'test_create_provider[openstack-11]' (RHCF3-45982)
+2018-09-16 14:14:11,785 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_detail_delete[scvmm-20161-vms]'.
+2018-09-16 14:14:11,808 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_from_detail_delete[scvmm-20161-vms]' (RHCF3-45509)
+2018-09-16 14:14:11,812 INFO ImportXUnitThread_181 - Processing test case 'test_tag_infra_objects[infra_provider-infra-details]'.
+2018-09-16 14:14:11,836 INFO ImportXUnitThread_181 - Work item: 'test_tag_infra_objects[infra_provider-infra-details]' (RHCF3-46198)
+2018-09-16 14:14:11,840 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_edit[scvmm-20161-from_collection-providers]'.
+2018-09-16 14:14:11,861 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_edit[scvmm-20161-from_collection-providers]' (RHCF3-45647)
+2018-09-16 14:14:11,866 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.5-vm_cpu_state-Daily]'.
+2018-09-16 14:14:11,892 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.5-vm_cpu_state-Daily]' (RHCF3-45146)
+2018-09-16 14:14:11,896 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-automation_requests]'.
+2018-09-16 14:14:11,918 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-automation_requests]' (RHCF3-47811)
+2018-09-16 14:14:11,923 INFO ImportXUnitThread_181 - Processing test case 'test_custom_button_display[Vm_instance-virtualcenter-Single_and_list]'.
+2018-09-16 14:14:11,945 INFO ImportXUnitThread_181 - Work item: 'test_custom_button_display[Vm_instance-virtualcenter-Single_and_list]' (RHCF3-49093)
+2018-09-16 14:14:11,950 INFO ImportXUnitThread_181 - Processing test case 'test_infra_list_page_per_item[infra_vms-100]'.
+2018-09-16 14:14:11,974 INFO ImportXUnitThread_181 - Work item: 'test_infra_list_page_per_item[infra_vms-100]' (RHCF3-36916)
+2018-09-16 14:14:11,978 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_grid_page_per_item[cloud_flavors-20]'.
+2018-09-16 14:14:12,000 INFO ImportXUnitThread_181 - Work item: 'test_cloud_grid_page_per_item[cloud_flavors-20]' (RHCF3-36815)
+2018-09-16 14:14:12,003 INFO ImportXUnitThread_181 - Processing test case 'test_infra_compare_view[Exists Mode]'.
+2018-09-16 14:14:12,029 INFO ImportXUnitThread_181 - Work item: 'test_infra_compare_view[Exists Mode]' (RHCF3-49184)
+2018-09-16 14:14:12,034 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_add_duplicate[scvmm-20160-services]'.
+2018-09-16 14:14:12,064 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_add_duplicate[scvmm-20160-services]' (RHCF3-45499)
+2018-09-16 14:14:12,068 INFO ImportXUnitThread_181 - Processing test case 'test_snapshot_history_btn[virtualcenter-6.5]'.
+2018-09-16 14:14:12,095 INFO ImportXUnitThread_181 - Work item: 'test_snapshot_history_btn[virtualcenter-6.5]' (RHCF3-46590)
+2018-09-16 14:14:12,099 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_tile_page_per_item[cloud_tenants-500]'.
+2018-09-16 14:14:12,121 INFO ImportXUnitThread_181 - Work item: 'test_cloud_tile_page_per_item[cloud_tenants-500]' (RHCF3-33206)
+2018-09-16 14:14:12,127 INFO ImportXUnitThread_181 - Processing test case 'test_vm_genealogy_detected[virtualcenter-6.7-via_summary]'.
+2018-09-16 14:14:12,149 INFO ImportXUnitThread_181 - Work item: 'test_vm_genealogy_detected[virtualcenter-6.7-via_summary]' (RHCF3-48155)
+2018-09-16 14:14:12,153 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_grid_page_per_item[cloud_av_zones-20]'.
+2018-09-16 14:14:12,174 INFO ImportXUnitThread_181 - Work item: 'test_cloud_grid_page_per_item[cloud_av_zones-20]' (RHCF3-36797)
+2018-09-16 14:14:12,178 INFO ImportXUnitThread_181 - Processing test case 'TestInstanceRESTAPI.test_start[openstack-11-from_collection]'.
+2018-09-16 14:14:12,200 INFO ImportXUnitThread_181 - Work item: 'TestInstanceRESTAPI.test_start[openstack-11-from_collection]' (RHCF3-45223)
+2018-09-16 14:14:12,206 INFO ImportXUnitThread_181 - Processing test case 'test_vm_most_recent_hour_graph_screen[virtualcenter-6.7-vm_cpu]'.
+2018-09-16 14:14:12,232 INFO ImportXUnitThread_181 - Work item: 'test_vm_most_recent_hour_graph_screen[virtualcenter-6.7-vm_cpu]' (RHCF3-48096)
+2018-09-16 14:14:12,237 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-service_catalogs]'.
+2018-09-16 14:14:12,259 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-service_catalogs]' (RHCF3-47580)
+2018-09-16 14:14:12,263 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-requests]'.
+2018-09-16 14:14:12,286 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-requests]' (RHCF3-47862)
+2018-09-16 14:14:12,291 INFO ImportXUnitThread_181 - Processing test case 'test_create_provider[scvmm-20160]'.
+2018-09-16 14:14:12,316 INFO ImportXUnitThread_181 - Work item: 'test_create_provider[scvmm-20160]' (RHCF3-45980)
+2018-09-16 14:14:12,321 INFO ImportXUnitThread_181 - Processing test case 'test_custom_button_display[Vm_instance-openstack-Single_entity]'.
+2018-09-16 14:14:12,346 INFO ImportXUnitThread_181 - Work item: 'test_custom_button_display[Vm_instance-openstack-Single_entity]' (RHCF3-49083)
+2018-09-16 14:14:12,351 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_grid_page_per_item[cloud_flavors-500]'.
+2018-09-16 14:14:12,373 INFO ImportXUnitThread_181 - Work item: 'test_cloud_grid_page_per_item[cloud_flavors-500]' (RHCF3-36845)
+2018-09-16 14:14:12,377 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-zones]'.
+2018-09-16 14:14:12,400 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-zones]' (RHCF3-47606)
+2018-09-16 14:14:12,404 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[rhevm-4.1-vm_network-Hourly]'.
+2018-09-16 14:14:12,413 WARN ImportXUnitThread_181 - Unable to find work item for 'test_graph_screen[rhevm-4.1-vm_network-Hourly]'.
+2018-09-16 14:14:12,413 INFO ImportXUnitThread_181 - Processing test case 'test_host_filter_save_and_load_cancel'.
+2018-09-16 14:14:12,436 INFO ImportXUnitThread_181 - Work item: 'test_host_filter_save_and_load_cancel' (RHCF3-35744)
+2018-09-16 14:14:12,440 INFO ImportXUnitThread_181 - Processing test case 'test_reports_generate_report[virtualcenter-5.5-Events/Operations]'.
+2018-09-16 14:14:12,463 INFO ImportXUnitThread_181 - Work item: 'test_reports_generate_report[virtualcenter-5.5-Events/Operations]' (RHCF3-46920)
+2018-09-16 14:14:12,466 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_list_page_per_item[cloud_flavors-20]'.
+2018-09-16 14:14:12,489 INFO ImportXUnitThread_181 - Work item: 'test_cloud_list_page_per_item[cloud_flavors-20]' (RHCF3-36817)
+2018-09-16 14:14:12,493 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.7-cluster_cpu-Hourly]'.
+2018-09-16 14:14:12,501 WARN ImportXUnitThread_181 - Unable to find work item for 'test_graph_screen[virtualcenter-6.7-cluster_cpu-Hourly]'.
+2018-09-16 14:14:12,501 INFO ImportXUnitThread_181 - Processing test case 'test_vm_power_options_from_off[scvmm-20161]'.
+2018-09-16 14:14:12,531 INFO ImportXUnitThread_181 - Work item: 'test_vm_power_options_from_off[scvmm-20161]' (RHCF3-46776)
+2018-09-16 14:14:12,536 INFO ImportXUnitThread_181 - Processing test case 'test_tenant_quota_enforce_via_lifecycle_infra[virtualcenter-max_vms]'.
+2018-09-16 14:14:12,559 INFO ImportXUnitThread_181 - Work item: 'test_tenant_quota_enforce_via_lifecycle_infra[virtualcenter-max_vms]' (RHCF3-46618)
+2018-09-16 14:14:12,563 INFO ImportXUnitThread_181 - Processing test case 'test_login_evm_group[ldap-ad_dev_2016-upn-ldapuser17]'.
+2018-09-16 14:14:12,586 INFO ImportXUnitThread_181 - Work item: 'test_login_evm_group[ldap-ad_dev_2016-upn-ldapuser17]' (RHCF3-48553)
+2018-09-16 14:14:12,590 INFO ImportXUnitThread_181 - Processing test case 'test_project_quota_enforce_via_lifecycle_infra[virtualcenter-max_cpu]'.
+2018-09-16 14:14:12,613 INFO ImportXUnitThread_181 - Work item: 'test_project_quota_enforce_via_lifecycle_infra[virtualcenter-max_cpu]' (RHCF3-9545)
+2018-09-16 14:14:12,616 INFO ImportXUnitThread_181 - Processing test case 'test_stop_vm_rest[scvmm-20120-from_collection]'.
+2018-09-16 14:14:12,642 INFO ImportXUnitThread_181 - Work item: 'test_stop_vm_rest[scvmm-20120-from_collection]' (RHCF3-45762)
+2018-09-16 14:14:12,646 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_edit[openstack-11-from_detail-instances]'.
+2018-09-16 14:14:12,668 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_bad_section_edit[openstack-11-from_detail-instances]' (RHCF3-45656)
+2018-09-16 14:14:12,673 INFO ImportXUnitThread_181 - Processing test case 'test_suspend_vm_rest[rhevm-4.1-from_detail]'.
+2018-09-16 14:14:12,682 WARN ImportXUnitThread_181 - Unable to find work item for 'test_suspend_vm_rest[rhevm-4.1-from_detail]'.
+2018-09-16 14:14:12,682 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.0-vm_cpu-Hourly]'.
+2018-09-16 14:14:12,707 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.0-vm_cpu-Hourly]' (RHCF3-45133)
+2018-09-16 14:14:12,710 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_tile_page_per_item[cloud_flavors-200]'.
+2018-09-16 14:14:12,733 INFO ImportXUnitThread_181 - Work item: 'test_cloud_tile_page_per_item[cloud_flavors-200]' (RHCF3-36822)
+2018-09-16 14:14:12,737 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.7-cluster_disk-Daily]'.
+2018-09-16 14:14:12,745 WARN ImportXUnitThread_181 - Unable to find work item for 'test_graph_screen[virtualcenter-6.7-cluster_disk-Daily]'.
+2018-09-16 14:14:12,745 INFO ImportXUnitThread_181 - Processing test case 'test_infra_list_page_per_item[infra_vms-500]'.
+2018-09-16 14:14:12,767 INFO ImportXUnitThread_181 - Work item: 'test_infra_list_page_per_item[infra_vms-500]' (RHCF3-36934)
+2018-09-16 14:14:12,771 INFO ImportXUnitThread_181 - Processing test case 'TestServiceDialogsRESTAPI.test_delete_service_dialog[infra-delete]'.
+2018-09-16 14:14:12,805 INFO ImportXUnitThread_181 - Work item: 'TestServiceDialogsRESTAPI.test_delete_service_dialog[infra-delete]' (RHCF3-48775)
+2018-09-16 14:14:12,809 INFO ImportXUnitThread_181 - Processing test case 'test_project_quota_enforce_via_lifecycle_infra[rhevm-max_storage]'.
+2018-09-16 14:14:12,831 INFO ImportXUnitThread_181 - Work item: 'test_project_quota_enforce_via_lifecycle_infra[rhevm-max_storage]' (RHCF3-42483)
+2018-09-16 14:14:12,835 INFO ImportXUnitThread_181 - Processing test case 'test_infra_list_page_per_item[datastores-100]'.
+2018-09-16 14:14:12,860 INFO ImportXUnitThread_181 - Work item: 'test_infra_list_page_per_item[datastores-100]' (RHCF3-33300)
+2018-09-16 14:14:12,866 INFO ImportXUnitThread_181 - Processing test case 'TestServiceRESTAPI.test_delete_service_post[infra]'.
+2018-09-16 14:14:12,888 INFO ImportXUnitThread_181 - Work item: 'TestServiceRESTAPI.test_delete_service_post[infra]' (RHCF3-48749)
+2018-09-16 14:14:12,892 INFO ImportXUnitThread_181 - Processing test case 'test_power_on_or_off_multiple[openstack-11]'.
+2018-09-16 14:14:12,919 INFO ImportXUnitThread_181 - Work item: 'test_power_on_or_off_multiple[openstack-11]' (RHCF3-45191)
+2018-09-16 14:14:12,924 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-automate]'.
+2018-09-16 14:14:12,947 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-automate]' (RHCF3-47584)
+2018-09-16 14:14:12,951 INFO ImportXUnitThread_181 - Processing test case 'test_verify_alloc_memory[virtualcenter]'.
+2018-09-16 14:14:12,973 INFO ImportXUnitThread_181 - Work item: 'test_verify_alloc_memory[virtualcenter]' (RHCF3-46869)
+2018-09-16 14:14:12,978 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_detail_delete[virtualcenter-5.5-vms]'.
+2018-09-16 14:14:13,000 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_from_detail_delete[virtualcenter-5.5-vms]' (RHCF3-45349)
+2018-09-16 14:14:13,005 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_provider_add_with_bad_credentials[openstack-11]'.
+2018-09-16 14:14:13,028 INFO ImportXUnitThread_181 - Work item: 'test_cloud_provider_add_with_bad_credentials[openstack-11]' (RHCF3-45258)
+2018-09-16 14:14:13,032 INFO ImportXUnitThread_181 - Processing test case 'test_report_view[virtualcenter-6.5-Hybrid View]'.
+2018-09-16 14:14:13,054 INFO ImportXUnitThread_181 - Work item: 'test_report_view[virtualcenter-6.5-Hybrid View]' (RHCF3-47030)
+2018-09-16 14:14:13,058 INFO ImportXUnitThread_181 - Processing test case 'test_superadmin_child_tenant_crud[virtualcenter-5]'.
+2018-09-16 14:14:13,080 INFO ImportXUnitThread_181 - Work item: 'test_superadmin_child_tenant_crud[virtualcenter-5]' (RHCF3-48309)
+2018-09-16 14:14:13,085 INFO ImportXUnitThread_181 - Processing test case 'test_infra_list_page_per_item[datastores-20]'.
+2018-09-16 14:14:13,107 INFO ImportXUnitThread_181 - Work item: 'test_infra_list_page_per_item[datastores-20]' (RHCF3-33282)
+2018-09-16 14:14:13,113 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-alerts]'.
+2018-09-16 14:14:13,137 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-alerts]' (RHCF3-47614)
+2018-09-16 14:14:13,141 INFO ImportXUnitThread_181 - Processing test case 'test_start_vm_rest[openstack-11-from_collection]'.
+2018-09-16 14:14:13,163 INFO ImportXUnitThread_181 - Work item: 'test_start_vm_rest[openstack-11-from_collection]' (RHCF3-45795)
+2018-09-16 14:14:13,168 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_list_page_per_item[cloud_flavors-10]'.
+2018-09-16 14:14:13,190 INFO ImportXUnitThread_181 - Work item: 'test_cloud_list_page_per_item[cloud_flavors-10]' (RHCF3-36820)
+2018-09-16 14:14:13,194 INFO ImportXUnitThread_181 - Processing test case 'test_provider_log_updated[scvmm-20120]'.
+2018-09-16 14:14:13,216 INFO ImportXUnitThread_181 - Work item: 'test_provider_log_updated[scvmm-20120]' (RHCF3-46261)
+2018-09-16 14:14:13,221 INFO ImportXUnitThread_181 - Processing test case 'test_storage_manager_delete[object_manager-openstack-11]'.
+2018-09-16 14:14:13,244 INFO ImportXUnitThread_181 - Work item: 'test_storage_manager_delete[object_manager-openstack-11]' (RHCF3-47429)
+2018-09-16 14:14:13,248 INFO ImportXUnitThread_181 - Processing test case 'test_tenant_quota_enforce_via_service_infra[virtualcenter-max_vms-ViaSSUI]'.
+2018-09-16 14:14:13,269 INFO ImportXUnitThread_181 - Work item: 'test_tenant_quota_enforce_via_service_infra[virtualcenter-max_vms-ViaSSUI]' (RHCF3-46628)
+2018-09-16 14:14:13,273 INFO ImportXUnitThread_181 - Processing test case 'test_provider_delete_from_detail[scvmm-20121-DELETE]'.
+2018-09-16 14:14:13,300 INFO ImportXUnitThread_181 - Work item: 'test_provider_delete_from_detail[scvmm-20121-DELETE]' (RHCF3-46017)
+2018-09-16 14:14:13,304 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-categories]'.
+2018-09-16 14:14:13,327 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-categories]' (RHCF3-47814)
+2018-09-16 14:14:13,332 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-container_nodes]'.
+2018-09-16 14:14:13,355 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-container_nodes]' (RHCF3-47791)
+2018-09-16 14:14:13,360 INFO ImportXUnitThread_181 - Processing test case 'test_provider_edit[scvmm-20161]'.
+2018-09-16 14:14:13,382 INFO ImportXUnitThread_181 - Work item: 'test_provider_edit[scvmm-20161]' (RHCF3-46003)
+2018-09-16 14:14:13,386 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_collection[virtualcenter-6.0-providers]'.
+2018-09-16 14:14:13,413 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_from_collection[virtualcenter-6.0-providers]' (RHCF3-45368)
+2018-09-16 14:14:13,417 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.5-host_cpu-Daily]'.
+2018-09-16 14:14:13,438 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.5-host_cpu-Daily]' (RHCF3-48069)
+2018-09-16 14:14:13,443 INFO ImportXUnitThread_181 - Processing test case 'test_guest_os_shutdown[virtualcenter-6.0]'.
+2018-09-16 14:14:13,468 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'test_guest_os_shutdown[virtualcenter-6.0]'.
+2018-09-16 14:14:13,468 INFO ImportXUnitThread_181 - Processing test case 'test_multiple_host_good_creds[scvmm-20120-default]'.
+2018-09-16 14:14:13,489 INFO ImportXUnitThread_181 - Work item: 'test_multiple_host_good_creds[scvmm-20120-default]' (RHCF3-48396)
+2018-09-16 14:14:13,494 INFO ImportXUnitThread_181 - Processing test case 'TestVmDetailsPowerControlPerProvider.test_start_from_suspend[scvmm-20161]'.
+2018-09-16 14:14:13,518 INFO ImportXUnitThread_181 - Work item: 'TestVmDetailsPowerControlPerProvider.test_start_from_suspend[scvmm-20161]' (RHCF3-46734)
+2018-09-16 14:14:13,523 INFO ImportXUnitThread_181 - Processing test case 'test_current_user_login_delete[virtualcenter]'.
+2018-09-16 14:14:13,548 INFO ImportXUnitThread_181 - Work item: 'test_current_user_login_delete[virtualcenter]' (RHCF3-48280)
+2018-09-16 14:14:13,553 INFO ImportXUnitThread_181 - Processing test case 'test_custom_button_display[Host-virtualcenter-Single_entity]'.
+2018-09-16 14:14:13,580 INFO ImportXUnitThread_181 - Work item: 'test_custom_button_display[Host-virtualcenter-Single_entity]' (RHCF3-49089)
+2018-09-16 14:14:13,585 INFO ImportXUnitThread_181 - Processing test case 'test_infra_tile_page_per_item[datastores-10]'.
+2018-09-16 14:14:13,613 INFO ImportXUnitThread_181 - Work item: 'test_infra_tile_page_per_item[datastores-10]' (RHCF3-33278)
+2018-09-16 14:14:13,618 INFO ImportXUnitThread_181 - Processing test case 'TestRESTSnapshots.test_delete_snapshot_from_detail[virtualcenter-6.5-POST]'.
+2018-09-16 14:14:13,647 INFO ImportXUnitThread_181 - Work item: 'TestRESTSnapshots.test_delete_snapshot_from_detail[virtualcenter-6.5-POST]' (RHCF3-46164)
+2018-09-16 14:14:13,652 INFO ImportXUnitThread_181 - Processing test case 'test_validate_default_rate_memory_usage_cost[virtualcenter-5.5]'.
+2018-09-16 14:14:13,675 INFO ImportXUnitThread_181 - Work item: 'test_validate_default_rate_memory_usage_cost[virtualcenter-5.5]' (RHCF3-46975)
+2018-09-16 14:14:13,680 INFO ImportXUnitThread_181 - Processing test case 'test_provision_from_template_using_rest[virtualcenter-5.5-Manual]'.
+2018-09-16 14:14:13,703 INFO ImportXUnitThread_181 - Work item: 'test_provision_from_template_using_rest[virtualcenter-5.5-Manual]' (RHCF3-45866)
+2018-09-16 14:14:13,708 INFO ImportXUnitThread_181 - Processing test case 'test_infra_tile_page_per_item[infra_providers-200]'.
+2018-09-16 14:14:13,733 INFO ImportXUnitThread_181 - Work item: 'test_infra_tile_page_per_item[infra_providers-200]' (RHCF3-36930)
+2018-09-16 14:14:13,737 INFO ImportXUnitThread_181 - Processing test case 'test_tag_infra_objects[hosts-infra-list]'.
+2018-09-16 14:14:13,759 INFO ImportXUnitThread_181 - Work item: 'test_tag_infra_objects[hosts-infra-list]' (RHCF3-46205)
+2018-09-16 14:14:13,764 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_tile_page_per_item[cloud_flavors-500]'.
+2018-09-16 14:14:13,787 INFO ImportXUnitThread_181 - Work item: 'test_cloud_tile_page_per_item[cloud_flavors-500]' (RHCF3-36846)
+2018-09-16 14:14:13,791 INFO ImportXUnitThread_181 - Processing test case 'test_query_with_api_version[virtualcenter-load_balancers]'.
+2018-09-16 14:14:13,814 INFO ImportXUnitThread_181 - Work item: 'test_query_with_api_version[virtualcenter-load_balancers]' (RHCF3-47783)
+2018-09-16 14:14:13,819 INFO ImportXUnitThread_181 - Processing test case 'test_datastores_summary[virtualcenter-6.7]'.
+2018-09-16 14:14:13,842 INFO ImportXUnitThread_181 - Work item: 'test_datastores_summary[virtualcenter-6.7]' (RHCF3-48699)
+2018-09-16 14:14:13,846 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-configuration_script_sources]'.
+2018-09-16 14:14:13,868 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-configuration_script_sources]' (RHCF3-47843)
+2018-09-16 14:14:13,873 INFO ImportXUnitThread_181 - Processing test case 'test_alert_vm_turned_on_more_than_twice_in_past_15_minutes[virtualcenter-6.0]'.
+2018-09-16 14:14:13,895 INFO ImportXUnitThread_181 - Work item: 'test_alert_vm_turned_on_more_than_twice_in_past_15_minutes[virtualcenter-6.0]' (RHCF3-46349)
+2018-09-16 14:14:13,899 INFO ImportXUnitThread_181 - Processing test case 'TestTagsViaREST.test_query_by_multiple_tags[infra]'.
+2018-09-16 14:14:13,921 INFO ImportXUnitThread_181 - Work item: 'TestTagsViaREST.test_query_by_multiple_tags[infra]' (RHCF3-48342)
+2018-09-16 14:14:13,926 INFO ImportXUnitThread_181 - Processing test case 'test_vm_genealogy_detected[virtualcenter-5.5-via_edit]'.
+2018-09-16 14:14:13,948 INFO ImportXUnitThread_181 - Work item: 'test_vm_genealogy_detected[virtualcenter-5.5-via_edit]' (RHCF3-45723)
+2018-09-16 14:14:13,952 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-custom_button_sets]'.
+2018-09-16 14:14:13,973 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-custom_button_sets]' (RHCF3-47945)
+2018-09-16 14:14:13,978 INFO ImportXUnitThread_181 - Processing test case 'test_orphaned_vm_status[virtualcenter-6.7]'.
+2018-09-16 14:14:13,999 INFO ImportXUnitThread_181 - Work item: 'test_orphaned_vm_status[virtualcenter-6.7]' (RHCF3-48489)
+2018-09-16 14:14:14,003 INFO ImportXUnitThread_181 - Processing test case 'test_infra_grid_page_per_item[infra_vms-100]'.
+2018-09-16 14:14:14,025 INFO ImportXUnitThread_181 - Work item: 'test_infra_grid_page_per_item[infra_vms-100]' (RHCF3-36914)
+2018-09-16 14:14:14,029 INFO ImportXUnitThread_181 - Processing test case 'test_storage_manager_edit_tag[block_manager-openstack-11]'.
+2018-09-16 14:14:14,051 INFO ImportXUnitThread_181 - Work item: 'test_storage_manager_edit_tag[block_manager-openstack-11]' (RHCF3-47431)
+2018-09-16 14:14:14,055 INFO ImportXUnitThread_181 - Processing test case 'test_quota[user-virtualcenter-max_cpu]'.
+2018-09-16 14:14:14,080 INFO ImportXUnitThread_181 - Work item: 'test_quota[user-virtualcenter-max_cpu]' (RHCF3-46521)
+2018-09-16 14:14:14,084 INFO ImportXUnitThread_181 - Processing test case 'TestBulkQueryRESTAPI.test_bulk_query_roles[virtualcenter]'.
+2018-09-16 14:14:14,106 INFO ImportXUnitThread_181 - Work item: 'TestBulkQueryRESTAPI.test_bulk_query_roles[virtualcenter]' (RHCF3-47971)
+2018-09-16 14:14:14,111 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_grid_page_per_item[CloudProvider-10]'.
+2018-09-16 14:14:14,136 INFO ImportXUnitThread_181 - Work item: 'test_cloud_grid_page_per_item[CloudProvider-10]' (RHCF3-33124)
+2018-09-16 14:14:14,142 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.7-vm_cpu_state-Hourly]'.
+2018-09-16 14:14:14,165 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.7-vm_cpu_state-Hourly]' (RHCF3-48103)
+2018-09-16 14:14:14,170 INFO ImportXUnitThread_181 - Processing test case 'test_raw_metric_host_network[virtualcenter-6.5]'.
+2018-09-16 14:14:14,192 INFO ImportXUnitThread_181 - Work item: 'test_raw_metric_host_network[virtualcenter-6.5]' (RHCF3-45087)
+2018-09-16 14:14:14,197 INFO ImportXUnitThread_181 - Processing test case 'test_multiple_host_good_creds[scvmm-20161-default]'.
+2018-09-16 14:14:14,220 INFO ImportXUnitThread_181 - Work item: 'test_multiple_host_good_creds[scvmm-20161-default]' (RHCF3-48405)
+2018-09-16 14:14:14,225 INFO ImportXUnitThread_181 - Processing test case 'test_provider_refresh[scvmm-20121]'.
+2018-09-16 14:14:14,249 INFO ImportXUnitThread_181 - Work item: 'test_provider_refresh[scvmm-20121]' (RHCF3-45990)
+2018-09-16 14:14:14,254 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_add[virtualcenter-6.5-services]'.
+2018-09-16 14:14:14,276 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_bad_section_add[virtualcenter-6.5-services]' (RHCF3-45417)
+2018-09-16 14:14:14,280 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-container_deployments]'.
+2018-09-16 14:14:14,305 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-container_deployments]' (RHCF3-47898)
+2018-09-16 14:14:14,311 INFO ImportXUnitThread_181 - Processing test case 'test_tenant_quota_enforce_via_service_infra[rhevm-max_cpu-ViaSSUI]'.
+2018-09-16 14:14:14,341 INFO ImportXUnitThread_181 - Work item: 'test_tenant_quota_enforce_via_service_infra[rhevm-max_cpu-ViaSSUI]' (RHCF3-46631)
+2018-09-16 14:14:14,346 INFO ImportXUnitThread_181 - Processing test case 'TestControlOnQuadicons.test_power_off_cancel[virtualcenter-6.7]'.
+2018-09-16 14:14:14,368 INFO ImportXUnitThread_181 - Work item: 'TestControlOnQuadicons.test_power_off_cancel[virtualcenter-6.7]' (RHCF3-48478)
+2018-09-16 14:14:14,373 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_add[virtualcenter-6.0-providers]'.
+2018-09-16 14:14:14,394 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_bad_section_add[virtualcenter-6.0-providers]' (RHCF3-45372)
+2018-09-16 14:14:14,398 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_single_from_collection[scvmm-20120-services]'.
+2018-09-16 14:14:14,420 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_single_from_collection[scvmm-20120-services]' (RHCF3-45447)
+2018-09-16 14:14:14,424 INFO ImportXUnitThread_181 - Processing test case 'test_provision_from_template_using_rest[scvmm-20160-Auto]'.
+2018-09-16 14:14:14,453 INFO ImportXUnitThread_181 - Work item: 'test_provision_from_template_using_rest[scvmm-20160-Auto]' (RHCF3-45875)
+2018-09-16 14:14:14,458 INFO ImportXUnitThread_181 - Processing test case 'test_user_login[virtualcenter]'.
+2018-09-16 14:14:14,479 INFO ImportXUnitThread_181 - Work item: 'test_user_login[virtualcenter]' (RHCF3-48269)
+2018-09-16 14:14:14,484 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-5.5-vm_disk-Daily]'.
+2018-09-16 14:14:14,506 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-5.5-vm_disk-Daily]' (RHCF3-45130)
+2018-09-16 14:14:14,509 INFO ImportXUnitThread_181 - Processing test case 'test_tag_infra_objects[infra_provider-infra-list]'.
+2018-09-16 14:14:14,530 INFO ImportXUnitThread_181 - Work item: 'test_tag_infra_objects[infra_provider-infra-list]' (RHCF3-46199)
+2018-09-16 14:14:14,535 INFO ImportXUnitThread_181 - Processing test case 'test_chargeback_rate[edit-fixed-storage]'.
+2018-09-16 14:14:14,556 INFO ImportXUnitThread_181 - Work item: 'test_chargeback_rate[edit-fixed-storage]' (RHCF3-49203)
+2018-09-16 14:14:14,561 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-tags]'.
+2018-09-16 14:14:14,584 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-tags]' (RHCF3-47624)
+2018-09-16 14:14:14,589 INFO ImportXUnitThread_181 - Processing test case 'test_provider_delete_from_detail[virtualcenter-5.5-POST]'.
+2018-09-16 14:14:14,611 INFO ImportXUnitThread_181 - Work item: 'test_provider_delete_from_detail[virtualcenter-5.5-POST]' (RHCF3-46008)
+2018-09-16 14:14:14,615 INFO ImportXUnitThread_181 - Processing test case 'TestVmDetailsPowerControlPerProvider.test_start_from_suspend[virtualcenter-6.5]'.
+2018-09-16 14:14:14,641 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'TestVmDetailsPowerControlPerProvider.test_start_from_suspend[virtualcenter-6.5]'.
+2018-09-16 14:14:14,642 INFO ImportXUnitThread_181 - Processing test case 'test_quota[group-virtualcenter-max_vm]'.
+2018-09-16 14:14:14,663 INFO ImportXUnitThread_181 - Work item: 'test_quota[group-virtualcenter-max_vm]' (RHCF3-46516)
+2018-09-16 14:14:14,668 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[rhevm-4.1-vm_disk-Hourly]'.
+2018-09-16 14:14:14,677 WARN ImportXUnitThread_181 - Unable to find work item for 'test_graph_screen[rhevm-4.1-vm_disk-Hourly]'.
+2018-09-16 14:14:14,677 INFO ImportXUnitThread_181 - Processing test case 'test_multiple_host_good_creds[scvmm-20160-default]'.
+2018-09-16 14:14:14,699 INFO ImportXUnitThread_181 - Work item: 'test_multiple_host_good_creds[scvmm-20160-default]' (RHCF3-48402)
+2018-09-16 14:14:14,703 INFO ImportXUnitThread_181 - Processing test case 'test_orphaned_vm_status[virtualcenter-5.5]'.
+2018-09-16 14:14:14,727 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'test_orphaned_vm_status[virtualcenter-5.5]'.
+2018-09-16 14:14:14,727 INFO ImportXUnitThread_181 - Processing test case 'test_http_options_node_types[virtualcenter-hosts]'.
+2018-09-16 14:14:14,749 INFO ImportXUnitThread_181 - Work item: 'test_http_options_node_types[virtualcenter-hosts]' (RHCF3-47866)
+2018-09-16 14:14:14,754 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.0-host_network-Daily]'.
+2018-09-16 14:14:14,776 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.0-host_network-Daily]' (RHCF3-48065)
+2018-09-16 14:14:14,781 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_add[scvmm-20161-services]'.
+2018-09-16 14:14:14,807 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_add[scvmm-20161-services]' (RHCF3-45514)
+2018-09-16 14:14:14,812 INFO ImportXUnitThread_181 - Processing test case 'test_query_template_attributes[infra]'.
+2018-09-16 14:14:14,835 INFO ImportXUnitThread_181 - Work item: 'test_query_template_attributes[infra]' (RHCF3-48441)
+2018-09-16 14:14:14,840 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_detail_delete[virtualcenter-6.0-vms]'.
+2018-09-16 14:14:14,861 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_from_detail_delete[virtualcenter-6.0-vms]' (RHCF3-45376)
+2018-09-16 14:14:14,866 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_collection[virtualcenter-6.7-providers]'.
+2018-09-16 14:14:14,888 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_from_collection[virtualcenter-6.7-providers]' (RHCF3-48122)
+2018-09-16 14:14:14,893 INFO ImportXUnitThread_181 - Processing test case 'test_login_evm_group[ldap-ad_dev_2012-upn-ldapuser4]'.
+2018-09-16 14:14:14,914 INFO ImportXUnitThread_181 - Work item: 'test_login_evm_group[ldap-ad_dev_2012-upn-ldapuser4]' (RHCF3-48557)
+2018-09-16 14:14:14,918 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_detail_post[virtualcenter-6.5-providers]'.
+2018-09-16 14:14:14,941 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_from_detail_post[virtualcenter-6.5-providers]' (RHCF3-45393)
+2018-09-16 14:14:14,945 INFO ImportXUnitThread_181 - Processing test case 'test_storage_manager_edit_tag[object_manager-openstack-11]'.
+2018-09-16 14:14:14,966 INFO ImportXUnitThread_181 - Work item: 'test_storage_manager_edit_tag[object_manager-openstack-11]' (RHCF3-47428)
+2018-09-16 14:14:14,971 INFO ImportXUnitThread_181 - Processing test case 'test_query_with_api_version[virtualcenter-cloud_subnets]'.
+2018-09-16 14:14:14,992 INFO ImportXUnitThread_181 - Work item: 'test_query_with_api_version[virtualcenter-cloud_subnets]' (RHCF3-47743)
+2018-09-16 14:14:14,997 INFO ImportXUnitThread_181 - Processing test case 'test_webmks_vm_console[virtualcenter-6.0]'.
+2018-09-16 14:14:15,018 INFO ImportXUnitThread_181 - Work item: 'test_webmks_vm_console[virtualcenter-6.0]' (RHCF3-46813)
+2018-09-16 14:14:15,022 INFO ImportXUnitThread_181 - Processing test case 'test_request_with_orphaned_template[virtualcenter-6.5]'.
+2018-09-16 14:14:15,044 INFO ImportXUnitThread_181 - Work item: 'test_request_with_orphaned_template[virtualcenter-6.5]' (RHCF3-47321)
+2018-09-16 14:14:15,048 INFO ImportXUnitThread_181 - Processing test case 'test_infrastructurevms_defaultfilters'.
+2018-09-16 14:14:15,072 INFO ImportXUnitThread_181 - Work item: 'test_infrastructurevms_defaultfilters' (RHCF3-4043)
+2018-09-16 14:14:15,077 INFO ImportXUnitThread_181 - Processing test case 'test_validate_default_rate_cpu_usage_cost[virtualcenter-6.5]'.
+2018-09-16 14:14:15,098 INFO ImportXUnitThread_181 - Work item: 'test_validate_default_rate_cpu_usage_cost[virtualcenter-6.5]' (RHCF3-46994)
+2018-09-16 14:14:15,102 INFO ImportXUnitThread_181 - Processing test case 'test_retirement_now[scvmm-20160]'.
+2018-09-16 14:14:15,125 INFO ImportXUnitThread_181 - Work item: 'test_retirement_now[scvmm-20160]' (RHCF3-46046)
+2018-09-16 14:14:15,129 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-service_requests]'.
+2018-09-16 14:14:15,152 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-service_requests]' (RHCF3-47634)
+2018-09-16 14:14:15,157 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-roles]'.
+2018-09-16 14:14:15,178 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-roles]' (RHCF3-47910)
+2018-09-16 14:14:15,183 INFO ImportXUnitThread_181 - Processing test case 'test_infra_default_view[Tile View-Infrastructure Providers]'.
+2018-09-16 14:14:15,206 INFO ImportXUnitThread_181 - Work item: 'test_infra_default_view[Tile View-Infrastructure Providers]' (RHCF3-49175)
+2018-09-16 14:14:15,211 INFO ImportXUnitThread_181 - Processing test case 'TestRESTSnapshots.test_delete_snapshot_from_detail[virtualcenter-6.7-DELETE]'.
+2018-09-16 14:14:15,234 INFO ImportXUnitThread_181 - Work item: 'TestRESTSnapshots.test_delete_snapshot_from_detail[virtualcenter-6.7-DELETE]' (RHCF3-48192)
+2018-09-16 14:14:15,239 INFO ImportXUnitThread_181 - Processing test case 'TestVmDetailsPowerControlPerProvider.test_suspend[rhevm-4.1]'.
+2018-09-16 14:14:15,247 WARN ImportXUnitThread_181 - Unable to find work item for 'TestVmDetailsPowerControlPerProvider.test_suspend[rhevm-4.1]'.
+2018-09-16 14:14:15,248 INFO ImportXUnitThread_181 - Processing test case 'test_infra_list_page_per_item[hosts-50]'.
+2018-09-16 14:14:15,270 INFO ImportXUnitThread_181 - Work item: 'test_infra_list_page_per_item[hosts-50]' (RHCF3-33291)
+2018-09-16 14:14:15,276 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_grid_page_per_item[CloudProvider-200]'.
+2018-09-16 14:14:15,306 INFO ImportXUnitThread_181 - Work item: 'test_cloud_grid_page_per_item[CloudProvider-200]' (RHCF3-33181)
+2018-09-16 14:14:15,312 INFO ImportXUnitThread_181 - Processing test case 'test_advanced_search_button_displayed[container_volumes-all]'.
+2018-09-16 14:14:15,338 INFO ImportXUnitThread_181 - Work item: 'test_advanced_search_button_displayed[container_volumes-all]' (RHCF3-47476)
+2018-09-16 14:14:15,343 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_add[openstack-11-services]'.
+2018-09-16 14:14:15,367 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_bad_section_add[openstack-11-services]' (RHCF3-45546)
+2018-09-16 14:14:15,375 INFO ImportXUnitThread_181 - Processing test case 'TestControlOnQuadicons.test_power_off[scvmm-20120]'.
+2018-09-16 14:14:15,405 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'TestControlOnQuadicons.test_power_off[scvmm-20120]'.
+2018-09-16 14:14:15,405 INFO ImportXUnitThread_181 - Processing test case 'test_embedded_ansible_credential_crud[Red Hat Virtualization]'.
+2018-09-16 14:14:15,433 INFO ImportXUnitThread_181 - Work item: 'test_embedded_ansible_credential_crud[Red Hat Virtualization]' (RHCF3-35506)
+2018-09-16 14:14:15,441 INFO ImportXUnitThread_181 - Processing test case 'test_infra_provider_crud[scvmm-20160]'.
+2018-09-16 14:14:15,465 INFO ImportXUnitThread_181 - Work item: 'test_infra_provider_crud[scvmm-20160]' (RHCF3-46459)
+2018-09-16 14:14:15,471 INFO ImportXUnitThread_181 - Processing test case 'test_provision_from_template[scvmm-20161-Manual]'.
+2018-09-16 14:14:15,496 INFO ImportXUnitThread_181 - Work item: 'test_provision_from_template[scvmm-20161-Manual]' (RHCF3-45833)
+2018-09-16 14:14:15,503 INFO ImportXUnitThread_181 - Processing test case 'test_tenant_quota_enforce_via_lifecycle_infra[virtualcenter-max_memory]'.
+2018-09-16 14:14:15,529 INFO ImportXUnitThread_181 - Work item: 'test_tenant_quota_enforce_via_lifecycle_infra[virtualcenter-max_memory]' (RHCF3-46615)
+2018-09-16 14:14:15,535 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_edit[scvmm-20160-from_collection-vms]'.
+2018-09-16 14:14:15,557 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_bad_section_edit[scvmm-20160-from_collection-vms]' (RHCF3-45638)
+2018-09-16 14:14:15,562 INFO ImportXUnitThread_181 - Processing test case 'test_verify_vm_state_revert_snapshot[virtualcenter-6.0-off]'.
+2018-09-16 14:14:15,587 INFO ImportXUnitThread_181 - Work item: 'test_verify_vm_state_revert_snapshot[virtualcenter-6.0-off]' (RHCF3-46594)
+2018-09-16 14:14:15,591 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-configuration_script_payloads]'.
+2018-09-16 14:14:15,613 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-configuration_script_payloads]' (RHCF3-47820)
+2018-09-16 14:14:15,618 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.7-vm_cpu-Daily]'.
+2018-09-16 14:14:15,646 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.7-vm_cpu-Daily]' (RHCF3-48102)
+2018-09-16 14:14:15,651 INFO ImportXUnitThread_181 - Processing test case 'test_by_id'.
+2018-09-16 14:14:15,660 WARN ImportXUnitThread_181 - Unable to find work item for 'test_by_id'.
+2018-09-16 14:14:15,660 INFO ImportXUnitThread_181 - Processing test case 'test_tag_cloud_objects[cloud_tenants-cloud-details]'.
+2018-09-16 14:14:15,685 INFO ImportXUnitThread_181 - Work item: 'test_tag_cloud_objects[cloud_tenants-cloud-details]' (RHCF3-46178)
+2018-09-16 14:14:15,689 INFO ImportXUnitThread_181 - Processing test case 'test_tenant_quota_enforce_via_lifecycle_infra[rhevm-max_cpu]'.
+2018-09-16 14:14:15,711 INFO ImportXUnitThread_181 - Work item: 'test_tenant_quota_enforce_via_lifecycle_infra[rhevm-max_cpu]' (RHCF3-46621)
+2018-09-16 14:14:15,715 INFO ImportXUnitThread_181 - Processing test case 'TestControlOnQuadicons.test_power_off[virtualcenter-6.7]'.
+2018-09-16 14:14:15,737 INFO ImportXUnitThread_181 - Work item: 'TestControlOnQuadicons.test_power_off[virtualcenter-6.7]' (RHCF3-48479)
+2018-09-16 14:14:15,741 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-request_tasks]'.
+2018-09-16 14:14:15,865 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-request_tasks]' (RHCF3-47904)
+2018-09-16 14:14:15,870 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_list_page_per_item[cloud_instances-1000]'.
+2018-09-16 14:14:15,892 INFO ImportXUnitThread_181 - Work item: 'test_cloud_list_page_per_item[cloud_instances-1000]' (RHCF3-36874)
+2018-09-16 14:14:15,896 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_grid_page_per_item[CloudProvider-500]'.
+2018-09-16 14:14:15,923 INFO ImportXUnitThread_181 - Work item: 'test_cloud_grid_page_per_item[CloudProvider-500]' (RHCF3-33211)
+2018-09-16 14:14:15,929 INFO ImportXUnitThread_181 - Processing test case 'test_quick_search_with_provider_filter'.
+2018-09-16 14:14:15,951 INFO ImportXUnitThread_181 - Work item: 'test_quick_search_with_provider_filter' (RHCF3-35759)
+2018-09-16 14:14:15,955 INFO ImportXUnitThread_181 - Processing test case 'test_validate_custom_rate_memory_usage_cost[virtualcenter-6.0]'.
+2018-09-16 14:14:15,976 INFO ImportXUnitThread_181 - Work item: 'test_validate_custom_rate_memory_usage_cost[virtualcenter-6.0]' (RHCF3-46990)
+2018-09-16 14:14:15,981 INFO ImportXUnitThread_181 - Processing test case 'test_host_most_recent_hour_graph_screen[virtualcenter-6.0-host_cpu]'.
+2018-09-16 14:14:16,002 INFO ImportXUnitThread_181 - Work item: 'test_host_most_recent_hour_graph_screen[virtualcenter-6.0-host_cpu]' (RHCF3-45057)
+2018-09-16 14:14:16,006 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-policy_actions]'.
+2018-09-16 14:14:16,033 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-policy_actions]' (RHCF3-47922)
+2018-09-16 14:14:16,040 INFO ImportXUnitThread_181 - Processing test case 'TestInstanceRESTAPI.test_soft_reboot[openstack-11-from_detail]'.
+2018-09-16 14:14:16,065 INFO ImportXUnitThread_181 - Work item: 'TestInstanceRESTAPI.test_soft_reboot[openstack-11-from_detail]' (RHCF3-45230)
+2018-09-16 14:14:16,073 INFO ImportXUnitThread_181 - Processing test case 'test_validate_custom_rate_disk_usage_cost[virtualcenter-6.5]'.
+2018-09-16 14:14:16,095 INFO ImportXUnitThread_181 - Work item: 'test_validate_custom_rate_disk_usage_cost[virtualcenter-6.5]' (RHCF3-47002)
+2018-09-16 14:14:16,100 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_collection[rhevm-4.1-services]'.
+2018-09-16 14:14:16,108 WARN ImportXUnitThread_181 - Unable to find work item for 'TestCustomAttributesRESTAPI.test_delete_from_collection[rhevm-4.1-services]'.
+2018-09-16 14:14:16,108 INFO ImportXUnitThread_181 - Processing test case 'test_tag_infra_objects[clusters-infra-details]'.
+2018-09-16 14:14:16,130 INFO ImportXUnitThread_181 - Work item: 'test_tag_infra_objects[clusters-infra-details]' (RHCF3-46206)
+2018-09-16 14:14:16,135 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_edit[scvmm-20160-from_detail-providers]'.
+2018-09-16 14:14:16,157 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_bad_section_edit[scvmm-20160-from_detail-providers]' (RHCF3-45630)
+2018-09-16 14:14:16,161 INFO ImportXUnitThread_181 - Processing test case 'test_start_vm_rest[scvmm-20120-from_collection]'.
+2018-09-16 14:14:16,183 INFO ImportXUnitThread_181 - Work item: 'test_start_vm_rest[scvmm-20120-from_collection]' (RHCF3-45763)
+2018-09-16 14:14:16,187 INFO ImportXUnitThread_181 - Processing test case 'test_provision_from_template_using_rest[openstack-11-Manual]'.
+2018-09-16 14:14:16,212 INFO ImportXUnitThread_181 - Work item: 'test_provision_from_template_using_rest[openstack-11-Manual]' (RHCF3-45880)
+2018-09-16 14:14:16,217 INFO ImportXUnitThread_181 - Processing test case 'test_sdn_provider_relationships_navigation[openstack-11-Cloud Networks]'.
+2018-09-16 14:14:16,238 INFO ImportXUnitThread_181 - Work item: 'test_sdn_provider_relationships_navigation[openstack-11-Cloud Networks]' (RHCF3-47176)
+2018-09-16 14:14:16,243 INFO ImportXUnitThread_181 - Processing test case 'test_host_most_recent_hour_graph_screen[virtualcenter-5.5-host_memory]'.
+2018-09-16 14:14:16,264 INFO ImportXUnitThread_181 - Work item: 'test_host_most_recent_hour_graph_screen[virtualcenter-5.5-host_memory]' (RHCF3-45054)
+2018-09-16 14:14:16,268 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[rhevm-4.1-cluster_cpu_state-Hourly]'.
+2018-09-16 14:14:16,277 WARN ImportXUnitThread_181 - Unable to find work item for 'test_graph_screen[rhevm-4.1-cluster_cpu_state-Hourly]'.
+2018-09-16 14:14:16,277 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_delete_from_collection[scvmm-20121-services]'.
+2018-09-16 14:14:16,297 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_delete_from_collection[scvmm-20121-services]' (RHCF3-45473)
+2018-09-16 14:14:16,301 INFO ImportXUnitThread_181 - Processing test case 'test_provisioning_schedule[virtualcenter-5.5]'.
+2018-09-16 14:14:16,322 INFO ImportXUnitThread_181 - Work item: 'test_provisioning_schedule[virtualcenter-5.5]' (RHCF3-46465)
+2018-09-16 14:14:16,326 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-5.5-cluster_vm-Daily]'.
+2018-09-16 14:14:16,347 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-5.5-cluster_vm-Daily]' (RHCF3-48011)
+2018-09-16 14:14:16,352 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.7-vm_memory-Daily]'.
+2018-09-16 14:14:16,373 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.7-vm_memory-Daily]' (RHCF3-48106)
+2018-09-16 14:14:16,378 INFO ImportXUnitThread_181 - Processing test case 'test_reports_generate_report[virtualcenter-6.0-Tenants/Tenant Quotas]'.
+2018-09-16 14:14:16,406 INFO ImportXUnitThread_181 - Work item: 'test_reports_generate_report[virtualcenter-6.0-Tenants/Tenant Quotas]' (RHCF3-46935)
+2018-09-16 14:14:16,410 INFO ImportXUnitThread_181 - Processing test case 'test_tagvis_infra_object[datastores-infra-notVisible]'.
+2018-09-16 14:14:16,431 INFO ImportXUnitThread_181 - Work item: 'test_tagvis_infra_object[datastores-infra-notVisible]' (RHCF3-46221)
+2018-09-16 14:14:16,435 INFO ImportXUnitThread_181 - Processing test case 'test_by_locator_list'.
+2018-09-16 14:14:16,444 WARN ImportXUnitThread_181 - Unable to find work item for 'test_by_locator_list'.
+2018-09-16 14:14:16,444 INFO ImportXUnitThread_181 - Processing test case 'test_query_simple_collections[virtualcenter-policy_profiles]'.
+2018-09-16 14:14:16,465 INFO ImportXUnitThread_181 - Work item: 'test_query_simple_collections[virtualcenter-policy_profiles]' (RHCF3-47640)
+2018-09-16 14:14:16,470 INFO ImportXUnitThread_181 - Processing test case 'test_vm_power_options_from_off[virtualcenter-5.5]'.
+2018-09-16 14:14:16,510 WARN ImportXUnitThread_181 - Unable to find *unique* work item for 'test_vm_power_options_from_off[virtualcenter-5.5]'.
+2018-09-16 14:14:16,510 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.0-cluster_cpu_state-Hourly]'.
+2018-09-16 14:14:16,530 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.0-cluster_cpu_state-Hourly]' (RHCF3-48014)
+2018-09-16 14:14:16,535 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-tags]'.
+2018-09-16 14:14:16,558 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-tags]' (RHCF3-47942)
+2018-09-16 14:14:16,563 INFO ImportXUnitThread_181 - Processing test case 'test_select_attributes[virtualcenter-container_deployments]'.
+2018-09-16 14:14:16,585 INFO ImportXUnitThread_181 - Work item: 'test_select_attributes[virtualcenter-container_deployments]' (RHCF3-47803)
+2018-09-16 14:14:16,591 INFO ImportXUnitThread_181 - Processing test case 'test_provider_log_updated[scvmm-20161]'.
+2018-09-16 14:14:16,612 INFO ImportXUnitThread_181 - Work item: 'test_provider_log_updated[scvmm-20161]' (RHCF3-46270)
+2018-09-16 14:14:16,617 INFO ImportXUnitThread_181 - Processing test case 'test_providers_discovery[virtualcenter-5.5]'.
+2018-09-16 14:14:16,638 INFO ImportXUnitThread_181 - Work item: 'test_providers_discovery[virtualcenter-5.5]' (RHCF3-46440)
+2018-09-16 14:14:16,642 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-service_dialogs]'.
+2018-09-16 14:14:16,665 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-service_dialogs]' (RHCF3-47917)
+2018-09-16 14:14:16,670 INFO ImportXUnitThread_181 - Processing test case 'test_group_edit_tag[virtualcenter]'.
+2018-09-16 14:14:16,700 INFO ImportXUnitThread_181 - Work item: 'test_group_edit_tag[virtualcenter]' (RHCF3-48286)
+2018-09-16 14:14:16,705 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_add_duplicate[rhevm-4.1-services]'.
+2018-09-16 14:14:16,714 WARN ImportXUnitThread_181 - Unable to find work item for 'TestCustomAttributesRESTAPI.test_add_duplicate[rhevm-4.1-services]'.
+2018-09-16 14:14:16,714 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_bad_section_edit[rhevm-4.1-from_detail-services]'.
+2018-09-16 14:14:16,722 WARN ImportXUnitThread_181 - Unable to find work item for 'TestCustomAttributesRESTAPI.test_bad_section_edit[rhevm-4.1-from_detail-services]'.
+2018-09-16 14:14:16,722 INFO ImportXUnitThread_181 - Processing test case 'test_attributes_present[virtualcenter-custom_buttons]'.
+2018-09-16 14:14:16,745 INFO ImportXUnitThread_181 - Work item: 'test_attributes_present[virtualcenter-custom_buttons]' (RHCF3-47928)
+2018-09-16 14:14:16,750 INFO ImportXUnitThread_181 - Processing test case 'test_delete_button_should_appear_after_save_vm[infra]'.
+2018-09-16 14:14:16,780 INFO ImportXUnitThread_181 - Work item: 'test_delete_button_should_appear_after_save_vm[infra]' (RHCF3-48377)
+2018-09-16 14:14:16,785 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_add_duplicate[scvmm-20161-providers]'.
+2018-09-16 14:14:16,807 INFO ImportXUnitThread_181 - Work item: 'TestCustomAttributesRESTAPI.test_add_duplicate[scvmm-20161-providers]' (RHCF3-45506)
+2018-09-16 14:14:16,811 INFO ImportXUnitThread_181 - Processing test case 'test_physical_switches_view_dropdowns'.
+2018-09-16 14:14:16,834 INFO ImportXUnitThread_181 - Work item: 'test_physical_switches_view_dropdowns' (RHCF3-48732)
+2018-09-16 14:14:16,838 INFO ImportXUnitThread_181 - Processing test case 'test_schedule_timer[virtualcenter-Weekly]'.
+2018-09-16 14:14:16,861 INFO ImportXUnitThread_181 - Work item: 'test_schedule_timer[virtualcenter-Weekly]' (RHCF3-46288)
+2018-09-16 14:14:16,866 INFO ImportXUnitThread_181 - Processing test case 'TestTagsViaREST.test_delete_tags_from_detail[infra-DELETE]'.
+2018-09-16 14:14:16,890 INFO ImportXUnitThread_181 - Work item: 'TestTagsViaREST.test_delete_tags_from_detail[infra-DELETE]' (RHCF3-48319)
+2018-09-16 14:14:16,895 INFO ImportXUnitThread_181 - Processing test case 'test_advanced_search_registry_element[rhevm-4.1]'.
+2018-09-16 14:14:16,904 WARN ImportXUnitThread_181 - Unable to find work item for 'test_advanced_search_registry_element[rhevm-4.1]'.
+2018-09-16 14:14:16,904 INFO ImportXUnitThread_181 - Processing test case 'test_user_settings[virtualcenter]'.
+2018-09-16 14:14:16,927 INFO ImportXUnitThread_181 - Work item: 'test_user_settings[virtualcenter]' (RHCF3-47875)
+2018-09-16 14:14:16,932 INFO ImportXUnitThread_181 - Processing test case 'test_keypair_create_cancel[openstack-11]'.
+2018-09-16 14:14:16,954 INFO ImportXUnitThread_181 - Work item: 'test_keypair_create_cancel[openstack-11]' (RHCF3-45256)
+2018-09-16 14:14:16,959 INFO ImportXUnitThread_181 - Processing test case 'test_group_crud[virtualcenter]'.
+2018-09-16 14:14:16,981 INFO ImportXUnitThread_181 - Work item: 'test_group_crud[virtualcenter]' (RHCF3-48282)
+2018-09-16 14:14:16,986 INFO ImportXUnitThread_181 - Processing test case 'test_cloud_tile_page_per_item[cloud_instances-20]'.
+2018-09-16 14:14:17,008 INFO ImportXUnitThread_181 - Work item: 'test_cloud_tile_page_per_item[cloud_instances-20]' (RHCF3-36837)
+2018-09-16 14:14:18,530 INFO ImportXUnitThread_181 - Processing test case 'test_graph_screen[virtualcenter-6.0-cluster_cpu-Hourly]'.
+2018-09-16 14:14:18,552 INFO ImportXUnitThread_181 - Work item: 'test_graph_screen[virtualcenter-6.0-cluster_cpu-Hourly]' (RHCF3-48012)
+2018-09-16 14:14:18,557 INFO ImportXUnitThread_181 - Processing test case 'test_infra_tile_page_per_item[infra_vms-100]'.
+2018-09-16 14:14:18,585 INFO ImportXUnitThread_181 - Work item: 'test_infra_tile_page_per_item[infra_vms-100]' (RHCF3-36915)
+2018-09-16 14:14:18,589 INFO ImportXUnitThread_181 - Processing test case 'test_permissions[virtualcenter-product_features0-allowed_actions0-disallowed_actions0]'.
+2018-09-16 14:14:18,612 INFO ImportXUnitThread_181 - Work item: 'test_permissions[virtualcenter-product_features0-allowed_actions0-disallowed_actions0]' (RHCF3-48302)
+2018-09-16 14:14:18,617 INFO ImportXUnitThread_181 - Processing test case 'test_infra_default_view[Grid View-Templates & Images]'.
+2018-09-16 14:14:18,639 INFO ImportXUnitThread_181 - Work item: 'test_infra_default_view[Grid View-Templates & Images]' (RHCF3-49176)
+2018-09-16 14:14:18,644 INFO ImportXUnitThread_181 - Processing test case 'test_bulk_delete[virtualcenter]'.
+2018-09-16 14:14:18,673 INFO ImportXUnitThread_181 - Work item: 'test_bulk_delete[virtualcenter]' (RHCF3-47963)
+2018-09-16 14:14:18,684 INFO ImportXUnitThread_181 - Processing test case 'TestCustomAttributesRESTAPI.test_add[rhevm-4.1-providers]'.
+2018-09-16 14:14:18,704 WARN ImportXUnitThread_181 - Unable to find work item for 'TestCustomAttributesRESTAPI.test_add[rhevm-4.1-providers]'.
+2018-09-16 14:14:18,705 INFO ImportXUnitThread_181 - Test suite 'Import for RHCF3 - 5_10_0_15 testrun' contains 2517 test cases.
+2018-09-16 14:14:26,203 INFO ImportXUnitThread_181 - Polarion results published to: https://polarion.engineering.redhat.com/polarion/#/project/RHCF3/testrun?id=5_10_0_15
+2018-09-16 14:14:26,203 INFO ImportXUnitThread_181 - Ending import of XUnit results to Polarion.
+2018-09-16 14:14:26,203 INFO ImportXUnitThread_181 - Sending message to the UMB.
+2018-09-16 14:14:26,818 INFO ImportXUnitThread_181 - Sending import message:
+Message Headers:
+  JMSDestination: null
+  JMSDeliveryMode: non-persistent
+  JMSExpiration: 0
+  JMSPriority: 0
+  JMSMessageID: null
+  JMSTimestamp: 0
+  JMSCorrelationID: null
+  JMSReplyTo: null
+  JMSRedelivered: false
+  JMSType: application/json
+Message Properties:
+  job-id: 243422
+  type: import-results
+Message Content:
+{
+  "testrun-url" : "https://polarion.engineering.redhat.com/polarion/#/project/RHCF3/testrun?id=5_10_0_15",
+  "import-results" : [ {
+    "suite-name" : "Import for RHCF3 - 5_10_0_15 testrun",
+    "status" : "passed"
+  } ],
+  "status" : "passed",
+  "log-url" : "https://polarion.engineering.redhat.com/polarion/rh-import/xunit-log?jobId=243422"
+}
+2018-09-16 14:14:26,889 INFO ImportXUnitThread_181 - Message sent.

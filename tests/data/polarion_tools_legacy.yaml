@@ -1,0 +1,13 @@
+polarion-project-id             : RHCF3
+xunit_import_properties:
+    polarion-dry-run            : false
+    polarion-testrun-status-id  : inprogress
+    polarion-response-test      : test
+xunit_target                    : https://polarion.example.com/import/xunit
+testcase_taget                  : https://polarion.example.com/import/testcase
+xunit_queue                     : https://polarion.example.com/import/xunit-queue
+testcase_queue                  : https://polarion.example.com/import/testcase-queue
+requirement_target              : https://polarion.example.com/import/requirement
+requirement_queue               : https://polarion.example.com/import/requirement-queue
+username                        : user1
+password                        : password1
