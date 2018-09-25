@@ -9,6 +9,10 @@ dump2polarion
     :target: https://coveralls.io/github/mkoura/dump2polarion?branch=master
     :alt: coverage report
 
+.. image:: https://img.shields.io/badge/code%20style-black-000000.svg
+    :target: https://github.com/ambv/black
+    :alt: Code style: black
+
 
 Capabilities of the dump2polarion library
 -----------------------------------------
@@ -49,16 +53,18 @@ When the input file is a XML file in a format supported by one of the Polarion I
 
 Configuration
 -------------
-You need to set the following environment variables (the same are used for pylarion):
+You can specify credentials on command line with ``--user kerberos_username --password kerberos_password``. Or you can set them in a config file.
+
+The config file is specified on command line with ``-c config_file.yaml``.
+
+Another possibility for specifying credentials are environment variables (the same are used for pylarion):
 
 .. code-block::
 
     export POLARION_USERNAME=kerberos_username
     export POLARION_PASSWORD=kerberos_password
 
-Or you can specify credentials on command line with ``--user kerberos_username --password kerberos_password``. Or you can specify credentials in ``dump2polarion.yaml`` file.
-
-The default user config file is ``~/.config/dump2polarion.yaml``. You can also specify the config file on command line with ``-c config_file.yaml``.
+You can mix all these approaches, e.g. user name on command line and password in the environment variable.
 
 .. IMPORTANT::
 
