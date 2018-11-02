@@ -39,7 +39,7 @@ class TestParselog(object):
 
     def test_xunit_invalid(self):
         with pytest.raises(Dump2PolarionException):
-            parselogs.parse_xunit([], "empty")
+            parselogs.XUnitParser([], "empty").parse()
 
     def test_testcase_custom_id(self):
         log_file = os.path.join(conf.DATA_PATH, "testcase.log")
@@ -55,7 +55,7 @@ class TestParselog(object):
 
     def test_testcase_invalid(self):
         with pytest.raises(Dump2PolarionException):
-            parselogs.parse_testcase([], "empty")
+            parselogs.TestcasesParser([], "empty").parse()
 
     def test_requirement_name(self):
         log_file = os.path.join(conf.DATA_PATH, "requirements.log")
@@ -71,7 +71,7 @@ class TestParselog(object):
 
     def test_requirement_invalid(self):
         with pytest.raises(Dump2PolarionException):
-            parselogs.parse_requirements([], "empty")
+            parselogs.RequirementsParser([], "empty").parse()
 
     def test_log_invalid(self, tmpdir):
         invalid_log = os.path.join(str(tmpdir), "invalid.log")

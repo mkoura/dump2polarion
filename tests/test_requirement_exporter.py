@@ -45,10 +45,11 @@ REQ_DATA = [
 
 @pytest.fixture(scope="module")
 def config_cloudtp(config_prop):
-    config_prop["polarion-project-id"] = "CLOUDTP"
-    config_prop["requirements-document-relative-path"] = "testing/requirements"
-    config_prop["requirements_import_properties"] = {"prop1": "val1", "prop2": "val2"}
-    return config_prop
+    cloudtp = copy.deepcopy(config_prop)
+    cloudtp["polarion-project-id"] = "CLOUDTP"
+    cloudtp["requirements-document-relative-path"] = "testing/requirements"
+    cloudtp["requirements_import_properties"] = {"prop1": "val1", "prop2": "val2"}
+    return cloudtp
 
 
 class TestRequirement(object):

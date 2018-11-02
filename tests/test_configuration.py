@@ -21,6 +21,12 @@ class TestConfiguration(object):
     def test_default(self):
         with pytest.raises(Dump2PolarionException) as excinfo:
             configuration.get_config()
+        assert 'The "polarion-project-id" key is missing' in str(excinfo.value)
+
+    def test_keys_missing(self):
+        project_id = {"polarion-project-id": "RHCF3"}
+        with pytest.raises(Dump2PolarionException) as excinfo:
+            configuration.get_config(config_values=project_id)
         assert "Failed to find following keys in config file" in str(excinfo.value)
 
     def test_user(self, config_e2e):

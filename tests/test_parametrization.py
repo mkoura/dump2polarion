@@ -3,6 +3,7 @@
 
 from __future__ import unicode_literals
 
+import copy
 import io
 import os
 
@@ -21,9 +22,10 @@ def records_names():
 
 @pytest.fixture(scope="module")
 def config_cloudtp(config_prop):
-    config_prop["polarion-project-id"] = "CLOUDTP"
-    config_prop["cfme_parametrize"] = True
-    return config_prop
+    cloudtp = copy.deepcopy(config_prop)
+    cloudtp["polarion-project-id"] = "CLOUDTP"
+    cloudtp["cfme_parametrize"] = True
+    return cloudtp
 
 
 class TestParamE2E(object):

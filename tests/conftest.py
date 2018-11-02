@@ -41,12 +41,12 @@ CMP_CONF["polarion-project-id"] = "CMP"
 CMP_CONF["xunit_import_properties"] = RHCF3_XUNIT_PROPS.copy()
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def config_prop():
     return copy.deepcopy(RHCF3_CONF)
 
 
-@pytest.fixture(scope="module")
+@pytest.fixture(scope="session")
 def config_prop_cmp():
     return copy.deepcopy(CMP_CONF)
 

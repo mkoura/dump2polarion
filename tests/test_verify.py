@@ -53,32 +53,32 @@ class TestQueueSearch(object):
 
     # object init
     def test_session_missing(self, captured_log):
-        vq = verify.QueueSearch(None, "foo", None)
+        vq = verify.get_queue_obj(None, "foo", None)
         assert "Missing requests session, skipping" in captured_log.getvalue()
         assert vq.skip is True
 
     def test_url_missing(self, captured_log):
-        vq = verify.QueueSearch("foo", None, None)
+        vq = verify.get_queue_obj("foo", None, None)
         assert "The queue url is not configured, skipping" in captured_log.getvalue()
         assert vq.skip is True
 
     def test_init(self):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         assert vq.skip is False
 
     # download queue
     def test_download_queue_none(self):
-        vq = verify.QueueSearch(DummySession(lambda: DummyResponse(None)), "bar", None)
+        vq = verify.get_queue_obj(DummySession(lambda: DummyResponse(None)), "bar", None)
         response = vq.download_queue([1, 2])
         assert response is None
 
     def test_download_queue_data(self):
-        vq = verify.QueueSearch(DummySession(lambda: DummyResponse(SEARCH_QUEUE)), "bar", None)
+        vq = verify.get_queue_obj(DummySession(lambda: DummyResponse(SEARCH_QUEUE)), "bar", None)
         response = vq.download_queue([1, 2])
         assert response == SEARCH_QUEUE
 
     def test_download_queue_failed(self):
-        vq = verify.QueueSearch(DummySession(lambda: False), "bar", None)
+        vq = verify.get_queue_obj(DummySession(lambda: False), "bar", None)
         response = vq.download_queue([1, 2])
         assert response is None
 
@@ -86,20 +86,20 @@ class TestQueueSearch(object):
         def _raise():
             raise Exception("TestFail")
 
-        vq = verify.QueueSearch(DummySession(_raise), "bar", None)
+        vq = verify.get_queue_obj(DummySession(_raise), "bar", None)
         response = vq.download_queue([1, 2])
         assert response is None
         assert "TestFail" in captured_log.getvalue()
 
     # find job in queue
     def test_job_not_found(self):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         vq.download_queue = download_queue_data
         outcome = vq.find_jobs([17978, 17975])
         assert outcome == []
 
     def test_job_found(self):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         vq.download_queue = download_queue_data
         outcome = vq.find_jobs([17977, 17976])
         assert outcome[0] == SEARCH_QUEUE["jobs"][0]
@@ -109,7 +109,7 @@ class TestQueueSearch(object):
     def test_get_log_failed(self, tmpdir, captured_log):
         log_file = os.path.join(str(tmpdir), "out.log")
         jobs = [{"id": "111"}]
-        vq = verify.QueueSearch(
+        vq = verify.get_queue_obj(
             DummySession(lambda: DummyResponse(None)), "bar", "http://example.com"
         )
         vq.get_logs(jobs, log_file)
@@ -119,7 +119,7 @@ class TestQueueSearch(object):
     def test_get_log_saved(self, tmpdir):
         log_file = os.path.join(str(tmpdir), "out.log")
         jobs = [{"id": "111"}]
-        vq = verify.QueueSearch(
+        vq = verify.get_queue_obj(
             DummySession(lambda: DummyResponse(b"content")), "bar", "http://example.com"
         )
         vq.get_logs(jobs, log_file)
@@ -127,7 +127,7 @@ class TestQueueSearch(object):
 
     def test_get_log_displayed(self, captured_log):
         jobs = [{"id": "111"}]
-        vq = verify.QueueSearch(
+        vq = verify.get_queue_obj(
             DummySession(lambda: DummyResponse(None)), "bar", "http://example.com"
         )
         vq.get_logs(jobs)
@@ -139,21 +139,21 @@ class TestQueueSearch(object):
 
         log_file = os.path.join(str(tmpdir), "out.log")
         jobs = [{"id": "111"}]
-        vq = verify.QueueSearch(DummySession(_raise), "bar", "http://example.com")
+        vq = verify.get_queue_obj(DummySession(_raise), "bar", "http://example.com")
         vq.get_logs(jobs, log_file)
         assert not os.path.exists(log_file)
         assert "TestFail" in captured_log.getvalue()
 
     # verify submit
     def test_queue_empty_queue(self, captured_log):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         vq.download_queue = lambda *args: None
         outcome = vq.verify_submit([17974], timeout=0.0000001, delay=0.0000001)
         assert outcome is False
         assert "not updated" in captured_log.getvalue()
 
     def test_queue_submit_failed_one(self, captured_log):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         vq.download_queue = download_queue_data
         outcome = vq.verify_submit([17974, 17976, 17977], timeout=0.0000001, delay=0.0000001)
         assert outcome is False
@@ -161,7 +161,7 @@ class TestQueueSearch(object):
         assert "Some import jobs failed" in captured_log.getvalue()
 
     def test_queue_submit_failed_all(self, captured_log):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         vq.download_queue = download_queue_data
         outcome = vq.verify_submit([17974], timeout=0.0000001, delay=0.0000001)
         assert outcome is False
@@ -169,7 +169,7 @@ class TestQueueSearch(object):
         assert "Import failed!" in captured_log.getvalue()
 
     def test_queue_submit_not_found_one(self, captured_log):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         vq.download_queue = download_queue_data
         outcome = vq.verify_submit([17976, 17978], timeout=0.0000001, delay=0.0000001)
         assert outcome is False
@@ -177,7 +177,7 @@ class TestQueueSearch(object):
         assert "Import failed!" in captured_log.getvalue()
 
     def test_queue_submit_not_found_all(self, captured_log):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         vq.download_queue = download_queue_data
         outcome = vq.verify_submit([17978], timeout=0.0000001, delay=0.0000001)
         assert outcome is False
@@ -185,14 +185,14 @@ class TestQueueSearch(object):
         assert "Import failed!" in captured_log.getvalue()
 
     def test_queue_submit_found(self, captured_log):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         vq.download_queue = download_queue_data
         outcome = vq.verify_submit([17976, 17977], timeout=0.0000001, delay=0.0000001)
         assert outcome
         assert "successfully updated" in captured_log.getvalue()
 
     def test_queue_submit_skip(self):
-        vq = verify.QueueSearch("foo", "bar", None)
+        vq = verify.get_queue_obj("foo", "bar", None)
         vq.skip = True
         outcome = vq.verify_submit([17977], timeout=0.0000001, delay=0.0000001)
         assert outcome is False
