@@ -27,19 +27,6 @@ class QueueSearch(object):
         self.queue_url = queue_url
         self.log_url = log_url
         self.skip = False
-        self._check_setup()
-
-    def _check_setup(self):
-        """Checks that all the data that is needed for submit verification is available."""
-        if not self.queue_url:
-            logger.error("The queue url is not configured, skipping submit verification")
-            self.skip = True
-            return
-
-        if not self.session:
-            logger.error("Missing requests session, skipping submit verification")
-            self.skip = True
-            return
 
     def download_queue(self, job_ids):
         """Downloads data of completed jobs."""
@@ -83,7 +70,7 @@ class QueueSearch(object):
         return matched_jobs
 
     # pylint:disable=inconsistent-return-statements
-    def wait_for_jobs(self, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY):
+    def wait_for_jobs(self, job_ids, timeout, delay):
         """Waits until the jobs appears in the completed job queue."""
         if self.skip:
             return
@@ -175,7 +162,7 @@ class QueueSearch(object):
             else:
                 logger.info("Submit log for job %s: %s", job.get("id"), url)
 
-    def verify_submit(self, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs):
+    def verify_submit(self, job_ids, timeout, delay, **kwargs):
         """Verifies that the results were successfully submitted."""
         if self.skip:
             return False
@@ -186,10 +173,25 @@ class QueueSearch(object):
         return self._check_outcome(jobs)
 
 
+def get_queue_obj(session, queue_url, log_url):
+    """Checks that all the data that is needed for submit verification is available."""
+    skip = False
+    if not queue_url:
+        logger.error("The queue url is not configured, skipping submit verification")
+        skip = True
+
+    if not session:
+        logger.error("Missing requests session, skipping submit verification")
+        skip = True
+    queue = QueueSearch(session=session, queue_url=queue_url, log_url=log_url)
+    queue.skip = skip
+    return queue
+
+
 # pylint: disable=too-many-arguments
 def verify_submit(
     session, queue_url, log_url, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs
 ):
     """Verifies that the results were successfully submitted."""
-    verification_queue = QueueSearch(session=session, queue_url=queue_url, log_url=log_url)
-    return verification_queue.verify_submit(job_ids, timeout=timeout, delay=delay, **kwargs)
+    verification_queue = get_queue_obj(session=session, queue_url=queue_url, log_url=log_url)
+    return verification_queue.verify_submit(job_ids, timeout, delay, **kwargs)
