@@ -1,0 +1,12 @@
+polarion-project-id: POLARION_PROJECT
+xunit_import_properties:
+    polarion-testrun-status-id: inprogress
+    polarion-lookup-method: custom
+    polarion-custom-lookup-method-field-id: testCaseID
+testcase_import_properties:
+    lookup-method: custom
+    polarion-custom-lookup-method-field-id: testCaseID
+polarion_url: https://polarion_url
+
+username: user
+password: Password
