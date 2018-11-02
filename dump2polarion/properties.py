@@ -15,10 +15,9 @@ from dump2polarion.exceptions import Dump2PolarionException
 _NOT_EXPECTED_FORMAT_MSG = "XML file is not in expected format"
 
 
-def xunit_fill_testrun_id(xml_root, testrun_id):
-    """Adds the polarion-testrun-id property when it's missing."""
+def _get_testrun_properties(xml_root):
     if xml_root.tag in ("testcases", "requirements"):
-        return
+        return None
     if xml_root.tag != "testsuites":
         raise Dump2PolarionException(
             "{} {}".format(_NOT_EXPECTED_FORMAT_MSG, "- missing <testsuites>")
@@ -26,6 +25,14 @@ def xunit_fill_testrun_id(xml_root, testrun_id):
     properties = xml_root.find("properties")
     if properties is None:
         raise Dump2PolarionException("Failed to find <properties> in the XML file")
+    return properties
+
+
+def xunit_fill_testrun_id(xml_root, testrun_id):
+    """Adds the polarion-testrun-id property when it's missing."""
+    properties = _get_testrun_properties(xml_root)
+    if properties is None:
+        return
     for prop in properties:
         if prop.get("name") == "polarion-testrun-id":
             break
@@ -36,6 +43,21 @@ def xunit_fill_testrun_id(xml_root, testrun_id):
             )
         etree.SubElement(
             properties, "property", {"name": "polarion-testrun-id", "value": str(testrun_id)}
+        )
+
+
+def xunit_fill_testrun_title(xml_root, testrun_title):
+    """Adds the polarion-testrun-id property when it's missing."""
+    properties = _get_testrun_properties(xml_root)
+    if properties is None:
+        return
+    for prop in properties:
+        if prop.get("name") == "polarion-testrun-title":
+            prop.set("value", str(testrun_title))
+            break
+    else:
+        etree.SubElement(
+            properties, "property", {"name": "polarion-testrun-title", "value": str(testrun_title)}
         )
 
 
