@@ -144,7 +144,7 @@ def _get_project_conf():
     return config_settings
 
 
-def get_config(config_file=None, config_values=None):
+def get_config(config_file=None, config_values=None, load_project_conf=True):
     """Loads config file and returns its content."""
     config_values = config_values or {}
     config_settings = {}
@@ -152,7 +152,7 @@ def get_config(config_file=None, config_values=None):
     default_conf = _get_default_conf()
     user_conf = _get_user_conf(config_file) if config_file else {}
     # load project configuration only when user configuration was not specified
-    project_conf = {} if user_conf else _get_project_conf()
+    project_conf = {} if user_conf or not load_project_conf else _get_project_conf()
 
     # merge configuration
     config_settings.update(default_conf)

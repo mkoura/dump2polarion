@@ -42,7 +42,7 @@ def get_args(args=None):
     parser.add_argument("--polarion-url", help="Base Polarion URL")
     parser.add_argument("-f", "--force", action="store_true", help="Don't validate test run id")
     parser.add_argument("--dry-run", action="store_true", help="Dry run, don't update anything")
-    parser.add_argument("--no-verify", action="store_true", help="Don't verify results submission")
+    parser.add_argument("--no-verify", action="store_true", help="Don't verify import success")
     parser.add_argument(
         "--verify-timeout",
         type=int,
@@ -52,8 +52,7 @@ def get_args(args=None):
         " (default: %(default)s)",
     )
     parser.add_argument(
-        "--job-log",
-        help="Where to save the log file produced by the Importer" " (default: not saved)",
+        "--job-log", help="Where to save the log file produced by the Importer (default: not saved)"
     )
     parser.add_argument("--log-level", help="Set logging to specified level")
     return parser.parse_args(args)
@@ -121,18 +120,9 @@ def _get_config(args):
     return dump2polarion.get_config(args.config_file, args_config)
 
 
-def main(args=None, transform_func=None):
-    """Main function for cli."""
-    args = get_args(args)
+def dumper(args, config, transform_func=None):
+    """Dumper main function."""
     submit_args = get_submit_args(args)
-
-    utils.init_log(args.log_level)
-
-    try:
-        config = _get_config(args)
-    except Dump2PolarionException as err:
-        logger.fatal(err)
-        return 1
 
     submit_outcome = submit_if_ready(args, submit_args, config)
     if submit_outcome is not None:
@@ -170,3 +160,18 @@ def main(args=None, transform_func=None):
         return 0 if response else 2
 
     return 0
+
+
+def main(args=None, transform_func=None):
+    """Main function for cli."""
+    args = get_args(args)
+
+    utils.init_log(args.log_level)
+
+    try:
+        config = _get_config(args)
+    except Dump2PolarionException as err:
+        logger.fatal(err)
+        return 1
+
+    return dumper(args, config, transform_func=transform_func)
