@@ -25,7 +25,7 @@ def only_passed_and_wait(result):
     return None
 
 
-def _insert_source_info(result):
+def insert_source_info(result):
     """Adds info about source of test result if available."""
     comment = result.get("comment")
     # don't change comment if it already exists
@@ -44,7 +44,7 @@ def _insert_source_info(result):
     result["comment"] = source_note
 
 
-def _setup_parametrization(result, parametrize):
+def setup_parametrization(result, parametrize):
     """Modifies result's data according to the parametrization settings."""
     parameters = result.get("params", {})
 
@@ -59,7 +59,7 @@ def _setup_parametrization(result, parametrize):
             del result["params"]
 
 
-def _include_class_in_title(result):
+def include_class_in_title(result):
     """Makes sure that test class is included in "title".
 
     e.g. "TestServiceRESTAPI.test_power_parent_service"
@@ -125,9 +125,9 @@ def get_xunit_transform_cfme(config):
 
         result = copy.deepcopy(result)
 
-        _setup_parametrization(result, parametrize)
-        _include_class_in_title(result)
-        _insert_source_info(result)
+        setup_parametrization(result, parametrize)
+        include_class_in_title(result)
+        insert_source_info(result)
 
         verdict = verdict.strip().lower()
         # we want to submit PASS and WAIT results
@@ -201,47 +201,6 @@ def get_xunit_transform_cmp(config):
     return results_transform
 
 
-def get_xunit_transform_insights(config):
-    """Return result transformation function for Insights."""
-    skip_searches = ["SKIPME:", "Skipping due to these blockers", "BZ ?[0-9]+", "GH ?#?[0-9]+"]
-    skips = re.compile("(" + ")|(".join(skip_searches) + ")")
-
-    parametrize = config.get("insights_parametrize", False)
-    testcase_append = config.get("insights_testcase_append", "")
-
-    def results_transform(result):
-        """Results transform for Insights."""
-        verdict = result.get("verdict")
-        if not verdict:
-            return None
-
-        result = copy.deepcopy(result)
-
-        _setup_parametrization(result, parametrize)
-        _include_class_in_title(result)
-        _insert_source_info(result)
-
-        result["id"] = get_testcase_id(result, testcase_append)
-
-        verdict = verdict.strip().lower()
-        # we want to submit PASS and WAIT results
-        if verdict in Verdicts.PASS + Verdicts.WAIT:
-            return result
-        comment = result.get("comment")
-        # ... and SKIP results where there is a good reason (blocker etc.)
-        if verdict in Verdicts.SKIP and comment and skips.search(comment):
-            # found reason for skip
-            result["comment"] = comment.replace("SKIPME: ", "").replace("SKIPME", "")
-            return result
-        if verdict in Verdicts.FAIL and comment and "FAILME" in comment:
-            result["comment"] = comment.replace("FAILME: ", "").replace("FAILME", "")
-            return result
-        # we don't want to report this result if here
-        return None
-
-    return results_transform
-
-
 def get_testcases_transform_cfme(config):
     """Return test cases transformation function for CFME."""
 
@@ -251,32 +210,7 @@ def get_testcases_transform_cfme(config):
         """Test cases transform for CFME."""
         testcase = copy.deepcopy(testcase)
 
-        _setup_parametrization(testcase, parametrize)
-
-        return testcase
-
-    return testcase_transform
-
-
-def get_testcases_transform_insights(config):
-    """Return test cases transformation function for Insights."""
-
-    parametrize = config.get("insights_parametrize", False)
-    testcase_append = config.get("insights_testcase_append", "")
-    seen_ids = []
-
-    def testcase_transform(testcase):
-        """Test cases transform for Insights."""
-        testcase = copy.deepcopy(testcase)
-
-        _setup_parametrization(testcase, parametrize)
-
-        testcase_id = get_testcase_id(testcase, testcase_append)
-        testcase["id"] = testcase_id
-
-        if parametrize and testcase_id in seen_ids:
-            return None
-        seen_ids.append(testcase_id)
+        setup_parametrization(testcase, parametrize)
 
         return testcase
 
@@ -318,39 +252,17 @@ def get_requirements_transform_cloudtp(config):
     return requirement_transform
 
 
-def get_requirements_transform_insights(config):
-    """Return requirement transformation function for Insights."""
-
-    def requirement_transform(requirement):
-        """Requirements transform for Insights."""
-        requirement = copy.deepcopy(requirement)
-        # TODO: append smtg to requirements title?
-        # Would require to also modify all linked-items in test cases.
-
-        if "id" in requirement:
-            del requirement["id"]
-
-        return requirement
-
-    return requirement_transform
-
-
 PROJECT_MAPPING_XUNIT = {
     "RHCF3": get_xunit_transform_cfme,
     "CMP": get_xunit_transform_cmp,
     "CLOUDTP": get_xunit_transform_cfme,
-    "Insights": get_xunit_transform_insights,
 }
 
-PROJECT_MAPPING_TESTCASES = {
-    "RHCF3": get_testcases_transform_cfme,
-    "Insights": get_testcases_transform_insights,
-}
+PROJECT_MAPPING_TESTCASES = {"RHCF3": get_testcases_transform_cfme}
 
 PROJECT_MAPPING_REQ = {
     "RHCF3": get_requirements_transform_cfme,
     "CLOUDTP": get_requirements_transform_cloudtp,
-    "Insights": get_requirements_transform_insights,
 }
 
 
