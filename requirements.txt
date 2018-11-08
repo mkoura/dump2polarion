@@ -1,9 +1,7 @@
-lxml
+-e .
+
 mock
 pre-commit
 pytest
 pytest-cov
-pyyaml
-requests
-six
 tox

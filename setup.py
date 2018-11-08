@@ -24,7 +24,7 @@ setup(
         ]
     },
     setup_requires=["setuptools_scm"],
-    install_requires=["lxml", "pyyaml", "requests", "six"],
+    install_requires=["lxml", "pyyaml", "requests", "six", "docutils"],
     keywords=["polarion", "testing"],
     classifiers=[
         "Development Status :: 3 - Alpha",
