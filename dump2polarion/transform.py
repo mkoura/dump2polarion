@@ -12,6 +12,8 @@ import copy
 import hashlib
 import re
 
+from docutils.core import publish_parts
+
 from dump2polarion.verdicts import Verdicts
 
 TEST_PARAM_RE = re.compile(r"\[.*\]")
@@ -102,6 +104,52 @@ def get_testcase_id(testcase, append_str):
     if not testcase_id or testcase_title in testcase_id:
         testcase_id = gen_unique_id("{}{}".format(append_str, testcase_title))
     return testcase_id
+
+
+def set_cfme_caselevel(testcase, caselevels):
+    """Converts tier to caselevel."""
+    tier = testcase.get("caselevel")
+    try:
+        caselevel = caselevels[int(tier)]
+    except IndexError:
+        # invalid value
+        caselevel = "component"
+    except ValueError:
+        # there's already string value
+        return
+
+    testcase["caselevel"] = caselevel
+
+
+def parse_rst_description(testcase):
+    """Creates an HTML version of the description."""
+    description = testcase["description"]
+
+    if not description:
+        return
+
+    testcase["description"] = publish_parts(description, writer_name="html")["html_body"]
+
+
+def add_unique_runid(testcase, run_id=None):
+    """Adds run id to the test description.
+
+    The `run_id` runs makes the descriptions unique between imports and force Polarion
+    to update every testcase every time.
+    """
+    testcase["description"] = '{}<br id="{}"/>'.format(
+        testcase.get("description") or "", run_id or id(add_unique_runid)
+    )
+
+
+def add_automation_link(testcase):
+    """Appends link to automation script to the test description."""
+    automation_link = (
+        '<a href="{}">Test Source</a>'.format(testcase["automation_script"])
+        if testcase.get("automation_script")
+        else ""
+    )
+    testcase["description"] = "{}<br/>{}".format(testcase.get("description") or "", automation_link)
 
 
 def get_xunit_transform_cfme(config):
@@ -205,12 +253,20 @@ def get_testcases_transform_cfme(config):
     """Return test cases transformation function for CFME."""
 
     parametrize = config.get("cfme_parametrize", False)
+    run_id = config.get("cfme_run_id")
+
+    caselevels = config.get("docstrings") or {}
+    caselevels = caselevels.get("valid_values") or {}
+    caselevels = caselevels.get("caselevel") or []
 
     def testcase_transform(testcase):
         """Test cases transform for CFME."""
         testcase = copy.deepcopy(testcase)
 
         setup_parametrization(testcase, parametrize)
+        set_cfme_caselevel(testcase, caselevels)
+        add_unique_runid(testcase, run_id)
+        add_automation_link(testcase)
 
         return testcase
 

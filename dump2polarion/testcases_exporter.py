@@ -39,11 +39,10 @@ testcases_data = [
 from __future__ import absolute_import, unicode_literals
 
 import datetime
-
+import re
 from collections import OrderedDict
 
 import six
-
 from lxml import etree
 
 from dump2polarion import transform, utils
@@ -84,6 +83,24 @@ class TestcaseExport(object):
         self.config = config
         self._lookup_prop = ""
         self._transform_func = transform_func or transform.get_testcases_transform(config)
+
+        known_fields = self.config.get("default_fields") or {}
+        default_fields = [
+            (key, utils.get_unicode_str(value)) for key, value in known_fields.items() if value
+        ]
+        default_fields.sort()
+        self.default_fields = OrderedDict(default_fields)
+
+        self._compiled_whitelist = None
+        self._compiled_blacklist = None
+        if self.config.get("whitelisted_tests"):
+            self._compiled_whitelist = re.compile(
+                "(" + ")|(".join(self.config.get("whitelisted_tests")) + ")"
+            )
+        if self.config.get("blacklisted_tests"):
+            self._compiled_blacklist = re.compile(
+                "(" + ")|(".join(self.config.get("blacklisted_tests")) + ")"
+            )
 
     def _transform_result(self, result):
         """Calls transform function on result."""
@@ -223,10 +240,43 @@ class TestcaseExport(object):
 
         custom_fields_el = etree.SubElement(parent, "custom-fields")
         for field, content in six.iteritems(custom_fields):
-            etree.SubElement(custom_fields_el, "custom-field", {"id": field, "content": content})
+            etree.SubElement(
+                custom_fields_el,
+                "custom-field",
+                {"id": field, "content": utils.get_unicode_str(content)},
+            )
+
+    def _fill_project_defaults(self, testcase_data):
+        filled = self.default_fields.copy()
+        filled.update(testcase_data)
+        return filled
+
+    def _fill_automation_repo(self, testcase_data):
+        repo_address = self.config.get("repo_address")
+        automation_script = testcase_data.get("automation_script")
+        if not (repo_address and automation_script):
+            return
+        # The master here should probably link the latest "commit" eventually
+        testcase_data["automation_script"] = "{}/blob/master/{}".format(
+            repo_address, automation_script
+        )
+
+    def _is_whitelisted(self, nodeid):
+        """Checks if the nodeid is whitelisted."""
+        if not nodeid:
+            return True
+        if self._compiled_whitelist and self._compiled_whitelist.search(nodeid):
+            return True
+        if self._compiled_blacklist and self._compiled_blacklist.search(nodeid):
+            return False
+        return True
 
     def _testcase_element(self, parent_element, testcase_data):
         """Adds testcase XML element."""
+        if not self._is_whitelisted(testcase_data.get("nodeid")):
+            return
+        testcase_data = self._fill_project_defaults(testcase_data)
+        self._fill_automation_repo(testcase_data)
         testcase_data = self._transform_result(testcase_data)
         if not testcase_data:
             return

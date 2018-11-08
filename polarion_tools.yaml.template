@@ -10,3 +10,40 @@ polarion_url: https://polarion_url
 
 username: user
 password: Password
+
+repo_address: https://github.com/project/repo
+
+default_fields:
+    assignee: ""
+    casecomponent: ""
+    initialEstimate: 1m
+    caseimportance: high
+    caselevel: component
+    caseposneg: positive
+    caseautomation: automated
+    testtype: functional
+    subtype1: "-"
+    subtype2: "-"
+    tags: ""
+    setup: ""
+    teardown: ""
+    description: ""
+    linkedWorkItems: ""
+    testSteps: ""
+    expectedResults: ""
+    title: ""
+    work_item_id: ""
+
+blacklisted_tests:
+    - 'cfme/tests/containers/'
+    - 'cfme/tests/openstack/'
+    - 'test_import_own_module'
+    - 'hawkular'
+    - '\[.*rhos'
+    - '\[.*rhev'
+    - '\[.*rhv'
+
+whitelisted_tests:
+    - 'cfme/tests/infrastructure/test_quota_tagging.py::test_.*\[.*rhe?v'
+    - 'test_tenant_quota.py'
+    - 'cfme/tests/v2v'

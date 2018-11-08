@@ -5,7 +5,7 @@
   </properties>
   <testcase id="ITEM01" approver-ids="mkourim:approved" assignee-id="mkourim" due-date="2018-09-30" initial-estimate="1/4h">
     <title>test_manual</title>
-    <description>Manual tests with all supported fields.</description>
+    <description>Manual tests with all supported fields.&lt;br id="id123"/&gt;&lt;br/&gt;&lt;a href="https://foo/bar/baz/blob/master/file#L83"&gt;Test Source&lt;/a&gt;</description>
     <test-steps>
       <test-step>
         <test-step-column id="step">step1</test-step-column>
@@ -19,16 +19,16 @@
     <custom-fields>
       <custom-field content="manualonly" id="caseautomation"/>
       <custom-field content="high" id="caseimportance"/>
-      <custom-field content="component" id="caselevel"/>
+      <custom-field content="system" id="caselevel"/>
       <custom-field content="positive" id="caseposneg"/>
-      <custom-field content="functional" id="testtype"/>
       <custom-field content="-" id="subtype1"/>
       <custom-field content="-" id="subtype2"/>
+      <custom-field content="functional" id="testtype"/>
       <custom-field content="yes" id="upstream"/>
       <custom-field content="tag1, tag2" id="tags"/>
       <custom-field content="Do this first" id="setup"/>
       <custom-field content="Clean up" id="teardown"/>
-      <custom-field content="https://gitlab.com/foo" id="automation_script"/>
+      <custom-field content="https://foo/bar/baz/blob/master/file#L83" id="automation_script"/>
     </custom-fields>
     <linked-work-items>
       <linked-work-item workitem-id="ITEM01" role-id="verifies"/>
@@ -36,6 +36,7 @@
   </testcase>
   <testcase>
     <title>test_minimal_param</title>
+    <description>&lt;br id="id123"/&gt;&lt;br/&gt;</description>
     <test-steps>
       <test-step>
         <test-step-column id="step">

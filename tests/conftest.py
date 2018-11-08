@@ -20,6 +20,13 @@ GENERIC_CONF = {
     "xunit_queue": "https://polarion.example.com/import/xunit-queue",
     "testcase_queue": "https://polarion.example.com/import/testcase-queue",
     "requirement_queue": "https://polarion.example.com/import/requirement-queue",
+    "repo_address": "https://foo/bar/baz",
+    "cfme_run_id": "id123",
+}
+
+
+VALID_CASELEVELS = {
+    "valid_values": {"caselevel": ["component", "integration", "system", "acceptance"]}
 }
 
 RHCF3_XUNIT_PROPS = OrderedDict(
@@ -29,16 +36,45 @@ RHCF3_XUNIT_PROPS = OrderedDict(
         ("polarion-response-test", "test"),
     )
 )
+
+POLARION_DEFAULT_FIELDS = OrderedDict(
+    (
+        ("assignee", ""),
+        ("casecomponent", ""),
+        ("initialEstimate", "1m"),
+        ("caseimportance", "high"),
+        ("caselevel", "component"),
+        ("caseposneg", "positive"),
+        ("caseautomation", "automated"),
+        ("testtype", "functional"),
+        ("subtype1", "-"),
+        ("subtype2", "-"),
+        ("tags", ""),
+        ("setup", ""),
+        ("teardown", ""),
+        ("description", ""),
+        ("linkedWorkItems", ""),
+        ("testSteps", ""),
+        ("expectedResults", ""),
+        ("title", ""),
+        ("work_item_id", ""),
+    )
+)
+
 RHCF3_TESTCASE_PROPS = OrderedDict((("lookup-method", "name"),))
 
 RHCF3_CONF = GENERIC_CONF.copy()
 RHCF3_CONF["polarion-project-id"] = "RHCF3"
 RHCF3_CONF["xunit_import_properties"] = RHCF3_XUNIT_PROPS
 RHCF3_CONF["testcase_import_properties"] = RHCF3_TESTCASE_PROPS
+RHCF3_CONF["default_fields"] = POLARION_DEFAULT_FIELDS
+RHCF3_CONF["docstrings"] = VALID_CASELEVELS
 
 CMP_CONF = GENERIC_CONF.copy()
 CMP_CONF["polarion-project-id"] = "CMP"
 CMP_CONF["xunit_import_properties"] = RHCF3_XUNIT_PROPS.copy()
+CMP_CONF["default_fields"] = POLARION_DEFAULT_FIELDS.copy()
+CMP_CONF["docstrings"] = VALID_CASELEVELS.copy()
 
 
 @pytest.fixture(scope="session")
