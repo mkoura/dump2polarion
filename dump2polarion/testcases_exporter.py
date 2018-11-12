@@ -39,6 +39,7 @@ testcases_data = [
 from __future__ import absolute_import, unicode_literals
 
 import datetime
+import logging
 import re
 from collections import OrderedDict
 
@@ -47,6 +48,9 @@ from lxml import etree
 
 from dump2polarion import transform, utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
+
+# pylint: disable=invalid-name
+logger = logging.getLogger(__name__)
 
 
 class TestcaseExport(object):
@@ -273,7 +277,9 @@ class TestcaseExport(object):
 
     def _testcase_element(self, parent_element, testcase_data):
         """Adds testcase XML element."""
-        if not self._is_whitelisted(testcase_data.get("nodeid")):
+        nodeid = testcase_data.get("nodeid")
+        if not self._is_whitelisted(nodeid):
+            logger.debug("Skipping blacklisted node: %s", nodeid)
             return
         testcase_data = self._fill_project_defaults(testcase_data)
         self._fill_automation_repo(testcase_data)
@@ -281,12 +287,14 @@ class TestcaseExport(object):
         if not testcase_data:
             return
 
-        title = testcase_data.get("title")
         testcase_id = testcase_data.get("id")
-        if not (title or testcase_id):
-            return
+        testcase_title = testcase_data.get("title")
 
-        if not self._check_lookup_prop(testcase_id, title):
+        if not self._check_lookup_prop(testcase_id, testcase_title):
+            logger.warning(
+                "Skipping testcase `%s`, data missing for selected lookup method",
+                testcase_id or testcase_title,
+            )
             return
 
         attrs, custom_fields = self._classify_data(testcase_data)
@@ -295,7 +303,7 @@ class TestcaseExport(object):
         testcase = etree.SubElement(parent_element, "testcase", attrs)
 
         title_el = etree.SubElement(testcase, "title")
-        title_el.text = title
+        title_el.text = testcase_title
 
         description = testcase_data.get("description")
         if description:

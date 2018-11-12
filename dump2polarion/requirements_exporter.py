@@ -27,6 +27,7 @@ requirements_data = [
 from __future__ import absolute_import, unicode_literals
 
 import datetime
+import logging
 from collections import OrderedDict
 
 import six
@@ -34,6 +35,9 @@ from lxml import etree
 
 from dump2polarion import transform, utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
+
+# pylint: disable=invalid-name
+logger = logging.getLogger(__name__)
 
 
 class RequirementExport(object):
@@ -158,10 +162,14 @@ class RequirementExport(object):
 
         title = req_data.get("title")
         if not title:
+            logger.warning("Skipping requirement, title is missing")
             return
         req_id = req_data.get("id")
 
         if not self._check_lookup_prop(req_id):
+            logger.warning(
+                "Skipping requirement `%s`, data missing for selected lookup method", title
+            )
             return
 
         attrs, custom_fields = self._classify_data(req_data)

@@ -21,6 +21,7 @@ tests_records = ImportedData(
 from __future__ import absolute_import, unicode_literals
 
 import datetime
+import logging
 from collections import namedtuple
 
 import six
@@ -31,6 +32,9 @@ from dump2polarion.exceptions import Dump2PolarionException, NothingToDoExceptio
 from dump2polarion.verdicts import Verdicts
 
 ImportedData = namedtuple("ImportedData", "results testrun")
+
+# pylint: disable=invalid-name
+logger = logging.getLogger(__name__)
 
 
 class XunitExport(object):
@@ -227,12 +231,17 @@ class XunitExport(object):
 
         verdict = self._get_verdict(result)
         if not verdict:
+            logger.warning("Skipping testcase, verdict is missing or invalid")
             return
 
         testcase_id = result.get("id")
         testcase_title = result.get("title")
 
         if not self._check_lookup_prop(testcase_id, testcase_title):
+            logger.warning(
+                "Skipping testcase `%s`, data missing for selected lookup method",
+                testcase_id or testcase_title,
+            )
             return
 
         testcase = self._testcase_element(
