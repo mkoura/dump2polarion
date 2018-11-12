@@ -59,7 +59,7 @@ def get_args(args=None):
 
 
 def get_submit_args(args):
-    """Gets arguments for the ``submit_and_verify`` method."""
+    """Gets arguments for the `submit_and_verify` method."""
     submit_args = dict(
         testrun_id=args.testrun_id,
         user=args.user,

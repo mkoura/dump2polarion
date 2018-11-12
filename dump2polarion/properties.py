@@ -10,9 +10,23 @@ import string
 
 from lxml import etree
 
+from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException
 
 _NOT_EXPECTED_FORMAT_MSG = "XML file is not in expected format"
+
+
+def _set_property(xml_root, name, value, properties=None):
+    """Sets property to specified value."""
+    properties = properties or xml_root.find("properties")
+    for prop in properties:
+        if prop.get("name") == name:
+            prop.set("value", utils.get_unicode_str(value))
+            break
+    else:
+        etree.SubElement(
+            properties, "property", {"name": name, "value": utils.get_unicode_str(value)}
+        )
 
 
 def _get_testrun_properties(xml_root):
@@ -42,7 +56,9 @@ def xunit_fill_testrun_id(xml_root, testrun_id):
                 "Failed to submit results to Polarion - missing testrun id"
             )
         etree.SubElement(
-            properties, "property", {"name": "polarion-testrun-id", "value": str(testrun_id)}
+            properties,
+            "property",
+            {"name": "polarion-testrun-id", "value": utils.get_unicode_str(testrun_id)},
         )
 
 
@@ -51,14 +67,7 @@ def xunit_fill_testrun_title(xml_root, testrun_title):
     properties = _get_testrun_properties(xml_root)
     if properties is None:
         return
-    for prop in properties:
-        if prop.get("name") == "polarion-testrun-title":
-            prop.set("value", str(testrun_title))
-            break
-    else:
-        etree.SubElement(
-            properties, "property", {"name": "polarion-testrun-title", "value": str(testrun_title)}
-        )
+    _set_property(xml_root, "polarion-testrun-title", testrun_title, properties)
 
 
 def generate_response_property(name=None, value=None):
@@ -75,11 +84,13 @@ def _fill_testsuites_response_property(xml_root, name, value):
         prop_name = prop.get("name", "")
         if "polarion-response-" in prop_name:
             offset = len("polarion-response-")
-            response_property = (prop_name[offset:], str(prop.get("value")))
+            response_property = (prop_name[offset:], utils.get_unicode_str(prop.get("value")))
             break
     else:
         prop_name = "polarion-response-{}".format(name)
-        etree.SubElement(properties, "property", {"name": prop_name, "value": value})
+        etree.SubElement(
+            properties, "property", {"name": prop_name, "value": utils.get_unicode_str(value)}
+        )
         response_property = (name, value)
 
     return response_property
@@ -97,7 +108,7 @@ def _fill_non_testsuites_response_property(xml_root, name, value):
             prop_name = prop.get("name")
             prop_value = prop.get("value")
             if prop_name and prop_value:
-                response_property = (prop_name, str(prop_value))
+                response_property = (prop_name, utils.get_unicode_str(prop_value))
             break
     else:
         etree.SubElement(properties, "response-property", {"name": name, "value": value})
@@ -140,17 +151,6 @@ def remove_response_property(xml_root):
         raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)
 
 
-def _set_property(xml_root, name, value):
-    """Sets property to specified value."""
-    properties = xml_root.find("properties")
-    for prop in properties:
-        if prop.get("name") == name:
-            prop.set("value", value)
-            break
-    else:
-        etree.SubElement(properties, "property", {"name": name, "value": value})
-
-
 def set_lookup_method(xml_root, value):
     """Changes lookup method."""
     if xml_root.tag == "testsuites":
@@ -161,7 +161,7 @@ def set_lookup_method(xml_root, value):
         raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)
 
 
-def set_dry_run(xml_root, value=False):
+def set_dry_run(xml_root, value=True):
     """Sets dry-run so records are not updated, only log file is produced."""
     value_str = str(value).lower()
     assert value_str in ("true", "false")
