@@ -14,6 +14,7 @@ from collections import OrderedDict
 
 import requests
 import six
+from packaging.version import Version, InvalidVersion
 
 from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
@@ -44,16 +45,22 @@ def _get_json(location):
 
 
 def _get_testrun_id(version):
-    """Gets testrun id out of the appliance_version file."""
+    """Gets testrun id out of the version string.
+
+    Remove trailing version dates / hashes separated by - / _
+    Then use packaging Version to parse the version string
+    Then cast each release component to string for joining with _
+
+    Build and returns testrun ID that looks like x_y_z_a from version x.y.z.a-20181114_abcdef
+    """
     try:
-        build_base = version.strip().split("-")[0].split("_")[0].replace(".", "_")
-        zval = int(build_base.split("_")[3])
+        v = Version(version.split('-')[0].split('_')[0])
+        build_base = '_'.join([str(i) for i in v.release])
+    except InvalidVersion:
+        raise Dump2PolarionException('InvalidVersion parsing testrun ID from {}'.format(version))
     except Exception:
         # not in expected format
-        raise Dump2PolarionException("Cannot find testrun id")
-    if zval < 10:
-        pad_build = build_base[-1].zfill(2)
-        return build_base[:-1] + pad_build
+        raise Dump2PolarionException('Exception parsing testrun ID from {}'.format(version))
     return build_base
 
 

@@ -42,14 +42,14 @@ class TestOstriz(object):
         testrun_id = ostriztools._get_testrun_id("5.8.0.17-20170525183055_6317a22")
         assert testrun_id == "5_8_0_17"
 
-    def test_testrun_id_fill(self):
+    def test_testrun_id_nofill(self):
         testrun_id = ostriztools._get_testrun_id("5.8.0.7-2017")
-        assert testrun_id == "5_8_0_07"
+        assert testrun_id == "5_8_0_7"
 
     def test_testrun_id_invalid(self):
         with pytest.raises(Dump2PolarionException) as excinfo:
             ostriztools._get_testrun_id("INVALID")
-        assert "Cannot find testrun id" in str(excinfo.value)
+        assert "InvalidVersion parsing testrun ID" in str(excinfo.value)
 
     def test_duration_good(self):
         duration = ostriztools._calculate_duration(1495766591.151192, 1495768544.573208)

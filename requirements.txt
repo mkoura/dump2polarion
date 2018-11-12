@@ -1,5 +1,6 @@
 lxml
 mock
+packaging
 pre-commit
 pytest
 pytest-cov
