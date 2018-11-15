@@ -1,6 +1,7 @@
 -e .
 
 mock
+packaging
 pre-commit
 pytest
 pytest-cov
