@@ -2,7 +2,6 @@
 
 from setuptools import find_packages, setup
 
-
 with open("README.rst", "rb") as fp:
     LONG_DESCRIPTION = fp.read().decode("utf-8").strip()
 
@@ -24,7 +23,7 @@ setup(
         ]
     },
     setup_requires=["setuptools_scm"],
-    install_requires=["lxml", "pyyaml", "requests", "six", "docutils"],
+    install_requires=["lxml", "pyyaml", "requests", "six", "docutils", "packaging"],
     keywords=["polarion", "testing"],
     classifiers=[
         "Development Status :: 3 - Alpha",
