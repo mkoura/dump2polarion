@@ -165,3 +165,9 @@ def find_vcs_root(path, dirs=(".git",)):
             return path
         prev, path = path, os.path.abspath(os.path.join(path, os.pardir))
     return None
+
+
+def get_testrun_id_config(config):
+    """Gets testrun ID defined in config file."""
+    config_testrun_id = config.get("xunit_import_properties") or {}
+    return config_testrun_id.get("polarion-testrun-id")

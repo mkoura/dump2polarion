@@ -151,6 +151,21 @@ def remove_response_property(xml_root):
         raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)
 
 
+def remove_property(xml_root, partial_name):
+    """Removes properties if exist."""
+    if xml_root.tag in ("testsuites", "testcases", "requirements"):
+        properties = xml_root.find("properties")
+        remove_properties = []
+        for prop in properties:
+            prop_name = prop.get("name", "")
+            if partial_name in prop_name:
+                remove_properties.append(prop)
+        for rem_prop in remove_properties:
+            properties.remove(rem_prop)
+    else:
+        raise Dump2PolarionException(_NOT_EXPECTED_FORMAT_MSG)
+
+
 def set_lookup_method(xml_root, value):
     """Changes lookup method."""
     if xml_root.tag == "testsuites":

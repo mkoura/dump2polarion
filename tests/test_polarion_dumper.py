@@ -29,24 +29,32 @@ class TestDumperCLIUnits(object):
 
     def test_testrun_id_match(self):
         args = dumper_cli.get_args(["-i", "dummy", "-t", "5_8_0_17"])
-        found = dumper_cli.get_testrun_id(args, "5_8_0_17")
+        found = dumper_cli.get_testrun_id(args, {}, "5_8_0_17")
         assert found == "5_8_0_17"
 
     def test_testrun_id_nomatch(self):
         args = dumper_cli.get_args(["-i", "dummy", "-t", "5_8_0_17"])
         with pytest.raises(Dump2PolarionException) as excinfo:
-            dumper_cli.get_testrun_id(args, "5_8_0_18")
-        assert "found in exported data doesn't match" in str(excinfo.value)
+            dumper_cli.get_testrun_id(args, {}, "5_8_0_18")
+        assert "differ" in str(excinfo.value)
+
+    def test_testrun_id_config_nomatch(self):
+        args = dumper_cli.get_args(["-i", "dummy", "-t", "5_8_0_18"])
+        with pytest.raises(Dump2PolarionException) as excinfo:
+            dumper_cli.get_testrun_id(
+                args, {"xunit_import_properties": {"polarion-testrun-id": "5_8_0_17"}}, "5_8_0_18"
+            )
+        assert "differ" in str(excinfo.value)
 
     def test_testrun_id_force(self):
         args = dumper_cli.get_args(["-i", "dummy", "-t", "5_8_0_18", "--force"])
-        found = dumper_cli.get_testrun_id(args, "5_8_0_17")
+        found = dumper_cli.get_testrun_id(args, {}, "5_8_0_17")
         assert found == "5_8_0_18"
 
     def test_testrun_id_missing(self):
         args = dumper_cli.get_args(["-i", "dummy"])
         with pytest.raises(Dump2PolarionException) as excinfo:
-            dumper_cli.get_testrun_id(args, None)
+            dumper_cli.get_testrun_id(args, {}, None)
         assert "The testrun id was not specified" in str(excinfo.value)
 
     def test_submit_if_ready_noxml(self, config_prop):

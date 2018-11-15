@@ -72,18 +72,30 @@ def get_submit_args(args):
     return {k: v for k, v in submit_args.items() if v is not None}
 
 
-def get_testrun_id(args, testrun_id):
+def get_testrun_id(args, config, records_testrun_id):
     """Returns testrun id."""
-    if args.testrun_id and testrun_id and not args.force and testrun_id != args.testrun_id:
-        raise Dump2PolarionException(
-            "The test run id '{}' found in exported data doesn't match '{}'. "
-            "If you really want to proceed, add '-f'.".format(testrun_id, args.testrun_id)
-        )
+    config_testrun_id = utils.get_testrun_id_config(config)
 
-    found_testrun_id = args.testrun_id or testrun_id
+    found_testrun_id = args.testrun_id or records_testrun_id or config_testrun_id
     if not found_testrun_id:
         raise Dump2PolarionException(
-            "The testrun id was not specified on command line and not found in the input data."
+            "The testrun id was not specified on command line and not found in the input data "
+            "or config file."
+        )
+
+    match = True
+    for tr_id in (args.testrun_id, records_testrun_id, config_testrun_id):
+        if tr_id and tr_id != found_testrun_id:
+            match = False
+            break
+
+    if not match and args.force:
+        logger.warning("Using '%s' as testrun id.", found_testrun_id)
+    elif not match:
+        raise Dump2PolarionException(
+            "The test run ids found in exported data, config file and/or specified on command line "
+            "differ. If you really want to proceed, add '-f' and test run id '{}' "
+            "will be used.".format(found_testrun_id)
         )
 
     return found_testrun_id
@@ -133,7 +145,7 @@ def dumper(args, config, transform_func=None):
 
     try:
         records = dump2polarion.do_import(args.input_file, older_than=import_time)
-        testrun_id = get_testrun_id(args, records.testrun)
+        testrun_id = get_testrun_id(args, config, records.testrun)
         exporter = dump2polarion.XunitExport(
             testrun_id, records, config, transform_func=transform_func
         )

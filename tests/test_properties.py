@@ -110,6 +110,24 @@ class TestProperties(object):
         filled = utils.etree_to_string(xml_root)
         assert "<response-properties" not in filled
 
+    def test_remove_testsuites_property(self):
+        fname = "complete_transform.xml"
+        xml_root = utils.get_xml_root(os.path.join(conf.DATA_PATH, fname))
+        filled = utils.etree_to_string(xml_root)
+        assert '<property name="polarion-testrun-id"' in filled
+        properties.remove_property(xml_root, "testrun-id")
+        filled = utils.etree_to_string(xml_root)
+        assert '<property name="polarion-testrun-id"' not in filled
+
+    def test_remove_testcases_property(self):
+        fname = "testcases.xml"
+        xml_root = utils.get_xml_root(os.path.join(conf.DATA_PATH, fname))
+        filled = utils.etree_to_string(xml_root)
+        assert '<property name="lookup-method"' in filled
+        properties.remove_property(xml_root, "lookup-method")
+        filled = utils.etree_to_string(xml_root)
+        assert '<property name="lookup-method"' not in filled
+
     def test_add_testsuites_lookup_property(self):
         fname = "complete_noprop.xml"
         xml_root = utils.get_xml_root(os.path.join(conf.DATA_PATH, fname))
