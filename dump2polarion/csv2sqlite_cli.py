@@ -11,8 +11,9 @@ import logging
 import os
 import sqlite3
 
-from dump2polarion import csvtools, utils
+from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.results import csvtools
 
 REQUIRED_KEYS = (
     "verdict",

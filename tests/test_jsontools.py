@@ -7,8 +7,8 @@ import os
 
 import pytest
 
-from dump2polarion import jsontools
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.results import jsontools
 from tests import conf
 
 try:

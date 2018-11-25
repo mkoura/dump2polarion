@@ -9,7 +9,7 @@ import os
 
 import pytest
 
-from dump2polarion.importer import do_import
+from dump2polarion.results.importer import import_results
 from dump2polarion.xunit_exporter import XunitExport
 from tests import conf
 
@@ -17,7 +17,7 @@ from tests import conf
 @pytest.fixture(scope="module")
 def records_names():
     input_file = os.path.join(conf.DATA_PATH, "ostriz.json")
-    return do_import(input_file)
+    return import_results(input_file)
 
 
 @pytest.fixture(scope="module")

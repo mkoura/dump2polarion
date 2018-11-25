@@ -13,8 +13,9 @@ import logging
 import os
 
 import dump2polarion
-from dump2polarion import dbtools, utils
+from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
+from dump2polarion.results import dbtools
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
@@ -144,7 +145,7 @@ def dumper(args, config, transform_func=None):
     import_time = datetime.datetime.utcnow()
 
     try:
-        records = dump2polarion.do_import(args.input_file, older_than=import_time)
+        records = dump2polarion.import_results(args.input_file, older_than=import_time)
         testrun_id = get_testrun_id(args, config, records.testrun)
         exporter = dump2polarion.XunitExport(
             testrun_id, records, config, transform_func=transform_func

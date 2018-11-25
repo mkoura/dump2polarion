@@ -54,13 +54,13 @@ def _get_testrun_id(version):
     Build and returns testrun ID that looks like x_y_z_a from version x.y.z.a-20181114_abcdef
     """
     try:
-        v = Version(version.split('-')[0].split('_')[0])
-        build_base = '_'.join([str(i) for i in v.release])
+        v = Version(version.split("-")[0].split("_")[0])
+        build_base = "_".join([str(i) for i in v.release])
     except InvalidVersion:
-        raise Dump2PolarionException('InvalidVersion parsing testrun ID from {}'.format(version))
+        raise Dump2PolarionException("InvalidVersion parsing testrun ID from {}".format(version))
     except Exception:
         # not in expected format
-        raise Dump2PolarionException('Exception parsing testrun ID from {}'.format(version))
+        raise Dump2PolarionException("Exception parsing testrun ID from {}".format(version))
     return build_base
 
 

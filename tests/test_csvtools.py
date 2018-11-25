@@ -7,8 +7,8 @@ import os
 
 import pytest
 
-from dump2polarion import csvtools
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.results import csvtools
 from tests import conf
 
 try:

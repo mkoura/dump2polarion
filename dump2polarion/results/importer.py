@@ -7,7 +7,7 @@ from __future__ import absolute_import, unicode_literals
 
 import os
 
-from dump2polarion import dbtools
+from dump2polarion.results import dbtools
 from dump2polarion.exceptions import Dump2PolarionException
 
 
@@ -17,22 +17,22 @@ def _get_importer(input_file):
     ext = ext.lower()
 
     if "ostriz" in input_file:
-        from dump2polarion import ostriztools
+        from dump2polarion.results import ostriztools
 
         importer = ostriztools.import_ostriz
     elif ext == ".xml":
         # expect junit-report from pytest
-        from dump2polarion import junittools
+        from dump2polarion.results import junittools
 
         importer = junittools.import_junit
     elif ext == ".csv":
-        from dump2polarion import csvtools
+        from dump2polarion.results import csvtools
 
         importer = csvtools.import_csv
     elif ext in dbtools.SQLITE_EXT:
         importer = dbtools.import_sqlite
     elif ext == ".json":
-        from dump2polarion import jsontools
+        from dump2polarion.results import jsontools
 
         importer = jsontools.import_json
     else:
@@ -41,6 +41,6 @@ def _get_importer(input_file):
     return importer
 
 
-def do_import(input_file, **kwargs):
+def import_results(input_file, **kwargs):
     """Imports the input file."""
     return _get_importer(input_file)(input_file, **kwargs)

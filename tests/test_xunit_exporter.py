@@ -11,7 +11,7 @@ import pytest
 from lxml import etree
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.importer import do_import
+from dump2polarion.results.importer import import_results
 from dump2polarion.utils import get_unicode_str
 from dump2polarion.xunit_exporter import ImportedData, XunitExport
 from tests import conf
@@ -20,13 +20,13 @@ from tests import conf
 @pytest.fixture(scope="module")
 def records_ids():
     csv_file = os.path.join(conf.DATA_PATH, "workitems_ids.csv")
-    return do_import(csv_file)
+    return import_results(csv_file)
 
 
 @pytest.fixture(scope="module")
 def records_names():
     csv_file = os.path.join(conf.DATA_PATH, "workitems_ids.csv")
-    records = do_import(csv_file)
+    records = import_results(csv_file)
     for res in records.results:
         res.pop("id")
     return records

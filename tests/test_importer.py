@@ -5,12 +5,12 @@ from __future__ import unicode_literals
 
 import pytest
 
-from dump2polarion.csvtools import import_csv
-from dump2polarion.dbtools import SQLITE_EXT, import_sqlite
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.importer import _get_importer
-from dump2polarion.junittools import import_junit
-from dump2polarion.ostriztools import import_ostriz
+from dump2polarion.results.csvtools import import_csv
+from dump2polarion.results.dbtools import SQLITE_EXT, import_sqlite
+from dump2polarion.results.importer import _get_importer
+from dump2polarion.results.junittools import import_junit
+from dump2polarion.results.ostriztools import import_ostriz
 
 
 class TestImporterFormats(object):

@@ -10,8 +10,8 @@ import shutil
 
 import pytest
 
-from dump2polarion import dbtools
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.results import dbtools
 from dump2polarion.xunit_exporter import XunitExport
 from tests import conf
 
