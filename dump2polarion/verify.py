@@ -51,15 +51,15 @@ class QueueSearch(object):
 
     def find_jobs(self, job_ids):
         """Finds the jobs in the completed job queue."""
+        matched_jobs = []
         if self.skip:
-            return None
+            return matched_jobs
 
         json_data = self.download_queue(job_ids)
         if not json_data:
-            return None
+            return matched_jobs
 
         jobs = json_data["jobs"]
-        matched_jobs = []
         for job in jobs:
             if (
                 job.get("id") in job_ids

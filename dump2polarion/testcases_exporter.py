@@ -151,9 +151,9 @@ class TestcaseExport(object):
         """Checks that selected lookup property can be used for this testcase."""
         if self._lookup_prop:
             if not testcase_id and self._lookup_prop != "name":
-                return None
+                return False
             if not testcase_title and self._lookup_prop == "name":
-                return None
+                return False
         else:
             if testcase_id:
                 self._lookup_prop = "id"
