@@ -1,5 +1,6 @@
 -e .
 
+isort
 mock
 pre-commit
 pytest
