@@ -69,6 +69,7 @@ class TestcaseExport(object):
         (
             ("automation_script", None),
             ("caseautomation", "automated"),
+            ("casecomponent", None),
             ("caseimportance", "high"),
             ("caselevel", "component"),
             ("caseposneg", "positive"),
