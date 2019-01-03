@@ -10,8 +10,8 @@ import os
 import sqlite3
 from collections import OrderedDict
 
-from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporters import xunit_exporter
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)

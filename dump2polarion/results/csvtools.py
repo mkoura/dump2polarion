@@ -10,8 +10,9 @@ import os
 import re
 from collections import OrderedDict
 
-from dump2polarion import csv_unicode, xunit_exporter
+from dump2polarion import csv_unicode
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporters import xunit_exporter
 
 
 def _get_csv_fieldnames(csv_reader):

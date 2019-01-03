@@ -11,9 +11,9 @@ import pytest
 from lxml import etree
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
+from dump2polarion.exporters.xunit_exporter import ImportedData, XunitExport
 from dump2polarion.results.importer import import_results
 from dump2polarion.utils import get_unicode_str
-from dump2polarion.xunit_exporter import ImportedData, XunitExport
 from tests import conf
 
 

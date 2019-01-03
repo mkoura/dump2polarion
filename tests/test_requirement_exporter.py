@@ -11,7 +11,7 @@ from collections import OrderedDict
 import pytest
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.requirements_exporter import RequirementExport
+from dump2polarion.exporters.requirements_exporter import RequirementExport
 from tests import conf
 
 REQ_DATA = [

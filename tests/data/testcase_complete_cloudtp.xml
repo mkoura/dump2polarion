@@ -7,7 +7,7 @@
   </properties>
   <testcase id="ITEM01" approver-ids="mkourim:approved" assignee-id="mkourim" due-date="2018-09-30" initial-estimate="1/4h">
     <title>test_manual</title>
-    <description>Manual tests with all supported fields.</description>
+    <description>Manual tests with many supported fields.</description>
     <test-steps>
       <test-step>
         <test-step-column id="step">step1</test-step-column>

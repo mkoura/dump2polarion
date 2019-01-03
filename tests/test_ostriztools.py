@@ -10,8 +10,8 @@ import pytest
 from mock import Mock, patch
 
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporters.xunit_exporter import XunitExport
 from dump2polarion.results import ostriztools
-from dump2polarion.xunit_exporter import XunitExport
 from tests import conf
 
 

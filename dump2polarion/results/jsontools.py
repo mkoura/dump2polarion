@@ -8,8 +8,8 @@ from __future__ import absolute_import, unicode_literals
 import io
 import json
 
-from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporters import xunit_exporter
 
 
 def _load_json(json_filename):

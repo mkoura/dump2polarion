@@ -11,8 +11,8 @@ from collections import OrderedDict
 import six
 from lxml import etree
 
-from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporters import xunit_exporter
 
 _PARAMETER_PREFIX = "polarion-parameter-"
 

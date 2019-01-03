@@ -9,8 +9,8 @@ import os
 
 import pytest
 
+from dump2polarion.exporters.xunit_exporter import XunitExport
 from dump2polarion.results.importer import import_results
-from dump2polarion.xunit_exporter import XunitExport
 from tests import conf
 
 

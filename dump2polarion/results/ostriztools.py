@@ -14,10 +14,10 @@ from collections import OrderedDict
 
 import requests
 import six
-from packaging.version import Version, InvalidVersion
+from packaging.version import InvalidVersion, Version
 
-from dump2polarion import xunit_exporter
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
+from dump2polarion.exporters import xunit_exporter
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)

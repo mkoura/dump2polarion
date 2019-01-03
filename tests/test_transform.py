@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 import pytest
 
-from dump2polarion import transform
+from dump2polarion.exporters import transform
 
 # format:
 # original record, expected record, parameter id

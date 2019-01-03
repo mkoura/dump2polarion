@@ -7,8 +7,8 @@ import os
 from mock import patch
 
 from dump2polarion import csv2sqlite_cli
+from dump2polarion.exporters.xunit_exporter import XunitExport
 from dump2polarion.results import dbtools
-from dump2polarion.xunit_exporter import XunitExport
 from tests import conf
 
 

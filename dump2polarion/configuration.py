@@ -75,7 +75,7 @@ def _populate_urls(config):
             config[key] = "{}/{}".format(base_url, url)
 
 
-def _set_project_id(config):
+def _set_legacy_project_id(config):
     if config.get("polarion-project-id"):
         return
 
@@ -87,9 +87,24 @@ def _set_project_id(config):
 
     config["polarion-project-id"] = xunit_project
     logger.warning(
-        'Loading the "polarion-project-id" from legacy configuration "xunit_import_properties"'
-        " instead of from top level"
+        'Loading the "polarion-project-id" from legacy configuration under'
+        " xunit_import_properties instead of from top level"
     )
+
+
+def _set_legacy_custom_fields(config):
+    if config.get("custom_fields"):
+        return
+
+    # use legacy configuration if available
+    custom_fields = config.get("docstrings") or {}
+    custom_fields = custom_fields.get("custom_fields")
+    if custom_fields:
+        config["custom_fields"] = custom_fields
+        logger.warning(
+            'Loading the "custom_fields" from legacy configuration under "docstrings"'
+            " instead of from top level"
+        )
 
 
 def _get_default_conf():
@@ -161,7 +176,8 @@ def get_config(config_file=None, config_values=None, load_project_conf=True):
     config_settings.update(config_values)
 
     _populate_urls(config_settings)
-    _set_project_id(config_settings)
+    _set_legacy_project_id(config_settings)
+    _set_legacy_custom_fields(config_settings)
     _check_config(config_settings)
 
     return config_settings

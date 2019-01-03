@@ -34,6 +34,20 @@ default_fields:
     title: ""
     work_item_id: ""
 
+custom_fields:
+    - caseautomation
+    - casecomponent
+    - caseimportance
+    - caselevel
+    - caseposneg
+    - setup
+    - subtype1
+    - subtype2
+    - tags
+    - teardown
+    - testtype
+    - upstream
+
 blacklisted_tests:
     - 'cfme/tests/containers/'
     - 'cfme/tests/openstack/'

@@ -10,8 +10,8 @@ from mock import patch
 
 from dump2polarion import dumper_cli
 from dump2polarion.exceptions import Dump2PolarionException
+from dump2polarion.exporters.transform import only_passed_and_wait
 from dump2polarion.results import dbtools
-from dump2polarion.transform import only_passed_and_wait
 from tests import conf
 
 

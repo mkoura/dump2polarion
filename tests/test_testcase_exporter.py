@@ -11,7 +11,7 @@ from collections import OrderedDict
 import pytest
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.testcases_exporter import TestcaseExport
+from dump2polarion.exporters.testcases_exporter import TestcaseExport
 from tests import conf
 
 REQ_DATA = [
@@ -19,7 +19,7 @@ REQ_DATA = [
         (
             ("id", "ITEM01"),
             ("title", "test_manual"),
-            ("description", "Manual tests with all supported fields."),
+            ("description", "Manual tests with many supported fields."),
             ("approver-ids", "mkourim:approved"),
             ("assignee-id", "mkourim"),
             ("due-date", "2018-09-30"),
@@ -39,6 +39,7 @@ REQ_DATA = [
             ("testSteps", ["step1", "step2"]),
             ("expectedResults", ["result1", "result2"]),
             ("linked-items", "ITEM01"),
+            ("unknown", "non-included"),
         )
     ),
     OrderedDict(
@@ -60,6 +61,14 @@ def config_cloudtp(config_prop):
     return cloudtp
 
 
+@pytest.fixture(scope="module")
+def config_with_fields(config_prop):
+    config_fields = copy.deepcopy(config_prop)
+    config_fields["default_fields"] = {"caseimportance": "medium", "startsin": "5.10"}
+    config_fields["custom_fields"] = ["caseimportance", "startsin", "testtype"]
+    return config_fields
+
+
 class TestTestcase(object):
     def test_export_cloudtp(self, config_cloudtp):
         testcase_exp = TestcaseExport(REQ_DATA, config_cloudtp)
@@ -73,6 +82,14 @@ class TestTestcase(object):
         testcase_exp = TestcaseExport(REQ_DATA, config_prop)
         complete = testcase_exp.export()
         fname = "testcase_complete_cfme.xml"
+        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+            parsed = input_xml.read()
+        assert complete == parsed
+
+    def test_export_fields_cfme(self, config_with_fields):
+        testcase_exp = TestcaseExport(REQ_DATA, config_with_fields)
+        complete = testcase_exp.export()
+        fname = "testcase_fields_cfme.xml"
         with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed

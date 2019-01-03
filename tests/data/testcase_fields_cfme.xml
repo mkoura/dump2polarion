@@ -17,13 +17,14 @@
       </test-step>
     </test-steps>
     <custom-fields>
-      <custom-field content="manualonly" id="caseautomation"/>
       <custom-field content="high" id="caseimportance"/>
+      <custom-field content="5.10" id="startsin"/>
+      <custom-field content="manualonly" id="caseautomation"/>
       <custom-field content="system" id="caselevel"/>
       <custom-field content="positive" id="caseposneg"/>
+      <custom-field content="functional" id="testtype"/>
       <custom-field content="-" id="subtype1"/>
       <custom-field content="-" id="subtype2"/>
-      <custom-field content="functional" id="testtype"/>
       <custom-field content="yes" id="upstream"/>
       <custom-field content="tag1, tag2" id="tags"/>
       <custom-field content="Do this first" id="setup"/>
@@ -43,8 +44,9 @@
       </test-step>
     </test-steps>
     <custom-fields>
+      <custom-field content="medium" id="caseimportance"/>
+      <custom-field content="5.10" id="startsin"/>
       <custom-field content="automated" id="caseautomation"/>
-      <custom-field content="high" id="caseimportance"/>
       <custom-field content="component" id="caselevel"/>
       <custom-field content="positive" id="caseposneg"/>
       <custom-field content="-" id="subtype1"/>
