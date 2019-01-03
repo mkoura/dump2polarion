@@ -5,7 +5,7 @@
     <property name="prop2" value="val2"/>
     <property name="lookup-method" value="id"/>
   </properties>
-  <testcase id="ITEM01" approver-ids="mkourim:approved" assignee-id="mkourim" due-date="2018-09-30" initial-estimate="1/4h">
+  <testcase approver-ids="mkourim:approved" assignee-id="mkourim" due-date="2018-09-30" id="ITEM01" initial-estimate="1/4h">
     <title>test_manual</title>
     <description>Manual tests with many supported fields.</description>
     <test-steps>
@@ -19,18 +19,18 @@
       </test-step>
     </test-steps>
     <custom-fields>
+      <custom-field content="https://foo/bar/baz/blob/master/file#L83" id="automation_script"/>
       <custom-field content="manualonly" id="caseautomation"/>
       <custom-field content="high" id="caseimportance"/>
       <custom-field content="2" id="caselevel"/>
       <custom-field content="positive" id="caseposneg"/>
+      <custom-field content="Do this first" id="setup"/>
       <custom-field content="-" id="subtype1"/>
       <custom-field content="-" id="subtype2"/>
+      <custom-field content="tag1, tag2" id="tags"/>
+      <custom-field content="Clean up" id="teardown"/>
       <custom-field content="functional" id="testtype"/>
       <custom-field content="yes" id="upstream"/>
-      <custom-field content="tag1, tag2" id="tags"/>
-      <custom-field content="Do this first" id="setup"/>
-      <custom-field content="Clean up" id="teardown"/>
-      <custom-field content="https://foo/bar/baz/blob/master/file#L83" id="automation_script"/>
     </custom-fields>
     <linked-work-items>
       <linked-work-item workitem-id="ITEM01" role-id="verifies"/>

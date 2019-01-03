@@ -58,41 +58,38 @@ logger = logging.getLogger(__name__)
 class TestcaseExport(object):
     """Exports testcases data into XML representation."""
 
-    TESTCASE_DATA = OrderedDict(
-        (
-            ("approver-ids", None),
-            ("assignee-id", None),
-            ("due-date", None),
-            ("id", None),
-            ("initial-estimate", None),
-        )
-    )
-    CUSTOM_FIELDS = OrderedDict(
-        (
-            ("arch", None),
-            ("automation_script", None),
-            ("caseautomation", "automated"),
-            ("casecomponent", None),
-            ("caseimportance", "high"),
-            ("caselevel", "component"),
-            ("caseposneg", "positive"),
-            ("customerscenario", None),
-            ("endsin", None),
-            ("legacytest", None),
-            ("multiproduct", None),
-            ("reqverify", None),
-            ("setup", None),
-            ("startsin", None),
-            ("subcomponent", None),
-            ("subtype1", "-"),
-            ("subtype2", "-"),
-            ("tags", None),
-            ("teardown", None),
-            ("testtier", None),
-            ("testtype", "functional"),
-            ("upstream", None),
-        )
-    )
+    TESTCASE_DATA = {
+        "approver-ids": None,
+        "assignee-id": None,
+        "due-date": None,
+        "id": None,
+        "initial-estimate": None,
+    }
+
+    CUSTOM_FIELDS = {
+        "arch": None,
+        "automation_script": None,
+        "caseautomation": "automated",
+        "casecomponent": None,
+        "caseimportance": "high",
+        "caselevel": "component",
+        "caseposneg": "positive",
+        "customerscenario": None,
+        "endsin": None,
+        "legacytest": None,
+        "multiproduct": None,
+        "reqverify": None,
+        "setup": None,
+        "startsin": None,
+        "subcomponent": None,
+        "subtype1": "-",
+        "subtype2": "-",
+        "tags": None,
+        "teardown": None,
+        "testtier": None,
+        "testtype": "functional",
+        "upstream": None,
+    }
 
     def __init__(self, testcases_data, config, transform_func=None):
         self.testcases_data = testcases_data
@@ -177,8 +174,7 @@ class TestcaseExport(object):
         return True
 
     def _classify_data(self, testcase_data):
-        attrs = OrderedDict()
-        custom_fields = OrderedDict()
+        attrs, custom_fields = {}, {}
 
         for key, value in six.iteritems(testcase_data):
             if not value:
@@ -314,6 +310,11 @@ class TestcaseExport(object):
 
         attrs, custom_fields = self._classify_data(testcase_data)
         attrs, custom_fields = self._fill_defaults(attrs, custom_fields)
+
+        # For testing purposes, the order of fields in resulting XML
+        # needs to be always the same.
+        attrs = OrderedDict(sorted(attrs.items()))
+        custom_fields = OrderedDict(sorted(custom_fields.items()))
 
         testcase = etree.SubElement(parent_element, "testcase", attrs)
 

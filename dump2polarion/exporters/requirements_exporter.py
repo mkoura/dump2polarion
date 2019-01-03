@@ -44,20 +44,19 @@ logger = logging.getLogger(__name__)
 class RequirementExport(object):
     """Exports requirements data into XML representation."""
 
-    REQ_DATA = OrderedDict(
-        (
-            ("approver-ids", None),
-            ("assignee-id", None),
-            ("category-ids", None),
-            ("due-date", None),
-            ("initial-estimate", None),
-            ("planned-in-ids", None),
-            ("priority-id", "high"),
-            ("severity-id", "should_have"),
-            ("status-id", None),
-        )
-    )
-    CUSTOM_FIELDS = OrderedDict((("reqtype", "functional"),))
+    REQ_DATA = {
+        "approver-ids": None,
+        "assignee-id": None,
+        "category-ids": None,
+        "due-date": None,
+        "initial-estimate": None,
+        "planned-in-ids": None,
+        "priority-id": "high",
+        "severity-id": "should_have",
+        "status-id": None,
+    }
+
+    CUSTOM_FIELDS = {"reqtype": "functional"}
 
     def __init__(self, requirements_data, config, transform_func=None):
         self.requirements_data = requirements_data
@@ -124,8 +123,7 @@ class RequirementExport(object):
         return True
 
     def _classify_data(self, req_data):
-        attrs = OrderedDict()
-        custom_fields = OrderedDict()
+        attrs, custom_fields = {}, {}
 
         for key, value in six.iteritems(req_data):
             if not value:
@@ -175,6 +173,11 @@ class RequirementExport(object):
 
         attrs, custom_fields = self._classify_data(req_data)
         attrs, custom_fields = self._fill_defaults(attrs, custom_fields)
+
+        # For testing purposes, the order of fields in resulting XML
+        # needs to be always the same.
+        attrs = OrderedDict(sorted(attrs.items()))
+        custom_fields = OrderedDict(sorted(custom_fields.items()))
 
         requirement = etree.SubElement(parent_element, "requirement", attrs)
 
