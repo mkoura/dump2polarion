@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-# pylint: disable=missing-docstring,no-self-use,too-few-public-methods,protected-access
+# pylint: disable=missing-docstring,no-self-use,protected-access
 
 
 from __future__ import unicode_literals

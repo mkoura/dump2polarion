@@ -15,7 +15,7 @@ def get_csv_reader(csvfile, dialect=csv.excel, encoding="utf-8", **kwds):
         return csv.reader(csvfile, dialect=dialect, **kwds)
 
 
-# pylint: disable=too-few-public-methods,non-iterator-returned
+# pylint: disable=non-iterator-returned
 class UTF8Recoder(object):
     """Iterator that reads an encoded stream and reencodes the input to UTF-8."""
 
@@ -30,7 +30,6 @@ class UTF8Recoder(object):
         return self.reader.next().encode("utf-8")
 
 
-# pylint: disable=too-few-public-methods
 class UnicodeReader(object):
     """A CSV reader which will iterate over lines in the CSV file.
 

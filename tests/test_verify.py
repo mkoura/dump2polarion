@@ -35,7 +35,6 @@ class DummyResponse(object):
         return self.response
 
 
-# pylint: disable=too-few-public-methods
 class DummySession(object):
     def __init__(self, get):
         self._get = get
