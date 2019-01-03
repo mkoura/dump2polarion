@@ -19,8 +19,6 @@ logger = logging.getLogger(__name__)
 class InvalidObject(object):
     """Item not present."""
 
-    pass
-
 
 class WorkItemCache(object):
     """Cache of Polarion workitems."""
@@ -109,7 +107,7 @@ class WorkItemCache(object):
     def __getitem__(self, work_item_id):
         if work_item_id in self._cache:
             return self._cache[work_item_id]
-        elif isinstance(self._cache[work_item_id], InvalidObject):
+        if isinstance(self._cache[work_item_id], InvalidObject):
             return None
 
         tree = self.get_tree(work_item_id)

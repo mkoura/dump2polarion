@@ -16,6 +16,7 @@ disable=
     fixme,
     too-few-public-methods,
     bad-continuation,
+    useless-object-inheritance,
 
 [MASTER]
 extension-pkg-whitelist=lxml
