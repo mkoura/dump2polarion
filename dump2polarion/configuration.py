@@ -141,6 +141,7 @@ def _get_project_conf():
         joined_dir = os.path.join(project_root, conf_dir) if conf_dir else project_root
         joined_glob = os.path.join(joined_dir, PROJECT_CONF)
         conf_files = glob.glob(joined_glob)
+        # config files found, not trying other directories
         if conf_files:
             break
     else:
@@ -151,7 +152,7 @@ def _get_project_conf():
             with io.open(conf_file, encoding="utf-8") as input_file:
                 loaded_settings = yaml.load(input_file)
         except EnvironmentError:
-            pass
+            logger.warning("Failed to load config from %s", conf_file)
         else:
             logger.info("Config loaded from %s", conf_file)
             config_settings.update(loaded_settings)
