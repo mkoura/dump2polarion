@@ -44,8 +44,8 @@ def init_log(log_level):
 
 
 def _get_filename(output_loc=None, filename=None):
-    filename = filename or "output-{}-{:%Y%m%d%H%M%S}.xml".format(
-        "".join(random.sample(string.ascii_lowercase, 5)), datetime.datetime.now()
+    filename = filename or "output-{:%Y%m%d%H%M%S}-{}.xml".format(
+        datetime.datetime.now(), "".join(random.sample(string.ascii_lowercase, 5))
     )
     if output_loc:
         filename_fin = os.path.expanduser(output_loc)
