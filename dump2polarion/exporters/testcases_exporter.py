@@ -159,19 +159,39 @@ class TestcaseExport(object):
             testcases_properties, "property", {"name": "lookup-method", "value": self._lookup_prop}
         )
 
-    def _check_lookup_prop(self, testcase_id, testcase_title):
-        """Checks that selected lookup property can be used for this testcase."""
+    def _set_lookup_prop(self, testcase_data):
+        """Set lookup property based on processed testcases if not configured."""
         if self._lookup_prop:
-            if not testcase_id and self._lookup_prop != "name":
-                return False
-            if not testcase_title and self._lookup_prop == "name":
-                return False
+            return
+
+        if testcase_data.get("id"):
+            self._lookup_prop = "id"
+        elif testcase_data.get("title"):
+            self._lookup_prop = "name"
         else:
-            if testcase_id:
-                self._lookup_prop = "id"
-            elif testcase_title:
-                self._lookup_prop = "name"
+            return
+
+        logger.debug("Setting lookup method for testcases to `%s`", self._lookup_prop)
+
+    def _check_lookup_prop(self, testcase_data):
+        """Checks that selected lookup property can be used for this testcase."""
+        if not self._lookup_prop:
+            return False
+
+        if not testcase_data.get("id") and self._lookup_prop != "name":
+            return False
+        if not testcase_data.get("title") and self._lookup_prop == "name":
+            return False
         return True
+
+    def _get_testcase_id(self, testcase_data):
+        """Returns testcase id when possible."""
+        testcase_id = testcase_data.get("id")
+        if testcase_id:
+            return testcase_id
+        if self._lookup_prop != "name":
+            return None
+        return testcase_data.get("title")
 
     def _classify_data(self, testcase_data):
         attrs, custom_fields = {}, {}
@@ -298,15 +318,18 @@ class TestcaseExport(object):
         if not testcase_data:
             return
 
-        testcase_id = testcase_data.get("id")
         testcase_title = testcase_data.get("title")
 
-        if not self._check_lookup_prop(testcase_id, testcase_title):
+        self._set_lookup_prop(testcase_data)
+        if not self._check_lookup_prop(testcase_data):
             logger.warning(
                 "Skipping testcase `%s`, data missing for selected lookup method",
-                testcase_id or testcase_title,
+                testcase_data.get("id") or testcase_title,
             )
             return
+
+        # make sure that ID is set even for "name" lookup method
+        testcase_data["id"] = self._get_testcase_id(testcase_data)
 
         attrs, custom_fields = self._classify_data(testcase_data)
         attrs, custom_fields = self._fill_defaults(attrs, custom_fields)

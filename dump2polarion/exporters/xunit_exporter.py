@@ -158,18 +158,29 @@ class XunitExport(object):
             return None
         return verdict
 
-    def _check_lookup_prop(self, testcase_id, testcase_title):
-        """Checks that selected lookup property can be used for this testcase."""
+    def _set_lookup_prop(self, result_data):
+        """Set lookup property based on processed testcases if not configured."""
         if self._lookup_prop:
-            if not testcase_id and self._lookup_prop != "name":
-                return False
-            if not testcase_title and self._lookup_prop == "name":
-                return False
+            return
+
+        if result_data.get("id"):
+            self._lookup_prop = "id"
+        elif result_data.get("title"):
+            self._lookup_prop = "name"
         else:
-            if testcase_id:
-                self._lookup_prop = "id"
-            elif testcase_title:
-                self._lookup_prop = "name"
+            return
+
+        logger.debug("Setting lookup method for xunit to `%s`", self._lookup_prop)
+
+    def _check_lookup_prop(self, result_data):
+        """Checks that selected lookup property can be used for this testcase."""
+        if not self._lookup_prop:
+            return False
+
+        if not result_data.get("id") and self._lookup_prop != "name":
+            return False
+        if not result_data.get("title") and self._lookup_prop == "name":
+            return False
         return True
 
     @staticmethod
@@ -238,7 +249,8 @@ class XunitExport(object):
         testcase_id = result.get("id")
         testcase_title = result.get("title")
 
-        if not self._check_lookup_prop(testcase_id, testcase_title):
+        self._set_lookup_prop(result)
+        if not self._check_lookup_prop(result):
             logger.warning(
                 "Skipping testcase `%s`, data missing for selected lookup method",
                 testcase_id or testcase_title,
