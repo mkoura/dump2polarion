@@ -18,7 +18,9 @@ _NOT_EXPECTED_FORMAT_MSG = "XML file is not in expected format"
 
 def _set_property(xml_root, name, value, properties=None):
     """Sets property to specified value."""
-    properties = properties or xml_root.find("properties")
+    if properties is None:
+        properties = xml_root.find("properties")
+
     for prop in properties:
         if prop.get("name") == name:
             prop.set("value", utils.get_unicode_str(value))
