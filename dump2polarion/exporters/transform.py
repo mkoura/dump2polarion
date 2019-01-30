@@ -10,11 +10,16 @@ from __future__ import absolute_import, unicode_literals
 
 import copy
 import hashlib
+import logging
+import os
 import re
 
 from docutils.core import publish_parts
 
 from dump2polarion.exporters.verdicts import Verdicts
+
+# pylint: disable=invalid-name
+logger = logging.getLogger(__name__)
 
 TEST_PARAM_RE = re.compile(r"\[.*\]")
 
@@ -96,12 +101,16 @@ def get_testcase_id(testcase, append_str):
     '5acc5dc795a620c6b4491b681e5da39c'
     >>> get_testcase_id({"title": "TestClass.test_name", "id": "TestClass.test_name"}, "vmaas_")
     '5acc5dc795a620c6b4491b681e5da39c'
-    >>> str(get_testcase_id({"title": "TestClass.test_name", "id": "test"}, "vmaas_"))
-    'test'
+    >>> get_testcase_id({"title": "TestClass.test_name", "id": "test_name"}, "vmaas_")
+    '5acc5dc795a620c6b4491b681e5da39c'
+    >>> get_testcase_id({"title": "some title", "id": "TestClass.test_name"}, "vmaas_")
+    '2ea7695b73763331f8a0c4aec75362b8'
+    >>> str(get_testcase_id({"title": "some title", "id": "some_id"}, "vmaas_"))
+    'some_id'
     """
     testcase_title = testcase.get("title")
     testcase_id = testcase.get("id")
-    if not testcase_id or testcase_title in testcase_id:
+    if not testcase_id or testcase_id.lower().startswith("test"):
         testcase_id = gen_unique_id("{}{}".format(append_str, testcase_title))
     return testcase_id
 
@@ -125,13 +134,50 @@ def set_cfme_caselevel(testcase, caselevels):
 
 
 def parse_rst_description(testcase):
-    """Creates an HTML version of the description."""
-    description = testcase["description"]
+    """Creates an HTML version of the RST formatted description."""
+    description = testcase.get("description")
 
     if not description:
         return
 
-    testcase["description"] = publish_parts(description, writer_name="html")["html_body"]
+    try:
+        with open(os.devnull, "w") as devnull:
+            testcase["description"] = publish_parts(
+                description,
+                writer_name="html",
+                settings_overrides={"report_level": 2, "halt_level": 2, "warning_stream": devnull},
+            )["html_body"]
+    # pylint: disable=broad-except
+    except Exception as exp:
+        testcase_id = testcase.get("nodeid") or testcase.get("id") or testcase.get("title")
+        logger.error("%s: description: %s", str(exp), testcase_id)
+
+
+def preformat_plain_description(testcase):
+    """Creates a preformatted HTML version of the description."""
+    description = testcase.get("description")
+
+    if not description:
+        return
+
+    # naive approach to removing indent from pytest docstrings
+    nodeid = testcase.get("nodeid") or ""
+    indent = None
+    if "::Test" in nodeid:
+        indent = 8 * " "
+    elif "::test_" in nodeid:
+        indent = 4 * " "
+
+    if indent:
+        orig_lines = description.split("\n")
+        new_lines = []
+        for line in orig_lines:
+            if line.startswith(indent):
+                line = line.replace(indent, "", 1)
+            new_lines.append(line)
+        description = "\n".join(new_lines)
+
+    testcase["description"] = "<pre>\n{}\n</pre>".format(description)
 
 
 def add_unique_runid(testcase, run_id=None):
@@ -268,6 +314,7 @@ def get_testcases_transform_cfme(config):
 
         setup_parametrization(testcase, parametrize)
         set_cfme_caselevel(testcase, caselevels)
+        preformat_plain_description(testcase)
         add_unique_runid(testcase, run_id)
         add_automation_link(testcase)
 

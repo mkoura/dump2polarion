@@ -118,11 +118,11 @@ class TestcaseExport(object):
                 "(" + ")|(".join(self.config.get("blacklisted_tests")) + ")"
             )
 
-    def _transform_result(self, result):
-        """Calls transform function on result."""
+    def _transform_testcase(self, testcase_data):
+        """Calls transform function on testcase data."""
         if self._transform_func:
-            result = self._transform_func(result)
-        return result or None
+            testcase_data = self._transform_func(testcase_data)
+        return testcase_data or None
 
     def _top_element(self):
         """Returns top XML element."""
@@ -314,7 +314,7 @@ class TestcaseExport(object):
             return
         testcase_data = self._fill_project_defaults(testcase_data)
         self._fill_automation_repo(testcase_data)
-        testcase_data = self._transform_result(testcase_data)
+        testcase_data = self._transform_testcase(testcase_data)
         if not testcase_data:
             return
 
