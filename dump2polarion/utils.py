@@ -24,6 +24,8 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
 
+NO_BLANKS_PARSER = etree.XMLParser(remove_blank_text=True)
+
 
 def get_unicode_str(obj):
     """Makes sure obj is a unicode string."""
@@ -102,8 +104,7 @@ def write_xml_root(xml_root, output_loc=None, filename=None):
 def get_xml_root(xml_file):
     """Returns XML root."""
     try:
-        xml_tree = etree.parse(os.path.expanduser(xml_file))
-        xml_root = xml_tree.getroot()
+        xml_root = etree.parse(os.path.expanduser(xml_file), NO_BLANKS_PARSER).getroot()
     # pylint: disable=broad-except
     except Exception as err:
         raise Dump2PolarionException("Failed to parse XML file '{}': {}".format(xml_file, err))
@@ -113,7 +114,7 @@ def get_xml_root(xml_file):
 def get_xml_root_from_str(xml_str):
     """Returns XML root from string."""
     try:
-        xml_root = etree.fromstring(xml_str.encode("utf-8"))
+        xml_root = etree.fromstring(xml_str.encode("utf-8"), NO_BLANKS_PARSER)
     # pylint: disable=broad-except
     except Exception as err:
         raise Dump2PolarionException("Failed to parse XML string: {}".format(err))

@@ -75,7 +75,7 @@ class TestProperties(object):
         assert value == "test"
         assert '<response-property name="test" value="test"' in filled
         # make sure response properties are on top
-        assert '<testcases project-id="RHCF3">\n  <response-properties>' in filled
+        assert '<testcases project-id="RHCF3"><response-properties>' in filled
 
     def test_fill_custom_testsuites_response(self):
         fname = "complete_transform_noresponse.xml"

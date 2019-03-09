@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Dump testcases results from a CSV, SQLite, junit or Ostriz input file to XUnit file.
+Dump testcases results from a CSV, SQLite, junit, JSON or Ostriz input file to XUnit file.
 Submit XUnit, Testcases or Requirements XML to the Polarion Importers.
 """
 
