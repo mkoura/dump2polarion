@@ -4,7 +4,12 @@ python:
     - "3.4"
     - "3.5"
     - "3.6"
-    - "3.7"
+# Enable 3.7 without globally enabling sudo and dist: xenial for other build jobs
+matrix:
+  include:
+    - python: 3.7
+      dist: xenial
+      sudo: true
 install:
     - pip install tox-travis coveralls
 script:
@@ -20,4 +25,4 @@ deploy:
     on:
         tags: true
         branch: master
-        condition: $TRAVIS_PYTHON_VERSION = "3.7"
+        condition: $TRAVIS_PYTHON_VERSION = "3.6"
