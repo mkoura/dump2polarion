@@ -3,6 +3,7 @@
 isort
 mock
 pre-commit
+pylint
 pytest
 pytest-cov
 tox
