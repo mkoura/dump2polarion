@@ -48,7 +48,7 @@ from lxml import etree
 
 from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.exporters import transform
+from dump2polarion.exporters import transform_projects
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
@@ -95,7 +95,7 @@ class TestcaseExport(object):
         self.testcases_data = testcases_data
         self.config = config
         self._lookup_prop = ""
-        self._transform_func = transform_func or transform.get_testcases_transform(config)
+        self._transform_func = transform_func or transform_projects.get_testcases_transform(config)
 
         default_fields = self.config.get("default_fields") or {}
         default_fields = [

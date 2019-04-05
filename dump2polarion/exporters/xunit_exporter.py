@@ -29,7 +29,7 @@ from lxml import etree
 
 from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.exporters import transform
+from dump2polarion.exporters import transform_projects
 from dump2polarion.exporters.verdicts import Verdicts
 
 ImportedData = namedtuple("ImportedData", "results testrun")
@@ -46,7 +46,7 @@ class XunitExport(object):
         self.tests_records = tests_records
         self.config = config
         self._lookup_prop = ""
-        self._transform_func = transform_func or transform.get_xunit_transform(config)
+        self._transform_func = transform_func or transform_projects.get_xunit_transform(config)
 
     def _top_element(self):
         """Returns top XML element."""

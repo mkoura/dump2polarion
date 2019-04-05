@@ -35,7 +35,7 @@ from lxml import etree
 
 from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
-from dump2polarion.exporters import transform
+from dump2polarion.exporters import transform_projects
 
 # pylint: disable=invalid-name
 logger = logging.getLogger(__name__)
@@ -62,7 +62,9 @@ class RequirementExport(object):
         self.requirements_data = requirements_data
         self.config = config
         self._lookup_prop = ""
-        self._transform_func = transform_func or transform.get_requirements_transform(config)
+        self._transform_func = transform_func or transform_projects.get_requirements_transform(
+            config
+        )
 
     def _transform_result(self, result):
         """Calls transform function on result."""

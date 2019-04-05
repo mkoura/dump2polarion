@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 
 import pytest
 
-from dump2polarion.exporters import transform
+from dump2polarion.exporters import transform_projects
 
 # format:
 # original record, expected record, parameter id
@@ -118,12 +118,12 @@ class TestTransform(object):
 
     @pytest.mark.parametrize("data", RHCF3_DATA, ids=[d[2] for d in RHCF3_DATA])
     def test_transform_rhcf3(self, config_rhcf3, data):
-        tfunc = transform.get_xunit_transform(config_rhcf3)
+        tfunc = transform_projects.get_xunit_transform(config_rhcf3)
         result = tfunc(data[0])
         assert result == data[1]
 
     @pytest.mark.parametrize("data", CMP_DATA, ids=[d[2] for d in CMP_DATA])
     def test_transform_cmp(self, config_cmp, data):
-        tfunc = transform.get_xunit_transform(config_cmp)
+        tfunc = transform_projects.get_xunit_transform(config_cmp)
         result = tfunc(data[0])
         assert result == data[1]
