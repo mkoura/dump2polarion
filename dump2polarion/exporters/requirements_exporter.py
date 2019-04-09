@@ -128,12 +128,13 @@ class RequirementExport(object):
         attrs, custom_fields = {}, {}
 
         for key, value in six.iteritems(req_data):
+            conv_key = key.replace('_', '-')  # convert pythonic key_param to polarion 'key-param'
             if not value:
                 continue
-            if key in self.REQ_DATA:
-                attrs[key] = value
-            elif key in self.CUSTOM_FIELDS:
-                custom_fields[key] = value
+            if conv_key in self.REQ_DATA:
+                attrs[conv_key] = value
+            elif conv_key in self.CUSTOM_FIELDS:
+                custom_fields[conv_key] = value
 
         return attrs, custom_fields
 
