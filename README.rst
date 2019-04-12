@@ -9,6 +9,14 @@ dump2polarion
     :target: https://coveralls.io/github/mkoura/dump2polarion?branch=master
     :alt: coverage report
 
+.. image:: https://img.shields.io/pypi/v/dump2polarion.svg
+    :target: https://pypi.python.org/pypi/dump2polarion
+    :alt: Version
+
+.. image:: https://img.shields.io/pypi/pyversions/dump2polarion.svg
+    :target: https://pypi.python.org/pypi/dump2polarion
+    :alt: Supported Python Versions
+
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/ambv/black
     :alt: Code style: black
