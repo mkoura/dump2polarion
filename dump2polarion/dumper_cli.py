@@ -12,6 +12,8 @@ import io
 import logging
 import os
 
+from box import Box
+
 import dump2polarion
 from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
@@ -70,7 +72,19 @@ def get_submit_args(args):
         log_file=args.job_log,
         dry_run=args.dry_run,
     )
-    return {k: v for k, v in submit_args.items() if v is not None}
+    submit_args = {k: v for k, v in submit_args.items() if v is not None}
+    return Box(submit_args, frozen_box=True, default_box=True)
+
+
+def process_args(args):
+    """Processes passed arguments."""
+    passed_args = args
+    if isinstance(args, argparse.Namespace):
+        passed_args = vars(passed_args)
+    elif hasattr(args, "to_dict"):
+        passed_args = passed_args.to_dict()
+
+    return Box(passed_args, frozen_box=True, default_box=True)
 
 
 def get_testrun_id(args, config, records_testrun_id):
@@ -135,6 +149,7 @@ def _get_config(args):
 
 def dumper(args, config, transform_func=None):
     """Dumper main function."""
+    args = process_args(args)
     submit_args = get_submit_args(args)
 
     submit_outcome = submit_if_ready(args, submit_args, config)
