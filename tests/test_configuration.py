@@ -18,10 +18,15 @@ class TestConfiguration(object):
             configuration.get_config("nonexistant")
         assert "Cannot open config file nonexistant" in str(excinfo.value)
 
-    def test_default(self):
+    def test_default_w_project(self):
         with pytest.raises(Dump2PolarionException) as excinfo:
             configuration.get_config()
-        assert 'The "polarion-project-id" key is missing' in str(excinfo.value)
+        assert "Failed to find configuration file" in str(excinfo.value)
+
+    def test_default_no_project(self):
+        with pytest.raises(Dump2PolarionException) as excinfo:
+            configuration.get_config(load_project_conf=False)
+        assert "No configuration file or values passed" in str(excinfo.value)
 
     def test_keys_missing(self):
         project_id = {"polarion-project-id": "RHCF3"}

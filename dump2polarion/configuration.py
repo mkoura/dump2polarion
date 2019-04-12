@@ -109,7 +109,7 @@ def _set_legacy_custom_fields(config):
 
 def _get_default_conf():
     with io.open(DEFAULT_CONF, encoding="utf-8") as input_file:
-        config_settings = yaml.load(input_file)
+        config_settings = yaml.safe_load(input_file)
 
     logger.debug("Default config loaded from %s", DEFAULT_CONF)
 
@@ -119,7 +119,7 @@ def _get_default_conf():
 def _get_user_conf(config_file):
     try:
         with io.open(os.path.expanduser(config_file), encoding="utf-8") as input_file:
-            config_settings = yaml.load(input_file)
+            config_settings = yaml.safe_load(input_file)
     except EnvironmentError:
         raise Dump2PolarionException("Cannot open config file {}".format(config_file))
 
@@ -150,7 +150,7 @@ def _get_project_conf():
     for conf_file in conf_files:
         try:
             with io.open(conf_file, encoding="utf-8") as input_file:
-                loaded_settings = yaml.load(input_file)
+                loaded_settings = yaml.safe_load(input_file)
         except EnvironmentError:
             logger.warning("Failed to load config from %s", conf_file)
         else:
@@ -169,6 +169,14 @@ def get_config(config_file=None, config_values=None, load_project_conf=True):
     user_conf = _get_user_conf(config_file) if config_file else {}
     # load project configuration only when user configuration was not specified
     project_conf = {} if user_conf or not load_project_conf else _get_project_conf()
+
+    if not (user_conf or project_conf or config_values):
+        if load_project_conf:
+            raise Dump2PolarionException(
+                "Failed to find configuration file for the project "
+                "and no configuration file or values passed."
+            )
+        raise Dump2PolarionException("No configuration file or values passed.")
 
     # merge configuration
     config_settings.update(default_conf)

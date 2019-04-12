@@ -203,7 +203,7 @@ class TestDumperCLIE2E(object):
         with patch("dump2polarion.submit_and_verify", return_value=True):
             retval = dumper_cli.main(args)
         assert retval == 1
-        assert 'The "polarion-project-id" key is missing' in captured_log.getvalue()
+        assert "Failed to find configuration file" in captured_log.getvalue()
 
     def test_main_noconfig(self, captured_log):
         input_file = os.path.join(conf.DATA_PATH, "noreport.csv")
