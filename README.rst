@@ -3,11 +3,11 @@ dump2polarion
 
 .. image:: https://travis-ci.org/mkoura/dump2polarion.svg?branch=master
     :target: https://travis-ci.org/mkoura/dump2polarion
-    :alt: build status
+    :alt: Build status
 
 .. image:: https://coveralls.io/repos/github/mkoura/dump2polarion/badge.svg?branch=master
     :target: https://coveralls.io/github/mkoura/dump2polarion?branch=master
-    :alt: coverage report
+    :alt: Coverage report
 
 .. image:: https://img.shields.io/pypi/v/dump2polarion.svg
     :target: https://pypi.python.org/pypi/dump2polarion
@@ -15,7 +15,7 @@ dump2polarion
 
 .. image:: https://img.shields.io/pypi/pyversions/dump2polarion.svg
     :target: https://pypi.python.org/pypi/dump2polarion
-    :alt: Supported Python Versions
+    :alt: Supported Python versions
 
 .. image:: https://img.shields.io/badge/code%20style-black-000000.svg
     :target: https://github.com/ambv/black
