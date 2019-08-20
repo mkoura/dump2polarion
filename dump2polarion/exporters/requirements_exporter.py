@@ -28,7 +28,6 @@ from __future__ import absolute_import, unicode_literals
 
 import datetime
 import logging
-from collections import OrderedDict
 
 import six
 from lxml import etree
@@ -78,7 +77,7 @@ class RequirementExport(object):
         document_relative_path = self.config.get("requirements-document-relative-path")
         if document_relative_path:
             attrs["document-relative-path"] = document_relative_path
-        top = etree.Element("requirements", attrs)
+        top = etree.Element("requirements", utils.sorted_dict(attrs))
         return top
 
     def _properties_element(self, parent_element):
@@ -154,7 +153,11 @@ class RequirementExport(object):
 
         custom_fields_el = etree.SubElement(parent, "custom-fields")
         for field, content in six.iteritems(custom_fields):
-            etree.SubElement(custom_fields_el, "custom-field", {"id": field, "content": content})
+            etree.SubElement(
+                custom_fields_el,
+                "custom-field",
+                utils.sorted_dict({"id": field, "content": content}),
+            )
 
     def _requirement_element(self, parent_element, req_data):
         """Adds requirement XML element."""
@@ -179,8 +182,8 @@ class RequirementExport(object):
 
         # For testing purposes, the order of fields in resulting XML
         # needs to be always the same.
-        attrs = OrderedDict(sorted(attrs.items()))
-        custom_fields = OrderedDict(sorted(custom_fields.items()))
+        attrs = utils.sorted_dict(attrs)
+        custom_fields = utils.sorted_dict(custom_fields)
 
         requirement = etree.SubElement(parent_element, "requirement", attrs)
 

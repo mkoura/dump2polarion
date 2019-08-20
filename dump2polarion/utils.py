@@ -11,6 +11,7 @@ import logging
 import os
 import random
 import string
+from collections import OrderedDict
 
 import requests
 import six
@@ -172,3 +173,8 @@ def get_testrun_id_config(config):
     """Gets testrun ID defined in config file."""
     config_testrun_id = config.get("xunit_import_properties") or {}
     return config_testrun_id.get("polarion-testrun-id")
+
+
+def sorted_dict(dictionary):
+    """Returns sorted dictionary."""
+    return OrderedDict(sorted(dictionary.items()))

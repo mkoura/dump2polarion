@@ -278,7 +278,7 @@ class TestcaseExport(object):
             etree.SubElement(
                 custom_fields_el,
                 "custom-field",
-                {"id": field, "content": utils.get_unicode_str(content)},
+                utils.sorted_dict({"id": field, "content": utils.get_unicode_str(content)}),
             )
 
     def _fill_project_defaults(self, testcase_data):
@@ -336,8 +336,8 @@ class TestcaseExport(object):
 
         # For testing purposes, the order of fields in resulting XML
         # needs to be always the same.
-        attrs = OrderedDict(sorted(attrs.items()))
-        custom_fields = OrderedDict(sorted(custom_fields.items()))
+        attrs = utils.sorted_dict(attrs)
+        custom_fields = utils.sorted_dict(custom_fields)
 
         testcase = etree.SubElement(parent_element, "testcase", attrs)
 

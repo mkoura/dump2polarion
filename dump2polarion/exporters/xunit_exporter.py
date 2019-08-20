@@ -125,21 +125,21 @@ class XunitExport(object):
             verdict_data = {"type": "failure"}
             if result.get("comment"):
                 verdict_data["message"] = utils.get_unicode_str(result["comment"])
-            etree.SubElement(testcase, "failure", verdict_data)
+            etree.SubElement(testcase, "failure", utils.sorted_dict(verdict_data))
         # XUnit Error maps to Blocked in Polarion
         elif verdict in Verdicts.SKIP:
             records["skipped"] += 1
             verdict_data = {"type": "error"}
             if result.get("comment"):
                 verdict_data["message"] = utils.get_unicode_str(result["comment"])
-            etree.SubElement(testcase, "error", verdict_data)
+            etree.SubElement(testcase, "error", utils.sorted_dict(verdict_data))
         # XUnit Skipped maps to Waiting in Polarion
         elif verdict in Verdicts.WAIT:
             records["waiting"] += 1
             verdict_data = {"type": "skipped"}
             if result.get("comment"):
                 verdict_data["message"] = utils.get_unicode_str(result["comment"])
-            etree.SubElement(testcase, "skipped", verdict_data)
+            etree.SubElement(testcase, "skipped", utils.sorted_dict(verdict_data))
 
     def _transform_result(self, result):
         """Calls transform function on result."""
@@ -192,7 +192,7 @@ class XunitExport(object):
         testcase_data = {"name": testcase_title or testcase_id, "time": str(testcase_time)}
         if result.get("classname"):
             testcase_data["classname"] = result["classname"]
-        testcase = etree.SubElement(parent_element, "testcase", testcase_data)
+        testcase = etree.SubElement(parent_element, "testcase", utils.sorted_dict(testcase_data))
         return testcase
 
     @staticmethod
