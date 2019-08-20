@@ -69,16 +69,16 @@ class QueueSearch(object):
 
         return matched_jobs
 
-    # pylint:disable=inconsistent-return-statements
     def wait_for_jobs(self, job_ids, timeout, delay):
         """Waits until the jobs appears in the completed job queue."""
+        found_jobs = []
+
         if self.skip:
-            return
+            return found_jobs
 
         logger.debug("Waiting up to %d sec for completion of the job IDs %s", timeout, job_ids)
 
         remaining_job_ids = set(job_ids)
-        found_jobs = []
 
         countdown = timeout
         while countdown > 0:
@@ -92,7 +92,7 @@ class QueueSearch(object):
             countdown -= delay
 
         logger.error(
-            "Timed out while waiting for completion of the job IDs %s. Results not updated.",
+            "Timed out while waiting for completion of the job IDs %s. Results not updated (yet).",
             list(remaining_job_ids),
         )
 
