@@ -40,8 +40,8 @@ from dump2polarion.exporters import transform_projects
 logger = logging.getLogger(__name__)
 
 
-class RequirementExport(object):
-    """Exports requirements data into XML representation."""
+class RequirementTransform(object):
+    """Transforms requirement data and fills in default keys and values."""
 
     REQ_DATA = {
         "approver-ids": None,
@@ -57,19 +57,48 @@ class RequirementExport(object):
 
     CUSTOM_FIELDS = {"reqtype": "functional"}
 
-    def __init__(self, requirements_data, config, transform_func=None):
-        self.requirements_data = requirements_data
+    def __init__(self, config, transform_func=None):
         self.config = config
-        self._lookup_prop = ""
         self._transform_func = transform_func or transform_projects.get_requirements_transform(
             config
         )
 
-    def _transform_result(self, result):
+    def _run_transform_func(self, result):
         """Calls transform function on result."""
         if self._transform_func:
             result = self._transform_func(result)
         return result or None
+
+    def _fill_defaults(self, req_data):
+        for defaults in self.REQ_DATA, self.CUSTOM_FIELDS:
+            for key, value in six.iteritems(defaults):
+                if value and not req_data.get(key):
+                    req_data[key] = value
+        return req_data
+
+    def transform(self, req_data):
+        """Transforms requirement data."""
+        req_data = self._run_transform_func(req_data)
+        if not req_data:
+            return None
+
+        title = req_data.get("title")
+        if not title:
+            logger.warning("Skipping requirement, title is missing")
+            return None
+
+        req_data = self._fill_defaults(req_data)
+        return req_data
+
+
+class RequirementExport(object):
+    """Exports requirements data into XML representation."""
+
+    def __init__(self, requirements_data, config, transform_func=None):
+        self.requirements_data = requirements_data
+        self.config = config
+        self._lookup_prop = ""
+        self.requirement_transform = RequirementTransform(config, transform_func)
 
     def _top_element(self):
         """Returns top XML element."""
@@ -130,20 +159,11 @@ class RequirementExport(object):
             if not value:
                 continue
             conv_key = key.replace("_", "-")  # convert pythonic key_param to polarion 'key-param'
-            if conv_key in self.REQ_DATA:
+            if conv_key in self.requirement_transform.REQ_DATA:
                 attrs[conv_key] = value
-            elif conv_key in self.CUSTOM_FIELDS:
+            elif conv_key in self.requirement_transform.CUSTOM_FIELDS:
                 custom_fields[conv_key] = value
 
-        return attrs, custom_fields
-
-    def _fill_defaults(self, attrs, custom_fields):
-        for key, value in six.iteritems(self.REQ_DATA):
-            if value and not attrs.get(key):
-                attrs[key] = value
-        for key, value in six.iteritems(self.CUSTOM_FIELDS):
-            if value and not custom_fields.get(key):
-                custom_fields[key] = value
         return attrs, custom_fields
 
     @staticmethod
@@ -161,16 +181,13 @@ class RequirementExport(object):
 
     def _requirement_element(self, parent_element, req_data):
         """Adds requirement XML element."""
-        req_data = self._transform_result(req_data)
+        req_data = self.requirement_transform.transform(req_data)
         if not req_data:
             return
 
         title = req_data.get("title")
-        if not title:
-            logger.warning("Skipping requirement, title is missing")
-            return
-        req_id = req_data.get("id")
 
+        req_id = req_data.get("id")
         if not self._check_lookup_prop(req_id):
             logger.warning(
                 "Skipping requirement `%s`, data missing for selected lookup method", title
@@ -178,7 +195,6 @@ class RequirementExport(object):
             return
 
         attrs, custom_fields = self._classify_data(req_data)
-        attrs, custom_fields = self._fill_defaults(attrs, custom_fields)
 
         # For testing purposes, the order of fields in resulting XML
         # needs to be always the same.
