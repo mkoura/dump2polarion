@@ -41,7 +41,6 @@ from __future__ import absolute_import, unicode_literals
 import datetime
 import logging
 import re
-from collections import OrderedDict
 
 import six
 from lxml import etree
@@ -54,9 +53,8 @@ from dump2polarion.exporters import transform_projects
 logger = logging.getLogger(__name__)
 
 
-# pylint: disable=too-many-instance-attributes
-class TestcaseExport(object):
-    """Exports testcases data into XML representation."""
+class TestcaseTransform(object):
+    """Transforms testcase data and fills in default keys and values."""
 
     TESTCASE_DATA = {
         "approver-ids": None,
@@ -91,20 +89,66 @@ class TestcaseExport(object):
         "upstream": None,
     }
 
+    def __init__(self, config, transform_func=None):
+        self.config = config
+        self._transform_func = transform_func or transform_projects.get_testcases_transform(config)
+
+        default_fields = self.config.get("default_fields") or {}
+        default_fields = {k: utils.get_unicode_str(v) for k, v in default_fields.items() if v}
+        self.default_fields = utils.sorted_dict(default_fields)
+
+    def _fill_project_defaults(self, testcase_data):
+        filled = self.default_fields.copy()
+        filled.update(testcase_data)
+        return filled
+
+    def _fill_automation_repo(self, testcase_data):
+        repo_address = self.config.get("repo_address")
+        automation_script = testcase_data.get("automation_script")
+        if not (repo_address and automation_script):
+            return testcase_data
+
+        # the master here should probably link the latest "commit" eventually
+        testcase_data["automation_script"] = "{}/blob/master/{}".format(
+            repo_address, automation_script
+        )
+        return testcase_data
+
+    def _run_transform_func(self, testcase_data):
+        """Calls transform function on testcase data."""
+        if self._transform_func:
+            testcase_data = self._transform_func(testcase_data)
+        return testcase_data or None
+
+    def _fill_defaults(self, testcase_data):
+        for defaults in self.TESTCASE_DATA, self.CUSTOM_FIELDS:
+            for key, value in six.iteritems(defaults):
+                if value and not testcase_data.get(key):
+                    testcase_data[key] = value
+        return testcase_data
+
+    def transform(self, testcase_data):
+        """Transforms testcase data."""
+        testcase_data = self._fill_project_defaults(testcase_data)
+        testcase_data = self._fill_automation_repo(testcase_data)
+        testcase_data = self._run_transform_func(testcase_data)
+        if not testcase_data:
+            return None
+
+        testcase_data = self._fill_defaults(testcase_data)
+        return testcase_data
+
+
+class TestcaseExport(object):
+    """Exports testcases data into XML representation."""
+
     def __init__(self, testcases_data, config, transform_func=None):
         self.testcases_data = testcases_data
         self.config = config
         self._lookup_prop = ""
-        self._transform_func = transform_func or transform_projects.get_testcases_transform(config)
+        self.testcases_transform = TestcaseTransform(config, transform_func)
 
-        default_fields = self.config.get("default_fields") or {}
-        default_fields = [
-            (key, utils.get_unicode_str(value)) for key, value in default_fields.items() if value
-        ]
-        default_fields.sort()
-        self.default_fields = OrderedDict(default_fields)
-
-        self.known_custom_fields = set(self.CUSTOM_FIELDS)
+        self.known_custom_fields = set(self.testcases_transform.CUSTOM_FIELDS)
         self.known_custom_fields.update(self.config.get("custom_fields") or ())
 
         self._compiled_whitelist = None
@@ -117,12 +161,6 @@ class TestcaseExport(object):
             self._compiled_blacklist = re.compile(
                 "(" + ")|(".join(self.config.get("blacklisted_tests")) + ")"
             )
-
-    def _transform_testcase(self, testcase_data):
-        """Calls transform function on testcase data."""
-        if self._transform_func:
-            testcase_data = self._transform_func(testcase_data)
-        return testcase_data or None
 
     def _top_element(self):
         """Returns top XML element."""
@@ -199,20 +237,11 @@ class TestcaseExport(object):
         for key, value in six.iteritems(testcase_data):
             if not value:
                 continue
-            if key in self.TESTCASE_DATA:
+            if key in self.testcases_transform.TESTCASE_DATA:
                 attrs[key] = value
             elif key in self.known_custom_fields:
                 custom_fields[key] = value
 
-        return attrs, custom_fields
-
-    def _fill_defaults(self, attrs, custom_fields):
-        for key, value in six.iteritems(self.TESTCASE_DATA):
-            if value and not attrs.get(key):
-                attrs[key] = value
-        for key, value in six.iteritems(self.CUSTOM_FIELDS):
-            if value and not custom_fields.get(key):
-                custom_fields[key] = value
         return attrs, custom_fields
 
     @staticmethod
@@ -281,21 +310,6 @@ class TestcaseExport(object):
                 utils.sorted_dict({"id": field, "content": utils.get_unicode_str(content)}),
             )
 
-    def _fill_project_defaults(self, testcase_data):
-        filled = self.default_fields.copy()
-        filled.update(testcase_data)
-        return filled
-
-    def _fill_automation_repo(self, testcase_data):
-        repo_address = self.config.get("repo_address")
-        automation_script = testcase_data.get("automation_script")
-        if not (repo_address and automation_script):
-            return
-        # The master here should probably link the latest "commit" eventually
-        testcase_data["automation_script"] = "{}/blob/master/{}".format(
-            repo_address, automation_script
-        )
-
     def _is_whitelisted(self, nodeid):
         """Checks if the nodeid is whitelisted."""
         if not nodeid:
@@ -312,14 +326,12 @@ class TestcaseExport(object):
         if not self._is_whitelisted(nodeid):
             logger.debug("Skipping blacklisted node: %s", nodeid)
             return
-        testcase_data = self._fill_project_defaults(testcase_data)
-        self._fill_automation_repo(testcase_data)
-        testcase_data = self._transform_testcase(testcase_data)
+
+        testcase_data = self.testcases_transform.transform(testcase_data)
         if not testcase_data:
             return
 
         testcase_title = testcase_data.get("title")
-
         self._set_lookup_prop(testcase_data)
         if not self._check_lookup_prop(testcase_data):
             logger.warning(
@@ -332,7 +344,6 @@ class TestcaseExport(object):
         testcase_data["id"] = self._get_testcase_id(testcase_data)
 
         attrs, custom_fields = self._classify_data(testcase_data)
-        attrs, custom_fields = self._fill_defaults(attrs, custom_fields)
 
         # For testing purposes, the order of fields in resulting XML
         # needs to be always the same.
