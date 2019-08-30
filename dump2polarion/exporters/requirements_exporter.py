@@ -55,6 +55,14 @@ class RequirementTransform(object):
         "status-id": None,
     }
 
+    FIELD_MAPPING = {
+        "assignee-id": "assignee",
+        "initial-estimate": "initialEstimate",
+        "priority-id": "priority",
+        "severity-id": "severity",
+        "status-id": "status",
+    }
+
     CUSTOM_FIELDS = {"reqtype": "functional"}
 
     def __init__(self, config, transform_func=None):
@@ -69,6 +77,15 @@ class RequirementTransform(object):
             result = self._transform_func(result)
         return result or None
 
+    def _fill_polarion_fields(self, req_data):
+        """Sets importer field value from polarion field if available."""
+        for importer_field, polarion_field in self.FIELD_MAPPING.items():
+            polarion_value = req_data.get(polarion_field)
+            xml_value = req_data.get(importer_field)
+            if polarion_value and not xml_value:
+                req_data[importer_field] = polarion_value
+        return req_data
+
     def _fill_defaults(self, req_data):
         for defaults in self.REQ_DATA, self.CUSTOM_FIELDS:
             for key, value in six.iteritems(defaults):
@@ -78,6 +95,7 @@ class RequirementTransform(object):
 
     def transform(self, req_data):
         """Transforms requirement data."""
+        req_data = self._fill_polarion_fields(req_data)
         req_data = self._run_transform_func(req_data)
         if not req_data:
             return None

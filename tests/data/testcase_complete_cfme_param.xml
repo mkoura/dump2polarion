@@ -36,7 +36,7 @@ Manual tests with many supported fields.
       <linked-work-item workitem-id="ITEM01" role-id="verifies"/>
     </linked-work-items>
   </testcase>
-  <testcase id="test_minimal_param">
+  <testcase id="test_minimal_param" initial-estimate="1m">
     <title>test_minimal_param</title>
     <description>&lt;br id="id123"/&gt;&lt;br/&gt;</description>
     <test-steps>

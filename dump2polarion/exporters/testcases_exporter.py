@@ -64,6 +64,8 @@ class TestcaseTransform(object):
         "initial-estimate": None,
     }
 
+    FIELD_MAPPING = {"assignee-id": "assignee", "initial-estimate": "initialEstimate"}
+
     CUSTOM_FIELDS = {
         "arch": None,
         "automation_script": None,
@@ -120,6 +122,15 @@ class TestcaseTransform(object):
             testcase_data = self._transform_func(testcase_data)
         return testcase_data or None
 
+    def _fill_polarion_fields(self, testcase_data):
+        """Sets importer field value from polarion field if available."""
+        for importer_field, polarion_field in self.FIELD_MAPPING.items():
+            polarion_value = testcase_data.get(polarion_field)
+            xml_value = testcase_data.get(importer_field)
+            if polarion_value and not xml_value:
+                testcase_data[importer_field] = polarion_value
+        return testcase_data
+
     def _fill_defaults(self, testcase_data):
         for defaults in self.TESTCASE_DATA, self.CUSTOM_FIELDS:
             for key, value in six.iteritems(defaults):
@@ -131,6 +142,7 @@ class TestcaseTransform(object):
         """Transforms testcase data."""
         testcase_data = self._fill_project_defaults(testcase_data)
         testcase_data = self._fill_automation_repo(testcase_data)
+        testcase_data = self._fill_polarion_fields(testcase_data)
         testcase_data = self._run_transform_func(testcase_data)
         if not testcase_data:
             return None
