@@ -222,12 +222,12 @@ class RequirementExport(object):
         requirement = etree.SubElement(parent_element, "requirement", attrs)
 
         title_el = etree.SubElement(requirement, "title")
-        title_el.text = title
+        title_el.text = utils.get_unicode_str(title)
 
         description = req_data.get("description")
         if description:
             description_el = etree.SubElement(requirement, "description")
-            description_el.text = description
+            description_el.text = utils.get_unicode_str(description)
 
         self._fill_custom_fields(requirement, custom_fields)
 

@@ -267,11 +267,11 @@ class TestcaseExport(object):
             for index, step in enumerate(steps):
                 test_step = etree.SubElement(test_steps, "test-step")
                 test_step_col = etree.SubElement(test_step, "test-step-column", id="step")
-                test_step_col.text = step
+                test_step_col.text = utils.get_unicode_str(step)
 
                 test_res_col = etree.SubElement(test_step, "test-step-column", id="expectedResult")
                 try:
-                    test_res_col.text = results[index]
+                    test_res_col.text = utils.get_unicode_str(results[index])
                 except IndexError:
                     test_res_col.text = ""
         else:
@@ -365,12 +365,12 @@ class TestcaseExport(object):
         testcase = etree.SubElement(parent_element, "testcase", attrs)
 
         title_el = etree.SubElement(testcase, "title")
-        title_el.text = testcase_title
+        title_el.text = utils.get_unicode_str(testcase_title)
 
         description = testcase_data.get("description")
         if description:
             description_el = etree.SubElement(testcase, "description")
-            description_el.text = description
+            description_el.text = utils.get_unicode_str(description)
 
         self._add_test_steps(testcase, testcase_data)
         self._fill_custom_fields(testcase, custom_fields)

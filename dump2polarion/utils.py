@@ -10,6 +10,7 @@ import io
 import logging
 import os
 import random
+import re
 import string
 from collections import OrderedDict
 
@@ -26,15 +27,19 @@ urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 logger = logging.getLogger(__name__)
 
 NO_BLANKS_PARSER = etree.XMLParser(remove_blank_text=True)
+# from https://stackoverflow.com/a/25920392
+VALID_XML_RE = re.compile("[^\u0020-\uD7FF\u0009\u000A\u000D\uE000-\uFFFD\U00010000-\U0010FFFF]+")
 
 
 def get_unicode_str(obj):
-    """Makes sure obj is a unicode string."""
+    """Makes sure obj is a valid XML unicode string."""
     if isinstance(obj, six.text_type):
-        return obj
-    if isinstance(obj, six.binary_type):
-        return obj.decode("utf-8", errors="ignore")
-    return six.text_type(obj)
+        text = obj
+    elif isinstance(obj, six.binary_type):
+        text = obj.decode("utf-8", errors="ignore")
+    else:
+        text = six.text_type(obj)
+    return VALID_XML_RE.sub("", text)
 
 
 def init_log(log_level):
