@@ -128,6 +128,10 @@ def submit_if_ready(args, submit_args, config):
     if not ("<testsuites" in xml or "<testcases" in xml or "<requirements" in xml):
         return None
 
+    # TODO: better detection of xunit file that is ready for import needed
+    if "<testsuites" in xml and "<properties>" not in xml:
+        return None
+
     if args.no_submit:
         logger.info("Nothing to do")
         return 0

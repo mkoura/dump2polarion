@@ -85,9 +85,9 @@ class TestDumperCLIUnits(object):
             retval = dumper_cli.submit_if_ready(args, submit_args, config_prop)
         assert retval == 2
 
-    @pytest.mark.parametrize("tag", ("testsuites", "testcases"))
+    @pytest.mark.parametrize("tag", ("testsuites", "testcases", "requirements"))
     def test_submit_if_ready_ok(self, tmpdir, config_prop, tag):
-        xml_content = "<{} foo=bar>".format(tag)
+        xml_content = "<{} foo=bar><properties>".format(tag)
         xml_file = tmpdir.join("submit_ready.xml")
         xml_file.write(xml_content)
         args = dumper_cli.get_args(["-i", str(xml_file)])

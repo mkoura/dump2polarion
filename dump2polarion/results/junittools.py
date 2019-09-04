@@ -68,16 +68,17 @@ def _extract_parameters_from_properties(properties):
     return new_properties, sorted(parameters)
 
 
-# pylint: disable=unused-argument
+# pylint: disable=unused-argument,too-many-locals
 def import_junit(junit_file, **kwargs):
     """Reads the content of the junit-results file produced by pytest and returns imported data."""
     xml_root = _get_xml_root(junit_file)
 
-    results = []
-    for test_data in xml_root:
-        if test_data.tag != "testcase":
-            continue
+    testcases = xml_root.xpath(".//testcase")
+    if testcases is None:
+        testcases = ()
 
+    results = []
+    for test_data in testcases:
         verdict, comment, properties = _parse_testcase_record(test_data)
         properties, parameters = _extract_parameters_from_properties(properties)
 
