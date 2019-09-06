@@ -79,7 +79,7 @@ class RequirementTransform(object):
 
     def _fill_polarion_fields(self, req_data):
         """Sets importer field value from polarion field if available."""
-        for importer_field, polarion_field in self.FIELD_MAPPING.items():
+        for importer_field, polarion_field in six.iteritems(self.FIELD_MAPPING):
             polarion_value = req_data.get(polarion_field)
             xml_value = req_data.get(importer_field)
             if polarion_value and not xml_value:

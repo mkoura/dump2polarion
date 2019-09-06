@@ -96,7 +96,9 @@ class TestcaseTransform(object):
         self._transform_func = transform_func or transform_projects.get_testcases_transform(config)
 
         default_fields = self.config.get("default_fields") or {}
-        default_fields = {k: utils.get_unicode_str(v) for k, v in default_fields.items() if v}
+        default_fields = {
+            k: utils.get_unicode_str(v) for k, v in six.iteritems(default_fields) if v
+        }
         self.default_fields = utils.sorted_dict(default_fields)
 
     def _fill_project_defaults(self, testcase_data):
@@ -124,7 +126,7 @@ class TestcaseTransform(object):
 
     def _fill_polarion_fields(self, testcase_data):
         """Sets importer field value from polarion field if available."""
-        for importer_field, polarion_field in self.FIELD_MAPPING.items():
+        for importer_field, polarion_field in six.iteritems(self.FIELD_MAPPING):
             polarion_value = testcase_data.get(polarion_field)
             xml_value = testcase_data.get(importer_field)
             if polarion_value and not xml_value:
