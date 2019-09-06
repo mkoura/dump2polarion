@@ -11,42 +11,42 @@ from dump2polarion.exporters import transform_projects
 # original record, expected record, parameter id
 
 NOT_PASSED = [
-    ({"title": "test1", "verdict": "failed"}, None, "failed_removed"),
-    ({"title": "test1", "verdict": "skipped"}, None, "skipped_nobz"),
+    ({"title": "test_1", "verdict": "failed"}, None, "failed_removed"),
+    ({"title": "test_1", "verdict": "skipped"}, None, "skipped_nobz"),
     (
-        {"title": "test1", "verdict": "skipped", "comment": "BZ123"},
-        {"title": "test1", "verdict": "skipped", "comment": "BZ123"},
+        {"title": "test_1", "verdict": "skipped", "comment": "BZ123"},
+        {"title": "test_1", "verdict": "skipped", "comment": "BZ123"},
         "skipped_bz",
     ),
     (
-        {"title": "test1", "verdict": "skipped", "comment": "BZ 123"},
-        {"title": "test1", "verdict": "skipped", "comment": "BZ 123"},
+        {"title": "test_1", "verdict": "skipped", "comment": "BZ 123"},
+        {"title": "test_1", "verdict": "skipped", "comment": "BZ 123"},
         "skipped_bz",
     ),
     (
-        {"title": "test1", "verdict": "skipped", "comment": "SKIPME: foo"},
-        {"title": "test1", "verdict": "skipped", "comment": "foo"},
+        {"title": "test_1", "verdict": "skipped", "comment": "SKIPME: foo"},
+        {"title": "test_1", "verdict": "skipped", "comment": "foo"},
         "skipped_skipme",
     ),
     (
-        {"title": "test1", "verdict": "failed", "comment": "FAILME: foo"},
-        {"title": "test1", "verdict": "failed", "comment": "foo"},
+        {"title": "test_1", "verdict": "failed", "comment": "FAILME: foo"},
+        {"title": "test_1", "verdict": "failed", "comment": "foo"},
         "failed_failme",
     ),
-    ({"title": "test1", "verdict": "wait"}, {"title": "test1", "verdict": "wait"}, "waiting"),
+    ({"title": "test_1", "verdict": "wait"}, {"title": "test_1", "verdict": "wait"}, "waiting"),
 ]
 
 RHCF3_ONLY = [
     (
         {
             "classname": "cfme.tests.rest.TestRESTAPI",
-            "title": "test1",
+            "title": "test_1",
             "verdict": "passed",
             "comment": "comment",
             "file": "cfme/tests/rest.py",
         },
         {
-            "title": "TestRESTAPI.test1",
+            "title": "TestRESTAPI.test_1",
             "verdict": "passed",
             "comment": "comment",
             "file": "cfme/tests/rest.py",
@@ -56,35 +56,45 @@ RHCF3_ONLY = [
     (
         {
             "classname": "TestRESTAPI",
-            "title": "test1",
+            "title": "test_1",
             "verdict": "passed",
             "comment": "comment",
             "file": "cfme/tests/rest.py",
         },
-        {"title": "test1", "verdict": "passed", "comment": "comment", "file": "cfme/tests/rest.py"},
+        {
+            "title": "test_1",
+            "verdict": "passed",
+            "comment": "comment",
+            "file": "cfme/tests/rest.py",
+        },
         "no_append_class",
     ),
     (
         {
             "classname": "cfme.tests.rest",
-            "title": "test1",
+            "title": "test_1",
             "verdict": "passed",
             "comment": "comment",
             "file": "cfme/tests/rest.py",
         },
-        {"title": "test1", "verdict": "passed", "comment": "comment", "file": "cfme/tests/rest.py"},
+        {
+            "title": "test_1",
+            "verdict": "passed",
+            "comment": "comment",
+            "file": "cfme/tests/rest.py",
+        },
         "no_append_class",
     ),
     (
         {
-            "title": "test1",
+            "title": "test_1",
             "verdict": "passed",
             "source": "jenkins",
             "job_name": "downstream",
             "run": "123",
         },
         {
-            "title": "test1",
+            "title": "test_1",
             "verdict": "passed",
             "comment": "Source: jenkins/downstream/123",
             "source": "jenkins",
@@ -97,8 +107,8 @@ RHCF3_ONLY = [
 
 CMP_ONLY = [
     (
-        {"classname": "test1", "title": "test1", "verdict": "passed", "test_id": "CMP-9985"},
-        {"title": "test1", "verdict": "passed", "test_id": "CMP-9985", "id": "CMP-9985"},
+        {"classname": "test_1", "title": "test_1", "verdict": "passed", "test_id": "CMP-9985"},
+        {"title": "test_1", "verdict": "passed", "test_id": "CMP-9985", "id": "CMP-9985"},
         "add_id",
     )
 ]

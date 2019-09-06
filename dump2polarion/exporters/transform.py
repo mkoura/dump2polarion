@@ -54,6 +54,9 @@ def setup_parametrization(result, parametrize):
         title = result.get("title")
         if title:
             result["title"] = TEST_PARAM_RE.sub("", title)
+        # remove parameters also from id if it's identical with title
+        if result.get("id") == title:
+            result["id"] = result.get("title")
     else:
         # don't parametrize if not specifically configured
         if "params" in result:
@@ -71,19 +74,26 @@ def include_class_in_title(result):
     >>> str(result.get("title"))
     'TestFoo.test_foo'
     >>> result.get("classname")
+    >>> result = {"title": "some title", "classname": "foo.bar.baz.TestFoo",
+    ...    "file": "foo/bar/baz.py"}
+    >>> include_class_in_title(result)
+    >>> str(result.get("title"))
+    'some title'
     """
     classname = result.get("classname", "")
-    if classname:
-        filepath = result.get("file", "")
-        title = result.get("title")
-        if title and "/" in filepath and "." in classname:
-            fname = filepath.split("/")[-1].replace(".py", "")
-            last_classname = classname.split(".")[-1]
-            # last part of classname is not file name
-            if fname != last_classname and last_classname not in title:
-                result["title"] = "{}.{}".format(last_classname, title)
-        # we don't need to pass classnames?
-        del result["classname"]
+    if not classname:
+        return
+
+    filepath = result.get("file", "")
+    title = result.get("title")
+    if title and title.startswith("test_") and "/" in filepath and "." in classname:
+        fname = filepath.split("/")[-1].replace(".py", "")
+        last_classname = classname.split(".")[-1]
+        # last part of classname is not file name
+        if fname != last_classname and last_classname not in title:
+            result["title"] = "{}.{}".format(last_classname, title)
+    # we don't need to pass classnames?
+    del result["classname"]
 
 
 def gen_unique_id(string):
