@@ -6,11 +6,11 @@ Helper functions for handling data in pytest junit format.
 from __future__ import absolute_import, unicode_literals
 
 import os
-from collections import OrderedDict
 
 import six
 from lxml import etree
 
+from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.exporters import xunit_exporter
 
@@ -58,14 +58,14 @@ def _parse_testcase_record(testcase_record):
 def _extract_parameters_from_properties(properties):
     """Extracts parameters from properties."""
     new_properties = {}
-    parameters = []
+    parameters = {}
     for key, value in six.iteritems(properties):
         if key.startswith(_PARAMETER_PREFIX):
-            parameters.append((key.replace(_PARAMETER_PREFIX, ""), value))
+            parameters[key.replace(_PARAMETER_PREFIX, "")] = value
         else:
             new_properties[key] = value
 
-    return new_properties, sorted(parameters)
+    return new_properties, parameters
 
 
 # pylint: disable=unused-argument,too-many-locals
@@ -82,24 +82,26 @@ def import_junit(junit_file, **kwargs):
         verdict, comment, properties = _parse_testcase_record(test_data)
         properties, parameters = _extract_parameters_from_properties(properties)
 
+        testcase_id = properties.get("polarion-testcase-id")
         title = test_data.get("name")
         classname = test_data.get("classname")
         time = test_data.get("time", 0)
         filepath = test_data.get("file")
 
-        data = [
-            ("title", title),
-            ("classname", classname),
-            ("verdict", verdict),
-            ("comment", comment),
-            ("time", time),
-            ("file", filepath),
-        ]
-        for key in sorted(properties):
-            data.append((key, properties[key]))
+        data = {
+            "id": testcase_id,
+            "title": title,
+            "classname": classname,
+            "verdict": verdict,
+            "comment": comment,
+            "time": time,
+            "file": filepath,
+        }
+        for key, value in six.iteritems(properties):
+            data[key] = value
         if parameters:
-            data.append(("params", OrderedDict(parameters)))
+            data["params"] = utils.sorted_dict(parameters)
 
-        results.append(OrderedDict(data))
+        results.append(utils.sorted_dict(data))
 
     return xunit_exporter.ImportedData(results=results, testrun=None)

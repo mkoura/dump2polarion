@@ -54,3 +54,5 @@ class TestJunitImport(object):
         assert len(data.results) == 2
         assert list(data.results[0]["params"].keys()) == ["pkg"]
         assert list(data.results[1]["params"].keys()) == ["api_ver", "package"]
+        assert data.results[0]["id"] == "foobar"
+        assert data.results[1]["id"] == "barbaz"
