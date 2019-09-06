@@ -54,8 +54,8 @@ def setup_parametrization(result, parametrize):
         title = result.get("title")
         if title:
             result["title"] = TEST_PARAM_RE.sub("", title)
-        # remove parameters also from id if it's identical with title
-        if result.get("id") == title:
+        # remove parameters also from id if it's identical to title
+        if title and result.get("id") == title:
             result["id"] = result.get("title")
     else:
         # don't parametrize if not specifically configured
@@ -66,7 +66,8 @@ def setup_parametrization(result, parametrize):
 def include_class_in_title(result):
     """Makes sure that test class is included in "title".
 
-    e.g. "TestServiceRESTAPI.test_power_parent_service"
+    Applies only to titles derived from test function names, e.g.
+    "test_power_parent_service" -> "TestServiceRESTAPI.test_power_parent_service"
 
     >>> result = {"title": "test_foo", "classname": "foo.bar.baz.TestFoo",
     ...    "file": "foo/bar/baz.py"}
