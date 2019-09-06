@@ -54,9 +54,9 @@ def setup_parametrization(result, parametrize):
         title = result.get("title")
         if title:
             result["title"] = TEST_PARAM_RE.sub("", title)
-        # remove parameters also from id if it's identical with title
-        if result.get("id") == title:
-            result["id"] = result.get("title")
+        # remove parameters also from id if it's identical to title
+        if title and result.get("id") == title:
+            result["id"] = result["title"]
     else:
         # don't parametrize if not specifically configured
         if "params" in result:
@@ -66,19 +66,24 @@ def setup_parametrization(result, parametrize):
 def include_class_in_title(result):
     """Makes sure that test class is included in "title".
 
-    e.g. "TestServiceRESTAPI.test_power_parent_service"
+    Applies only to titles derived from test function names, e.g.
+    "test_power_parent_service" -> "TestServiceRESTAPI.test_power_parent_service"
 
-    >>> result = {"title": "test_foo", "classname": "foo.bar.baz.TestFoo",
+    >>> result = {"title": "test_foo", "id": "test_foo", "classname": "foo.bar.baz.TestFoo",
     ...    "file": "foo/bar/baz.py"}
     >>> include_class_in_title(result)
     >>> str(result.get("title"))
     'TestFoo.test_foo'
+    >>> str(result.get("id"))
+    'TestFoo.test_foo'
     >>> result.get("classname")
-    >>> result = {"title": "some title", "classname": "foo.bar.baz.TestFoo",
+    >>> result = {"title": "some title", "id": "test_foo", "classname": "foo.bar.baz.TestFoo",
     ...    "file": "foo/bar/baz.py"}
     >>> include_class_in_title(result)
     >>> str(result.get("title"))
     'some title'
+    >>> str(result.get("id"))
+    'test_foo'
     """
     classname = result.get("classname", "")
     if not classname:
@@ -92,6 +97,10 @@ def include_class_in_title(result):
         # last part of classname is not file name
         if fname != last_classname and last_classname not in title:
             result["title"] = "{}.{}".format(last_classname, title)
+        # update also the id if it is identical to original title
+        if result.get("id") == title:
+            result["id"] = result["title"]
+
     # we don't need to pass classnames?
     del result["classname"]
 
