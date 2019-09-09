@@ -8,7 +8,7 @@ testcases_data = [
         "id": "ITEM01",
         "title": "test_manual",
         "description": "Manual tests with all supported fields.",
-        "approver-ids": "mkourim:approved",
+        "approver-ids": "bossman mkourim:approved",
         "assignee-id": "mkourim",
         "due-date": "2018-09-30",
         "initial-estimate": "1/4h",
@@ -27,6 +27,7 @@ testcases_data = [
         "testSteps": ["step1", "step2"],
         "expectedResults": ["result1", "result2"],
         "linked-items": "ITEM01",
+        "status-id": "proposed",
     },
     {
         "title": "test_minimal_param",
@@ -62,6 +63,7 @@ class TestcaseTransform(object):
         "due-date": None,
         "id": None,
         "initial-estimate": None,
+        "status-id": None,
     }
 
     FIELD_MAPPING = {"assignee-id": "assignee", "initial-estimate": "initialEstimate"}
