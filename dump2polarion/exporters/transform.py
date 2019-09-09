@@ -188,8 +188,9 @@ def add_unique_runid(testcase, run_id=None):
     The `run_id` runs makes the descriptions unique between imports and force Polarion
     to update every testcase every time.
     """
-    testcase["description"] = '{}<br id="{}"/>'.format(
-        testcase.get("description") or "", run_id or id(add_unique_runid)
+    testcase["description"] = '{visible}<br id="{invisible}"/>'.format(
+        visible=testcase.get("description") or "empty-description-placeholder",
+        invisible=run_id or id(add_unique_runid)
     )
 
 
