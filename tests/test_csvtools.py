@@ -1,9 +1,7 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
-from __future__ import unicode_literals
-
 import os
+from io import StringIO
 
 import pytest
 
@@ -11,24 +9,11 @@ from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.results import csvtools
 from tests import conf
 
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
 
-
-class TestCSVFileldNames(object):
+class TestCSVFileldNames:
     def test_fieldnames_exported(self):
         csv_file = os.path.join(conf.DATA_PATH, "workitems_ids.csv")
-        open_args = []
-        open_kwargs = {}
-        try:
-            # pylint: disable=pointless-statement
-            unicode
-            open_args.append("rb")
-        except NameError:
-            open_kwargs["encoding"] = "utf-8"
-        with open(csv_file, *open_args, **open_kwargs) as input_file:
+        with open(csv_file, encoding="utf-8") as input_file:
             reader = csvtools._get_csv_reader(input_file)
             fieldnames = csvtools._get_csv_fieldnames(reader)
         assert fieldnames == [
@@ -45,7 +30,7 @@ class TestCSVFileldNames(object):
         ]
 
     def test_fieldnames_unanotated(self):
-        csv_content = str(",,ID,Title,Test Case I D,Caseimportance")
+        csv_content = ",,ID,Title,Test Case I D,Caseimportance"
         input_file = StringIO(csv_content)
         reader = csvtools._get_csv_reader(input_file)
         fieldnames = csvtools._get_csv_fieldnames(reader)
@@ -53,7 +38,7 @@ class TestCSVFileldNames(object):
         assert fieldnames == ["field1", "field2", "id", "title", "testcaseid", "caseimportance"]
 
     def test_fieldnames_trailing(self):
-        csv_content = str("ID,Title,Test Case I D,Caseimportance,,,")
+        csv_content = "ID,Title,Test Case I D,Caseimportance,,,"
         input_file = StringIO(csv_content)
         reader = csvtools._get_csv_reader(input_file)
         fieldnames = csvtools._get_csv_fieldnames(reader)
@@ -61,7 +46,7 @@ class TestCSVFileldNames(object):
         assert fieldnames == ["id", "title", "testcaseid", "caseimportance"]
 
     def test_fieldnames_missing_id(self):
-        csv_content = str("Title,Test Case I D,Caseimportance,,,")
+        csv_content = "Title,Test Case I D,Caseimportance,,,"
         input_file = StringIO(csv_content)
         reader = csvtools._get_csv_reader(input_file)
         fieldnames = csvtools._get_csv_fieldnames(reader)
@@ -69,18 +54,10 @@ class TestCSVFileldNames(object):
         assert fieldnames is None
 
 
-class TestCSVTestrunId(object):
+class TestCSVTestrunId:
     def test_testrun_id_exported(self):
         csv_file = os.path.join(conf.DATA_PATH, "workitems_ids.csv")
-        open_args = []
-        open_kwargs = {}
-        try:
-            # pylint: disable=pointless-statement
-            unicode
-            open_args.append("rb")
-        except NameError:
-            open_kwargs["encoding"] = "utf-8"
-        with open(csv_file, *open_args, **open_kwargs) as input_file:
+        with open(csv_file, encoding="utf-8") as input_file:
             reader = csvtools._get_csv_reader(input_file)
             testrun_id = csvtools._get_testrun_from_csv(input_file, reader)
         assert testrun_id == "5_8_0_17"
@@ -108,7 +85,7 @@ class TestCSVTestrunId(object):
         assert not testrun_id
 
 
-class TestCSVImport(object):
+class TestCSVImport:
     def test_import_orig_data(self):
         csv_file = os.path.join(conf.DATA_PATH, "workitems_ids.csv")
         data = csvtools.get_imported_data(csv_file)
@@ -119,7 +96,7 @@ class TestCSVImport(object):
         assert data.testrun == "5_8_0_17"
 
     def test_import_no_results(self, tmpdir):
-        csv_content = str("ID,Title,Test Case I D,Caseimportance,,,")
+        csv_content = "ID,Title,Test Case I D,Caseimportance,,,"
         csv_file = tmpdir.join("no_results.csv")
         csv_file.write(csv_content)
         csv_file_path = str(csv_file)

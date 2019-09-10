@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 Submit data to the Polarion Importer.
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import logging
 import os
@@ -16,7 +13,7 @@ from dump2polarion.verify import verify_submit
 logger = logging.getLogger(__name__)
 
 
-class SubmitResponse(object):
+class SubmitResponse:
     """Response data from submit to Importer."""
 
     def __init__(self, response):
@@ -90,7 +87,7 @@ class SubmitResponse(object):
         return repr(self.response)
 
 
-class SubmitConfig(object):
+class SubmitConfig:
     """Configuration for data submit."""
 
     def __init__(self, xml_root, config, **kwargs):

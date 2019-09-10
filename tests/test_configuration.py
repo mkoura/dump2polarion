@@ -1,7 +1,4 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,no-self-use,protected-access
-
-from __future__ import unicode_literals
 
 import os
 
@@ -12,7 +9,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 from tests import conf
 
 
-class TestConfiguration(object):
+class TestConfiguration:
     def test_nonexistant(self):
         with pytest.raises(Dump2PolarionException) as excinfo:
             configuration.get_config("nonexistant")

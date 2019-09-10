@@ -1,10 +1,6 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
-from __future__ import unicode_literals
-
 import datetime
-import io
 import os
 import shutil
 
@@ -22,7 +18,7 @@ def records_db():
     return dbtools.import_sqlite(db_file)
 
 
-class TestDB(object):
+class TestDB:
     def test_testrun_id_exported(self):
         db_file = os.path.join(conf.DATA_PATH, "workitems_ids.sqlite3")
         conn = dbtools._open_sqlite(db_file)
@@ -86,7 +82,7 @@ class TestDB(object):
         exporter = XunitExport("5_8_0_17", records_db, config_prop, transform_func=lambda arg: arg)
         complete = exporter.export()
         fname = "complete_notransform.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -94,6 +90,6 @@ class TestDB(object):
         exporter = XunitExport("5_8_0_17", records_db, config_prop)
         complete = exporter.export()
         fname = "complete_transform.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed

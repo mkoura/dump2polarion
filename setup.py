@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=missing-docstring
 
 from setuptools import find_packages, setup
@@ -24,15 +23,13 @@ setup(
         ]
     },
     setup_requires=["setuptools_scm"],
-    install_requires=["lxml", "pyyaml", "requests", "six", "docutils", "packaging", "python-box"],
+    install_requires=["lxml", "pyyaml", "requests", "docutils", "packaging", "python-box"],
     keywords=["polarion", "testing"],
     classifiers=[
         "Development Status :: 3 - Alpha",
         "Topic :: Software Development :: Libraries :: Python Modules",
         "Topic :: Software Development :: Testing",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
-        "Programming Language :: Python :: 2.7",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",

@@ -1,7 +1,4 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,no-self-use
-
-from __future__ import unicode_literals
 
 import copy
 import io
@@ -93,7 +90,7 @@ def config_e2e():
     return str(conf_file)
 
 
-class SimpleFormatter(object):
+class SimpleFormatter:
     def format(self, record):
         message = record.getMessage()
         if isinstance(message, bytes):

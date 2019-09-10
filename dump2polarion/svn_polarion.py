@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 Access work items data in the Polarion SVN repository.
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import logging
 import os
@@ -15,11 +12,11 @@ from lxml import etree
 logger = logging.getLogger(__name__)
 
 
-class InvalidObject(object):
+class InvalidObject:
     """Item not present."""
 
 
-class WorkItemCache(object):
+class WorkItemCache:
     """Cache of Polarion workitems."""
 
     def __init__(self, repo_dir):

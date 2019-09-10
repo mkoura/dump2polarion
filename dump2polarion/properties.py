@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 Tools for manipulation of XML properties.
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import random
 import string

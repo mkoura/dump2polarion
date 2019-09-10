@@ -1,7 +1,4 @@
-# encoding: utf-8
-# pylint: disable=missing-docstring,redefined-outer-name,no-self-use
-
-from __future__ import unicode_literals
+# pylint: disable=missing-docstring,no-self-use
 
 import os
 

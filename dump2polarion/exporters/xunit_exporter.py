@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Dump testcases results to XUnit file for submitting to the Polarion XUnit Importer.
 
@@ -18,13 +17,10 @@ tests_records = ImportedData(
 )
 """
 
-from __future__ import absolute_import, unicode_literals
-
 import datetime
 import logging
 from collections import namedtuple
 
-import six
 from lxml import etree
 
 from dump2polarion import utils
@@ -38,7 +34,7 @@ ImportedData = namedtuple("ImportedData", "results testrun")
 logger = logging.getLogger(__name__)
 
 
-class XunitExport(object):
+class XunitExport:
     """Exports testcases results into Polarion XUnit."""
 
     def __init__(self, testrun_id, tests_records, config, transform_func=None):
@@ -225,7 +221,8 @@ class XunitExport(object):
                 },
             )
 
-        for param, value in six.iteritems(result.get("params") or {}):
+        params = result.get("params") or {}
+        for param, value in params.items():
             etree.SubElement(
                 properties,
                 "property",

@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=missing-docstring,no-self-use,unused-argument,invalid-name
-
-from __future__ import unicode_literals
 
 import os
 
@@ -19,7 +16,7 @@ SEARCH_QUEUE = {
 }
 
 
-class DummyResponse(object):
+class DummyResponse:
     def __init__(self, response):
         self.status_code = 200
         self.response = response
@@ -35,7 +32,7 @@ class DummyResponse(object):
         return self.response
 
 
-class DummySession(object):
+class DummySession:
     def __init__(self, get):
         self._get = get
 
@@ -48,7 +45,7 @@ def download_queue_data(*args, **kwargs):
 
 
 # pylint: disable=too-many-public-methods
-class TestQueueSearch(object):
+class TestQueueSearch:
 
     # object init
     def test_session_missing(self, captured_log):

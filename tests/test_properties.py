@@ -1,7 +1,4 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,invalid-name
-
-from __future__ import unicode_literals
 
 import os
 
@@ -13,7 +10,7 @@ from tests import conf
 
 
 # pylint: disable=too-many-public-methods
-class TestProperties(object):
+class TestProperties:
     def test_fill_testrun_present(self):
         fname = "complete_notransform.xml"
         fname = os.path.join(conf.DATA_PATH, fname)

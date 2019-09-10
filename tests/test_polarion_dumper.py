@@ -1,7 +1,5 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use
 
-import io
 import os
 import shutil
 
@@ -15,7 +13,7 @@ from dump2polarion.results import dbtools
 from tests import conf
 
 
-class TestDumperCLIUnits(object):
+class TestDumperCLIUnits:
     def test_get_args(self):
         args = dumper_cli.get_args(["-i", "dummy", "-t", "testrun_id"])
         assert args.input_file == "dummy"
@@ -121,7 +119,7 @@ E2E_DATA = [
 ]
 
 
-class TestDumperCLIE2E(object):
+class TestDumperCLIE2E:
     @pytest.mark.parametrize("data", E2E_DATA, ids=[d[0] for d in E2E_DATA])
     @pytest.mark.parametrize("submit", (True, False), ids=("submit", "nosubmit"))
     # pylint: disable=too-many-locals
@@ -147,9 +145,9 @@ class TestDumperCLIE2E(object):
             retval = dumper_cli.main(args, transform_func=transform_func)
         assert retval == 0
 
-        with io.open(os.path.join(conf.DATA_PATH, golden_output), encoding="utf-8") as golden_xml:
+        with open(os.path.join(conf.DATA_PATH, golden_output), encoding="utf-8") as golden_xml:
             parsed = golden_xml.read()
-        with io.open(str(output_file), encoding="utf-8") as out_xml:
+        with open(str(output_file), encoding="utf-8") as out_xml:
             produced = out_xml.read()
         assert produced == parsed
 
@@ -226,9 +224,9 @@ class TestDumperCLIE2E(object):
         assert retval == 2
 
         golden_output = "complete_transform.xml"
-        with io.open(os.path.join(conf.DATA_PATH, golden_output), encoding="utf-8") as golden_xml:
+        with open(os.path.join(conf.DATA_PATH, golden_output), encoding="utf-8") as golden_xml:
             parsed = golden_xml.read()
-        with io.open(str(output_file), encoding="utf-8") as out_xml:
+        with open(str(output_file), encoding="utf-8") as out_xml:
             produced = out_xml.read()
         assert produced == parsed
 
@@ -248,9 +246,9 @@ class TestDumperCLIE2E(object):
         assert retval == 0
 
         golden_output = "complete_transform.xml"
-        with io.open(os.path.join(conf.DATA_PATH, golden_output), encoding="utf-8") as golden_xml:
+        with open(os.path.join(conf.DATA_PATH, golden_output), encoding="utf-8") as golden_xml:
             parsed = golden_xml.read()
-        with io.open(str(output_file), encoding="utf-8") as out_xml:
+        with open(str(output_file), encoding="utf-8") as out_xml:
             produced = out_xml.read()
         assert produced == parsed
 

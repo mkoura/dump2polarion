@@ -1,7 +1,4 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,comparison-with-callable
-
-from __future__ import unicode_literals
 
 import pytest
 
@@ -13,7 +10,7 @@ from dump2polarion.results.junittools import import_junit
 from dump2polarion.results.ostriztools import import_ostriz
 
 
-class TestImporterFormats(object):
+class TestImporterFormats:
     def test_ostriz_local(self):
         importer = _get_importer("test_ostriz_file.json")
         assert importer == import_ostriz

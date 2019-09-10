@@ -1,10 +1,6 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
-from __future__ import unicode_literals
-
 import copy
-import io
 import os
 from collections import OrderedDict
 
@@ -69,12 +65,12 @@ def config_with_fields(config_prop):
     return config_fields
 
 
-class TestTestcase(object):
+class TestTestcase:
     def test_export_cloudtp(self, config_cloudtp):
         testcase_exp = TestcaseExport(REQ_DATA, config_cloudtp)
         complete = testcase_exp.export()
         fname = "testcase_complete_cloudtp.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -82,7 +78,7 @@ class TestTestcase(object):
         testcase_exp = TestcaseExport(REQ_DATA, config_prop)
         complete = testcase_exp.export()
         fname = "testcase_complete_cfme.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -90,7 +86,7 @@ class TestTestcase(object):
         testcase_exp = TestcaseExport(REQ_DATA, config_with_fields)
         complete = testcase_exp.export()
         fname = "testcase_fields_cfme.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -100,7 +96,7 @@ class TestTestcase(object):
         testcase_exp = TestcaseExport(REQ_DATA, new_config)
         complete = testcase_exp.export()
         fname = "testcase_complete_cfme_param.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 

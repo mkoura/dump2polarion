@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
 """
 Functions for transforming results per Polarion project.
 
 If the 'polarion-lookup-method' is set to 'custom', this is the place where you can
 set the 'id' of the test case to desired value.
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import copy
 import logging

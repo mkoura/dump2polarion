@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 Helper functions for transforming results.
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import hashlib
 import logging
@@ -190,7 +187,7 @@ def add_unique_runid(testcase, run_id=None):
     """
     testcase["description"] = '{visible}<br id="{invisible}"/>'.format(
         visible=testcase.get("description") or "empty-description-placeholder",
-        invisible=run_id or id(add_unique_runid)
+        invisible=run_id or id(add_unique_runid),
     )
 
 

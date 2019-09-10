@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
-
-from __future__ import unicode_literals
 
 import os
 
@@ -12,7 +9,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 from tests import conf
 
 
-class TestParselog(object):
+class TestParselog:
     def test_xunit_name(self):
         log_file = os.path.join(conf.DATA_PATH, "xunit.log")
         parsed_log = parselogs.parse(log_file)

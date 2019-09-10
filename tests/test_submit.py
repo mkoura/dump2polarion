@@ -1,8 +1,4 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=missing-docstring,no-self-use,protected-access
-
-
-from __future__ import unicode_literals
 
 import os
 
@@ -13,7 +9,7 @@ from tests import conf
 
 
 # pylint: disable=unused-argument
-class DummySession(object):
+class DummySession:
     def __init__(self, method):
         self._method = method
 
@@ -24,7 +20,7 @@ class DummySession(object):
         return self._method()
 
 
-class DummyResponse(object):
+class DummyResponse:
     def __init__(self, response=None):
         self.status_code = 200
         self.response = response or {}
@@ -41,7 +37,7 @@ class DummyResponse(object):
         return self.response
 
 
-class TestSubmitAndVerify(object):
+class TestSubmitAndVerify:
     def test_missing_input(self, config_prop, captured_log):
         submit.submit_and_verify("", config=config_prop, no_verify=True)
         assert "no data supplied" in captured_log.getvalue()
@@ -93,7 +89,7 @@ class TestSubmitAndVerify(object):
         assert "requirement" in submit_config.submit_target
 
     def test_file_testsuites_failure(self, config_prop, captured_log):
-        class Response(object):
+        class Response:
             def __init__(self):
                 self.status_code = 404
                 self.url = "foo"

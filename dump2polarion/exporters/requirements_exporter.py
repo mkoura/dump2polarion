@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Creates a Requirement XML file for submitting to the Polarion Importer.
 
@@ -24,12 +23,9 @@ requirements_data = [
 ]
 """
 
-from __future__ import absolute_import, unicode_literals
-
 import datetime
 import logging
 
-import six
 from lxml import etree
 
 from dump2polarion import utils
@@ -40,7 +36,7 @@ from dump2polarion.exporters import transform_projects
 logger = logging.getLogger(__name__)
 
 
-class RequirementTransform(object):
+class RequirementTransform:
     """Transforms requirement data and fills in default keys and values."""
 
     REQ_DATA = {
@@ -79,7 +75,7 @@ class RequirementTransform(object):
 
     def _fill_polarion_fields(self, req_data):
         """Sets importer field value from polarion field if available."""
-        for importer_field, polarion_field in six.iteritems(self.FIELD_MAPPING):
+        for importer_field, polarion_field in self.FIELD_MAPPING.items():
             polarion_value = req_data.get(polarion_field)
             xml_value = req_data.get(importer_field)
             if polarion_value and not xml_value:
@@ -88,7 +84,7 @@ class RequirementTransform(object):
 
     def _fill_defaults(self, req_data):
         for defaults in self.REQ_DATA, self.CUSTOM_FIELDS:
-            for key, value in six.iteritems(defaults):
+            for key, value in defaults.items():
                 if value and not req_data.get(key):
                     req_data[key] = value
         return req_data
@@ -109,7 +105,7 @@ class RequirementTransform(object):
         return req_data
 
 
-class RequirementExport(object):
+class RequirementExport:
     """Exports requirements data into XML representation."""
 
     def __init__(self, requirements_data, config, transform_func=None):
@@ -132,7 +128,7 @@ class RequirementExport(object):
         requirements_properties = etree.SubElement(parent_element, "properties")
 
         req_properties_conf = self.config.get("requirements_import_properties") or {}
-        for name, value in sorted(six.iteritems(req_properties_conf)):
+        for name, value in sorted(req_properties_conf.items()):
             if name == "lookup-method":
                 lookup_prop = str(value).lower()
                 if lookup_prop not in ("id", "name"):
@@ -173,7 +169,7 @@ class RequirementExport(object):
     def _classify_data(self, req_data):
         attrs, custom_fields = {}, {}
 
-        for key, value in six.iteritems(req_data):
+        for key, value in req_data.items():
             if not value:
                 continue
             conv_key = key.replace("_", "-")  # convert pythonic key_param to polarion 'key-param'
@@ -190,7 +186,7 @@ class RequirementExport(object):
             return
 
         custom_fields_el = etree.SubElement(parent, "custom-fields")
-        for field, content in six.iteritems(custom_fields):
+        for field, content in custom_fields.items():
             etree.SubElement(
                 custom_fields_el,
                 "custom-field",

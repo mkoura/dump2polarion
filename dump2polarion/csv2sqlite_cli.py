@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 Dump testcases results from a CSV input file to SQLite.
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import argparse
 import datetime
@@ -88,7 +85,7 @@ def main(args=None):
 
     try:
         records = csvtools.get_imported_data(args.input_file)
-    except (EnvironmentError, Dump2PolarionException) as err:
+    except (OSError, Dump2PolarionException) as err:
         logger.fatal(err)
         return 1
 

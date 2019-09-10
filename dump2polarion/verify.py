@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 Verifies that data were updated in Polarion.
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import logging
 import os
@@ -19,7 +16,7 @@ _DEFAULT_DELAY = 10
 _NOT_FINISHED_STATUSES = ("ready", "running")
 
 
-class QueueSearch(object):
+class QueueSearch:
     """Search for jobs in the completed jobs queue."""
 
     def __init__(self, session, queue_url, log_url):

@@ -1,10 +1,6 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
-from __future__ import unicode_literals
-
 import copy
-import io
 import os
 from collections import OrderedDict
 
@@ -52,12 +48,12 @@ def config_cloudtp(config_prop):
     return cloudtp
 
 
-class TestRequirement(object):
+class TestRequirement:
     def test_export(self, config_cloudtp):
         req_exp = RequirementExport(REQ_DATA, config_cloudtp)
         complete = req_exp.export()
         fname = "requirement_complete.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 

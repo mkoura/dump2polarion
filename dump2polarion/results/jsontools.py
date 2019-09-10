@@ -1,11 +1,7 @@
-# -*- coding: utf-8 -*-
 """
 Helper functions for handling JSON data.
 """
 
-from __future__ import absolute_import, unicode_literals
-
-import io
 import json
 
 from dump2polarion.exceptions import Dump2PolarionException
@@ -13,7 +9,7 @@ from dump2polarion.exporters import xunit_exporter
 
 
 def _load_json(json_filename):
-    with io.open(json_filename, encoding="utf-8") as input_json:
+    with open(json_filename, encoding="utf-8") as input_json:
         return json.load(input_json)
 
 

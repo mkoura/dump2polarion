@@ -1,12 +1,8 @@
-# -*- coding: utf-8 -*-
 """
 Utils for dump2polarion.
 """
 
-from __future__ import absolute_import, unicode_literals
-
 import datetime
-import io
 import logging
 import os
 import random
@@ -15,7 +11,6 @@ import string
 from collections import OrderedDict
 
 import requests
-import six
 import urllib3
 from lxml import etree
 
@@ -33,12 +28,12 @@ VALID_XML_RE = re.compile("[^\u0020-\uD7FF\u0009\u000A\u000D\uE000-\uFFFD\U00010
 
 def get_unicode_str(obj):
     """Makes sure obj is a valid XML unicode string."""
-    if isinstance(obj, six.text_type):
+    if isinstance(obj, str):
         text = obj
-    elif isinstance(obj, six.binary_type):
+    elif isinstance(obj, bytes):
         text = obj.decode("utf-8", errors="ignore")
     else:
-        text = six.text_type(obj)
+        text = str(obj)
     return VALID_XML_RE.sub("", text)
 
 
@@ -81,7 +76,7 @@ def write_xml(xml_str, output_loc=None, filename=None):
         raise Dump2PolarionException("No data to write.")
     filename_fin = _get_filename(output_loc=output_loc, filename=filename)
 
-    with io.open(filename_fin, "w", encoding="utf-8") as xml_file:
+    with open(filename_fin, "w", encoding="utf-8") as xml_file:
         xml_file.write(get_unicode_str(xml_str))
     logger.info("Data written to '%s'", filename_fin)
 

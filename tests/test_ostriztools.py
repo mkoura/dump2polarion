@@ -1,9 +1,5 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
-from __future__ import unicode_literals
-
-import io
 import os
 
 import pytest
@@ -33,7 +29,7 @@ def records_json_search():
     return ostriztools.import_ostriz(json_file)
 
 
-class TestOstriz(object):
+class TestOstriz:
     def test_testrun_id_simple(self):
         testrun_id = ostriztools._get_testrun_id("5.8.0.17")
         assert testrun_id == "5_8_0_17"
@@ -84,7 +80,7 @@ class TestOstriz(object):
 
     def test_remote_json(self, records_json):
         json_file = os.path.join(conf.DATA_PATH, "ostriz.json")
-        with io.open(json_file, encoding="utf-8") as input_json:
+        with open(json_file, encoding="utf-8") as input_json:
             parsed = input_json.read()
         retval = Mock()
         retval.text = parsed
@@ -108,7 +104,7 @@ class TestOstriz(object):
         )
         complete = exporter.export()
         fname = "ostriz_notransform.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -116,7 +112,7 @@ class TestOstriz(object):
         exporter = XunitExport("5_8_0_17", records_json, config_prop)
         complete = exporter.export()
         fname = "ostriz_transform.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -124,7 +120,7 @@ class TestOstriz(object):
         exporter = XunitExport("5_8_0_17", records_json_cmp, config_prop_cmp)
         complete = exporter.export()
         fname = "ostriz_transform_cmp.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 
@@ -132,6 +128,6 @@ class TestOstriz(object):
         exporter = XunitExport("5_8_0_17", records_json_search, config_prop)
         complete = exporter.export()
         fname = "ostriz_search_transform.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed

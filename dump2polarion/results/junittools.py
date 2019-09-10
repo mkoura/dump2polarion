@@ -1,13 +1,9 @@
-# -*- coding: utf-8 -*-
 """
 Helper functions for handling data in pytest junit format.
 """
 
-from __future__ import absolute_import, unicode_literals
-
 import os
 
-import six
 from lxml import etree
 
 from dump2polarion import utils
@@ -59,7 +55,7 @@ def _extract_parameters_from_properties(properties):
     """Extracts parameters from properties."""
     new_properties = {}
     parameters = {}
-    for key, value in six.iteritems(properties):
+    for key, value in properties.items():
         if key.startswith(_PARAMETER_PREFIX):
             parameters[key.replace(_PARAMETER_PREFIX, "")] = value
         else:
@@ -97,7 +93,7 @@ def import_junit(junit_file, **kwargs):
             "time": time,
             "file": filepath,
         }
-        for key, value in six.iteritems(properties):
+        for key, value in properties.items():
             data[key] = value
         if parameters:
             data["params"] = utils.sorted_dict(parameters)

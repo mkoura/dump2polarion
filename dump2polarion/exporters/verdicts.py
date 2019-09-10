@@ -1,12 +1,9 @@
-# -*- coding: utf-8 -*-
 """
 Allowed values for verdicts.
 """
 
-from __future__ import unicode_literals
 
-
-class Verdicts(object):
+class Verdicts:
     """Valid verdicts."""
 
     PASS = ("passed", "pass")

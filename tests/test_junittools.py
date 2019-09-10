@@ -1,9 +1,7 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access
 
-from __future__ import unicode_literals
-
 import os
+from io import StringIO
 
 import pytest
 
@@ -11,13 +9,8 @@ from dump2polarion.exceptions import Dump2PolarionException
 from dump2polarion.results import junittools
 from tests import conf
 
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
 
-
-class TestJunitImport(object):
+class TestJunitImport:
     def test_import_orig_data(self):
         junit_file = os.path.join(conf.DATA_PATH, "junit-report.xml")
         data = junittools.import_junit(junit_file)
@@ -40,7 +33,7 @@ class TestJunitImport(object):
         assert data.testrun is None
 
     def test_invalid_input(self):
-        invalid_content = str("foo")
+        invalid_content = "foo"
         input_file = StringIO(invalid_content)
         with pytest.raises(Dump2PolarionException) as excinfo:
             junittools.import_junit(input_file)

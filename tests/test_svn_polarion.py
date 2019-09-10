@@ -1,7 +1,4 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,no-self-use
-
-from __future__ import unicode_literals
 
 import os
 
@@ -12,7 +9,7 @@ REPO_DIR = os.path.join(conf.DATA_PATH, "polarion_repo")
 WORKITEMS_NUM = 3
 
 
-class TestWorkItemCache(object):
+class TestWorkItemCache:
     def test_get_all_items(self):
         cache = WorkItemCache(REPO_DIR)
         counter = 0

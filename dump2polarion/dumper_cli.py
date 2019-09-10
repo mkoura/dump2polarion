@@ -1,14 +1,10 @@
-# -*- coding: utf-8 -*-
 """
 Dump testcases results from a CSV, SQLite, junit, JSON or Ostriz input file to XUnit file.
 Submit XUnit, Testcases or Requirements XML to the Polarion Importers.
 """
 
-from __future__ import absolute_import, unicode_literals
-
 import argparse
 import datetime
-import io
 import logging
 import os
 
@@ -122,7 +118,7 @@ def submit_if_ready(args, submit_args, config):
     if ext.lower() != ".xml":
         return None
 
-    with io.open(args.input_file, encoding="utf-8") as input_file:
+    with open(args.input_file, encoding="utf-8") as input_file:
         xml = input_file.read(1024)
 
     if not ("<testsuites" in xml or "<testcases" in xml or "<requirements" in xml):
@@ -173,7 +169,7 @@ def dumper(args, config, transform_func=None):
     except NothingToDoException as info:
         logger.info(info)
         return 0
-    except (EnvironmentError, Dump2PolarionException) as err:
+    except (OSError, Dump2PolarionException) as err:
         logger.fatal(err)
         return 1
 

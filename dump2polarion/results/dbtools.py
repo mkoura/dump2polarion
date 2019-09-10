@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 Helper functions for handling data in sqlite3.
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import logging
 import os
@@ -38,7 +35,7 @@ def _open_sqlite(db_file):
             # test that the file can be accessed
             pass
         return sqlite3.connect(db_file, detect_types=sqlite3.PARSE_DECLTYPES)
-    except (IOError, sqlite3.Error) as err:
+    except (OSError, sqlite3.Error) as err:
         raise Dump2PolarionException("{}".format(err))
 
 

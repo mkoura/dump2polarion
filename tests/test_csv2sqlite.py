@@ -1,7 +1,5 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use
 
-import io
 import os
 
 from mock import patch
@@ -12,7 +10,7 @@ from dump2polarion.results import dbtools
 from tests import conf
 
 
-class TestCSV2sqliteCLI(object):
+class TestCSV2sqliteCLI:
     def test_get_args(self):
         args = csv2sqlite_cli.get_args(["-i", "foo", "-o", "bar"])
         assert args.input_file == "foo"
@@ -31,7 +29,7 @@ class TestCSV2sqliteCLI(object):
         exporter = XunitExport("5_8_0_17", records, config_prop)
         complete = exporter.export()
         fname = "complete_transform.xml"
-        with io.open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
+        with open(os.path.join(conf.DATA_PATH, fname), encoding="utf-8") as input_xml:
             parsed = input_xml.read()
         assert complete == parsed
 

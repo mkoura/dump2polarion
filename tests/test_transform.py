@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access,invalid-name
-
-from __future__ import unicode_literals
 
 import pytest
 
@@ -117,7 +114,7 @@ RHCF3_DATA = RHCF3_ONLY + NOT_PASSED
 CMP_DATA = CMP_ONLY + NOT_PASSED
 
 
-class TestTransform(object):
+class TestTransform:
     @pytest.fixture(scope="class")
     def config_rhcf3(self):
         return {"polarion-project-id": "RHCF3"}

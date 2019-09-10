@@ -1,9 +1,6 @@
-# -*- coding: utf-8 -*-
 """
 Helper functions for handling data in CSV format.
 """
-
-from __future__ import absolute_import, unicode_literals
 
 import csv
 import os
@@ -117,15 +114,7 @@ def _get_csv_reader(input_file):
 # pylint: disable=unused-argument
 def get_imported_data(csv_file, **kwargs):
     """Reads the content of the Polarion exported csv file and returns imported data."""
-    open_args = []
-    open_kwargs = {}
-    try:
-        # pylint: disable=pointless-statement
-        unicode
-        open_args.append("rb")
-    except NameError:
-        open_kwargs["encoding"] = "utf-8"
-    with open(os.path.expanduser(csv_file), *open_args, **open_kwargs) as input_file:
+    with open(os.path.expanduser(csv_file), encoding="utf-8") as input_file:
         reader = _get_csv_reader(input_file)
 
         fieldnames = _get_csv_fieldnames(reader)

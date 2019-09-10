@@ -1,7 +1,4 @@
-# encoding: utf-8
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use
-
-from __future__ import unicode_literals
 
 import os
 
@@ -14,7 +11,7 @@ from tests import conf
 
 
 # pylint: disable=too-many-public-methods
-class TestUtils(object):
+class TestUtils:
     def test_get_unicode_char(self):
         unicode_str = utils.get_unicode_str("®")
         assert unicode_str == "®"
@@ -24,7 +21,7 @@ class TestUtils(object):
         assert unicode_str == "42"
 
     def test_get_unicode_basestring(self):
-        unicode_str = utils.get_unicode_str("@".encode("ascii"))
+        unicode_str = utils.get_unicode_str(b"@")
         assert unicode_str == "@"
 
     def test_write_xml_gen(self, tmpdir):

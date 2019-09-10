@@ -1,16 +1,11 @@
-# -*- coding: utf-8 -*-
 """
 Configuration loading.
 """
 
-from __future__ import absolute_import, unicode_literals
-
 import glob
-import io
 import logging
 import os
 
-import six
 import yaml
 
 from dump2polarion.exceptions import Dump2PolarionException
@@ -39,7 +34,7 @@ logger = logging.getLogger(__name__)
 
 def _check_config(config):
     missing = []
-    for key in six.iterkeys(URLS):
+    for key in URLS:
         if not config.get(key):
             missing.append(key)
 
@@ -56,7 +51,7 @@ def _check_config(config):
 
 
 def _guess_base_url(config):
-    for key, value in six.iteritems(URLS):
+    for key, value in URLS.items():
         if config.get(key):
             return config[key][: -len(value)]
     return None
@@ -70,7 +65,7 @@ def _populate_urls(config):
         return
 
     base_url = base_url.rstrip("/")
-    for key, url in six.iteritems(URLS):
+    for key, url in URLS.items():
         if key not in config:
             config[key] = "{}/{}".format(base_url, url)
 
@@ -108,7 +103,7 @@ def _set_legacy_custom_fields(config):
 
 
 def _get_default_conf():
-    with io.open(DEFAULT_CONF, encoding="utf-8") as input_file:
+    with open(DEFAULT_CONF, encoding="utf-8") as input_file:
         config_settings = yaml.safe_load(input_file)
 
     logger.debug("Default config loaded from %s", DEFAULT_CONF)
@@ -118,9 +113,9 @@ def _get_default_conf():
 
 def _get_user_conf(config_file):
     try:
-        with io.open(os.path.expanduser(config_file), encoding="utf-8") as input_file:
+        with open(os.path.expanduser(config_file), encoding="utf-8") as input_file:
             config_settings = yaml.safe_load(input_file)
-    except EnvironmentError:
+    except OSError:
         raise Dump2PolarionException("Cannot open config file {}".format(config_file))
 
     logger.info("Config loaded from %s", config_file)
@@ -149,9 +144,9 @@ def _get_project_conf():
 
     for conf_file in conf_files:
         try:
-            with io.open(conf_file, encoding="utf-8") as input_file:
+            with open(conf_file, encoding="utf-8") as input_file:
                 loaded_settings = yaml.safe_load(input_file)
-        except EnvironmentError:
+        except OSError:
             logger.warning("Failed to load config from %s", conf_file)
         else:
             logger.info("Config loaded from %s", conf_file)

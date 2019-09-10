@@ -1,19 +1,14 @@
-# -*- coding: utf-8 -*-
 """
 Helper functions for handling JSON data from Ostriz.
 """
 
-from __future__ import absolute_import, unicode_literals
-
 import datetime
-import io
 import json
 import logging
 import os
 from collections import OrderedDict
 
 import requests
-import six
 from packaging.version import InvalidVersion, Version
 
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
@@ -31,7 +26,7 @@ def _get_json(location):
     location = os.path.expanduser(location)
     try:
         if os.path.isfile(location):
-            with io.open(location, encoding="utf-8") as json_data:
+            with open(location, encoding="utf-8") as json_data:
                 return json.load(json_data, object_pairs_hook=OrderedDict).get("tests")
         elif "http" in location:
             json_data = requests.get(location)
@@ -72,7 +67,7 @@ def _calculate_duration(start_time, finish_time):
     finish = datetime.datetime.fromtimestamp(finish_time)
     duration = finish - start
 
-    decimals = float(("0." + str(duration.microseconds)))
+    decimals = float("0." + str(duration.microseconds))
     return duration.seconds + decimals
 
 
@@ -90,7 +85,7 @@ def _filter_parameters(parameters):
     if not parameters:
         return None
     return OrderedDict(
-        (param, value) for param, value in six.iteritems(parameters) if param not in IGNORED_PARAMS
+        (param, value) for param, value in parameters.items() if param not in IGNORED_PARAMS
     )
 
 
@@ -134,7 +129,7 @@ def _parse_ostriz(ostriz_data):
     results = []
     found_build = None
     last_finish_time = [0]
-    for test_path, test_data in six.iteritems(ostriz_data):
+    for test_path, test_data in ostriz_data.items():
         curr_build = test_data.get("build")
         if not curr_build:
             continue

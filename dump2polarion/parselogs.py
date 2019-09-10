@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """
 Find out info about work items in Polarion by parsing logs produced by Importers.
 
@@ -11,16 +10,13 @@ Find out what items:
 Logs can be produced by submitting XMLs with dry-only.
 """
 
-from __future__ import absolute_import, unicode_literals
-
-import io
 import os
 import re
 
 from dump2polarion.exceptions import Dump2PolarionException
 
 
-class LogItem(object):
+class LogItem:
     """Represents one work item record in a log file."""
 
     # pylint: disable=redefined-builtin
@@ -33,7 +29,7 @@ class LogItem(object):
         return "<LogItem {}>".format(self.name)
 
 
-class ParsedLog(object):
+class ParsedLog:
     """Outcome of log parsing."""
 
     def __init__(self, log_type, new_items, existing_items, duplicate_items):
@@ -49,7 +45,7 @@ class ParsedLog(object):
         return "<ParsedLog {}>".format(self.log_type)
 
 
-class XUnitParser(object):
+class XUnitParser:
     """Parser for XUnit logs."""
 
     RESULT_SEARCH = re.compile(r"Work item: '(test_[^']+|[A-Z][^']+)' \(([^)]+)\)$")
@@ -121,7 +117,7 @@ class XUnitParser(object):
         return outcome
 
 
-class TestcasesParser(object):
+class TestcasesParser:
     """Parser for Testcase logs."""
 
     TESTCASE_SEARCH = re.compile(r" test case '(test_[^']+|[A-Z][^']+)' \(([^)]+)\)")
@@ -185,7 +181,7 @@ class TestcasesParser(object):
         return outcome
 
 
-class RequirementsParser(object):
+class RequirementsParser:
     """Parser for Requirement logs."""
 
     REQ_SEARCH = re.compile(r" requirement '([a-zA-Z][^']+)' \(([^)/]+)")
@@ -245,7 +241,7 @@ class RequirementsParser(object):
 
 def parse(log_file):
     """Parse log file."""
-    with io.open(os.path.expanduser(log_file), encoding="utf-8") as input_file:
+    with open(os.path.expanduser(log_file), encoding="utf-8") as input_file:
         for line in input_file:
             if "Starting import of XUnit results" in line:
                 obj = XUnitParser
