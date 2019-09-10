@@ -4,19 +4,25 @@ repos:
     hooks:
       - id: black
         args: [--safe, --quiet, --line-length, "100"]
-        language_version: python3.6
+        language_version: python3
   - repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
     hooks:
       - id: trailing-whitespace
+        language_version: python3
       - id: end-of-file-fixer
+        language_version: python3
       - id: check-yaml
+        language_version: python3
       - id: debug-statements
+        language_version: python3
       - id: flake8
+        language_version: python3
   - repo: https://github.com/asottile/pyupgrade
-    rev: v1.22.1
+    rev: v1.23.0
     hooks:
       - id: pyupgrade
+        language_version: python3
   - repo: local
     hooks:
       - id: system-pylint
