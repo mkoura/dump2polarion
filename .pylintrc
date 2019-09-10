@@ -16,7 +16,6 @@ disable=
     fixme,
     too-few-public-methods,
     bad-continuation,
-    useless-object-inheritance,
     duplicate-code,
 
 [MASTER]
