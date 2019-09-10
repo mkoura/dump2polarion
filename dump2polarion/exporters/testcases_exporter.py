@@ -8,9 +8,9 @@ testcases_data = [
         "title": "test_manual",
         "description": "Manual tests with all supported fields.",
         "approver-ids": "bossman mkourim:approved",
-        "assignee-id": "mkourim",
-        "due-date": "2018-09-30",
-        "initial-estimate": "1/4h",
+        "assignee": "mkourim",
+        "dueDate": "2018-09-30",
+        "initialEstimate": "1/4h",
         "caseautomation": "manualonly",
         "caseimportance": "high",
         "caselevel": "component",
@@ -25,13 +25,13 @@ testcases_data = [
         "automation_script": "https://gitlab.com/foo",
         "testSteps": ["step1", "step2"],
         "expectedResults": ["result1", "result2"],
-        "linked-items": "ITEM01",
-        "status-id": "proposed",
+        "linkedWorkItems": "ITEM01",
+        "status": "proposed",
     },
     {
         "title": "test_minimal_param",
         "params": ["param1", "param2"],
-        "linked-items": [{"id": "ITEM01", "role": "derived_from"}],
+        "linkedWorkItems": [{"id": "ITEM01", "role": "derived_from"}],
     },
 ]
 """
@@ -62,7 +62,13 @@ class TestcaseTransform:
         "status-id": None,
     }
 
-    FIELD_MAPPING = {"assignee-id": "assignee", "initial-estimate": "initialEstimate"}
+    FIELD_MAPPING = {
+        "assignee-id": "assignee",
+        "due-date": "dueDate",
+        "initial-estimate": "initialEstimate",
+        "status-id": "status",
+        "linked-items": "linkedWorkItems",
+    }
 
     CUSTOM_FIELDS = {
         "arch": None,

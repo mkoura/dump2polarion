@@ -58,6 +58,8 @@ POLARION_DEFAULT_FIELDS = OrderedDict(
     )
 )
 
+REQUIREMENTS_DEFAULT_FIELDS = OrderedDict((("reqtype", "system"),))
+
 RHCF3_TESTCASE_PROPS = OrderedDict((("lookup-method", "name"),))
 
 RHCF3_CONF = GENERIC_CONF.copy()
@@ -65,6 +67,7 @@ RHCF3_CONF["polarion-project-id"] = "RHCF3"
 RHCF3_CONF["xunit_import_properties"] = RHCF3_XUNIT_PROPS
 RHCF3_CONF["testcase_import_properties"] = RHCF3_TESTCASE_PROPS
 RHCF3_CONF["default_fields"] = POLARION_DEFAULT_FIELDS
+RHCF3_CONF["requirements_default_fields"] = REQUIREMENTS_DEFAULT_FIELDS
 RHCF3_CONF["docstrings"] = VALID_CASELEVELS
 
 CMP_CONF = GENERIC_CONF.copy()

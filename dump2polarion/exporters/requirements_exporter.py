@@ -7,14 +7,14 @@ requirements_data = [
         "title": "requirement_complete",
         "description": "Complete Requirement",
         "approver-ids": "mkourim:approved",
-        "assignee-id": "mkourim",
+        "assignee": "mkourim",
         "category-ids": "category_id1, category_id2",
-        "due-date": "2018-09-30",
-        "planned-in-ids": "planned_id1, planned_id2",
-        "initial-estimate": "1/4h",
-        "priority-id": "high",
-        "severity-id": "should_have",
-        "status-id": "status_id",
+        "dueDate": "2018-09-30",
+        "plannedIn": "planned_id1, planned_id2",
+        "initialEstimate": "1/4h",
+        "priority": "high",
+        "severity": "should_have",
+        "status": "status_id",
         "reqtype": "functional",
     },
     {
@@ -53,7 +53,9 @@ class RequirementTransform:
 
     FIELD_MAPPING = {
         "assignee-id": "assignee",
+        "due-date": "dueDate",
         "initial-estimate": "initialEstimate",
+        "planned-in-ids": "plannedIn",
         "priority-id": "priority",
         "severity-id": "severity",
         "status-id": "status",
@@ -66,6 +68,15 @@ class RequirementTransform:
         self._transform_func = transform_func or transform_projects.get_requirements_transform(
             config
         )
+
+        default_fields = self.config.get("requirements_default_fields") or {}
+        default_fields = {k: utils.get_unicode_str(v) for k, v in default_fields.items() if v}
+        self.default_fields = utils.sorted_dict(default_fields)
+
+    def _fill_project_defaults(self, testcase_data):
+        filled = self.default_fields.copy()
+        filled.update(testcase_data)
+        return filled
 
     def _run_transform_func(self, result):
         """Calls transform function on result."""
@@ -91,6 +102,7 @@ class RequirementTransform:
 
     def transform(self, req_data):
         """Transforms requirement data."""
+        req_data = self._fill_project_defaults(req_data)
         req_data = self._fill_polarion_fields(req_data)
         req_data = self._run_transform_func(req_data)
         if not req_data:
@@ -113,6 +125,9 @@ class RequirementExport:
         self.config = config
         self._lookup_prop = ""
         self.requirement_transform = RequirementTransform(config, transform_func)
+
+        self.known_custom_fields = set(self.requirement_transform.CUSTOM_FIELDS)
+        self.known_custom_fields.update(self.config.get("requirements_custom_fields") or ())
 
     def _top_element(self):
         """Returns top XML element."""
@@ -173,10 +188,13 @@ class RequirementExport:
             if not value:
                 continue
             conv_key = key.replace("_", "-")  # convert pythonic key_param to polarion 'key-param'
-            if conv_key in self.requirement_transform.REQ_DATA:
-                attrs[conv_key] = value
-            elif conv_key in self.requirement_transform.CUSTOM_FIELDS:
-                custom_fields[conv_key] = value
+            for key_variant in (conv_key, key):
+                if key_variant in self.requirement_transform.REQ_DATA:
+                    attrs[key_variant] = value
+                elif key_variant in self.known_custom_fields:
+                    custom_fields[key_variant] = value
+                if conv_key == key:
+                    break
 
         return attrs, custom_fields
 

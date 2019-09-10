@@ -15,22 +15,23 @@ repo_address: https://github.com/project/repo
 
 default_fields:
     assignee: ""
-    casecomponent: ""
-    initialEstimate: 1m
+    caseautomation: automated
+    casecomponent: "-"
     caseimportance: high
     caselevel: component
     caseposneg: positive
-    caseautomation: automated
-    testtype: functional
+    description: ""
+    expectedResults: ""
+    initialEstimate: ""
+    linkedWorkItems: ""
+    setup: ""
+    status: ""
     subtype1: "-"
     subtype2: "-"
     tags: ""
-    setup: ""
     teardown: ""
-    description: ""
-    linkedWorkItems: ""
     testSteps: ""
-    expectedResults: ""
+    testtype: functional
     title: ""
     work_item_id: ""
 
@@ -47,6 +48,19 @@ custom_fields:
     - teardown
     - testtype
     - upstream
+
+requirements_default_fields:
+    assignee: ""
+    dueDate: ""
+    initialEstimate: ""
+    plannedIn: ""
+    priority: ""
+    reqtype: "functional"
+    severity: ""
+    status: ""
+
+requirements_custom_fields:
+    - reqtype
 
 blacklisted_tests:
     - 'cfme/tests/containers/'
