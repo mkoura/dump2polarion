@@ -2,14 +2,13 @@
 Configuration loading.
 """
 
-import glob
 import logging
 import os
 
 import yaml
+from polarion_tools_common import configuration, utils
 
 from dump2polarion.exceptions import Dump2PolarionException
-from dump2polarion.utils import find_vcs_root
 
 DEFAULT_CONF = os.path.join(os.path.dirname(os.path.abspath(__file__)), "polarion_tools.yaml")
 PROJECT_CONF_DIRS = ("conf", ".")
@@ -123,47 +122,14 @@ def _get_user_conf(config_file):
     return config_settings
 
 
-def _get_project_conf():
-    """Loads configuration from project config file."""
-    config_settings = {}
-
-    project_root = find_vcs_root(".")
-    if project_root is None:
-        return config_settings
-
-    for conf_dir in PROJECT_CONF_DIRS:
-        conf_dir = conf_dir.lstrip("./")
-        joined_dir = os.path.join(project_root, conf_dir) if conf_dir else project_root
-        joined_glob = os.path.join(joined_dir, PROJECT_CONF)
-        conf_files = glob.glob(joined_glob)
-        # config files found, not trying other directories
-        if conf_files:
-            break
-    else:
-        conf_files = []
-
-    for conf_file in conf_files:
-        try:
-            with open(conf_file, encoding="utf-8") as input_file:
-                loaded_settings = yaml.safe_load(input_file)
-        except OSError:
-            logger.warning("Failed to load config from %s", conf_file)
-        else:
-            logger.info("Config loaded from %s", conf_file)
-            config_settings.update(loaded_settings)
-
-    return config_settings
-
-
 def get_config(config_file=None, config_values=None, load_project_conf=True):
     """Loads config file and returns its content."""
     config_values = config_values or {}
-    config_settings = {}
 
     default_conf = _get_default_conf()
     user_conf = _get_user_conf(config_file) if config_file else {}
     # load project configuration only when user configuration was not specified
-    project_conf = {} if user_conf or not load_project_conf else _get_project_conf()
+    project_conf = {} if user_conf or not load_project_conf else configuration.get_config()
 
     if not (user_conf or project_conf or config_values):
         if load_project_conf:
@@ -174,10 +140,11 @@ def get_config(config_file=None, config_values=None, load_project_conf=True):
         raise Dump2PolarionException("No configuration file or values passed.")
 
     # merge configuration
+    config_settings = {}
     config_settings.update(default_conf)
-    config_settings.update(user_conf)
-    config_settings.update(project_conf)
-    config_settings.update(config_values)
+    utils.merge_dicts(config_settings, user_conf)
+    utils.merge_dicts(config_settings, project_conf)
+    utils.merge_dicts(config_settings, config_values)
 
     _populate_urls(config_settings)
     _set_legacy_project_id(config_settings)

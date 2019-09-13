@@ -23,7 +23,15 @@ setup(
         ]
     },
     setup_requires=["setuptools_scm"],
-    install_requires=["lxml", "pyyaml", "requests", "docutils", "packaging", "python-box"],
+    install_requires=[
+        "lxml",
+        "pyyaml",
+        "requests",
+        "docutils",
+        "packaging",
+        "python-box",
+        "polarion-tools-common",
+    ],
     keywords=["polarion", "testing"],
     classifiers=[
         "Development Status :: 3 - Alpha",

@@ -13,6 +13,7 @@ from collections import OrderedDict
 import requests
 import urllib3
 from lxml import etree
+from polarion_tools_common import utils
 
 from dump2polarion.exceptions import Dump2PolarionException
 
@@ -28,13 +29,7 @@ VALID_XML_RE = re.compile("[^\u0020-\uD7FF\u0009\u000A\u000D\uE000-\uFFFD\U00010
 
 def get_unicode_str(obj):
     """Makes sure obj is a valid XML unicode string."""
-    if isinstance(obj, str):
-        text = obj
-    elif isinstance(obj, bytes):
-        text = obj.decode("utf-8", errors="ignore")
-    else:
-        text = str(obj)
-    return VALID_XML_RE.sub("", text)
+    return VALID_XML_RE.sub("", utils.get_unicode_str(obj))
 
 
 def init_log(log_level):
@@ -157,16 +152,6 @@ def get_session(credentials, config):
         session.auth = credentials
 
     return session
-
-
-def find_vcs_root(path, dirs=(".git",)):
-    """Searches up from a given path to find the project root."""
-    prev, path = None, os.path.abspath(path)
-    while prev != path:
-        if any(os.path.exists(os.path.join(path, d)) for d in dirs):
-            return path
-        prev, path = path, os.path.abspath(os.path.join(path, os.pardir))
-    return None
 
 
 def get_testrun_id_config(config):
