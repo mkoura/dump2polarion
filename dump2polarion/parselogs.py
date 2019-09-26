@@ -246,10 +246,10 @@ def parse(log_file):
             if "Starting import of XUnit results" in line:
                 obj = XUnitParser
                 break
-            elif "Starting import of test cases" in line:
+            if "Starting import of test cases" in line:
                 obj = TestcasesParser
                 break
-            elif "Starting import of requirements" in line:
+            if "Starting import of requirements" in line:
                 obj = RequirementsParser
                 break
         else:

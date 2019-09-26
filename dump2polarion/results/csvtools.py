@@ -28,9 +28,8 @@ def _get_csv_fieldnames(csv_reader):
             fieldnames.append(field)
         if "id" in fieldnames:
             break
-        else:
-            # this is not a row with fieldnames
-            del fieldnames[:]
+        # this is not a row with fieldnames
+        del fieldnames[:]
     if not fieldnames:
         return None
     # remove trailing unannotated fields
