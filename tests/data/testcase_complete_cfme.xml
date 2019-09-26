@@ -38,13 +38,14 @@ Manual tests with many supported fields.
   </testcase>
   <testcase id="test_minimal_param" initial-estimate="1m">
     <title>test_minimal_param</title>
-    <description>empty-description-placeholder&lt;br id="id123"/&gt;&lt;br/&gt;</description>
+    <description>empty-description-placeholder&lt;br id="id123"/&gt;&lt;br/&gt;&lt;a href="https://github.com/somerepo/blob/somebranch/file#L83"&gt;Test Source&lt;/a&gt;</description>
     <test-steps>
       <test-step>
         <test-step-column id="step"/>
       </test-step>
     </test-steps>
     <custom-fields>
+      <custom-field content="https://github.com/somerepo/blob/somebranch/file#L83" id="automation_script"/>
       <custom-field content="automated" id="caseautomation"/>
       <custom-field content="high" id="caseimportance"/>
       <custom-field content="component" id="caselevel"/>

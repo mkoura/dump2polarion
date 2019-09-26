@@ -44,6 +44,7 @@ REQ_DATA = [
             ("params", ["param1", "param2"]),
             ("linked-items-lookup-method", "name"),
             ("linked-items", [{"id": "ITEM01", "role": "derived_from"}]),
+            ("automation_script", "https://github.com/somerepo/blob/somebranch/file#L83"),
         )
     ),
 ]

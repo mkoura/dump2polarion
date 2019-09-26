@@ -39,6 +39,7 @@ testcases_data = [
 import datetime
 import logging
 import re
+import urllib
 
 from lxml import etree
 
@@ -102,6 +103,29 @@ class TestcaseTransform:
         default_fields = self.config.get("default_fields") or {}
         default_fields = {k: utils.get_unicode_str(v) for k, v in default_fields.items() if v}
         self.default_fields = utils.sorted_dict(default_fields)
+        self.repo_address = self._get_full_repo_address(self.config.get("repo_address"))
+
+    @staticmethod
+    def _get_full_repo_address(repo_address):
+        """Makes sure the repo address is complete path in repository.
+
+        >>> TestcaseTransform._get_full_repo_address("https://gitlab.com/somerepo")
+        'https://gitlab.com/somerepo/blob/master/'
+        >>> TestcaseTransform._get_full_repo_address("https://github.com/otherrepo/blob/branch/")
+        'https://github.com/otherrepo/blob/branch/'
+        >>> TestcaseTransform._get_full_repo_address(None)
+        """
+        if not repo_address:
+            return None
+
+        if "/blob/" not in repo_address:
+            # the master here should probably link the latest "commit" eventually
+            repo_address = "{}/blob/master".format(repo_address)
+
+        # make sure the / is present at the end of address
+        repo_address = "{}/".format(repo_address.rstrip("/ "))
+
+        return repo_address
 
     def _fill_project_defaults(self, testcase_data):
         filled = self.default_fields.copy()
@@ -109,14 +133,12 @@ class TestcaseTransform:
         return filled
 
     def _fill_automation_repo(self, testcase_data):
-        repo_address = self.config.get("repo_address")
         automation_script = testcase_data.get("automation_script")
-        if not (repo_address and automation_script):
+        if not (self.repo_address and automation_script) or automation_script.startswith("http"):
             return testcase_data
 
-        # the master here should probably link the latest "commit" eventually
-        testcase_data["automation_script"] = "{}/blob/master/{}".format(
-            repo_address, automation_script
+        testcase_data["automation_script"] = urllib.parse.urljoin(
+            self.repo_address, automation_script
         )
         return testcase_data
 
