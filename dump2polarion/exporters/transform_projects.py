@@ -42,6 +42,8 @@ def get_xunit_transform_cfme(config):
         "BZ ?[0-9]+",
         "GH ?#?[0-9]+",
         "GH#ManageIQ",
+        r"bugzilla\.redhat\.com",
+        r"github\.com",
     ]
     skips = re.compile("(" + ")|(".join(skip_searches) + ")")
 

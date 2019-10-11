@@ -90,9 +90,28 @@ def _filter_parameters(parameters):
 
 
 def _append_record(test_data, results, test_path):
-    """Adds data of single testcase results to results database."""
+    """Adds data of single testcase results to results database.
+
+    TODO: Make blocker skips more consistent in where the reason for blocking is stored in ostriz
+    """
     statuses = test_data.get("statuses")
-    jenkins_data = test_data.get("jenkins") or {}
+    jenkins_data = test_data.get("jenkins", {})
+    skipped = test_data.get("skipped", {})  # only set for setup skips
+
+    # setup a comment for uploading blockers
+    comment = ""
+    if skipped.get("type") == "blocker":
+        # skipped testcase because of blocker
+        # BZ's in reason, others in issues coming from ostriz json
+        # urls stored in issues when  its a GH blocker
+        reason = skipped.get("reason") or test_data.get("issues")
+
+        if reason:
+            if not isinstance(reason, str):
+                reason = ", ".join([str(r) for r in reason])  # keys if its a dict, should be list
+            comment = "blocker: {}".format(reason)
+        else:
+            comment = "Couldn't find reason for blocker skip"
 
     data = [
         ("title", test_data.get("test_name") or _get_testname(test_path)),
@@ -100,6 +119,7 @@ def _append_record(test_data, results, test_path):
         ("source", test_data.get("source")),
         ("job_name", jenkins_data.get("job_name")),
         ("run", jenkins_data.get("build_number")),
+        ("comment", comment),
         ("params", _filter_parameters(test_data.get("params"))),
         (
             "time",
