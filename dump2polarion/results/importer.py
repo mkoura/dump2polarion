@@ -1,6 +1,4 @@
-"""
-Import data using correct tools.
-"""
+"""Import data using correct tools."""
 
 import os
 
@@ -9,7 +7,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 
 
 def _get_importer(input_file):
-    """Selects importer based on input file type."""
+    """Select importer based on input file type."""
     __, ext = os.path.splitext(input_file)
     ext = ext.lower()
 
@@ -39,5 +37,5 @@ def _get_importer(input_file):
 
 
 def import_results(input_file, **kwargs):
-    """Imports the input file."""
+    """Import the input file."""
     return _get_importer(input_file)(input_file, **kwargs)

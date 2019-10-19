@@ -1,6 +1,4 @@
-"""
-Tools for manipulation of XML properties.
-"""
+"""Tools for manipulating XML properties."""
 
 import random
 import string
@@ -14,7 +12,7 @@ _NOT_EXPECTED_FORMAT_MSG = "XML file is not in expected format"
 
 
 def _set_property(xml_root, name, value, properties=None):
-    """Sets property to specified value."""
+    """Set property to specified value."""
     if properties is None:
         properties = xml_root.find("properties")
 
@@ -42,7 +40,7 @@ def _get_testrun_properties(xml_root):
 
 
 def xunit_fill_testrun_id(xml_root, testrun_id):
-    """Adds the polarion-testrun-id property when it's missing."""
+    """Add the polarion-testrun-id property when it's missing."""
     properties = _get_testrun_properties(xml_root)
     if properties is None:
         return
@@ -62,7 +60,7 @@ def xunit_fill_testrun_id(xml_root, testrun_id):
 
 
 def xunit_fill_testrun_title(xml_root, testrun_title):
-    """Adds the polarion-testrun-id property when it's missing."""
+    """Add the polarion-testrun-id property when it's missing."""
     properties = _get_testrun_properties(xml_root)
     if properties is None:
         return
@@ -70,14 +68,14 @@ def xunit_fill_testrun_title(xml_root, testrun_title):
 
 
 def generate_response_property(name=None, value=None):
-    """Generates response property."""
+    """Generate response property."""
     name = name or "dump2polarion"
     value = value or "".join(random.sample(string.ascii_lowercase, 12))
     return (name, value)
 
 
 def _fill_testsuites_response_property(xml_root, name, value):
-    """Returns testsuites response property and fills it if missing."""
+    """Return testsuites response property and fill it if missing."""
     properties = xml_root.find("properties")
     for prop in properties:
         prop_name = prop.get("name", "")
@@ -96,7 +94,7 @@ def _fill_testsuites_response_property(xml_root, name, value):
 
 
 def _fill_non_testsuites_response_property(xml_root, name, value):
-    """Returns testcases/requirements response property and fills it if missing."""
+    """Return testcases/requirements response property and fill it if missing."""
     properties = xml_root.find("response-properties")
     if properties is None:
         properties = etree.Element("response-properties")
@@ -117,7 +115,7 @@ def _fill_non_testsuites_response_property(xml_root, name, value):
 
 
 def fill_response_property(xml_root, name=None, value=None):
-    """Returns response property and fills it if missing."""
+    """Return response property and fill it if missing."""
     name, value = generate_response_property(name, value)
     response_property = None
 
@@ -132,7 +130,7 @@ def fill_response_property(xml_root, name=None, value=None):
 
 
 def remove_response_property(xml_root):
-    """Removes response properties if exist."""
+    """Remove response properties if exist."""
     if xml_root.tag == "testsuites":
         properties = xml_root.find("properties")
         resp_properties = []
@@ -151,7 +149,7 @@ def remove_response_property(xml_root):
 
 
 def remove_property(xml_root, partial_name):
-    """Removes properties if exist."""
+    """Remove properties if exist."""
     if xml_root.tag in ("testsuites", "testcases", "requirements"):
         properties = xml_root.find("properties")
         remove_properties = []
@@ -166,7 +164,7 @@ def remove_property(xml_root, partial_name):
 
 
 def set_lookup_method(xml_root, value):
-    """Changes lookup method."""
+    """Change lookup method."""
     if xml_root.tag == "testsuites":
         _set_property(xml_root, "polarion-lookup-method", value)
     elif xml_root.tag in ("testcases", "requirements"):
@@ -176,7 +174,7 @@ def set_lookup_method(xml_root, value):
 
 
 def set_dry_run(xml_root, value=True):
-    """Sets dry-run so records are not updated, only log file is produced."""
+    """Set dry-run so records are not updated, only log file is produced."""
     value_str = str(value).lower()
     assert value_str in ("true", "false")
     if xml_root.tag == "testsuites":

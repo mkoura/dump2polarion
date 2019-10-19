@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 
 def set_cfme_caselevel(testcase, caselevels):
-    """Converts tier to caselevel."""
+    """Convert tier to caselevel."""
     tier = testcase.get("caselevel")
     if tier is None:
         return
@@ -50,7 +50,7 @@ def get_xunit_transform_cfme(config):
     parametrize = config.get("cfme_parametrize", False)
 
     def results_transform(result):
-        """Results transform for CFME."""
+        """Transform results for CFME."""
         verdict = result.get("verdict")
         if not verdict:
             return None
@@ -82,7 +82,6 @@ def get_xunit_transform_cfme(config):
 
 def get_testcases_transform_cfme(config):
     """Return test cases transformation function for CFME."""
-
     parametrize = config.get("cfme_parametrize", False)
     run_id = config.get("cfme_run_id")
 
@@ -91,7 +90,7 @@ def get_testcases_transform_cfme(config):
     caselevels = caselevels.get("caselevel") or []
 
     def testcase_transform(testcase):
-        """Test cases transform for CFME."""
+        """Transform test cases for CFME."""
         testcase = copy.deepcopy(testcase)
 
         transform.setup_parametrization(testcase, parametrize)
@@ -106,11 +105,11 @@ def get_testcases_transform_cfme(config):
 
 
 # pylint: disable=unused-argument
-def get_requirements_transform_cfme(config):
+def get_requirements_transform_cfme(config):  # noqa: D202
     """Return requirement transformation function for CFME."""
 
     def requirement_transform(requirement):
-        """Requirements transform for CFME."""
+        """Transform requirements for CFME."""
         requirement = copy.deepcopy(requirement)
 
         if "id" in requirement:
@@ -134,7 +133,7 @@ def get_xunit_transform_cmp(config):
     skips = re.compile("(" + ")|(".join(skip_searches) + ")")
 
     def results_transform(result):
-        """Results transform for CMP."""
+        """Transform results for CMP."""
         verdict = result.get("verdict")
         if not verdict:
             return None
@@ -175,11 +174,11 @@ def get_xunit_transform_cmp(config):
 
 
 # pylint: disable=unused-argument
-def get_requirements_transform_cloudtp(config):
+def get_requirements_transform_cloudtp(config):  # noqa: D202
     """Return requirement transformation function for CLOUDTP."""
 
     def requirement_transform(requirement):
-        """Requirements transform for CLOUDTP."""
+        """Transform requirements for CLOUDTP."""
         requirement = copy.deepcopy(requirement)
 
         if "id" in requirement:
@@ -210,7 +209,7 @@ PROJECT_MAPPING_REQ = {
 
 
 def get_xunit_transform(config):
-    """Returns results transformation function.
+    """Return results transformation function.
 
     The transformation function is returned by calling corresponding "getter" function.
 
@@ -220,7 +219,6 @@ def get_xunit_transform(config):
     When no results data are returned, this result will be ignored
     and will not be written to the resulting XML.
     """
-
     project = config["polarion-project-id"]
     if project in PROJECT_MAPPING_XUNIT:
         return PROJECT_MAPPING_XUNIT[project](config)
@@ -228,7 +226,7 @@ def get_xunit_transform(config):
 
 
 def get_testcases_transform(config):
-    """Returns test cases transformation function.
+    """Return test cases transformation function.
 
     The transformation function is returned by calling corresponding "getter" function.
 
@@ -238,7 +236,6 @@ def get_testcases_transform(config):
     When no test cases data are returned, this test case will be ignored
     and will not be written to the resulting XML.
     """
-
     project = config["polarion-project-id"]
     if project in PROJECT_MAPPING_TESTCASES:
         return PROJECT_MAPPING_TESTCASES[project](config)
@@ -246,7 +243,7 @@ def get_testcases_transform(config):
 
 
 def get_requirements_transform(config):
-    """Returns requirements transformation function.
+    """Return requirements transformation function.
 
     The transformation function is returned by calling corresponding "getter" function.
 
@@ -256,7 +253,6 @@ def get_requirements_transform(config):
     When no requirements data are returned, this requirement will be ignored
     and will not be written to the resulting XML.
     """
-
     project = config["polarion-project-id"]
     if project in PROJECT_MAPPING_REQ:
         return PROJECT_MAPPING_REQ[project](config)

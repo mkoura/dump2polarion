@@ -1,6 +1,4 @@
-"""
-Helper functions for handling data in sqlite3.
-"""
+"""Helper functions for handling data in sqlite3."""
 
 import logging
 import os
@@ -18,7 +16,7 @@ SQLITE_EXT = (".sqlite", ".sqlite3", ".db", ".db3")
 
 
 def _get_testrun_from_sqlite(conn):
-    """Returns testrun id saved from original csv file."""
+    """Return testrun id saved from original csv file."""
     cur = conn.cursor()
     try:
         cur.execute("SELECT testrun FROM testrun")
@@ -28,7 +26,7 @@ def _get_testrun_from_sqlite(conn):
 
 
 def _open_sqlite(db_file):
-    """Opens database connection."""
+    """Open database connection."""
     db_file = os.path.expanduser(db_file)
     try:
         with open(db_file):
@@ -41,7 +39,7 @@ def _open_sqlite(db_file):
 
 # pylint: disable=unused-argument
 def import_sqlite(db_file, older_than=None, **kwargs):
-    """Reads the content of the database file and returns imported data."""
+    """Read the content of the database file and return imported data."""
     conn = _open_sqlite(db_file)
     cur = conn.cursor()
     # get rows that were not exported yet
@@ -67,7 +65,7 @@ def import_sqlite(db_file, older_than=None, **kwargs):
 
 
 def mark_exported_sqlite(db_file, older_than=None):
-    """Marks rows with verdict as exported."""
+    """Mark rows with verdict as exported."""
     logger.debug("Marking rows in database as exported")
     conn = _open_sqlite(db_file)
     cur = conn.cursor()

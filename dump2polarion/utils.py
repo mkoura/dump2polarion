@@ -1,6 +1,4 @@
-"""
-Utils for dump2polarion.
-"""
+"""Utils for dump2polarion."""
 
 import datetime
 import logging
@@ -28,12 +26,12 @@ VALID_XML_RE = re.compile("[^\u0020-\uD7FF\u0009\u000A\u000D\uE000-\uFFFD\U00010
 
 
 def get_unicode_str(obj):
-    """Makes sure obj is a valid XML unicode string."""
+    """Make sure obj is a valid XML unicode string."""
     return VALID_XML_RE.sub("", utils.get_unicode_str(obj))
 
 
 def init_log(log_level):
-    """Initializes logging."""
+    """Initialize logging."""
     log_level = log_level or "INFO"
     logging.basicConfig(
         format="%(name)s:%(levelname)s:%(message)s",
@@ -56,7 +54,7 @@ def _get_filename(output_loc=None, filename=None):
 
 
 def write_xml(xml_str, output_loc=None, filename=None):
-    """Outputs the XML content (string) into a file.
+    """Output the XML content (string) into a file.
 
     If `output_loc` is supplied and it's a file (not directory), the output
     will be saved there and the `filename` is ignored.
@@ -66,6 +64,7 @@ def write_xml(xml_str, output_loc=None, filename=None):
         output_loc: file or directory for saving the file
         filename: file name that will be used if `output_loc` is directory
             If it is needed and is not supplied, it will be generated
+
     """
     if not xml_str:
         raise Dump2PolarionException("No data to write.")
@@ -77,7 +76,7 @@ def write_xml(xml_str, output_loc=None, filename=None):
 
 
 def write_xml_root(xml_root, output_loc=None, filename=None):
-    """Outputs the XML content (from XML element) into a file.
+    """Output the XML content (from XML element) into a file.
 
     If `output_loc` is supplied and it's a file (not directory), the output
     will be saved there and the `filename` is ignored.
@@ -87,6 +86,7 @@ def write_xml_root(xml_root, output_loc=None, filename=None):
         output_loc: file or directory for saving the file
         filename: file name that will be used if `output_loc` is directory
             If it is needed and is not supplied, it will be generated
+
     """
     if xml_root is None:
         raise Dump2PolarionException("No data to write.")
@@ -98,7 +98,7 @@ def write_xml_root(xml_root, output_loc=None, filename=None):
 
 
 def get_xml_root(xml_file):
-    """Returns XML root."""
+    """Return XML root."""
     try:
         xml_root = etree.parse(os.path.expanduser(xml_file), NO_BLANKS_PARSER).getroot()
     # pylint: disable=broad-except
@@ -108,7 +108,7 @@ def get_xml_root(xml_file):
 
 
 def get_xml_root_from_str(xml_str):
-    """Returns XML root from string."""
+    """Return XML root from string."""
     try:
         xml_root = etree.fromstring(xml_str.encode("utf-8"), NO_BLANKS_PARSER)
     # pylint: disable=broad-except
@@ -118,18 +118,18 @@ def get_xml_root_from_str(xml_str):
 
 
 def etree_to_string(xml_root):
-    """Returns string representation of element tree."""
+    """Return string representation of element tree."""
     return get_unicode_str(etree.tostring(xml_root, encoding="utf-8"))
 
 
 def prettify_xml(xml_root):
-    """Returns pretty-printed string representation of element tree."""
+    """Return pretty-printed string representation of element tree."""
     xml_string = etree.tostring(xml_root, encoding="utf-8", xml_declaration=True, pretty_print=True)
     return get_unicode_str(xml_string)
 
 
 def get_session(credentials, config):
-    """Gets requests session."""
+    """Get requests session."""
     session = requests.Session()
     session.verify = False
     auth_url = config.get("auth_url")
@@ -155,11 +155,11 @@ def get_session(credentials, config):
 
 
 def get_testrun_id_config(config):
-    """Gets testrun ID defined in config file."""
+    """Get testrun ID defined in config file."""
     config_testrun_id = config.get("xunit_import_properties") or {}
     return config_testrun_id.get("polarion-testrun-id")
 
 
 def sorted_dict(dictionary):
-    """Returns sorted dictionary."""
+    """Return sorted dictionary."""
     return OrderedDict(sorted(dictionary.items()))

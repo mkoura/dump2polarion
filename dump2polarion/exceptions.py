@@ -1,6 +1,4 @@
-"""
-Exceptions.
-"""
+"""Exceptions."""
 
 
 class Dump2PolarionException(Exception):

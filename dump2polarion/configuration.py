@@ -1,6 +1,4 @@
-"""
-Configuration loading.
-"""
+"""Configuration loading."""
 
 import logging
 import os
@@ -123,7 +121,7 @@ def _get_user_conf(config_file):
 
 
 def get_config(config_file=None, config_values=None, load_project_conf=True):
-    """Loads config file and returns its content."""
+    """Load config file and return its content."""
     config_values = config_values or {}
 
     default_conf = _get_default_conf()

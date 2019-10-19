@@ -1,6 +1,4 @@
-"""
-Helper functions for handling JSON data.
-"""
+"""Helper functions for handling JSON data."""
 
 import json
 
@@ -14,7 +12,7 @@ def _load_json(json_filename):
 
 
 def import_pytest_collect(json_filename):
-    """Reads the content of the JSON file produced by pytest-polarion-collect file."""
+    """Read the content of the JSON file produced by pytest-polarion-collect file."""
     try:
         results = _load_json(json_filename)["results"]
     except Exception as err:
@@ -25,6 +23,6 @@ def import_pytest_collect(json_filename):
 
 # pylint: disable=unused-argument
 def import_json(json_filename, **kwargs):
-    """Reads the content of the JSON file."""
+    """Read the content of the JSON file."""
     # results from pytest-polarion-collect are the only ones supported so far
     return import_pytest_collect(json_filename)

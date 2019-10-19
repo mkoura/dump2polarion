@@ -1,6 +1,4 @@
-"""
-Helper functions for transforming results.
-"""
+"""Helper functions for transforming results."""
 
 import hashlib
 import logging
@@ -18,7 +16,7 @@ TEST_PARAM_RE = re.compile(r"\[.*\]")
 
 
 def only_passed_and_wait(result):
-    """Returns PASS and WAIT results only, skips everything else."""
+    """Return PASS and WAIT results only, skips everything else."""
     verdict = result.get("verdict", "").strip().lower()
     if verdict in Verdicts.PASS + Verdicts.WAIT:
         return result
@@ -26,7 +24,7 @@ def only_passed_and_wait(result):
 
 
 def insert_source_info(result):
-    """Adds info about source of test result if available."""
+    """Add info about source of test result if available."""
     comment = result.get("comment")
     # don't change comment if it already exists
     if comment:
@@ -45,7 +43,7 @@ def insert_source_info(result):
 
 
 def setup_parametrization(result, parametrize):
-    """Modifies result's data according to the parametrization settings."""
+    """Modify result's data according to the parametrization settings."""
     if parametrize:
         # remove parameters from title
         title = result.get("title")
@@ -61,7 +59,7 @@ def setup_parametrization(result, parametrize):
 
 
 def include_class_in_title(result):
-    """Makes sure that test class is included in "title".
+    """Make sure that test class is included in "title".
 
     Applies only to titles derived from test function names, e.g.
     "test_power_parent_service" -> "TestServiceRESTAPI.test_power_parent_service"
@@ -103,7 +101,7 @@ def include_class_in_title(result):
 
 
 def gen_unique_id(string):
-    """Generates unique id out of a string.
+    """Generate unique id out of a string.
 
     >>> gen_unique_id("vmaas_TestClass.test_name")
     '5acc5dc795a620c6b4491b681e5da39c'
@@ -112,7 +110,7 @@ def gen_unique_id(string):
 
 
 def get_testcase_id(testcase, append_str):
-    """Returns new test case ID.
+    """Return new test case ID.
 
     >>> get_testcase_id({"title": "TestClass.test_name"}, "vmaas_")
     '5acc5dc795a620c6b4491b681e5da39c'
@@ -133,7 +131,7 @@ def get_testcase_id(testcase, append_str):
 
 
 def parse_rst_description(testcase):
-    """Creates an HTML version of the RST formatted description."""
+    """Create an HTML version of the RST formatted description."""
     description = testcase.get("description")
 
     if not description:
@@ -153,7 +151,7 @@ def parse_rst_description(testcase):
 
 
 def preformat_plain_description(testcase):
-    """Creates a preformatted HTML version of the description."""
+    """Create a preformatted HTML version of the description."""
     description = testcase.get("description")
 
     if not description:
@@ -180,7 +178,7 @@ def preformat_plain_description(testcase):
 
 
 def add_unique_runid(testcase, run_id=None):
-    """Adds run id to the test description.
+    """Add run id to the test description.
 
     The `run_id` runs makes the descriptions unique between imports and force Polarion
     to update every testcase every time.
@@ -192,7 +190,7 @@ def add_unique_runid(testcase, run_id=None):
 
 
 def add_automation_link(testcase):
-    """Appends link to automation script to the test description."""
+    """Append link to automation script to the test description."""
     automation_link = (
         '<a href="{}">Test Source</a>'.format(testcase["automation_script"])
         if testcase.get("automation_script")

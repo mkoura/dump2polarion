@@ -1,4 +1,6 @@
 """
+Dump data to Polarion Importers.
+
 Dump testcases results from a CSV, SQLite, junit, JSON or Ostriz input file to XUnit file.
 Submit XUnit, Testcases or Requirements XML to the Polarion Importers.
 """
@@ -58,22 +60,22 @@ def get_args(args=None):
 
 
 def get_submit_args(args):
-    """Gets arguments for the `submit_and_verify` method."""
-    submit_args = dict(
-        testrun_id=args.testrun_id,
-        user=args.user,
-        password=args.password,
-        no_verify=args.no_verify,
-        verify_timeout=args.verify_timeout,
-        log_file=args.job_log,
-        dry_run=args.dry_run,
-    )
+    """Get arguments for the `submit_and_verify` method."""
+    submit_args = {
+        "testrun_id": args.testrun_id,
+        "user": args.user,
+        "password": args.password,
+        "no_verify": args.no_verify,
+        "verify_timeout": args.verify_timeout,
+        "log_file": args.job_log,
+        "dry_run": args.dry_run,
+    }
     submit_args = {k: v for k, v in submit_args.items() if v is not None}
     return Box(submit_args, frozen_box=True, default_box=True)
 
 
 def process_args(args):
-    """Processes passed arguments."""
+    """Process passed arguments."""
     passed_args = args
     if isinstance(args, argparse.Namespace):
         passed_args = vars(passed_args)
@@ -84,7 +86,7 @@ def process_args(args):
 
 
 def get_testrun_id(args, config, records_testrun_id):
-    """Returns testrun id."""
+    """Return testrun id."""
     config_testrun_id = utils.get_testrun_id_config(config)
 
     found_testrun_id = args.testrun_id or records_testrun_id or config_testrun_id
@@ -113,7 +115,7 @@ def get_testrun_id(args, config, records_testrun_id):
 
 
 def submit_if_ready(args, submit_args, config):
-    """Submits the input XML file if it's already in the expected format."""
+    """Submit the input XML file if it's already in the expected format."""
     __, ext = os.path.splitext(args.input_file)
     if ext.lower() != ".xml":
         return None
@@ -148,7 +150,7 @@ def _get_config(args):
 
 
 def dumper(args, config, transform_func=None):
-    """Dumper main function."""
+    """Perform main dumper functionality."""
     args = process_args(args)
     submit_args = get_submit_args(args)
 
@@ -191,7 +193,7 @@ def dumper(args, config, transform_func=None):
 
 
 def main(args=None, transform_func=None):
-    """Main function for cli."""
+    """Perform main cli functionality."""
     args = get_args(args)
 
     utils.init_log(args.log_level)

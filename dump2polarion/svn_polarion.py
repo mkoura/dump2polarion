@@ -1,6 +1,4 @@
-"""
-Access work items data in the Polarion SVN repository.
-"""
+"""Access work items data in the Polarion SVN repository."""
 
 import logging
 import os
@@ -26,7 +24,7 @@ class WorkItemCache:
 
     @staticmethod
     def get_path(num):
-        """Gets a path from the workitem number.
+        """Get a path from the workitem number.
 
         For example: 31942 will return 30000-39999/31000-31999/31900-31999
         """
@@ -41,7 +39,7 @@ class WorkItemCache:
         return "/".join(paths)
 
     def get_tree(self, work_item_id):
-        """Gets XML tree of the workitem."""
+        """Get XML tree of the workitem."""
         try:
             __, tcid = work_item_id.split("-")
         except ValueError:
@@ -130,7 +128,7 @@ class WorkItemCache:
         return self._cache[work_item_id]
 
     def get_all_items(self):
-        """Walks the repo and returns work items."""
+        """Walk the repo and return work items."""
         for item in os.walk(self.test_case_dir):
             if "workitem.xml" not in item[2]:
                 continue

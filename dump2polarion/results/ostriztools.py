@@ -1,6 +1,4 @@
-"""
-Helper functions for handling JSON data from Ostriz.
-"""
+"""Helper functions for handling JSON data from Ostriz."""
 
 import datetime
 import json
@@ -22,13 +20,13 @@ IGNORED_PARAMS = {"browserVersion", "browserPlatform", "browserName"}
 
 
 def _get_json(location):
-    """Reads JSON data from file or URL."""
+    """Read JSON data from file or URL."""
     location = os.path.expanduser(location)
     try:
         if os.path.isfile(location):
             with open(location, encoding="utf-8") as json_data:
                 return json.load(json_data, object_pairs_hook=OrderedDict).get("tests")
-        elif "http" in location:
+        elif location.startswith("http"):
             json_data = requests.get(location)
             if not json_data:
                 raise Dump2PolarionException("Failed to download")
@@ -40,13 +38,13 @@ def _get_json(location):
 
 
 def _get_testrun_id(version):
-    """Gets testrun id out of the version string.
+    """Get testrun id out of the version string.
 
     Remove trailing version dates / hashes separated by - / _
     Then use packaging Version to parse the version string
     Then cast each release component to string for joining with _
 
-    Build and returns testrun ID that looks like x_y_z_a from version x.y.z.a-20181114_abcdef
+    Build and return testrun ID that looks like x_y_z_a from version x.y.z.a-20181114_abcdef
     """
     try:
         v = Version(version.split("-")[0].split("_")[0])
@@ -60,7 +58,7 @@ def _get_testrun_id(version):
 
 
 def _calculate_duration(start_time, finish_time):
-    """Calculates how long it took to execute the testcase."""
+    """Calculate how long it took to execute the testcase."""
     if not (start_time and finish_time):
         return 0
     start = datetime.datetime.fromtimestamp(start_time)
@@ -72,7 +70,7 @@ def _calculate_duration(start_time, finish_time):
 
 
 def _get_testname(test_path):
-    """Gets test name out of full test path."""
+    """Get test name out of full test path."""
     path_end = test_path.find(".py/")
     if path_end:
         offset = path_end + 4
@@ -81,7 +79,7 @@ def _get_testname(test_path):
 
 
 def _filter_parameters(parameters):
-    """Filters the ignored parameters out."""
+    """Filter the ignored parameters out."""
     if not parameters:
         return None
     return OrderedDict(
@@ -90,7 +88,7 @@ def _filter_parameters(parameters):
 
 
 def _append_record(test_data, results, test_path):
-    """Adds data of single testcase results to results database.
+    """Add data of single testcase results to results database.
 
     TODO: Make blocker skips more consistent in where the reason for blocking is stored in ostriz
     """
@@ -142,7 +140,7 @@ def _comp_finish_time(test_data, last_finish_time):
 
 
 def _parse_ostriz(ostriz_data):
-    """Reads the content of the input JSON and returns testcases results."""
+    """Read the content of the input JSON and return testcases results."""
     if not ostriz_data:
         raise NothingToDoException("No data to import")
 
@@ -177,6 +175,6 @@ def _parse_ostriz(ostriz_data):
 
 # pylint: disable=unused-argument
 def import_ostriz(location, **kwargs):
-    """Reads Ostriz's data and returns imported data."""
+    """Read Ostriz's data and return imported data."""
     ostriz_data = _get_json(location)
     return _parse_ostriz(ostriz_data)

@@ -1,6 +1,4 @@
-"""
-Helper functions for handling data in CSV format.
-"""
+"""Helper functions for handling data in CSV format."""
 
 import csv
 import os
@@ -13,7 +11,7 @@ from dump2polarion.exporters import xunit_exporter
 
 
 def _get_csv_fieldnames(csv_reader):
-    """Finds fieldnames in Polarion exported csv file."""
+    """Find fieldnames in Polarion exported csv file."""
     fieldnames = []
     for row in csv_reader:
         for col in row:
@@ -49,7 +47,7 @@ def _get_csv_fieldnames(csv_reader):
 
 
 def _get_testrun_from_csv(file_obj, csv_reader):
-    """Tries to find the testrun id in  Polarion exported csv file."""
+    """Try to find the testrun id in Polarion exported csv file."""
     file_obj.seek(0)
     search_str = r'TEST_RECORDS:\("[^/]+/([^"]+)"'
     testrun_id = None
@@ -77,7 +75,7 @@ def _get_testrun_from_csv(file_obj, csv_reader):
 
 
 def _get_results(csv_reader, fieldnames):
-    """Maps data to fieldnames.
+    """Map data to fieldnames.
 
     The reader needs to be at position after fieldnames, before the results data.
     """
@@ -104,7 +102,7 @@ def _get_results(csv_reader, fieldnames):
 
 
 def _get_csv_reader(input_file):
-    """Returns csv reader."""
+    """Return csv reader."""
     dialect = csv.Sniffer().sniff(input_file.read(2048))
     input_file.seek(0)
     return csv_unicode.get_csv_reader(input_file, dialect)
@@ -112,7 +110,7 @@ def _get_csv_reader(input_file):
 
 # pylint: disable=unused-argument
 def get_imported_data(csv_file, **kwargs):
-    """Reads the content of the Polarion exported csv file and returns imported data."""
+    """Read the content of the Polarion exported csv file and return imported data."""
     with open(os.path.expanduser(csv_file), encoding="utf-8") as input_file:
         reader = _get_csv_reader(input_file)
 
@@ -143,7 +141,7 @@ def _check_required_columns(csv_file, results):
 
 
 def import_csv(csv_file, **kwargs):
-    """Imports data and checks that all required columns are there."""
+    """Import data and checks that all required columns are there."""
     records = get_imported_data(csv_file, **kwargs)
     _check_required_columns(csv_file, records.results)
     return records

@@ -35,7 +35,7 @@ logger = logging.getLogger(__name__)
 
 
 class XunitExport:
-    """Exports testcases results into Polarion XUnit."""
+    """Export testcases results into Polarion XUnit."""
 
     def __init__(self, testrun_id, tests_records, config, transform_func=None):
         self.testrun_id = testrun_id
@@ -45,14 +45,14 @@ class XunitExport:
         self._transform_func = transform_func or transform_projects.get_xunit_transform(config)
 
     def _top_element(self):
-        """Returns top XML element."""
+        """Return top XML element."""
         top = etree.Element("testsuites")
         comment = etree.Comment("Generated for testrun {}".format(self.testrun_id))
         top.append(comment)
         return top
 
     def _properties_element(self, parent_element):
-        """Returns properties XML element."""
+        """Return properties XML element."""
         testsuites_properties = etree.SubElement(parent_element, "properties")
 
         etree.SubElement(
@@ -87,7 +87,7 @@ class XunitExport:
         return testsuites_properties
 
     def _fill_lookup_prop(self, testsuites_properties):
-        """Fills the polarion-lookup-method property."""
+        """Fill the polarion-lookup-method property."""
         if not self._lookup_prop:
             raise Dump2PolarionException("Failed to set the 'polarion-lookup-method' property")
 
@@ -98,7 +98,7 @@ class XunitExport:
         )
 
     def _testsuite_element(self, parent_element):
-        """Returns testsuite XML element."""
+        """Return testsuite XML element."""
         testsuite = etree.SubElement(
             parent_element,
             "testsuite",
@@ -138,14 +138,14 @@ class XunitExport:
             etree.SubElement(testcase, "skipped", utils.sorted_dict(verdict_data))
 
     def _transform_result(self, result):
-        """Calls transform function on result."""
+        """Call transform function on result."""
         if self._transform_func:
             result = self._transform_func(result)
         return result or None
 
     @staticmethod
     def _get_verdict(result):
-        """Gets verdict of the testcase."""
+        """Get verdict of the testcase."""
         verdict = result.get("verdict")
         if not verdict:
             return None
@@ -169,7 +169,7 @@ class XunitExport:
         logger.debug("Setting lookup method for xunit to `%s`", self._lookup_prop)
 
     def _check_lookup_prop(self, result_data):
-        """Checks that selected lookup property can be used for this testcase."""
+        """Check that selected lookup property can be used for this testcase."""
         if not self._lookup_prop:
             return False
 
@@ -181,7 +181,7 @@ class XunitExport:
 
     @staticmethod
     def _testcase_element(parent_element, result, records, testcase_id, testcase_title):
-        """Creates XML element for given testcase result and update testcases records."""
+        """Create XML element for given testcase result and update testcases records."""
         testcase_time = float(result.get("time") or result.get("duration") or 0)
         records["time"] += testcase_time
 
@@ -193,7 +193,7 @@ class XunitExport:
 
     @staticmethod
     def _fill_out_err(result, testcase):
-        """Adds stdout and stderr if present."""
+        """Add stdout and stderr if present."""
         if result.get("stdout"):
             system_out = etree.SubElement(testcase, "system-out")
             system_out.text = utils.get_unicode_str(result["stdout"])
@@ -204,7 +204,7 @@ class XunitExport:
 
     @staticmethod
     def _fill_properties(verdict, result, testcase, testcase_id, testcase_title):
-        """Adds properties into testcase element."""
+        """Add properties into testcase element."""
         properties = etree.SubElement(testcase, "properties")
         etree.SubElement(
             properties,
@@ -233,7 +233,7 @@ class XunitExport:
             )
 
     def _gen_testcase(self, parent_element, result, records):
-        """Creates record for given testcase result."""
+        """Create record for given testcase result."""
         result = self._transform_result(result)
         if not result:
             return
@@ -263,11 +263,11 @@ class XunitExport:
         self._fill_properties(verdict, result, testcase, testcase_id, testcase_title)
 
     def _fill_tests_results(self, testsuite_element):
-        """Creates records for all testcases results."""
+        """Create records for all testcases results."""
         if not self.tests_records.results:
             raise NothingToDoException("Nothing to export")
 
-        records = dict(passed=0, skipped=0, failures=0, waiting=0, time=0.0)
+        records = {"passed": 0, "skipped": 0, "failures": 0, "waiting": 0, "time": 0.0}
         for testcase_result in self.tests_records.results:
             self._gen_testcase(testsuite_element, testcase_result, records)
 
@@ -285,7 +285,7 @@ class XunitExport:
         testsuite_element.set("tests", str(tests_num))
 
     def export(self):
-        """Returns XUnit XML."""
+        """Return XUnit XML."""
         top = self._top_element()
         properties = self._properties_element(top)
         testsuite = self._testsuite_element(top)
@@ -294,7 +294,7 @@ class XunitExport:
         return utils.prettify_xml(top)
 
     def write_xml(self, xml, output_file=None):
-        """Outputs the XML content into a file."""
+        """Output the XML content into a file."""
         gen_filename = "testrun_{}-{:%Y%m%d%H%M%S}.xml".format(
             self.testrun_id, datetime.datetime.now()
         )

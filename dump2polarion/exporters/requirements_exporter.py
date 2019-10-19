@@ -37,7 +37,7 @@ logger = logging.getLogger(__name__)
 
 
 class RequirementTransform:
-    """Transforms requirement data and fills in default keys and values."""
+    """Transform requirement data and fill in default keys and values."""
 
     REQ_DATA = {
         "approver-ids": None,
@@ -79,13 +79,13 @@ class RequirementTransform:
         return filled
 
     def _run_transform_func(self, result):
-        """Calls transform function on result."""
+        """Call transform function on result."""
         if self._transform_func:
             result = self._transform_func(result)
         return result or None
 
     def _fill_polarion_fields(self, req_data):
-        """Sets importer field value from polarion field if available."""
+        """Set importer field value from polarion field if available."""
         for importer_field, polarion_field in self.FIELD_MAPPING.items():
             polarion_value = req_data.get(polarion_field)
             xml_value = req_data.get(importer_field)
@@ -101,7 +101,7 @@ class RequirementTransform:
         return req_data
 
     def transform(self, req_data):
-        """Transforms requirement data."""
+        """Transform requirement data."""
         req_data = self._fill_project_defaults(req_data)
         req_data = self._fill_polarion_fields(req_data)
         req_data = self._run_transform_func(req_data)
@@ -118,7 +118,7 @@ class RequirementTransform:
 
 
 class RequirementExport:
-    """Exports requirements data into XML representation."""
+    """Export requirements data into XML representation."""
 
     def __init__(self, requirements_data, config, transform_func=None):
         self.requirements_data = requirements_data
@@ -130,7 +130,7 @@ class RequirementExport:
         self.known_custom_fields.update(self.config.get("requirements_custom_fields") or ())
 
     def _top_element(self):
-        """Returns top XML element."""
+        """Return top XML element."""
         attrs = {"project-id": self.config["polarion-project-id"]}
         document_relative_path = self.config.get("requirements-document-relative-path")
         if document_relative_path:
@@ -139,7 +139,7 @@ class RequirementExport:
         return top
 
     def _properties_element(self, parent_element):
-        """Returns properties XML element."""
+        """Return properties XML element."""
         requirements_properties = etree.SubElement(parent_element, "properties")
 
         req_properties_conf = self.config.get("requirements_import_properties") or {}
@@ -159,7 +159,7 @@ class RequirementExport:
         return requirements_properties
 
     def _fill_lookup_prop(self, requirements_properties):
-        """Fills the polarion-lookup-method property."""
+        """Fill the polarion-lookup-method property."""
         if not self._lookup_prop:
             raise Dump2PolarionException("Failed to set the 'polarion-lookup-method' property")
 
@@ -170,7 +170,7 @@ class RequirementExport:
         )
 
     def _check_lookup_prop(self, req_id):
-        """Checks that selected lookup property can be used for this testcase."""
+        """Check that selected lookup property can be used for this testcase."""
         if self._lookup_prop:
             if not req_id and self._lookup_prop == "id":
                 return False
@@ -212,7 +212,7 @@ class RequirementExport:
             )
 
     def _requirement_element(self, parent_element, req_data):
-        """Adds requirement XML element."""
+        """Add requirement XML element."""
         req_data = self.requirement_transform.transform(req_data)
         if not req_data:
             return
@@ -252,7 +252,7 @@ class RequirementExport:
             self._requirement_element(parent_element, req_data)
 
     def export(self):
-        """Returns requirements XML."""
+        """Return requirements XML."""
         top = self._top_element()
         properties = self._properties_element(top)
         self._fill_requirements(top)
@@ -261,6 +261,6 @@ class RequirementExport:
 
     @staticmethod
     def write_xml(xml, output_file=None):
-        """Outputs the XML content into a file."""
+        """Output the XML content into a file."""
         gen_filename = "requirements-{:%Y%m%d%H%M%S}.xml".format(datetime.datetime.now())
         utils.write_xml(xml, output_loc=output_file, filename=gen_filename)

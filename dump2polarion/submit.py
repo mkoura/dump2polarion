@@ -1,6 +1,4 @@
-"""
-Submit data to the Polarion Importer.
-"""
+"""Submit data to the Polarion Importer."""
 
 import logging
 import os
@@ -22,7 +20,7 @@ class SubmitResponse:
         self.job_ids = self.get_job_ids()
 
     def response2dict(self):
-        """Returns dict of the response."""
+        """Return dict of the response."""
         try:
             return self.response.json()
         # pylint: disable=broad-except
@@ -30,7 +28,7 @@ class SubmitResponse:
             return None
 
     def get_job_ids(self):
-        """Returns job IDs of the import."""
+        """Return job IDs of the import."""
         if not self.parsed_response:
             return None
         try:
@@ -42,13 +40,13 @@ class SubmitResponse:
         return job_ids
 
     def get_error_message(self):
-        """Returns job IDs of the import."""
+        """Return job IDs of the import."""
         if self.parsed_response:
             return self.parsed_response["files"]["results.xml"].get("error-message")
         return None
 
     def validate_response(self):
-        """Checks that the response is valid and import succeeded."""
+        """Check that the response is valid and import succeeded."""
         if self.response is None:
             logger.error("Failed to submit")
             return False
@@ -104,7 +102,7 @@ class SubmitConfig:
         self.get_credentials(**self.submit_kwargs)
 
     def get_targets(self):
-        """Sets targets."""
+        """Set targets."""
         if self.xml_root.tag == "testcases":
             self.submit_target = self.config.get("testcase_taget")
             self.queue_url = self.config.get("testcase_queue")
@@ -121,7 +119,7 @@ class SubmitConfig:
             raise Dump2PolarionException("Failed to submit to Polarion - submit target not found")
 
     def get_credentials(self, **kwargs):
-        """Sets credentails."""
+        """Set credentails."""
         login = (
             kwargs.get("user") or os.environ.get("POLARION_USERNAME") or self.config.get("username")
         )
@@ -148,7 +146,7 @@ def _get_xml_root(xml_root, xml_str, xml_file):
 
 
 def submit(xml_root, submit_config, session, dry_run=None, **kwargs):
-    """Submits data to the Polarion Importer."""
+    """Submit data to the Polarion Importer."""
     properties.xunit_fill_testrun_id(xml_root, kwargs.get("testrun_id"))
     if dry_run is not None:
         properties.set_dry_run(xml_root, dry_run)
@@ -170,7 +168,7 @@ def submit(xml_root, submit_config, session, dry_run=None, **kwargs):
 def submit_and_verify(
     xml_str=None, xml_file=None, xml_root=None, config=None, session=None, dry_run=None, **kwargs
 ):
-    """Submits data to the Polarion Importer and checks that it was imported."""
+    """Submit data to the Polarion Importer and checks that it was imported."""
     try:
         config = config or configuration.get_config()
         xml_root = _get_xml_root(xml_root, xml_str, xml_file)

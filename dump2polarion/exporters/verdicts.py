@@ -1,6 +1,4 @@
-"""
-Allowed values for verdicts.
-"""
+"""Allowed values for verdicts."""
 
 
 class Verdicts:

@@ -17,7 +17,7 @@ from dump2polarion.exceptions import Dump2PolarionException
 
 
 class LogItem:
-    """Represents one work item record in a log file."""
+    """Represent one work item record in a log file."""
 
     # pylint: disable=redefined-builtin
     def __init__(self, name, id, custom_id):
@@ -57,7 +57,7 @@ class XUnitParser:
         self.log_file = log_file
 
     def get_result(self, line):
-        """Gets work item name and id."""
+        """Get work item name and id."""
         res = self.RESULT_SEARCH.search(line)
         try:
             name, ids = res.group(1), res.group(2)
@@ -73,7 +73,7 @@ class XUnitParser:
         return LogItem(name, tc_id, custom_id)
 
     def get_result_warn(self, line):
-        """Gets work item name of item that was not successfully imported."""
+        """Get work item name of item that was not successfully imported."""
         res = self.RESULT_WARN_SEARCH.search(line)
         try:
             return LogItem(res.group(1), None, None)
@@ -128,7 +128,7 @@ class TestcasesParser:
         self.log_file = log_file
 
     def get_testcase(self, line):
-        """Gets test case name and id."""
+        """Get test case name and id."""
         res = self.TESTCASE_SEARCH.search(line)
         try:
             name, ids = res.group(1), res.group(2)
@@ -144,7 +144,7 @@ class TestcasesParser:
         return LogItem(name, tc_id, custom_id)
 
     def get_testcase_warn(self, line):
-        """Gets name of test case that was not successfully imported."""
+        """Get name of test case that was not successfully imported."""
         res = self.TESTCASE_WARN_SEARCH.search(line)
         try:
             return LogItem(res.group(1), None, None)
@@ -192,7 +192,7 @@ class RequirementsParser:
         self.log_file = log_file
 
     def get_requirement(self, line):
-        """Gets requirement name and id."""
+        """Get requirement name and id."""
         res = self.REQ_SEARCH.search(line)
         try:
             name, tc_id = res.group(1), res.group(2)
@@ -202,7 +202,7 @@ class RequirementsParser:
         return LogItem(name, tc_id, None)
 
     def get_requirement_warn(self, line):
-        """Gets name of test case that was not successfully imported."""
+        """Get name of test case that was not successfully imported."""
         res = self.REQ_WARN_SEARCH.search(line)
         try:
             return LogItem(res.group(1), None, None)

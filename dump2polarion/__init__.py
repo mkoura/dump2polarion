@@ -1,6 +1,4 @@
-"""
-Imports.
-"""
+"""Imports."""
 
 from dump2polarion.configuration import get_config
 from dump2polarion.results.importer import import_results

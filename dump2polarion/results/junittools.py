@@ -1,6 +1,4 @@
-"""
-Helper functions for handling data in pytest junit format.
-"""
+"""Helper functions for handling data in pytest junit format."""
 
 import os
 
@@ -23,7 +21,7 @@ def _get_xml_root(junit_file):
 
 
 def _parse_testcase_record(testcase_record):
-    """Parses testcase record and returns it's info."""
+    """Parse testcase record and return it's info."""
     verdict = None
     verdict_found = False
     comment = ""
@@ -52,7 +50,7 @@ def _parse_testcase_record(testcase_record):
 
 
 def _extract_parameters_from_properties(properties):
-    """Extracts parameters from properties."""
+    """Extract parameters from properties."""
     new_properties = {}
     parameters = {}
     for key, value in properties.items():
@@ -66,7 +64,7 @@ def _extract_parameters_from_properties(properties):
 
 # pylint: disable=unused-argument,too-many-locals
 def import_junit(junit_file, **kwargs):
-    """Reads the content of the junit-results file produced by pytest and returns imported data."""
+    """Read the content of the junit-results file produced by pytest and return imported data."""
     xml_root = _get_xml_root(junit_file)
 
     testcases = xml_root.xpath(".//testcase")

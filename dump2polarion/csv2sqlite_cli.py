@@ -1,6 +1,4 @@
-"""
-Dump testcases results from a CSV input file to SQLite.
-"""
+"""Dump testcases results from a CSV input file to SQLite."""
 
 import argparse
 import datetime
@@ -37,7 +35,7 @@ def get_args(args=None):
 
 
 def dump2sqlite(records, output_file):
-    """Dumps tests results to database."""
+    """Dump tests results to database."""
     results_keys = list(records.results[0].keys())
     pad_data = []
 
@@ -75,7 +73,7 @@ def dump2sqlite(records, output_file):
 
 
 def main(args=None):
-    """Main function for cli."""
+    """Perform main cli functionality."""
     args = get_args(args)
 
     utils.init_log(args.log_level)

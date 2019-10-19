@@ -1,6 +1,4 @@
-"""
-Verifies that data were updated in Polarion.
-"""
+"""Verifies that data were updated in Polarion."""
 
 import logging
 import os
@@ -26,7 +24,7 @@ class QueueSearch:
         self.skip = False
 
     def download_queue(self, job_ids):
-        """Downloads data of completed jobs."""
+        """Download data of completed jobs."""
         if self.skip:
             return None
 
@@ -47,7 +45,7 @@ class QueueSearch:
         return response
 
     def find_jobs(self, job_ids):
-        """Finds the jobs in the completed job queue."""
+        """Find the jobs in the completed job queue."""
         matched_jobs = []
         if self.skip:
             return matched_jobs
@@ -67,7 +65,7 @@ class QueueSearch:
         return matched_jobs
 
     def wait_for_jobs(self, job_ids, timeout, delay):
-        """Waits until the jobs appears in the completed job queue."""
+        """Wait until the jobs appears in the completed job queue."""
         found_jobs = []
 
         if self.skip:
@@ -94,7 +92,7 @@ class QueueSearch:
         )
 
     def _check_outcome(self, jobs):
-        """Parses returned messages and checks submit outcome."""
+        """Parse returned messages and check submit outcome."""
         if self.skip:
             return False
 
@@ -124,7 +122,7 @@ class QueueSearch:
         return not failed_jobs
 
     def _download_log(self, url, output_file):
-        """Saves log returned by the message bus."""
+        """Save log returned by the message bus."""
         logger.info("Saving log %s to %s", url, output_file)
 
         def _do_log_download():
@@ -160,7 +158,7 @@ class QueueSearch:
                 logger.info("Submit log for job %s: %s", job.get("id"), url)
 
     def verify_submit(self, job_ids, timeout, delay, **kwargs):
-        """Verifies that the results were successfully submitted."""
+        """Verify that the results were successfully submitted."""
         if self.skip:
             return False
 
@@ -171,7 +169,7 @@ class QueueSearch:
 
 
 def get_queue_obj(session, queue_url, log_url):
-    """Checks that all the data that is needed for submit verification is available."""
+    """Check that all the data that is needed for submit verification is available."""
     skip = False
     if not queue_url:
         logger.error("The queue url is not configured, skipping submit verification")
@@ -189,6 +187,6 @@ def get_queue_obj(session, queue_url, log_url):
 def verify_submit(
     session, queue_url, log_url, job_ids, timeout=_DEFAULT_TIMEOUT, delay=_DEFAULT_DELAY, **kwargs
 ):
-    """Verifies that the results were successfully submitted."""
+    """Verify that the results were successfully submitted."""
     verification_queue = get_queue_obj(session=session, queue_url=queue_url, log_url=log_url)
     return verification_queue.verify_submit(job_ids, timeout, delay, **kwargs)

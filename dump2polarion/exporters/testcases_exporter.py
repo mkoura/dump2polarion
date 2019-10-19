@@ -52,7 +52,7 @@ logger = logging.getLogger(__name__)
 
 
 class TestcaseTransform:
-    """Transforms testcase data and fills in default keys and values."""
+    """Transform testcase data and fill in default keys and values."""
 
     TESTCASE_DATA = {
         "approver-ids": None,
@@ -107,7 +107,7 @@ class TestcaseTransform:
 
     @staticmethod
     def _get_full_repo_address(repo_address):
-        """Makes sure the repo address is complete path in repository.
+        """Make sure the repo address is complete path in repository.
 
         >>> TestcaseTransform._get_full_repo_address("https://gitlab.com/somerepo")
         'https://gitlab.com/somerepo/blob/master/'
@@ -143,13 +143,13 @@ class TestcaseTransform:
         return testcase_data
 
     def _run_transform_func(self, testcase_data):
-        """Calls transform function on testcase data."""
+        """Call transform function on testcase data."""
         if self._transform_func:
             testcase_data = self._transform_func(testcase_data)
         return testcase_data or None
 
     def _fill_polarion_fields(self, testcase_data):
-        """Sets importer field value from polarion field if available."""
+        """Set importer field value from polarion field if available."""
         for importer_field, polarion_field in self.FIELD_MAPPING.items():
             polarion_value = testcase_data.get(polarion_field)
             xml_value = testcase_data.get(importer_field)
@@ -165,7 +165,7 @@ class TestcaseTransform:
         return testcase_data
 
     def transform(self, testcase_data):
-        """Transforms testcase data."""
+        """Transform testcase data."""
         testcase_data = self._fill_project_defaults(testcase_data)
         testcase_data = self._fill_automation_repo(testcase_data)
         testcase_data = self._fill_polarion_fields(testcase_data)
@@ -178,7 +178,7 @@ class TestcaseTransform:
 
 
 class TestcaseExport:
-    """Exports testcases data into XML representation."""
+    """Export testcases data into XML representation."""
 
     def __init__(self, testcases_data, config, transform_func=None):
         self.testcases_data = testcases_data
@@ -201,13 +201,13 @@ class TestcaseExport:
             )
 
     def _top_element(self):
-        """Returns top XML element."""
+        """Return top XML element."""
         attrs = {"project-id": self.config["polarion-project-id"]}
         top = etree.Element("testcases", attrs)
         return top
 
     def _properties_element(self, parent_element):
-        """Returns properties XML element."""
+        """Return properties XML element."""
         testcases_properties = etree.SubElement(parent_element, "properties")
 
         testcases_properties_conf = self.config.get("testcase_import_properties") or {}
@@ -227,7 +227,7 @@ class TestcaseExport:
         return testcases_properties
 
     def _fill_lookup_prop(self, testcases_properties):
-        """Fills the polarion-lookup-method property."""
+        """Fill the polarion-lookup-method property."""
         if not self._lookup_prop:
             raise Dump2PolarionException("Failed to set the 'polarion-lookup-method' property")
 
@@ -250,7 +250,7 @@ class TestcaseExport:
         logger.debug("Setting lookup method for testcases to `%s`", self._lookup_prop)
 
     def _check_lookup_prop(self, testcase_data):
-        """Checks that selected lookup property can be used for this testcase."""
+        """Check that selected lookup property can be used for this testcase."""
         if not self._lookup_prop:
             return False
 
@@ -261,7 +261,7 @@ class TestcaseExport:
         return True
 
     def _get_testcase_id(self, testcase_data):
-        """Returns testcase id when possible."""
+        """Return testcase id when possible."""
         testcase_id = testcase_data.get("id")
         if testcase_id:
             return testcase_id
@@ -352,7 +352,7 @@ class TestcaseExport:
             )
 
     def _is_whitelisted(self, nodeid):
-        """Checks if the nodeid is whitelisted."""
+        """Check if the nodeid is whitelisted."""
         if not nodeid:
             return True
         if self._compiled_whitelist and self._compiled_whitelist.search(nodeid):
@@ -362,7 +362,7 @@ class TestcaseExport:
         return True
 
     def _testcase_element(self, parent_element, testcase_data):
-        """Adds testcase XML element."""
+        """Add testcase XML element."""
         nodeid = testcase_data.get("nodeid")
         if not self._is_whitelisted(nodeid):
             logger.debug("Skipping blacklisted node: %s", nodeid)
@@ -412,7 +412,7 @@ class TestcaseExport:
             self._testcase_element(parent_element, testcase_data)
 
     def export(self):
-        """Returns testcases XML."""
+        """Return testcases XML."""
         top = self._top_element()
         properties = self._properties_element(top)
         self._fill_testcases(top)
@@ -421,6 +421,6 @@ class TestcaseExport:
 
     @staticmethod
     def write_xml(xml, output_file=None):
-        """Outputs the XML content into a file."""
+        """Output the XML content into a file."""
         gen_filename = "testcases-{:%Y%m%d%H%M%S}.xml".format(datetime.datetime.now())
         utils.write_xml(xml, output_loc=output_file, filename=gen_filename)
