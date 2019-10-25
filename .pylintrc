@@ -17,6 +17,7 @@ disable=
     too-few-public-methods,
     bad-continuation,
     duplicate-code,
+    import-outside-toplevel,
 
 [MASTER]
 extension-pkg-whitelist=lxml
