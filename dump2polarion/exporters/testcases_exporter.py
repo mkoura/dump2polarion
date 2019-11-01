@@ -68,7 +68,7 @@ class TestcaseTransform:
         "due-date": "dueDate",
         "initial-estimate": "initialEstimate",
         "status-id": "status",
-        "linked-items": "linkedWorkItems",
+        "linked-work-items": "linkedWorkItems",
     }  # type: Dict[str, Optional[str]]
 
     CUSTOM_FIELDS = {
@@ -314,7 +314,7 @@ class TestcaseExport:
         linked_items = testcase_data.get("linked-items") or testcase_data.get("linked-work-items")
         if not linked_items:
             return
-        if isinstance(linked_items, str) and "," in linked_items:
+        if isinstance(linked_items, str) and "," in linked_items or " " in linked_items:
             # multiple unprocessed linked items (should be list already), skip them
             return
         if isinstance(linked_items, (dict, str)):
