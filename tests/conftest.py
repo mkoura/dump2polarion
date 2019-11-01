@@ -5,6 +5,7 @@ import io
 import logging
 import os
 from collections import OrderedDict
+from typing import Any, Dict
 
 import pytest
 
@@ -19,7 +20,7 @@ GENERIC_CONF = {
     "requirement_queue": "https://polarion.example.com/import/requirement-queue",
     "repo_address": "https://foo/bar/baz",
     "cfme_run_id": "id123",
-}
+}  # type: Dict[str, Any]
 
 
 VALID_CASELEVELS = {

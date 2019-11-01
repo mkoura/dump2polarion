@@ -25,6 +25,7 @@ requirements_data = [
 
 import datetime
 import logging
+from typing import Callable, Tuple, Optional, Dict
 
 from lxml import etree
 
@@ -32,8 +33,7 @@ from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 from dump2polarion.exporters import transform_projects
 
-# pylint: disable=invalid-name
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class RequirementTransform:
@@ -49,7 +49,7 @@ class RequirementTransform:
         "priority-id": "high",
         "severity-id": "should_have",
         "status-id": None,
-    }
+    }  # type: Dict[str, Optional[str]]
 
     FIELD_MAPPING = {
         "assignee-id": "assignee",
@@ -59,11 +59,11 @@ class RequirementTransform:
         "priority-id": "priority",
         "severity-id": "severity",
         "status-id": "status",
-    }
+    }  # type: Dict[str, Optional[str]]
 
-    CUSTOM_FIELDS = {"reqtype": "functional"}
+    CUSTOM_FIELDS = {"reqtype": "functional"}  # type: Dict[str, Optional[str]]
 
-    def __init__(self, config, transform_func=None):
+    def __init__(self, config: dict, transform_func: Optional[Callable] = None) -> None:
         self.config = config
         self._transform_func = transform_func or transform_projects.get_requirements_transform(
             config
@@ -73,18 +73,18 @@ class RequirementTransform:
         default_fields = {k: utils.get_unicode_str(v) for k, v in default_fields.items() if v}
         self.default_fields = utils.sorted_dict(default_fields)
 
-    def _fill_project_defaults(self, testcase_data):
+    def _fill_project_defaults(self, testcase_data: dict) -> dict:
         filled = self.default_fields.copy()
         filled.update(testcase_data)
         return filled
 
-    def _run_transform_func(self, result):
+    def _run_transform_func(self, result: dict) -> dict:
         """Call transform function on result."""
         if self._transform_func:
             result = self._transform_func(result)
-        return result or None
+        return result or {}
 
-    def _fill_polarion_fields(self, req_data):
+    def _fill_polarion_fields(self, req_data: dict) -> dict:
         """Set importer field value from polarion field if available."""
         for importer_field, polarion_field in self.FIELD_MAPPING.items():
             polarion_value = req_data.get(polarion_field)
@@ -93,25 +93,25 @@ class RequirementTransform:
                 req_data[importer_field] = polarion_value
         return req_data
 
-    def _fill_defaults(self, req_data):
+    def _fill_defaults(self, req_data: dict) -> dict:
         for defaults in self.REQ_DATA, self.CUSTOM_FIELDS:
             for key, value in defaults.items():
                 if value and not req_data.get(key):
                     req_data[key] = value
         return req_data
 
-    def transform(self, req_data):
+    def transform(self, req_data: dict) -> dict:
         """Transform requirement data."""
         req_data = self._fill_project_defaults(req_data)
         req_data = self._fill_polarion_fields(req_data)
         req_data = self._run_transform_func(req_data)
         if not req_data:
-            return None
+            return {}
 
         title = req_data.get("title")
         if not title:
-            logger.warning("Skipping requirement, title is missing")
-            return None
+            LOGGER.warning("Skipping requirement, title is missing")
+            return {}
 
         req_data = self._fill_defaults(req_data)
         return req_data
@@ -120,7 +120,9 @@ class RequirementTransform:
 class RequirementExport:
     """Export requirements data into XML representation."""
 
-    def __init__(self, requirements_data, config, transform_func=None):
+    def __init__(
+        self, requirements_data: dict, config: dict, transform_func: Optional[Callable] = None
+    ) -> None:
         self.requirements_data = requirements_data
         self.config = config
         self._lookup_prop = ""
@@ -129,7 +131,7 @@ class RequirementExport:
         self.known_custom_fields = set(self.requirement_transform.CUSTOM_FIELDS)
         self.known_custom_fields.update(self.config.get("requirements_custom_fields") or ())
 
-    def _top_element(self):
+    def _top_element(self) -> etree.Element:
         """Return top XML element."""
         attrs = {"project-id": self.config["polarion-project-id"]}
         document_relative_path = self.config.get("requirements-document-relative-path")
@@ -138,7 +140,7 @@ class RequirementExport:
         top = etree.Element("requirements", utils.sorted_dict(attrs))
         return top
 
-    def _properties_element(self, parent_element):
+    def _properties_element(self, parent_element: etree.Element) -> etree.Element:
         """Return properties XML element."""
         requirements_properties = etree.SubElement(parent_element, "properties")
 
@@ -158,7 +160,7 @@ class RequirementExport:
 
         return requirements_properties
 
-    def _fill_lookup_prop(self, requirements_properties):
+    def _fill_lookup_prop(self, requirements_properties: etree.Element) -> None:
         """Fill the polarion-lookup-method property."""
         if not self._lookup_prop:
             raise Dump2PolarionException("Failed to set the 'polarion-lookup-method' property")
@@ -169,7 +171,7 @@ class RequirementExport:
             {"name": "lookup-method", "value": self._lookup_prop},
         )
 
-    def _check_lookup_prop(self, req_id):
+    def _check_lookup_prop(self, req_id: Optional[str]) -> bool:
         """Check that selected lookup property can be used for this testcase."""
         if self._lookup_prop:
             if not req_id and self._lookup_prop == "id":
@@ -181,7 +183,7 @@ class RequirementExport:
                 self._lookup_prop = "name"
         return True
 
-    def _classify_data(self, req_data):
+    def _classify_data(self, req_data: dict) -> Tuple[dict, dict]:
         attrs, custom_fields = {}, {}
 
         for key, value in req_data.items():
@@ -199,7 +201,7 @@ class RequirementExport:
         return attrs, custom_fields
 
     @staticmethod
-    def _fill_custom_fields(parent, custom_fields):
+    def _fill_custom_fields(parent: etree.Element, custom_fields: dict) -> None:
         if not custom_fields:
             return
 
@@ -211,7 +213,7 @@ class RequirementExport:
                 utils.sorted_dict({"id": field, "content": content}),
             )
 
-    def _requirement_element(self, parent_element, req_data):
+    def _requirement_element(self, parent_element: etree.Element, req_data: dict) -> None:
         """Add requirement XML element."""
         req_data = self.requirement_transform.transform(req_data)
         if not req_data:
@@ -221,7 +223,7 @@ class RequirementExport:
 
         req_id = req_data.get("id")
         if not self._check_lookup_prop(req_id):
-            logger.warning(
+            LOGGER.warning(
                 "Skipping requirement `%s`, data missing for selected lookup method", title
             )
             return
@@ -245,13 +247,13 @@ class RequirementExport:
 
         self._fill_custom_fields(requirement, custom_fields)
 
-    def _fill_requirements(self, parent_element):
+    def _fill_requirements(self, parent_element: etree.Element) -> None:
         if not self.requirements_data:
             raise NothingToDoException("Nothing to export")
         for req_data in self.requirements_data:
             self._requirement_element(parent_element, req_data)
 
-    def export(self):
+    def export(self) -> str:
         """Return requirements XML."""
         top = self._top_element()
         properties = self._properties_element(top)
@@ -260,7 +262,7 @@ class RequirementExport:
         return utils.prettify_xml(top)
 
     @staticmethod
-    def write_xml(xml, output_file=None):
+    def write_xml(xml_str: str, output_file: Optional[str] = None) -> None:
         """Output the XML content into a file."""
         gen_filename = "requirements-{:%Y%m%d%H%M%S}.xml".format(datetime.datetime.now())
-        utils.write_xml(xml, output_loc=output_file, filename=gen_filename)
+        utils.write_xml(xml_str, output_loc=output_file, filename=gen_filename)

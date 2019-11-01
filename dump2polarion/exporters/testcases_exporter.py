@@ -39,7 +39,8 @@ testcases_data = [
 import datetime
 import logging
 import re
-import urllib
+import urllib.parse
+from typing import Callable, Dict, Optional, Tuple
 
 from lxml import etree
 
@@ -47,8 +48,7 @@ from dump2polarion import utils
 from dump2polarion.exceptions import Dump2PolarionException, NothingToDoException
 from dump2polarion.exporters import transform_projects
 
-# pylint: disable=invalid-name
-logger = logging.getLogger(__name__)
+LOGGER = logging.getLogger(__name__)
 
 
 class TestcaseTransform:
@@ -61,7 +61,7 @@ class TestcaseTransform:
         "id": None,
         "initial-estimate": None,
         "status-id": None,
-    }
+    }  # type: Dict[str, Optional[str]]
 
     FIELD_MAPPING = {
         "assignee-id": "assignee",
@@ -69,7 +69,7 @@ class TestcaseTransform:
         "initial-estimate": "initialEstimate",
         "status-id": "status",
         "linked-items": "linkedWorkItems",
-    }
+    }  # type: Dict[str, Optional[str]]
 
     CUSTOM_FIELDS = {
         "arch": None,
@@ -94,9 +94,9 @@ class TestcaseTransform:
         "testtier": None,
         "testtype": "functional",
         "upstream": None,
-    }
+    }  # type: Dict[str, Optional[str]]
 
-    def __init__(self, config, transform_func=None):
+    def __init__(self, config: dict, transform_func: Optional[Callable] = None) -> None:
         self.config = config
         self._transform_func = transform_func or transform_projects.get_testcases_transform(config)
 
@@ -106,7 +106,7 @@ class TestcaseTransform:
         self.repo_address = self._get_full_repo_address(self.config.get("repo_address"))
 
     @staticmethod
-    def _get_full_repo_address(repo_address):
+    def _get_full_repo_address(repo_address: Optional[str]):
         """Make sure the repo address is complete path in repository.
 
         >>> TestcaseTransform._get_full_repo_address("https://gitlab.com/somerepo")
@@ -127,12 +127,12 @@ class TestcaseTransform:
 
         return repo_address
 
-    def _fill_project_defaults(self, testcase_data):
+    def _fill_project_defaults(self, testcase_data: dict) -> dict:
         filled = self.default_fields.copy()
         filled.update(testcase_data)
         return filled
 
-    def _fill_automation_repo(self, testcase_data):
+    def _fill_automation_repo(self, testcase_data: dict) -> dict:
         automation_script = testcase_data.get("automation_script")
         if not (self.repo_address and automation_script) or automation_script.startswith("http"):
             return testcase_data
@@ -142,13 +142,13 @@ class TestcaseTransform:
         )
         return testcase_data
 
-    def _run_transform_func(self, testcase_data):
+    def _run_transform_func(self, testcase_data: dict) -> dict:
         """Call transform function on testcase data."""
         if self._transform_func:
             testcase_data = self._transform_func(testcase_data)
-        return testcase_data or None
+        return testcase_data or {}
 
-    def _fill_polarion_fields(self, testcase_data):
+    def _fill_polarion_fields(self, testcase_data: dict) -> dict:
         """Set importer field value from polarion field if available."""
         for importer_field, polarion_field in self.FIELD_MAPPING.items():
             polarion_value = testcase_data.get(polarion_field)
@@ -157,21 +157,21 @@ class TestcaseTransform:
                 testcase_data[importer_field] = polarion_value
         return testcase_data
 
-    def _fill_defaults(self, testcase_data):
+    def _fill_defaults(self, testcase_data: dict) -> dict:
         for defaults in self.TESTCASE_DATA, self.CUSTOM_FIELDS:
             for key, value in defaults.items():
                 if value and not testcase_data.get(key):
                     testcase_data[key] = value
         return testcase_data
 
-    def transform(self, testcase_data):
+    def transform(self, testcase_data: dict) -> dict:
         """Transform testcase data."""
         testcase_data = self._fill_project_defaults(testcase_data)
         testcase_data = self._fill_automation_repo(testcase_data)
         testcase_data = self._fill_polarion_fields(testcase_data)
         testcase_data = self._run_transform_func(testcase_data)
         if not testcase_data:
-            return None
+            return {}
 
         testcase_data = self._fill_defaults(testcase_data)
         return testcase_data
@@ -180,7 +180,9 @@ class TestcaseTransform:
 class TestcaseExport:
     """Export testcases data into XML representation."""
 
-    def __init__(self, testcases_data, config, transform_func=None):
+    def __init__(
+        self, testcases_data: dict, config: dict, transform_func: Optional[Callable] = None
+    ):
         self.testcases_data = testcases_data
         self.config = config
         self._lookup_prop = ""
@@ -193,20 +195,20 @@ class TestcaseExport:
         self._compiled_blacklist = None
         if self.config.get("whitelisted_tests"):
             self._compiled_whitelist = re.compile(
-                "(" + ")|(".join(self.config.get("whitelisted_tests")) + ")"
+                "(" + ")|(".join(self.config.get("whitelisted_tests", "")) + ")"
             )
         if self.config.get("blacklisted_tests"):
             self._compiled_blacklist = re.compile(
-                "(" + ")|(".join(self.config.get("blacklisted_tests")) + ")"
+                "(" + ")|(".join(self.config.get("blacklisted_tests", "")) + ")"
             )
 
-    def _top_element(self):
+    def _top_element(self) -> etree.Element:
         """Return top XML element."""
         attrs = {"project-id": self.config["polarion-project-id"]}
         top = etree.Element("testcases", attrs)
         return top
 
-    def _properties_element(self, parent_element):
+    def _properties_element(self, parent_element: etree.Element) -> etree.Element:
         """Return properties XML element."""
         testcases_properties = etree.SubElement(parent_element, "properties")
 
@@ -226,7 +228,7 @@ class TestcaseExport:
 
         return testcases_properties
 
-    def _fill_lookup_prop(self, testcases_properties):
+    def _fill_lookup_prop(self, testcases_properties: dict) -> None:
         """Fill the polarion-lookup-method property."""
         if not self._lookup_prop:
             raise Dump2PolarionException("Failed to set the 'polarion-lookup-method' property")
@@ -235,7 +237,7 @@ class TestcaseExport:
             testcases_properties, "property", {"name": "lookup-method", "value": self._lookup_prop}
         )
 
-    def _set_lookup_prop(self, testcase_data):
+    def _set_lookup_prop(self, testcase_data: dict) -> None:
         """Set lookup property based on processed testcases if not configured."""
         if self._lookup_prop:
             return
@@ -247,9 +249,9 @@ class TestcaseExport:
         else:
             return
 
-        logger.debug("Setting lookup method for testcases to `%s`", self._lookup_prop)
+        LOGGER.debug("Setting lookup method for testcases to `%s`", self._lookup_prop)
 
-    def _check_lookup_prop(self, testcase_data):
+    def _check_lookup_prop(self, testcase_data: dict) -> bool:
         """Check that selected lookup property can be used for this testcase."""
         if not self._lookup_prop:
             return False
@@ -260,7 +262,7 @@ class TestcaseExport:
             return False
         return True
 
-    def _get_testcase_id(self, testcase_data):
+    def _get_testcase_id(self, testcase_data: dict) -> Optional[str]:
         """Return testcase id when possible."""
         testcase_id = testcase_data.get("id")
         if testcase_id:
@@ -269,7 +271,7 @@ class TestcaseExport:
             return None
         return testcase_data.get("title")
 
-    def _classify_data(self, testcase_data):
+    def _classify_data(self, testcase_data: dict) -> Tuple[dict, dict]:
         attrs, custom_fields = {}, {}
 
         for key, value in testcase_data.items():
@@ -283,9 +285,9 @@ class TestcaseExport:
         return attrs, custom_fields
 
     @staticmethod
-    def _add_test_steps(parent, testcase_data):
+    def _add_test_steps(parent: etree.Element, testcase_data: dict) -> None:
         steps = testcase_data.get("testSteps")
-        results = testcase_data.get("expectedResults")
+        results = testcase_data.get("expectedResults") or {}
         params = testcase_data.get("params") or ()
         test_steps = etree.SubElement(parent, "test-steps")
 
@@ -308,7 +310,7 @@ class TestcaseExport:
                 test_step_col.append(param_el)
 
     @staticmethod
-    def _add_linked_items(parent, testcase_data):
+    def _add_linked_items(parent: etree.Element, testcase_data: dict) -> None:
         linked_items = testcase_data.get("linked-items") or testcase_data.get("linked-work-items")
         if not linked_items:
             return
@@ -339,7 +341,7 @@ class TestcaseExport:
                 work_item_el.attrib["lookup-method"] = lookup_method
 
     @staticmethod
-    def _fill_custom_fields(parent, custom_fields):
+    def _fill_custom_fields(parent: etree.Element, custom_fields: dict) -> None:
         if not custom_fields:
             return
 
@@ -351,7 +353,7 @@ class TestcaseExport:
                 utils.sorted_dict({"id": field, "content": utils.get_unicode_str(content)}),
             )
 
-    def _is_whitelisted(self, nodeid):
+    def _is_whitelisted(self, nodeid: str) -> bool:
         """Check if the nodeid is whitelisted."""
         if not nodeid:
             return True
@@ -361,11 +363,11 @@ class TestcaseExport:
             return False
         return True
 
-    def _testcase_element(self, parent_element, testcase_data):
+    def _testcase_element(self, parent_element: etree.Element, testcase_data: dict) -> None:
         """Add testcase XML element."""
-        nodeid = testcase_data.get("nodeid")
+        nodeid = testcase_data.get("nodeid", "")
         if not self._is_whitelisted(nodeid):
-            logger.debug("Skipping blacklisted node: %s", nodeid)
+            LOGGER.debug("Skipping blacklisted node: %s", nodeid)
             return
 
         testcase_data = self.testcases_transform.transform(testcase_data)
@@ -375,7 +377,7 @@ class TestcaseExport:
         testcase_title = testcase_data.get("title")
         self._set_lookup_prop(testcase_data)
         if not self._check_lookup_prop(testcase_data):
-            logger.warning(
+            LOGGER.warning(
                 "Skipping testcase `%s`, data missing for selected lookup method",
                 testcase_data.get("id") or testcase_title,
             )
@@ -405,13 +407,13 @@ class TestcaseExport:
         self._fill_custom_fields(testcase, custom_fields)
         self._add_linked_items(testcase, testcase_data)
 
-    def _fill_testcases(self, parent_element):
+    def _fill_testcases(self, parent_element: etree.Element) -> None:
         if not self.testcases_data:
             raise NothingToDoException("Nothing to export")
         for testcase_data in self.testcases_data:
             self._testcase_element(parent_element, testcase_data)
 
-    def export(self):
+    def export(self) -> str:
         """Return testcases XML."""
         top = self._top_element()
         properties = self._properties_element(top)
@@ -420,7 +422,7 @@ class TestcaseExport:
         return utils.prettify_xml(top)
 
     @staticmethod
-    def write_xml(xml, output_file=None):
+    def write_xml(xml_str: str, output_file: Optional[str] = None) -> None:
         """Output the XML content into a file."""
         gen_filename = "testcases-{:%Y%m%d%H%M%S}.xml".format(datetime.datetime.now())
-        utils.write_xml(xml, output_loc=output_file, filename=gen_filename)
+        utils.write_xml(xml_str, output_loc=output_file, filename=gen_filename)

@@ -1,5 +1,7 @@
 # pylint: disable=missing-docstring,redefined-outer-name,no-self-use,protected-access,invalid-name
 
+from typing import List, Tuple
+
 import pytest
 
 from dump2polarion.exporters import transform_projects
@@ -31,7 +33,7 @@ NOT_PASSED = [
         "failed_failme",
     ),
     ({"title": "test_1", "verdict": "wait"}, {"title": "test_1", "verdict": "wait"}, "waiting"),
-]
+]  # type: List[Tuple]
 
 RHCF3_ONLY = [
     (
@@ -100,7 +102,7 @@ RHCF3_ONLY = [
         },
         "passed_comment",
     ),
-]
+]  # type: List[Tuple]
 
 CMP_ONLY = [
     (
@@ -108,7 +110,7 @@ CMP_ONLY = [
         {"title": "test_1", "verdict": "passed", "test_id": "CMP-9985", "id": "CMP-9985"},
         "add_id",
     )
-]
+]  # type: List[Tuple]
 
 RHCF3_DATA = RHCF3_ONLY + NOT_PASSED
 CMP_DATA = CMP_ONLY + NOT_PASSED
