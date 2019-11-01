@@ -228,13 +228,15 @@ class XunitExport:
         testcase_title: Optional[str],
     ) -> None:
         """Add properties into testcase element."""
-        value = testcase_id or testcase_title
-        if not value:
+        id_value = testcase_id or testcase_title
+        if not id_value:
             raise Dump2PolarionException(
                 "Neither `testcase_id` not `testcase_title` has valid value."
             )
         properties = etree.SubElement(testcase, "properties")
-        etree.SubElement(properties, "property", {"name": "polarion-testcase-id", "value": value})
+        etree.SubElement(
+            properties, "property", {"name": "polarion-testcase-id", "value": id_value}
+        )
         if verdict in Verdicts.PASS and result.get("comment"):
             etree.SubElement(
                 properties,
