@@ -104,16 +104,7 @@ RHCF3_ONLY = [
     ),
 ]  # type: List[Tuple]
 
-CMP_ONLY = [
-    (
-        {"classname": "test_1", "title": "test_1", "verdict": "passed", "test_id": "CMP-9985"},
-        {"title": "test_1", "verdict": "passed", "test_id": "CMP-9985", "id": "CMP-9985"},
-        "add_id",
-    )
-]  # type: List[Tuple]
-
 RHCF3_DATA = RHCF3_ONLY + NOT_PASSED
-CMP_DATA = CMP_ONLY + NOT_PASSED
 
 
 class TestTransform:
@@ -121,18 +112,8 @@ class TestTransform:
     def config_rhcf3(self):
         return {"polarion-project-id": "RHCF3"}
 
-    @pytest.fixture(scope="class")
-    def config_cmp(self):
-        return {"polarion-project-id": "CMP"}
-
     @pytest.mark.parametrize("data", RHCF3_DATA, ids=[d[2] for d in RHCF3_DATA])
     def test_transform_rhcf3(self, config_rhcf3, data):
         tfunc = transform_projects.get_xunit_transform(config_rhcf3)
-        result = tfunc(data[0])
-        assert result == data[1]
-
-    @pytest.mark.parametrize("data", CMP_DATA, ids=[d[2] for d in CMP_DATA])
-    def test_transform_cmp(self, config_cmp, data):
-        tfunc = transform_projects.get_xunit_transform(config_cmp)
         result = tfunc(data[0])
         assert result == data[1]

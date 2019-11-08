@@ -71,21 +71,10 @@ RHCF3_CONF["default_fields"] = POLARION_DEFAULT_FIELDS
 RHCF3_CONF["requirements_default_fields"] = REQUIREMENTS_DEFAULT_FIELDS
 RHCF3_CONF["docstrings"] = VALID_CASELEVELS
 
-CMP_CONF = GENERIC_CONF.copy()
-CMP_CONF["polarion-project-id"] = "CMP"
-CMP_CONF["xunit_import_properties"] = RHCF3_XUNIT_PROPS.copy()
-CMP_CONF["default_fields"] = POLARION_DEFAULT_FIELDS.copy()
-CMP_CONF["docstrings"] = VALID_CASELEVELS.copy()
-
 
 @pytest.fixture(scope="session")
 def config_prop():
     return copy.deepcopy(RHCF3_CONF)
-
-
-@pytest.fixture(scope="session")
-def config_prop_cmp():
-    return copy.deepcopy(CMP_CONF)
 
 
 @pytest.fixture(scope="function")

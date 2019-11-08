@@ -180,59 +180,6 @@ def get_requirements_transform_cfme(config):  # noqa: D202
 
 
 # pylint: disable=unused-argument
-def get_xunit_transform_cmp(config):
-    """Return result transformation function for CMP."""
-    skip_searches = [
-        "SKIPME:",
-        "Skipping due to these blockers",
-        "BZ ?[0-9]+",
-        "GH ?#?[0-9]+",
-        "GH#ManageIQ",
-    ]
-    skips = re.compile("(" + ")|(".join(skip_searches) + ")")
-
-    def results_transform(result):
-        """Transform results for CMP."""
-        verdict = result.get("verdict")
-        if not verdict:
-            return None
-
-        result = copy.deepcopy(result)
-
-        # don't parametrize if not specifically configured
-        if result.get("params"):
-            del result["params"]
-
-        classname = result.get("classname", "")
-        if classname:
-            # we don't need to pass classnames?
-            del result["classname"]
-
-        # if the "test_id" property is present, use it as test case ID
-        test_id = result.get("test_id", "")
-        if test_id:
-            result["id"] = test_id
-
-        verdict = verdict.strip().lower()
-        # we want to submit PASS and WAIT results
-        if verdict in Verdicts.PASS + Verdicts.WAIT:
-            return result
-        comment = result.get("comment")
-        # ... and SKIP results where there is a good reason (blocker etc.)
-        if verdict in Verdicts.SKIP and comment and skips.search(comment):
-            # found reason for skip
-            result["comment"] = comment.replace("SKIPME: ", "").replace("SKIPME", "")
-            return result
-        if verdict in Verdicts.FAIL and comment and "FAILME" in comment:
-            result["comment"] = comment.replace("FAILME: ", "").replace("FAILME", "")
-            return result
-        # we don't want to report this result if here
-        return None
-
-    return results_transform
-
-
-# pylint: disable=unused-argument
 def get_requirements_transform_cloudtp(config):  # noqa: D202
     """Return requirement transformation function for CLOUDTP."""
 
@@ -255,7 +202,6 @@ def get_requirements_transform_cloudtp(config):  # noqa: D202
 
 PROJECT_MAPPING_XUNIT = {
     "RHCF3": get_xunit_transform_cfme,
-    "CMP": get_xunit_transform_cmp,
     "CLOUDTP": get_xunit_transform_cfme,
 }
 
