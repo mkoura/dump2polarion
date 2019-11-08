@@ -40,7 +40,7 @@ def get_xunit_transform_default(config):
 def get_testcases_transform_default(config):
     """Return test cases transformation function."""
     parametrize = config.get("parametrize", False)
-    unique_run_id = config.get("unique_run_id", False)
+    use_run_id = config.get("use_run_id", False)
     run_id = config.get("run_id")
     repo_address = transform.get_full_repo_address(config.get("repo_address"))
 
@@ -51,7 +51,7 @@ def get_testcases_transform_default(config):
         transform.setup_parametrization(testcase, parametrize)
         transform.fill_automation_repo(repo_address, testcase)
         transform.preformat_plain_description(testcase)
-        if unique_run_id:
+        if use_run_id:
             transform.add_unique_runid(testcase, run_id)
         transform.add_automation_link(testcase)
 
@@ -138,7 +138,7 @@ def get_xunit_transform_cfme(config):
 def get_testcases_transform_cfme(config):
     """Return test cases transformation function for CFME."""
     parametrize = config.get("cfme_parametrize", False)
-    unique_run_id = config.get("unique_run_id", True)
+    use_run_id = config.get("use_run_id", True)
     run_id = config.get("cfme_run_id")
     repo_address = transform.get_full_repo_address(config.get("repo_address"))
 
@@ -154,7 +154,7 @@ def get_testcases_transform_cfme(config):
         set_cfme_caselevel(testcase, caselevels)
         transform.fill_automation_repo(repo_address, testcase)
         transform.preformat_plain_description(testcase)
-        if unique_run_id:
+        if use_run_id:
             transform.add_unique_runid(testcase, run_id)
         transform.add_automation_link(testcase)
 
