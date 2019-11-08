@@ -16,6 +16,61 @@ from dump2polarion.exporters.verdicts import Verdicts
 logger = logging.getLogger(__name__)
 
 
+def get_xunit_transform_default(config):
+    """Return result transformation function."""
+    parametrize = config.get("parametrize", False)
+
+    def results_transform(result):
+        """Transform results."""
+        verdict = result.get("verdict")
+        if not verdict:
+            return None
+
+        result = copy.deepcopy(result)
+
+        transform.setup_parametrization(result, parametrize)
+        transform.include_class_in_title(result)
+        transform.insert_source_info(result)
+
+        return result
+
+    return results_transform
+
+
+def get_testcases_transform_default(config):
+    """Return test cases transformation function."""
+    parametrize = config.get("parametrize", False)
+    unique_run_id = config.get("unique_run_id", False)
+    run_id = config.get("run_id")
+    repo_address = transform.get_full_repo_address(config.get("repo_address"))
+
+    def testcase_transform(testcase):
+        """Transform test cases."""
+        testcase = copy.deepcopy(testcase)
+
+        transform.setup_parametrization(testcase, parametrize)
+        transform.fill_automation_repo(repo_address, testcase)
+        transform.preformat_plain_description(testcase)
+        if unique_run_id:
+            transform.add_unique_runid(testcase, run_id)
+        transform.add_automation_link(testcase)
+
+        return testcase
+
+    return testcase_transform
+
+
+# pylint: disable=unused-argument
+def get_requirements_transform_default(config):  # noqa: D202
+    """Return requirement transformation function."""
+
+    def requirement_transform(requirement):
+        """Transform requirements."""
+        return requirement
+
+    return requirement_transform
+
+
 def set_cfme_caselevel(testcase, caselevels):
     """Convert tier to caselevel."""
     tier = testcase.get("caselevel")
@@ -83,7 +138,9 @@ def get_xunit_transform_cfme(config):
 def get_testcases_transform_cfme(config):
     """Return test cases transformation function for CFME."""
     parametrize = config.get("cfme_parametrize", False)
+    unique_run_id = config.get("unique_run_id", True)
     run_id = config.get("cfme_run_id")
+    repo_address = transform.get_full_repo_address(config.get("repo_address"))
 
     caselevels = config.get("docstrings") or {}
     caselevels = caselevels.get("valid_values") or {}
@@ -95,8 +152,10 @@ def get_testcases_transform_cfme(config):
 
         transform.setup_parametrization(testcase, parametrize)
         set_cfme_caselevel(testcase, caselevels)
+        transform.fill_automation_repo(repo_address, testcase)
         transform.preformat_plain_description(testcase)
-        transform.add_unique_runid(testcase, run_id)
+        if unique_run_id:
+            transform.add_unique_runid(testcase, run_id)
         transform.add_automation_link(testcase)
 
         return testcase
@@ -122,7 +181,7 @@ def get_requirements_transform_cfme(config):  # noqa: D202
 
 # pylint: disable=unused-argument
 def get_xunit_transform_cmp(config):
-    """Return result transformation function for CFME."""
+    """Return result transformation function for CMP."""
     skip_searches = [
         "SKIPME:",
         "Skipping due to these blockers",
@@ -222,7 +281,7 @@ def get_xunit_transform(config):
     project = config["polarion-project-id"]
     if project in PROJECT_MAPPING_XUNIT:
         return PROJECT_MAPPING_XUNIT[project](config)
-    return None
+    return get_xunit_transform_default(config)
 
 
 def get_testcases_transform(config):
@@ -239,7 +298,7 @@ def get_testcases_transform(config):
     project = config["polarion-project-id"]
     if project in PROJECT_MAPPING_TESTCASES:
         return PROJECT_MAPPING_TESTCASES[project](config)
-    return None
+    return get_testcases_transform_default(config)
 
 
 def get_requirements_transform(config):
@@ -256,4 +315,4 @@ def get_requirements_transform(config):
     project = config["polarion-project-id"]
     if project in PROJECT_MAPPING_REQ:
         return PROJECT_MAPPING_REQ[project](config)
-    return None
+    return get_requirements_transform_default(config)

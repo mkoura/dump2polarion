@@ -39,7 +39,6 @@ testcases_data = [
 import datetime
 import logging
 import re
-import urllib.parse
 from typing import Callable, Dict, Optional, Tuple
 
 from lxml import etree
@@ -103,44 +102,11 @@ class TestcaseTransform:
         default_fields = self.config.get("default_fields") or {}
         default_fields = {k: utils.get_unicode_str(v) for k, v in default_fields.items() if v}
         self.default_fields = utils.sorted_dict(default_fields)
-        self.repo_address = self._get_full_repo_address(self.config.get("repo_address"))
-
-    @staticmethod
-    def _get_full_repo_address(repo_address: Optional[str]):
-        """Make sure the repo address is complete path in repository.
-
-        >>> TestcaseTransform._get_full_repo_address("https://gitlab.com/somerepo")
-        'https://gitlab.com/somerepo/blob/master/'
-        >>> TestcaseTransform._get_full_repo_address("https://github.com/otherrepo/blob/branch/")
-        'https://github.com/otherrepo/blob/branch/'
-        >>> TestcaseTransform._get_full_repo_address(None)
-        """
-        if not repo_address:
-            return None
-
-        if "/blob/" not in repo_address:
-            # the master here should probably link the latest "commit" eventually
-            repo_address = "{}/blob/master".format(repo_address)
-
-        # make sure the / is present at the end of address
-        repo_address = "{}/".format(repo_address.rstrip("/ "))
-
-        return repo_address
 
     def _fill_project_defaults(self, testcase_data: dict) -> dict:
         filled = self.default_fields.copy()
         filled.update(testcase_data)
         return filled
-
-    def _fill_automation_repo(self, testcase_data: dict) -> dict:
-        automation_script = testcase_data.get("automation_script")
-        if not (self.repo_address and automation_script) or automation_script.startswith("http"):
-            return testcase_data
-
-        testcase_data["automation_script"] = urllib.parse.urljoin(
-            self.repo_address, automation_script
-        )
-        return testcase_data
 
     def _run_transform_func(self, testcase_data: dict) -> dict:
         """Call transform function on testcase data."""
@@ -167,7 +133,6 @@ class TestcaseTransform:
     def transform(self, testcase_data: dict) -> dict:
         """Transform testcase data."""
         testcase_data = self._fill_project_defaults(testcase_data)
-        testcase_data = self._fill_automation_repo(testcase_data)
         testcase_data = self._fill_polarion_fields(testcase_data)
         testcase_data = self._run_transform_func(testcase_data)
         if not testcase_data:

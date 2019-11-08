@@ -4,6 +4,8 @@ import hashlib
 import logging
 import os
 import re
+import urllib.parse
+from typing import Optional
 
 from docutils.core import publish_parts
 
@@ -189,11 +191,51 @@ def add_unique_runid(testcase, run_id=None):
     )
 
 
+def get_full_repo_address(repo_address: Optional[str]):
+    """Make sure the repo address is complete path in repository.
+
+    >>> get_full_repo_address("https://gitlab.com/somerepo")
+    'https://gitlab.com/somerepo/blob/master/'
+    >>> get_full_repo_address("https://github.com/otherrepo/blob/branch/")
+    'https://github.com/otherrepo/blob/branch/'
+    >>> get_full_repo_address(None)
+    """
+    if not repo_address:
+        return None
+
+    if "/blob/" not in repo_address:
+        # the master here should probably link the latest "commit" eventually
+        repo_address = "{}/blob/master".format(repo_address)
+
+    # make sure the / is present at the end of address
+    repo_address = "{}/".format(repo_address.rstrip("/ "))
+
+    return repo_address
+
+
+def fill_automation_repo(repo_address: Optional[str], testcase: dict) -> dict:
+    """Fill repo address to "automation_script" if missing."""
+    automation_script = testcase.get("automation_script")
+    if not automation_script:
+        return testcase
+
+    if not repo_address:
+        del testcase["automation_script"]
+        return testcase
+
+    if automation_script.startswith("http"):
+        return testcase
+
+    testcase["automation_script"] = urllib.parse.urljoin(repo_address, automation_script)
+    return testcase
+
+
 def add_automation_link(testcase):
     """Append link to automation script to the test description."""
-    automation_link = (
-        '<a href="{}">Test Source</a>'.format(testcase["automation_script"])
-        if testcase.get("automation_script")
-        else ""
-    )
+    automation_script = testcase.get("automation_script")
+    if not automation_script:
+        return testcase
+
+    automation_link = '<a href="{}">Test Source</a>'.format(automation_script)
     testcase["description"] = "{}<br/>{}".format(testcase.get("description") or "", automation_link)
+    return testcase
