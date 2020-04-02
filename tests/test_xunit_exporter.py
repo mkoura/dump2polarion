@@ -96,11 +96,24 @@ class TestE2E(TestConfigPropMixin):
     def test_e2e_missing_results(self):
         new_records = ImportedData(results=[], testrun=None)
         exporter = XunitExport(
-            "5_8_0_17", new_records, self.config_prop, transform_func=lambda arg: None
+            "5_8_0_17", new_records, self.config_prop, transform_func=lambda arg: arg
         )
         with pytest.raises(NothingToDoException) as excinfo:
             exporter._fill_tests_results(None)
         assert "Nothing to export" in str(excinfo.value)
+
+    def test_e2e_all_ignored(self, captured_log):
+        new_records = ImportedData(
+            results=[{"title": "foo", "id": "foo", "verdict": "waiting", "ignored": True}],
+            testrun=None,
+        )
+        exporter = XunitExport(
+            "5_8_0_17", new_records, self.config_prop, transform_func=lambda arg: arg
+        )
+        with pytest.raises(NothingToDoException) as excinfo:
+            exporter.export()
+        assert "Nothing to export" in str(excinfo.value)
+        assert "Skipping ignored testcase" in captured_log.getvalue()
 
     def test_e2e_ids_notransform(self, records_ids):
         exporter = XunitExport(

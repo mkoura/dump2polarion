@@ -39,7 +39,7 @@ testcases_data = [
 import datetime
 import logging
 import re
-from typing import Callable, Dict, Optional, Tuple
+from typing import Callable, Dict, List, Optional, Tuple
 
 from lxml import etree
 
@@ -146,10 +146,10 @@ class TestcaseExport:
     """Export testcases data into XML representation."""
 
     def __init__(
-        self, testcases_data: dict, config: dict, transform_func: Optional[Callable] = None
+        self, testcases_data: List[dict], config: dict, transform_func: Optional[Callable] = None
     ):
-        self.testcases_data = testcases_data
-        self.config = config
+        self.testcases_data = testcases_data or []
+        self.config = config or {}
         self._lookup_prop = ""
         self.testcases_transform = TestcaseTransform(config, transform_func)
 
@@ -328,7 +328,9 @@ class TestcaseExport:
             return False
         return True
 
-    def _testcase_element(self, parent_element: etree.Element, testcase_data: dict) -> None:
+    def _testcase_element(
+        self, parent_element: etree.Element, testcase_data: dict, records: list
+    ) -> None:
         """Add testcase XML element."""
         nodeid = testcase_data.get("nodeid", "")
         if not self._is_whitelisted(nodeid):
@@ -337,6 +339,10 @@ class TestcaseExport:
 
         testcase_data = self.testcases_transform.transform(testcase_data)
         if not testcase_data:
+            return
+
+        if testcase_data.get("ignored"):
+            LOGGER.debug("Skipping ignored node: %s", nodeid)
             return
 
         testcase_title = testcase_data.get("title")
@@ -350,6 +356,7 @@ class TestcaseExport:
 
         # make sure that ID is set even for "name" lookup method
         testcase_data["id"] = self._get_testcase_id(testcase_data)
+        records.append(testcase_data["id"])
 
         attrs, custom_fields = self._classify_data(testcase_data)
 
@@ -373,10 +380,12 @@ class TestcaseExport:
         self._add_linked_items(testcase, testcase_data)
 
     def _fill_testcases(self, parent_element: etree.Element) -> None:
-        if not self.testcases_data:
-            raise NothingToDoException("Nothing to export")
+        records = []  # type: List[str]
         for testcase_data in self.testcases_data:
-            self._testcase_element(parent_element, testcase_data)
+            self._testcase_element(parent_element, testcase_data, records)
+
+        if not records:
+            raise NothingToDoException("Nothing to export")
 
     def export(self) -> str:
         """Return testcases XML."""

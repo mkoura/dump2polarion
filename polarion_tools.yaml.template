@@ -20,8 +20,10 @@ default_fields:
     caseimportance: high
     caselevel: component
     caseposneg: positive
+    customerscenario: ""
     description: ""
     expectedResults: ""
+    ignored: false
     initialEstimate: ""
     linkedWorkItems: ""
     setup: ""
@@ -41,6 +43,7 @@ custom_fields:
     - caseimportance
     - caselevel
     - caseposneg
+    - customerscenario
     - setup
     - subtype1
     - subtype2

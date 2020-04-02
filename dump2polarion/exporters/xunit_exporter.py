@@ -46,7 +46,7 @@ class XunitExport:
     ) -> None:
         self.testrun_id = testrun_id
         self.tests_records = tests_records
-        self.config = config
+        self.config = config or {}
         self._lookup_prop = ""
         self._transform_func = transform_func or transform_projects.get_xunit_transform(config)
 
@@ -262,6 +262,10 @@ class XunitExport:
         """Create record for given testcase result."""
         result = self._transform_result(result)
         if not result:
+            return
+
+        if result.get("ignored"):
+            LOGGER.debug("Skipping ignored testcase")
             return
 
         verdict = self._get_verdict(result)

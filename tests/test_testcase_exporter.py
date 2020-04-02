@@ -114,3 +114,14 @@ class TestTestcase:
         with pytest.raises(NothingToDoException) as excinfo:
             testcase_exp.export()
         assert "Nothing to export" in str(excinfo.value)
+
+    def test_all_ignored(self, config_cloudtp, captured_log):
+        testcase_exp = TestcaseExport(
+            [{"id": "foo", "title": "foo", "ignored": True}],
+            config_cloudtp,
+            transform_func=lambda arg: arg,
+        )
+        with pytest.raises(NothingToDoException) as excinfo:
+            testcase_exp.export()
+        assert "Nothing to export" in str(excinfo.value)
+        assert "Skipping ignored node:" in captured_log.getvalue()
