@@ -19,8 +19,7 @@ tests_records = ImportedData(
 
 import datetime
 import logging
-from collections import namedtuple
-from typing import Callable, Optional
+from typing import Callable, List, NamedTuple, Optional
 
 from lxml import etree
 
@@ -29,9 +28,10 @@ from dump2polarion.exceptions import Dump2PolarionException, NothingToDoExceptio
 from dump2polarion.exporters import transform_projects
 from dump2polarion.exporters.verdicts import Verdicts
 
-ImportedData = namedtuple("ImportedData", "results testrun")
-
 LOGGER = logging.getLogger(__name__)
+
+
+ImportedData = NamedTuple("ImportedData", [("results", List[dict]), ("testrun", Optional[str])])
 
 
 class XunitExport:
