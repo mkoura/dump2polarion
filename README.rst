@@ -33,9 +33,9 @@ Capabilities of the dump2polarion library
 
 The library supports all features of the Importers (even iterations). The export to XML files can be customized per project - lookup method, what results will be included in the XUnit (e.g. only PASSed tests), etc.
 
-Both Python 2 and 3 are supported.
-
 The library doesn't use the legacy webservices API, all the operations are performed using Polarion Importers.
+
+All Polarion projects are internally stored in a SVN repo and since Polarion importers don't have any API for querying Polarion, reading Test Cases data from a SVN repo is one of the two methods available for getting data out of Polarion. The second method is parsing the log file produced by the specific importer (e.g. Test Cases importer) -- this method is also supported by the library.
 
 polarion_dumper.py script
 -------------------------
@@ -98,6 +98,28 @@ Package on PyPI <https://pypi.python.org/pypi/dump2polarion>
 Requirements
 ------------
 Requirements are listed in ``requirements.txt``.
+
+Customization
+-------------
+
+The library can be customized per Polarion project. Every project can have it's own behavior, like one is parametrized and the other is not, one wants to have all test results imported and the other wants to import just PASSes, etc.
+
+Each exporter object (``TestcaseExport``, ``XunitExport``, ``RequirementExport``) accepts ``transform_func`` callable that is executed for every record. The callable can transform record data, e.g.:
+
+.. code:: python
+
+    def results_transform(result):
+        """Export results only when comment is present; modify the comment."""
+        comment = result.get("comment")
+        if not comment:
+            return None
+
+        result = copy.deepcopy(result)
+
+        result["comment"] = "Changed comment: {}".format(comment)
+        return result
+
+    xunit_transform = XunitExport(testrun_id, tests_records, config, transform_func=results_transform)
 
 CSV format for XUnit
 --------------------
