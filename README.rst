@@ -27,7 +27,7 @@ Capabilities of the dump2polarion library
 
 * generating XML files for XUnit, Testcase and Requirements Importers
 * submitting XML files to Importers
-* verifying that the import was successfull
+* verifying that the import was successful
 * saving the import log files
 * reading Test Cases data from SVN repository with checked out Polarion project
 
@@ -53,7 +53,7 @@ Usage
 
     polarion_dumper.py -i {input_file}
 
-By default the input data are submitted to Polarion. You can disable this bahavior with ``-n`` option. In this case the XML file used for submission will be saved to disk. Default file location is the current directory (can be overriden with ``-o`` option).
+By default the input data are submitted to Polarion. You can disable this behavior with ``-n`` option. In this case the XML file used for submission will be saved to disk. Default file location is the current directory (can be overridden with ``-o`` option).
 
 When output file is specified with ``-o PATH``, the XML file used for results submission will be saved to disk. If `PATH` is a directory, resulting file name will be generated - `PATH/FILE_TYPE-TESTRUN_ID-TIMESTAMP.xml`.
 
